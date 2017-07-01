@@ -1,0 +1,27 @@
+{
+  "name": "Mechef",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pptang/Mechef.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pptang/Mechef/issues"
+  },
+  "homepage": "https://github.com/pptang/Mechef#readme",
+  "dependencies": {
+    "express": "^4.15.3",
+    "isomorphic-unfetch": "^2.0.0",
+    "next": "^2.4.6",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
