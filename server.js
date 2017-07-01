@@ -10,9 +10,9 @@ app.prepare()
     const server = express()
 
     // XXX: Create custom rules
-    // server.get('/p/:id', (req, res) => {
-    //   const actualPage = '/post'
-    //   const queryParams = { title: req.params.id }
+    // server.get('/foo/:id', (req, res) => {
+    //   const actualPage = '/foo'
+    //   const queryParams = { id: req.params.id }
     //   app.render(req, res, actualPage, queryParams)
     // })
 
