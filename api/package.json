@@ -1,5 +1,5 @@
 {
-  "name": "mechef api",
+  "name": "mechef-api",
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
@@ -19,12 +19,6 @@
   "homepage": "https://github.com/mechef/mechef/api/#readme",
   "dependencies": {
     "express": "^4.15.3",
-    "body-parser": "1.17.2",
     "mongoose": "4.11.1"
-  },
-  "devDependencies": {
-    "eslint": "^2.4.0",
-    "eslint-config-airbnb": "^6.1.0",
-    "nodemon": "^1.9.1"
   }
 }
