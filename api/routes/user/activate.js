@@ -1,13 +1,9 @@
 var User = require('../../models/user');
+var constants = require('../../utils/contants');
 
 module.exports = (req, res) => {
-  var updateFields = {};
-  if (req.body.name) updateFields.name = req.body.name;
-  if (req.body.email) updateFields.email = req.body.email;
 
-
-
-  User.update( { email: req.body.email }, updateFields, function(err, user, resp) {
+  User.update( { activateHash: req.params.hash }, { isActivate: true }, function(err, user, resp) {
     if (err) {
       console.log(err);
       res.json({ status: constants.fail });
