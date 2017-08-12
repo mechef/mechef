@@ -1,5 +1,5 @@
 var Seller = require('../../models/seller');
-var constants = require('../../utils/contants');
+var constants = require('../../utils/constants');
 
 module.exports = (req, res) => {
   var token = req.query.token
@@ -15,7 +15,7 @@ module.exports = (req, res) => {
       var query = Seller.findOne({ email: decoded.email });
     	query.then(function(seller) {
     		if (seller) {
-    			res.json({ status: , seller: seller });
+    			res.json({ status: constants.success, seller: seller });
     		} else {
           res.json({ status: constants.fail, reason: 'Email not found' });
         }

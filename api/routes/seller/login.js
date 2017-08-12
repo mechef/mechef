@@ -1,6 +1,6 @@
 var Seller = require('../../models/seller');
 var cryptoUtils = require('../../utils/crypto');
-var constants = require('../../utils/contants');
+var constants = require('../../utils/constants');
 
 module.exports = (req, res) => {
   var email = req.body.email;

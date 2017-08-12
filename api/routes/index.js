@@ -1,7 +1,7 @@
 const routes = require('express').Router();
-const user = require('./user');
+const seller = require('./seller');
 
-routes.use('/user', user);
+routes.use('/seller', seller);
 
 routes.get('/', (req, res) => {
   res.status(200).json({ message: 'Connected!' });

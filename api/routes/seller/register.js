@@ -2,7 +2,7 @@ var Seller = require('../../models/seller');
 var cryptoUtils = require('../../utils/crypto');
 var mailer = require('../../utils/mailer');
 const uuidv4 = require('uuid/v4');
-var constants = require('../../utils/contants');
+var constants = require('../../utils/constants');
 
 module.exports = (req, res) => {
 	var query = Seller.findOne({ email: req.body.email });

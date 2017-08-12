@@ -8,7 +8,8 @@ var SellerSchema   = new mongoose.Schema({
   email: String,
   passwordCombined: Buffer,
   activateHash: String,
-  isActivate: Boolean
+  isActivate: Boolean,
+  resetPassHash: String
 
 
 });

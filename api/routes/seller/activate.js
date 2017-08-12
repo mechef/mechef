@@ -1,5 +1,5 @@
 var Seller = require('../../models/seller');
-var constants = require('../../utils/contants');
+var constants = require('../../utils/constants');
 
 module.exports = (req, res) => {
 
