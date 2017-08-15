@@ -1,5 +1,5 @@
 module.exports = {
-  'secret': 'worklifeinjapan',
+  'secret': 'hello_mechef',
   'database': 'mongodb://localhost/jwt_dev',
   'fail': 'fail',
   'success': 'success',
