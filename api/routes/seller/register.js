@@ -3,7 +3,33 @@ const cryptoUtils = require('../../utils/crypto');
 const mailer = require('../../utils/mailer');
 const uuidv4 = require('uuid/v4');
 const constants = require('../../utils/constants');
-
+/**
+ * @api {post} /seller login seller account
+ * @apiName RegisterSeller
+ *
+ * @apiParam {String} name seller name
+ * @apiParam {String} email seller email
+ * @apiParam {String} password seller password
+ *
+ * @apiSuccess {String} status status
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "status": "success"
+ *     }
+ *
+ * @apiError {String} status status
+ * @apiError {String} reason failure reason
+ *
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "status": "fail",
+ *       "reason": reason
+ *     }
+ *
+ */
 module.exports = (req, res) => {
   const query = Seller.findOne({ email: req.body.email });
   query.then((user) => {

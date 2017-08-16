@@ -3,18 +3,46 @@ const cryptoUtils = require('../../utils/crypto');
 const constants = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
 
+/**
+ * @api {post} /seller/login login seller account
+ * @apiName LoginSeller
+ *
+ * @apiParam {String} email seller email
+ * @apiParam {String} password seller password
+ *
+ * @apiSuccess {String} status status
+ * @apiSuccess {String} token jwt token
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "status": "success",
+ *       "token": jwt token
+ *     }
+ *
+ * @apiError {String} status status
+ * @apiError {String} reason failure reason
+ *
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "status": "fail",
+ *       "reason": reason
+ *     }
+ *
+ */
 module.exports = (req, res) => {
   const email = req.body.email;
 
   Seller.findOne({ email }, (err, seller) => {
     if (err) {
       console.log(err);
-      res.json({ status: constants.fail, reason: err });
+      res.status(404).json({ status: constants.fail, reason: err });
     }
     // console.log(seller);
     if (seller) {
       if (!seller.isActivate) {
-        res.json({ status: constants.fail, reason: 'Email not activated' });
+        res.status(404).json({ status: constants.fail, reason: 'Email not activated' });
       } else {
         const password = req.body.password;
         const combined = seller.passwordCombined;
@@ -26,12 +54,12 @@ module.exports = (req, res) => {
 
             res.json({ status: constants.success, token });
           } else {
-            res.json({ status: constants.fail, reason: 'Password not match' });
+            res.status(404).json({ status: constants.fail, reason: 'Password not match' });
           }
         });
       }
     } else {
-      res.json({ status: constants.fail, reason: 'Email not found' });
+      res.status(404).json({ status: constants.fail, reason: 'Email not found' });
     }
   });
 };
