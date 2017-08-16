@@ -7,6 +7,9 @@ const Index = props => (
     <Link href="/about">
       <a>About Page</a>
     </Link>
+    <Link href="/login">
+      <a>Login Page</a>
+    </Link>
     <ul>
       {
         props.shows.map(({ show }) => (
