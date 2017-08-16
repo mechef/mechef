@@ -1,17 +1,14 @@
 // Load required packages
-var mongoose = require('mongoose');
-
+const mongoose = require('mongoose');
 // Define our user schema
 // schema types http://mongoosejs.com/docs/schematypes.html
-var SellerSchema   = new mongoose.Schema({
+const SellerSchema = new mongoose.Schema({
   name: String,
   email: String,
   passwordCombined: Buffer,
   activateHash: String,
   isActivate: Boolean,
-  resetPassHash: String
-
-
+  resetPassHash: String,
 });
 
 // Export the Mongoose model
