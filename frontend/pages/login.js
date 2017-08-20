@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../components/header/header';
 
 class Login extends React.Component {
   componentDidMount() {
@@ -18,6 +19,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="body">
+        <Header />
         <div className="veen">
           <div className="login-btn splits">
             <p>Already an user?</p>
