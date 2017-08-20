@@ -7,69 +7,55 @@ class Login extends React.Component {
     /* eslint-disable */
     $('.veen .rgstr-btn button').click(() => {
       $('.veen .wrapper').addClass('move');
-      $('.body').css('background', '#008080');
     });
     $('.veen .login-btn button').click(() => {
       $('.veen .wrapper').removeClass('move');
-      $('.body').css('background', '#008080');
     });
     /* eslint-enable */
   }
 
   render() {
     return (
-      <div className="body">
+      <div>
         <Header />
-        <div className="veen">
-          <div className="login-btn splits">
-            <p>Already an user?</p>
-            <button>Login</button>
-          </div>
-          <div className="rgstr-btn splits">
-            <p>Don&apos;t have an account?</p>
-            <button>Register</button>
-          </div>
-          <div className="wrapper">
-            <div id="login">
-              <h3>Login</h3>
-              <div className="mail">
-                <input type="mail" name="mail" />
-                <label>Mail or Username</label>
-              </div>
-              <div className="passwd">
-                <input type="password" name="" />
-                <label>Password</label>
-              </div>
-              <div className="submit">
-                <button className="dark">Login</button>
-              </div>
+        <div className="mainContent">
+          <div className="veen">
+            <div className="login-btn splits">
+              <p>Already an user?</p>
+              <button>LOGIN</button>
             </div>
-            <div id="register">
-              <h3>Register</h3>
-              <div className="name">
-                <input type="text" name="" />
-                <label>Full Name</label>
-              </div>
-              <div className="mail">
-                <input type="mail" name="" />
-                <label>Mail</label>
-              </div>
-              <div className="uid">
-                <input type="text" name="" />
-                <label>User Name</label>
-              </div>
-              <div className="passwd">
-                <input type="password" name="" />
-                <label>Password</label>
-              </div>
-              <div className="mail" />
-              <div className="passwd">
-                <input type="text" name="" placeholder="dd/mm/yyyy" />
-                <label>Date of birth</label>
-              </div>
-              <div className="mail">
+            <div className="rgstr-btn splits">
+              <p>Dont have an account?</p>
+              <button>JOIN NOW</button>
+            </div>
+            <div className="wrapper">
+              <div id="login">
+                <p className="title">Login</p>
+                <div className="mail">
+                  <input type="mail" name="mail" placeholder="Mail or Username" />
+                </div>
+                <div className="passwd">
+                  <input type="password" name="" placeholder="Password" />
+                </div>
                 <div className="submit">
-                  <button className="dark">Register</button>
+                  <button className="dark">Login</button>
+                </div>
+              </div>
+              <div id="register">
+                <p className="title">Be a Chef today</p>
+                <div className="name">
+                  <input type="text" name="" placeholder="Full Name" />
+                </div>
+                <div className="mail">
+                  <input type="mail" name="" placeholder="Mail" />
+                </div>
+                <div className="uid">
+                  <input type="text" name="" placeholder="User Name" />
+                </div>
+                <div className="mail">
+                  <div className="submit">
+                    <button className="dark">Register</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -77,19 +63,24 @@ class Login extends React.Component {
         </div>
         <style jsx>
           {`
-            .body{
-              background:#008080;
+            .mainContent{
               transition: all .5s;
-              padding:1px;
+              background-image: url("../static/main-background.jpg");
+              height: 786px;
+              width: 100%;
+              padding-top: 130px;
+              padding-bottom: 176px;
             }
             .veen{
-              width: 70%;
-              margin: 100px auto;
-              background: rgba(255,255,255,.5);
+              width: 794px;
+              height: 480px;
+              background-color: rgba(0, 0, 0, 0.67);
+              border-radius: 4px;
               min-height: 400px;
               display:table;
               position: relative;
               box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+              margin: 0 auto;
             }
             .veen > div {
               display: table-cell;
@@ -98,30 +89,48 @@ class Login extends React.Component {
               color: #fff;
             }
             .veen button{
+              width: 153px;
+              height: 50px;
+              border-radius: 4px;
               background: transparent;
-              /* background-image: linear-gradient(#008B8B,#008080 ,#008080); */
               display: inline-block;
               padding: 10px 30px;
-              border: 3px solid #fff;
-              border-radius: 50px;
+              border: solid 1px #ffffff;
               background-clip: padding-box;
               position: relative;
               color: #FFF;
-              /* box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28); */
               transition: all .25s;
+              font-family: AvenirNext;
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 1.14;
+              text-align: center;
+              color: #ffffff;
             }
 
             .veen button.dark{
-              border-color: #008080;
-              background: #008080;
+              width: 356px;
+              height: 50px;
+              border-radius: 4px;
+              background-color: #8cc63f;
             }
 
             .veen .move button.dark{
-              border-color: #008080;
-              background: #008080;
+              width: 356px;
+              height: 50px;
+              border-radius: 4px;
+              background-color: #8cc63f;
             }
             .veen .splits p{
-              font-size: 18px;
+              width: 217px;
+              height: 16px;
+              font-family: SignPainter-HouseScript;
+              font-size: 24px;
+              line-height: 0.67;
+              text-align: center;
+              color: #ffffff;
+              margin-left: 81px;
+              margin-bottom: 46px;
             }
             .veen button:active{
               box-shadow: none;
@@ -131,18 +140,18 @@ class Login extends React.Component {
             }
             .veen > .wrapper {
               position: absolute;
-              width: 40%;
-              height: 120%;
-              top: -10%;
-              left: 5%;
-              background: #fff;
-              box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+              width: 388px;
+              height: 519px
+              border-radius: 4px;
+              top: -15px;
+              left: 16px;
+              background: #ffffff;
+              box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.23);
               transition: all .5s;
               color: #303030;
               overflow: hidden;
             }
             .veen .wrapper > div{
-              padding: 15px 30px 30px;
               width: 100%;
               transition: all .5s;
               background: #fff;
@@ -150,9 +159,6 @@ class Login extends React.Component {
               left: 0;
               top: 0;
               width: 100%;
-            }
-            .veen .wrapper #login{
-              padding-top: 20%;
             }
             .veen .wrapper #register{
               left: 100%;
@@ -167,26 +173,26 @@ class Login extends React.Component {
               position: relative;
               margin-bottom: 15px;
             }
-            .veen .wrapper label{
-              position: absolute;
-              top: -7px;
-              font-size: 12px;
-              white-space: nowrap;
-              background: #fff;
-              text-align: left;
-              left: 15px;
-              padding: 0 5px;
-              color: #999;
-              pointer-events: none;
-            }
-            .veen .wrapper h3{
-              margin-bottom: 25px;
+            .veen .wrapper .title{
+              margin: 48px auto 30px auto;
+              width: 129px;
+              height: 24px;
+              font-family: SignPainter-HouseScript;
+              font-size: 24px;
+              line-height: 1;
+              text-align: center;
+              color: #4a4a4a;
             }
             .veen .wrapper input{
-              height: 40px;
-              padding: 5px 15px;
-              width: 100%;
-              border: solid 1px #999;
+              width: 356px;
+              height: 50px;
+              border-radius: 4px;
+              background-color: #ffffff;
+              border: solid 1px #979797;
+              margin: 12px auto 0 auto;
+              padding-top: 18px;
+              padding-bottom: 16px;
+              padding-left: 16px;
             }
             .veen .wrapper input:focus{
               outline: none;
