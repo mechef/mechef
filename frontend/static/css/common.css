@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  width: 206.6px;
+  height: 16px;
+  font-family: AvenirNext;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.14;
+  color: #b9b9b9;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  width: 206.6px;
+  height: 16px;
+  font-family: AvenirNext;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.14;
+  color: #b9b9b9;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  width: 206.6px;
+  height: 16px;
+  font-family: AvenirNext;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.14;
+  color: #b9b9b9;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  width: 206.6px;
+  height: 16px;
+  font-family: AvenirNext;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.14;
+  color: #b9b9b9;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+  width: 206.6px;
+  height: 16px;
+  font-family: AvenirNext;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.14;
+  color: #b9b9b9;
+}
