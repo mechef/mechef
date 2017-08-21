@@ -5,10 +5,13 @@ import PropTypes from 'prop-types';
 const Index = props => (
   <div>
     <Link href="/about">
-      <a>About Page</a>
+      <a>About Page </a>
     </Link>
     <Link href="/login">
-      <a>Login Page</a>
+      <a>Login Page </a>
+    </Link>
+    <Link href="/walkthroughMenu">
+      <a>Walkthrough Menu Page </a>
     </Link>
     <ul>
       {
