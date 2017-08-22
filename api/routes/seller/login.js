@@ -1,37 +1,65 @@
-var Seller = require('../../models/seller');
-var cryptoUtils = require('../../utils/crypto');
-var constants = require('../../utils/constants');
+const Seller = require('../../models/seller');
+const cryptoUtils = require('../../utils/crypto');
+const constants = require('../../utils/constants');
+const jwt = require('jsonwebtoken');
 
+/**
+ * @api {post} /seller/login login seller account
+ * @apiName LoginSeller
+ *
+ * @apiParam {String} email seller email
+ * @apiParam {String} password seller password
+ *
+ * @apiSuccess {String} status status
+ * @apiSuccess {String} token jwt token
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+ *     {
+ *       "status": "success",
+ *       "token": jwt token
+ *     }
+ *
+ * @apiError {String} status status
+ * @apiError {String} reason failure reason
+ *
+ * @apiErrorExample {json} Error-Response:
+ *     HTTP/1.1 404 Not Found
+ *     {
+ *       "status": "fail",
+ *       "reason": reason
+ *     }
+ *
+ */
 module.exports = (req, res) => {
-  var email = req.body.email;
-  console.log(email);
+  const email = req.body.email;
 
-  Seller.findOne({ email: email }, function(err, seller) {
+  Seller.findOne({ email }, (err, seller) => {
     if (err) {
       console.log(err);
-      res.json({ status: constants.fail, reason: error });
+      res.status(404).json({ status: constants.fail, reason: err });
     }
     // console.log(seller);
     if (seller) {
       if (!seller.isActivate) {
-        res.json({ status: constants.fail, reason: 'Email not activated' });
+        res.status(404).json({ status: constants.fail, reason: 'Email not activated' });
       } else {
-        var password = req.body.password;
-        var combined = seller.passwordCombined;
-        cryptoUtils.verifyPassword(password, combined, function(err, verify) {
+        const password = req.body.password;
+        const combined = seller.passwordCombined;
+        cryptoUtils.verifyPassword(password, combined, (error, verify) => {
           if (verify) {
-            var token = jwt.sign({ email: email } , constants.secret, {
-              expiresIn: 60*60*24
+            const token = jwt.sign({ email }, constants.secret, {
+              expiresIn: 60 * 60 * 24,
             });
 
-            res.json({ status: constants.success, token: token });
+            res.json({ status: constants.success, token });
           } else {
-            res.json({ status: constants.fail, reason: 'Password not match' });
+            res.status(404).json({ status: constants.fail, reason: 'Password not match' });
           }
         });
       }
     } else {
-      res.json({ status: constants.fail, reason: 'Email not found' });
+      res.status(404).json({ status: constants.fail, reason: 'Email not found' });
     }
   });
 };

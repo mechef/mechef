@@ -1,7 +1,7 @@
-var crypto = require('crypto');
+const crypto = require('crypto');
 
 // larger numbers mean better security, less
-var config = {
+const config = {
   // size of the generated hash
   hashBytes: 32,
   // larger salt means hashed passwords are more resistant to rainbow table, but
@@ -11,7 +11,7 @@ var config = {
   // individual password, so larger is better. however, larger also means longer
   // to hash the password. tune so that hashing the password takes about a
   // second
-  iterations: 5566
+  iterations: 5566,
 };
 
 /**
@@ -25,30 +25,29 @@ var config = {
  */
 function hashPassword(password, callback) {
   // generate a salt for pbkdf2
-  crypto.randomBytes(config.saltBytes, function(err, salt) {
+  crypto.randomBytes(config.saltBytes, (err, salt) => {
     if (err) {
       return callback(err);
     }
 
-    crypto.pbkdf2(password, salt, config.iterations, config.hashBytes,
-      function(err, hash) {
+    return crypto.pbkdf2(password, salt, config.iterations, config.hashBytes,
+      (error, hash) => {
+        if (error) {
+          return callback(error);
+        }
 
-      if (err) {
-        return callback(err);
-      }
+        const combined = new Buffer(hash.length + salt.length + 8);
 
-      var combined = new Buffer(hash.length + salt.length + 8);
+        // include the size of the salt so that we can, during verification,
+        // figure out how much of the hash is salt
+        combined.writeUInt32BE(salt.length, 0, true);
+        // similarly, include the iteration count
+        combined.writeUInt32BE(config.iterations, 4, true);
 
-      // include the size of the salt so that we can, during verification,
-      // figure out how much of the hash is salt
-      combined.writeUInt32BE(salt.length, 0, true);
-      // similarly, include the iteration count
-      combined.writeUInt32BE(config.iterations, 4, true);
-
-      salt.copy(combined, 8);
-      hash.copy(combined, salt.length + 8);
-      callback(null, combined);
-    });
+        salt.copy(combined, 8);
+        hash.copy(combined, salt.length + 8);
+        return callback(null, combined);
+      });
   });
 }
 
@@ -65,40 +64,20 @@ function hashPassword(password, callback) {
  */
 function verifyPassword(password, combined, callback) {
   // extract the salt and hash from the combined buffer
-  var saltBytes = combined.readUInt32BE(0);
-  var hashBytes = combined.length - saltBytes - 8;
-  var iterations = combined.readUInt32BE(4);
-  var salt = combined.slice(8, saltBytes + 8);
-  var hash = combined.toString('binary', saltBytes + 8);
+  const saltBytes = combined.readUInt32BE(0);
+  const hashBytes = combined.length - saltBytes - 8;
+  const iterations = combined.readUInt32BE(4);
+  const salt = combined.slice(8, saltBytes + 8);
+  const hash = combined.toString('binary', saltBytes + 8);
 
   // verify the salt and hash against the password
-  crypto.pbkdf2(password, salt, iterations, hashBytes, function(err, verify) {
+  crypto.pbkdf2(password, salt, iterations, hashBytes, (err, verify) => {
     if (err) {
       return callback(err, false);
     }
 
-    callback(null, verify.toString('binary') === hash);
+    return callback(null, verify.toString('binary') === hash);
   });
-}
-
-function verifyToken(req) {
-  var token = req.body.token || req.query.token || req.headers['x-access-token']
-  if (token) {
-    jwt.verify(token, app.get('secret'), function (err, decoded) {
-      if (err) {
-        return res.json({success: false, message: 'Failed to authenticate token.'})
-      } else {
-        req.decoded = decoded
-        next()
-      }
-    })
-  } else {
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    })
-  }
-
 }
 
 exports.hashPassword = hashPassword;
