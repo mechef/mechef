@@ -1,5 +1,6 @@
 const express = require('express');
 const next = require('next');
+const cookieParser = require('cookie-parser');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dir: './frontend', dev });
@@ -8,13 +9,21 @@ const handle = app.getRequestHandler();
 app.prepare()
   .then(() => {
     const server = express();
-
+    server.use(cookieParser());
     // XXX: Create custom rules
     // server.get('/foo/:id', (req, res) => {
     //   const actualPage = '/foo'
     //   const queryParams = { id: req.params.id }
     //   app.render(req, res, actualPage, queryParams)
     // })
+
+    server.get('/', (req, res) => {
+      // XXX: Check if jwt token exists and valid
+      if (!req.cookies.jwt) {
+        app.render(req, res, '/login');
+      }
+      handle(req, res);
+    });
 
     server.get('*', (req, res) => handle(req, res));
 

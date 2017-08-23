@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/mechef/mechef/#readme",
   "dependencies": {
+    "apidoc": "0.17.6",
     "body-parser": "1.15.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "isomorphic-unfetch": "^2.0.0",
     "jsonwebtoken": "7.4.1",
@@ -31,8 +33,7 @@
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "uuid": "3.1.0",
-    "apidoc": "0.17.6"
+    "uuid": "3.1.0"
   },
   "devDependencies": {
     "babel-plugin-inline-react-svg": "^0.4.0",
