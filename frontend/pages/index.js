@@ -13,6 +13,9 @@ const Index = props => (
     <Link href="/walkthroughMenu">
       <a>Walkthrough Menu Page </a>
     </Link>
+    <Link href="/walkthroughMenuDetail">
+      <a>Walkthrough Menu Detail Page </a>
+    </Link>
     <ul>
       {
         props.shows.map(({ show }) => (
