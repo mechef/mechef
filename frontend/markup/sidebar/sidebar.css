@@ -1,9 +1,10 @@
 body {
   margin: 0px;
+  background-color: #f8f7f7;
 }
 .mechef-sidebar {
+  display: inline-block;
   width: 240px;
-  height: 100%;
   background-color: #252525;
 }
 
@@ -28,4 +29,35 @@ body {
   font-size: 14px;
   letter-spacing: 1px;
   color: #ffffff;
+}
+
+.mechef-sidebar-footer {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.mechef-sidebar-footer > li {
+  height: 32px;
+}
+
+.mechef-sidebar-footer > li > a{
+  line-height: 32px;
+  height: 16px;
+  font-family: AvenirNext;
+  font-size: 12px;
+  letter-spacing: 0.9px;
+  color: #9b9b9b;
+}
+
+.Rectangle-6 {
+  width: 100%;
+  height: 90px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+}
+
+.Shape {
+  width: 16px;
+  height: 14.2px;
+  background-color: #3e9f40;
 }
