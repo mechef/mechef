@@ -1,12 +1,12 @@
-import Link from 'next/link';
+import PropTypes from 'prop-types';
 
-const HEADER = () => (
+const Header = props => (
   <nav className="mechef-navbar">
     <img className="mechef-navbar-logo" src="../static/food.png" alt="logo" />
     <div className="mechef-navbar-collapse">
       <ul className="mechef-navbar-nav">
-        <li>HOW IT WORKS</li>
-        <li>JOIN NOW</li>
+        <li className={props.selectedItem === 'about' ? 'active' : ''}>HOW IT WORKS</li>
+        <li className={props.selectedItem === 'join' ? 'active' : ''}>JOIN NOW</li>
       </ul>
     </div>
     <style jsx>
@@ -48,7 +48,7 @@ const HEADER = () => (
           padding-bottom: 23px;
           border-bottom: 9px solid #8cc63f;
         }
-        .mechef-navbar-nav  li:active{
+        .mechef-navbar-nav  li.active{
           padding-bottom: 23px;
           border-bottom: 9px solid #8cc63f;
         }
@@ -57,4 +57,13 @@ const HEADER = () => (
   </nav>
 );
 
-export default HEADER;
+
+Header.propTypes = {
+  selectedItem: PropTypes.string,
+};
+
+Header.defaultProps = {
+  selectedItem: '',
+};
+
+export default Header;

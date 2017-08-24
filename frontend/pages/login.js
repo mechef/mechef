@@ -17,12 +17,12 @@ class Login extends React.Component {
   render() {
     return (
       <div>
-        <Header />
+        <Header selectedItem="join" />
         <div className="mainContent">
           <div className="veen">
             <div className="login-btn splits">
-              <p>Already an user?</p>
-              <button>LOGIN</button>
+              <p>Have an account?</p>
+              <button>SIGN IN</button>
             </div>
             <div className="rgstr-btn splits">
               <p>Dont have an account?</p>
@@ -42,20 +42,16 @@ class Login extends React.Component {
                 </div>
               </div>
               <div id="register">
-                <p className="title">Be a Chef today</p>
-                <div className="name">
-                  <input type="text" name="" placeholder="Full Name" />
+                <p className="title">Be a Chef today!</p>
+                <input type="text" name="" placeholder="First Name" />
+                <input type="text" name="" placeholder="Last Name" />
+                <input type="tel" name="" placeholder="Phone Number" />
+                <input type="mail" name="" placeholder="Email Address" />
+                <div className="wrapper__submit">
+                  <button className="dark">JOIN NOW</button>
                 </div>
-                <div className="mail">
-                  <input type="mail" name="" placeholder="Mail" />
-                </div>
-                <div className="uid">
-                  <input type="text" name="" placeholder="User Name" />
-                </div>
-                <div className="mail">
-                  <div className="submit">
-                    <button className="dark">Register</button>
-                  </div>
+                <div className="wrapper__note">
+                  <span >If you click JOIN NOW, it means you agree with terms of service.</span>
                 </div>
               </div>
             </div>
@@ -203,6 +199,20 @@ class Login extends React.Component {
             }
             .veen > .wrapper.move input:focus{
               border-color: #e0b722;
+            }
+            .wrapper__submit {
+              margin-top: 75px;
+            }
+            .wrapper .wrapper__note {
+              width: 321px;
+              height: 12px;
+              font-family: AvenirNext;
+              font-size: 12px;
+              font-weight: 500;
+              line-height: 1;
+              color: #4a4a4a;
+              margin: 20px 0 0 16px;
+              text-align: left;
             }
           `}
         </style>
