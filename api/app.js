@@ -2,9 +2,13 @@
 const app = require('express')();
 
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+// mongoose.connect('mongodb://localhost/test_collection');
+mongoose.connect('mongodb://root:123456@ds111123.mlab.com:11123/mechef');
 
 const routes = require('./routes');
 
