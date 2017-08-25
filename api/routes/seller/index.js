@@ -7,7 +7,7 @@ const resetPassEmail = require('./reset_pass_email');
 const resetPass = require('./reset_pass');
 const update = require('./update');
 
-seller.post('/activate/:hash', activate);
+seller.get('/activate/:hash', activate);
 seller.post('/login/', login);
 seller.get('/', readByEmail);
 seller.post('/', register);

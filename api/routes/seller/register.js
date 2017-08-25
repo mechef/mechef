@@ -52,26 +52,27 @@ module.exports = (req, res) => {
       seller.activateHash = uuidv4() + uuidv4();
       seller.isActivate = false;
 
-      seller.save((error) => {
-        if (error) {
-          console.log(error);
+      const mailOptions = {
+        from: '"Mechef" <mechef@mechef.com>', // sender address
+        to: seller.email, // list of receivers
+        subject: 'Activation Email From Mechef', // Subject line
+        html: `<a href="http://localhost:3001/seller/activate/${seller.activateHash}">http://localhost:3001/seller/activate/${seller.activateHash}</a>`, // html body
+      };
+
+      mailer.sendMail(mailOptions, (erro) => {
+        if (erro) {
+          console.log(erro);
           res.json({ status: constants.fail });
           return;
         }
 
-        const mailOptions = {
-          from: '"Mechef" <mechef@mechef.com>', // sender address
-          to: seller.email, // list of receivers
-          subject: 'Activation Email From Mechef', // Subject line
-          html: `<a href="http://localhost:3001/seller/activate/${seller.activateHash}">http://localhost:3001/seller/activate/${seller.activateHash}</a>`, // html body
-        };
-
-        mailer.sendMail(mailOptions, (erro) => {
-          if (erro) {
-            console.log(erro);
+        seller.save((error) => {
+          if (error) {
+            console.log(error);
             res.json({ status: constants.fail });
             return;
           }
+
           res.json({ status: constants.success });
         });
       });
