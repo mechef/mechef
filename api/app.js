@@ -6,6 +6,10 @@ const mongoose = require('mongoose');
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  return next();
+});
 
 // mongoose.connect('mongodb://localhost/test_collection');
 mongoose.connect('mongodb://root:123456@ds111123.mlab.com:11123/mechef');
