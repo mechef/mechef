@@ -1,7 +1,28 @@
 import React from 'react';
+import fetch from 'isomorphic-unfetch';
+import urlencoder from 'form-urlencoded';
+
 import Header from '../components/header/header';
+import { API_REGISTER, API_LOGIN } from '../utils/constants';
 
 class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      signup: {
+        firstName: '',
+        lastName: '',
+        password: '',
+        email: '',
+      },
+      login: {
+        id: '',
+        password: '',
+      },
+    };
+    this.onSubmitLogin = this.onSubmitLogin.bind(this);
+    this.onSubmitSignup = this.onSubmitSignup.bind(this);
+  }
   componentDidMount() {
     // 3rd party script for handling login animation
     /* eslint-disable */
@@ -12,6 +33,48 @@ class Login extends React.Component {
       $('.veen .wrapper').removeClass('move');
     });
     /* eslint-enable */
+  }
+
+  async onSubmitLogin() {
+    const formValues = urlencoder({
+      email: this.state.login.id,
+      password: this.state.login.password,
+    });
+    const res = await fetch(API_LOGIN, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+      },
+      body: formValues,
+    });
+    const data = await res.json();
+    if (res.ok) {
+      window.localStorage.setItem('jwt', data.token);
+      alert('Successfully Login!');
+    } else {
+      alert('Something wrong...');
+    }
+  }
+
+  async onSubmitSignup() {
+    const formValues = urlencoder({
+      name: `${this.state.signup.firstName} ${this.state.signup.lastName}`,
+      email: this.state.signup.email,
+      password: this.state.signup.password,
+    });
+
+    const res = await fetch(API_REGISTER, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+      },
+      body: formValues,
+    });
+    if (res.ok) {
+      alert('Successfully Registered！');
+    } else {
+      alert('Something wrong...');
+    }
   }
 
   render() {
@@ -30,25 +93,98 @@ class Login extends React.Component {
             </div>
             <div className="wrapper">
               <div id="login">
-                <p className="title">Login</p>
+                <p className="title">SIGN IN</p>
                 <div className="mail">
-                  <input type="mail" name="mail" placeholder="Mail or Username" />
+                  <input
+                    type="mail"
+                    placeholder="Mail or Username"
+                    value={this.state.login.id}
+                    onChange={(evt) => {
+                      this.setState({
+                        login: {
+                          ...this.state.login,
+                          id: evt.target.value,
+                        },
+                      });
+                    }}
+                  />
                 </div>
                 <div className="passwd">
-                  <input type="password" name="" placeholder="Password" />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={this.state.login.password}
+                    onChange={(evt) => {
+                      this.setState({
+                        login: {
+                          ...this.state.login,
+                          password: evt.target.value,
+                        },
+                      });
+                    }}
+                  />
                 </div>
                 <div className="submit">
-                  <button className="dark">Login</button>
+                  <button className="dark" onClick={this.onSubmitLogin}>SIGN IN</button>
                 </div>
               </div>
               <div id="register">
                 <p className="title">Be a Chef today!</p>
-                <input type="text" name="" placeholder="First Name" />
-                <input type="text" name="" placeholder="Last Name" />
-                <input type="tel" name="" placeholder="Phone Number" />
-                <input type="mail" name="" placeholder="Email Address" />
+                <input
+                  type="text"
+                  name=""
+                  placeholder="First Name"
+                  value={this.state.signup.firstName}
+                  onChange={(evt) => {
+                    this.setState({
+                      signup: {
+                        ...this.state.signup,
+                        firstName: evt.target.value,
+                      },
+                    });
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  value={this.state.signup.lastName}
+                  onChange={(evt) => {
+                    this.setState({
+                      signup: {
+                        ...this.state.signup,
+                        lastName: evt.target.value,
+                      },
+                    });
+                  }}
+                />
+                <input
+                  type="tel"
+                  placeholder="Password"
+                  value={this.state.signup.password}
+                  onChange={(evt) => {
+                    this.setState({
+                      signup: {
+                        ...this.state.signup,
+                        password: evt.target.value,
+                      },
+                    });
+                  }}
+                />
+                <input
+                  type="mail"
+                  placeholder="Email Address"
+                  value={this.state.signup.email}
+                  onChange={(evt) => {
+                    this.setState({
+                      signup: {
+                        ...this.state.signup,
+                        email: evt.target.value,
+                      },
+                    });
+                  }}
+                />
                 <div className="wrapper__submit">
-                  <button className="dark">JOIN NOW</button>
+                  <button className="dark" onClick={this.onSubmitSignup}>JOIN NOW</button>
                 </div>
                 <div className="wrapper__note">
                   <span >If you click JOIN NOW, it means you agree with terms of service.</span>
@@ -108,14 +244,14 @@ class Login extends React.Component {
               width: 356px;
               height: 50px;
               border-radius: 4px;
-              background-color: #8cc63f;
+              background-color: #3e9f40;
             }
 
             .veen .move button.dark{
               width: 356px;
               height: 50px;
               border-radius: 4px;
-              background-color: #8cc63f;
+              background-color: #3e9f40;
             }
             .veen .splits p{
               width: 217px;

@@ -5,6 +5,7 @@
     "jsx-a11y/href-no-hash": 0,
     "react/react-in-jsx-scope": 0,
     "func-names": 0,
-    "jsx-a11y/label-has-for": 0
+    "jsx-a11y/label-has-for": 0,
+    "no-undef": 0
   }
 }
