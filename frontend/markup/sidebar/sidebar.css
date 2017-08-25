@@ -81,3 +81,19 @@ body {
   background-color: #d8d8d8;
   border-radius: 50%;
 }
+
+.Create-Your-Menu {
+  width: 159px;
+  height: 20px;
+  font-family: OpenSans;
+  font-size: 18px;
+  line-height: 1.11;
+  letter-spacing: 0.5px;
+  color: #4a4a4a;
+}
+
+.Rectangle-4 {
+  min-height: 600px;
+  border-radius: 4px;
+  background-color: #ffffff;
+}
