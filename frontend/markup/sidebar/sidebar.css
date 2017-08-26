@@ -1,0 +1,118 @@
+* {
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+}
+body {
+  margin: 0px;
+  background-color: #f8f7f7;
+}
+.mechef-sidebar {
+  display: inline-block;
+  width: 240px;
+  background-color: #252525;
+}
+
+.mechef-sidebar-inner {
+  padding: 28px 36px;
+}
+
+.mechef-sidebar-menu {
+  list-style-type: none;
+  padding: 0px;
+}
+.mechef-sidebar-menu > li {
+  width: 108px;
+  height: 50px;
+}
+
+.mechef-sidebar-menu > li > a {
+  line-height: 50px;
+  width: 75.9px;
+  height: 19px;
+  font-family: AvenirNext;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.mechef-sidebar-footer {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.mechef-sidebar-footer > li {
+  height: 32px;
+}
+
+.mechef-sidebar-footer > li > a{
+  line-height: 32px;
+  height: 16px;
+  font-family: AvenirNext;
+  font-size: 12px;
+  letter-spacing: 0.9px;
+  color: #9b9b9b;
+}
+
+.mechef-header {
+  width: calc(100% - 240px);
+  height: 90px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+  float: right;
+}
+
+.mechef-header__wrapper {
+  padding-left:20px;
+  padding-top: 38px;
+  position: relative;
+}
+
+.mechef-header__menu {
+  display: inline-block;
+}
+
+.mechef-header__icon {
+  width: 16px;
+  height: 14.2px;
+  color: #3e9f40;
+}
+
+.mechef-header__title {
+  margin-left: 24px;
+  width: 55px;
+ height: 20px;
+ font-family: OpenSans;
+ font-size: 18px;
+ line-height: 30px;
+ letter-spacing: 0.5px;
+ color: #4a4a4a;
+}
+
+#mechef-header__menu-toggle:checked ~ .mechef-header {
+  width: 100%;
+}
+
+#mechef-header__menu-toggle:checked ~ .mechef-sidebar {
+  margin-left: -240px;
+}
+
+.mechef-header__user-profile {
+  display: inline-block;
+  float: right;
+  margin-right: 40.2px;
+}
+
+.mechef-header__user-head {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #d8d8d8;
+  border-radius: 50%;
+}
+
+.mechef-header__user-head:nth-child(2) {
+  margin-left: 20px;
+  margin-right: 20px;
+}
