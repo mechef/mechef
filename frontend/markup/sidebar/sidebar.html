@@ -7,6 +7,7 @@
 </head>
 
 <body>
+  <input type="checkbox" id="mechef-header__menu-toggle" hidden />
   <div class="mechef-sidebar">
     <div class="mechef-sidebar-inner">
       <img src='logo.png'/>
@@ -91,33 +92,24 @@
       </ul>
     </div>
   </div>
-  <div style="width: calc(100% - 240px);float: right;" class="mainContent">
-    <div class="mechef-header">
-      <div style="padding-left:20px;padding-top: 38px; position: relative;">
-        <div style="display: inline-block">
-          <i class="fa fa-bars mechef-menu-icon" aria-hidden="true"></i>
-          <span class="mechef-menu-word" >MENU</span>
+
+  <div class="mechef-header">
+    <div class="mechef-header__wrapper">
+      <label for="mechef-header__menu-toggle" class="mechef-header__menu">
+        <i class="fa fa-bars mechef-header__icon" aria-hidden="true"></i>
+        <span class="mechef-header__title" >MENU</span>
+      </label>
+      <div class="mechef-header__user-profile">
+        <div class="mechef-header__user-head">
+
         </div>
-        <div style="position: absolute;right: 10px;display: inline-block;width: 160px;">
-          <div class="mechef-menu-head">
+        <div class="mechef-header__user-head">
 
-          </div>
-          <div class="mechef-menu-head">
-
-          </div>
-          <div class="mechef-menu-head">
-
-          </div>
         </div>
+        <div class="mechef-header__user-head">
+
         </div>
       </div>
-      <div class="Create-Your-Menu" style="padding-top:50px;padding-left:20px;">
-          Create Your Menu
-      </div>
-      <div style="margin-left:20px;margin-right:20px;margin-top:24px;"class="Rectangle-4">
-
-      </div>
-
     </div>
   </div>
   <script src="sidebar.js"></script>
