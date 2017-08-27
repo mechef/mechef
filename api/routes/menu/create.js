@@ -4,6 +4,7 @@ const fs = require('fs');
 const Gridfs = require('gridfs-stream');
 const mongoose = require('mongoose');
 const constants = require('../../utils/constants');
+const jwt = require('jsonwebtoken');
 
 module.exports = (req, res) => {
   // req.files is array of `photos` files
@@ -31,9 +32,10 @@ module.exports = (req, res) => {
     menu.cookingBuffer = req.body.cookingBuffer;
     menu.serving = req.body.serving;
     menu.images = [];
-    for (var file in req.files) {
-      file.name = uuid() + '_' + file.name;
-      menu.images.push(file.name);
+    for (let i = 0; i < req.files.length; i += 1) {
+      console.log(req.files[i]);
+      req.files[i].filename = uuidv4() + req.files[i].filename;
+      menu.images.push(req.files[i].filename);
     }
 
     menu.save((error, savedMenu) => {
@@ -43,23 +45,26 @@ module.exports = (req, res) => {
         return;
       }
 
-      var db = mongoose.connection.db;
-      var mongoDriver = mongoose.mongo;
-      var gfs = new Gridfs(db, mongoDriver);
+      const db = mongoose.connection.db;
+      const mongoDriver = mongoose.mongo;
+      const gfs = new Gridfs(db, mongoDriver);
 
-      for (var file in req.files) {
-        var writestream = gfs.createWriteStream({
-          filename: file.name,
+      for (let i = 0; i < req.files.length; i += 1) {
+        const writestream = gfs.createWriteStream({
+          filename: req.files[i].filename,
+          mode: 'w',
+          content_type: req.files[i].mimetype,
           metadata: {
             email: decoded.email,
-            menuId: savedMenu._id
-          }
+            menuId: savedMenu._id,
+            path: req.files[i].path,
+          },
         });
 
-        fs.createReadStream(file.path).pipe(writestream);
-        writestream.on('close', function(file) {
-          fs.unlink(req.files.file.path, function(err) {
-            if (err) {
+        fs.createReadStream(req.files[i].path).pipe(writestream);
+        writestream.on('close', (file) => {
+          fs.unlink(file.metadata.path, (erro) => {
+            if (erro) {
               console.log(err);
             }
           });
