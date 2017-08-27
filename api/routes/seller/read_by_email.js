@@ -42,7 +42,10 @@ module.exports = (req, res) => {
       const query = Seller.findOne({ email: decoded.email });
       query.then((seller) => {
         if (seller) {
-          res.json({ status: constants.success, seller });
+          const user = {};
+          user.email = seller.email;
+          user.name = seller.name;
+          res.json({ status: constants.success, user });
         } else {
           res.status(404).json({ status: constants.fail, reason: 'Email not found' });
         }
