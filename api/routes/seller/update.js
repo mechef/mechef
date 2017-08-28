@@ -44,7 +44,7 @@ module.exports = (req, res) => {
     if (err) {
       res.json({ status: constants.fail });
     } else {
-      Seller.update({ email: decoded.email }, updateFields, (error) => {
+      Seller.update({ email: decoded.email }, {$set: updateFields }, (error) => {
         if (error) {
           console.log(error);
           res.json({ status: constants.fail });
