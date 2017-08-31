@@ -4,4 +4,9 @@ module.exports = {
   fail: 'fail',
   success: 'success',
   no_token: 'no_token',
+  order_state: {
+    pending: 'pending',
+    contacting: 'contacting',
+    delivered: 'delivered',
+  },
 };

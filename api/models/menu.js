@@ -6,7 +6,7 @@ const MenuSchema = new mongoose.Schema({
   email: String,
   dishName: String,
   unitPrice: String,
-  quantity: Boolean,
+  quantity: Number,
   category: [String],
   ingredients: [String],
   description: String,
