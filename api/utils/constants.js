@@ -9,4 +9,5 @@ module.exports = {
     contacting: 'contacting',
     delivered: 'delivered',
   },
+  domain: 'http://localhost:3001',
 };

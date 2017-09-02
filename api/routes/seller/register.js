@@ -56,7 +56,7 @@ module.exports = (req, res) => {
         from: '"Mechef" <mechef@mechef.com>', // sender address
         to: seller.email, // list of receivers
         subject: 'Activation Email From Mechef', // Subject line
-        html: `<a href="http://localhost:3001/seller/activate/${seller.activateHash}">http://localhost:3001/seller/activate/${seller.activateHash}</a>`, // html body
+        html: `<a href="${constants.domain}/seller/activate/${seller.activateHash}">${constants.domain}/seller/activate/${seller.activateHash}</a>`, // html body
       };
 
       mailer.sendMail(mailOptions, (erro) => {
