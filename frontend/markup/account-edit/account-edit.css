@@ -1,0 +1,327 @@
+* {
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+}
+body {
+  margin: 0px;
+  background-color: #f8f7f7;
+}
+.dashboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.dashboard__left {
+  width: 240px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.dashboard__right {
+  -webkit-box-flex: 5;
+  -ms-flex: 5;
+  flex: 5;
+}
+@media all and (max-width: 600px) {
+  .dashboard__left {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+.dashboard-sidebar {
+  background-color: #252525;
+  width: 100%;
+}
+
+.dashboard-sidebar__inner {
+  padding: 28px 36px;
+}
+
+.dashboard-sidebar__menu {
+  list-style-type: none;
+  padding: 0px;
+}
+.dashboard-sidebar__menu > li {
+  width: 108px;
+  height: 50px;
+}
+
+.dashboard-sidebar__menu > li > a {
+  line-height: 50px;
+  width: 75.9px;
+  height: 19px;
+  font-family: AvenirNext;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.dashboard-sidebar__footer {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.dashboard-sidebar__footer > li {
+  height: 32px;
+}
+
+.dashboard-sidebar__footer > li > a{
+  line-height: 32px;
+  height: 16px;
+  font-family: AvenirNext;
+  font-size: 12px;
+  letter-spacing: 0.9px;
+  color: #9b9b9b;
+}
+
+.dashboard-header {
+  height: 90px;
+  background-color: #ffffff;
+}
+
+.dashboard-header__wrapper {
+  padding-left:20px;
+  padding-top: 38px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.dashboard-header__icon {
+  width: 16px;
+  height: 14.2px;
+  color: #3e9f40;
+}
+
+.dashboard-header__title {
+  margin-left: 24px;
+  width: 55px;
+  height: 20px;
+  font-family: OpenSans;
+  font-size: 18px;
+  line-height: 30px;
+  letter-spacing: 0.5px;
+  color: #4a4a4a;
+}
+
+#dashboard-header__menu-toggle:checked ~ .dashboard__right {
+  width: 100%;
+}
+
+#dashboard-header__menu-toggle:checked ~ .dashboard__left {
+  margin-left: -240px;
+}
+
+.dashboard-header__user-profile {
+  margin-right: 40.2px;
+  width: 130px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+@media all and (max-width: 600px) {
+  .dashboard-header__user-profile {
+    display: none;
+  }
+}
+.dashboard-header__user-head {
+  width: 30px;
+  height: 30px;
+  background-color: #d8d8d8;
+  border-radius: 50%;
+}
+
+.dashboard-content {
+  padding-top: 19px;
+  padding-left: 20px;
+}
+
+/* bank-account.css  */
+
+.dashboard-content__title {
+  margin-bottom: 30px;
+  font-family: AvenirNext;
+  font-size: 18px;
+  line-height: 1.11;
+  letter-spacing: 0.5px;
+  text-align: left;
+  color: #4a4a4a;
+}
+
+.dashboard-content__form {
+  border-radius: 4px;
+  background-color: #ffffff;
+  margin-bottom: 40px;
+  margin-right: 21px;
+}
+
+.update-cover-photo {
+  height: 230px;
+  background-image: url('pancake.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+}
+
+.update-cover-photo:before {
+  content: '';
+  height: 230px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .400);
+  position: absolute;
+  z-index: 1;
+}
+
+.update-cover-photo__title {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+  color: #ffffff;
+  position: relative;
+  z-index: 2;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.update-cover-photo__icon {
+  text-align: center;
+  padding-bottom: 19px;
+}
+
+.update-profile-image {
+  padding-top: 32px;
+  padding-left: 21px;
+  display: flex;
+  position: relative;
+}
+
+.update-profile-image__avatar {
+  width: 80px;
+  height: 80px;
+  opacity: 0.7;
+  background-color: rgba(0, 0, 0, .400);
+  border-radius: 40px;
+  display: flex;
+  background-image: url('avatar.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.update-profile-image__avatar:before {
+  content: '';
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  background-color: rgba(0, 0, 0, .800);
+  position: absolute;
+  z-index: 1;
+}
+
+.update-profile-image__avatar-camera-icon {
+  margin: auto;
+  position: relative;
+  color: #ffffff;
+  z-index: 2;
+}
+
+.update-profile-image__description {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  justify-content: center;
+}
+
+.update-profile-image__description-title {
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+  color: #4a4a4a;
+  padding-bottom: 12px;
+}
+
+.update-profile-image__description-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.6px;
+  color: #9b9b9b;
+}
+
+.bank-info {
+  margin-bottom: 40px;
+}
+
+.bank-info__title {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.7px;
+  text-align: left;
+  color: #4a4a4a;
+}
+
+.bank-info__subtitle {
+  font-family: AvenirNext;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.6px;
+  text-align: left;
+  color: #9b9b9b;
+}
+
+.bank-info__input {
+  width: 512px;
+  height: 50px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: solid 1px #979797;
+}
+
+.dashboard-content__form-button-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  margin-bottom: 100px;
+}
+
+.dashboard-content__form-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 150px;
+  height: 50px;
+  border-radius: 4px;
+  border: solid 1px #3e9f40;
+  margin-left: 12px;
+}
+
+.dashboard-content__form-button--save {
+  background-color: #3e9f40;
+}
+
+.dashboard-content__form-button-title {
+  margin: auto;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.14;
+  text-align: center;
+  color: #3e9f40;
+}
+
+.dashboard-content__form-button-title--save {
+  color: #ffffff;
+}
