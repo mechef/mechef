@@ -12,8 +12,10 @@ const Header = props => (
     <style jsx>
       {`
         .mechef-navbar {
-          height: 90px;
+          display: flex;
+          justify-content: space-between;
           width: 100%;
+          height: 90px;
           background-color: #ffffff;
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
         }
@@ -22,41 +24,38 @@ const Header = props => (
           width: 113px;
           margin: 13px 0px 7px 89px;
         }
-        .mechef-navbar-collapse {
-          display: inline-block;
-          float: right;
-        }
         .mechef-navbar-nav {
-          display: inline-block;
+          display: flex;
+          padding-top: 43px;
+          padding-right: 110px;
           list-style: none;
-          margin-right: 112px;
         }
         .mechef-navbar-nav li {
+          margin-left: 40px;
+          padding-bottom: 23px;
           font-family: AvenirNext;
           font-size: 15px;
           font-weight: 500;
           line-height: 1;
           letter-spacing: 0.6px;
           color: #4a4a4a;
-          margin-top: 43px;
-          margin-bottom: 32px;
-          margin-left: 41px;
-          display: inline-block;
           cursor: pointer;
         }
-        .mechef-navbar-nav  li:hover{
-          padding-bottom: 23px;
-          border-bottom: 9px solid #8cc63f;
+        .mechef-navbar-nav li:hover {
+           border-bottom: 9px solid #8cc63f;
         }
-        .mechef-navbar-nav  li.active{
-          padding-bottom: 23px;
-          border-bottom: 9px solid #8cc63f;
+        .mechef-navbar-nav li.active {
+           border-bottom: 9px solid #8cc63f;
+        }
+        @media screen and (max-width: 768px) {
+          .mechef-navbar-collapse {
+            display: none;
+          }
         }
       `}
     </style>
   </nav>
 );
-
 
 Header.propTypes = {
   selectedItem: PropTypes.string,

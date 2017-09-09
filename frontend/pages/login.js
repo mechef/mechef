@@ -81,7 +81,7 @@ class Login extends React.Component {
     return (
       <div>
         <Header selectedItem="join" />
-        <div className="mainContent">
+        <div className="login-panel">
           <div className="veen">
             <div className="login-btn splits">
               <p>Have an account?</p>
@@ -195,7 +195,7 @@ class Login extends React.Component {
         </div>
         <style jsx>
           {`
-            .mainContent{
+            .login-panel{
               transition: all .5s;
               background-image: url("../static/main-background.jpg");
               height: 786px;
