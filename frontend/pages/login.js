@@ -1,8 +1,10 @@
 import React from 'react';
 import fetch from 'isomorphic-unfetch';
 import urlencoder from 'form-urlencoded';
+import Router from 'next/router';
 
 import Header from '../components/header/header';
+import AlertModal from '../components/alertModal';
 import { API_REGISTER, API_LOGIN } from '../utils/constants';
 
 class Login extends React.Component {
@@ -18,6 +20,11 @@ class Login extends React.Component {
       login: {
         id: '',
         password: '',
+      },
+      alertModal: {
+        isShow: false,
+        title: '',
+        message: '',
       },
     };
     this.onSubmitLogin = this.onSubmitLogin.bind(this);
@@ -50,9 +57,21 @@ class Login extends React.Component {
     const data = await res.json();
     if (res.ok) {
       window.localStorage.setItem('jwt', data.token);
-      alert('Successfully Login!');
+      Router.push({
+        pathname: '/home',
+      });
     } else {
-      alert('Something wrong...');
+      this.setState({
+        alertModal: {
+          isShow: true,
+          title: 'Login Error',
+          message: 'Something wrong',
+        },
+        login: {
+          id: '',
+          password: '',
+        },
+      });
     }
   }
 
@@ -73,13 +92,28 @@ class Login extends React.Component {
     if (res.ok) {
       alert('Successfully Registered！');
     } else {
-      alert('Something wrong...');
+      this.setState({
+        alertModal: {
+          isShow: true,
+          title: 'Register Error',
+          message: 'Something wrong',
+        },
+      });
     }
   }
 
   render() {
     return (
-      <div>
+      <div className="login-page">
+        {
+          this.state.alertModal.isShow ?
+            <AlertModal
+              title={this.state.alertModal.title}
+              message={this.state.alertModal.message}
+              onCancel={() => this.setState({ alertModal: { title: '', message: '', isShow: false } })}
+            />
+            : null
+        }
         <Header selectedItem="join" />
         <div className="login-panel">
           <div className="login-form">
