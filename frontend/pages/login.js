@@ -1,8 +1,10 @@
 import React from 'react';
 import fetch from 'isomorphic-unfetch';
 import urlencoder from 'form-urlencoded';
+import Router from 'next/router';
 
 import Header from '../components/header/header';
+import AlertModal from '../components/alertModal';
 import { API_REGISTER, API_LOGIN } from '../utils/constants';
 
 class Login extends React.Component {
@@ -19,6 +21,11 @@ class Login extends React.Component {
         id: '',
         password: '',
       },
+      alertModal: {
+        isShow: false,
+        title: '',
+        message: '',
+      },
     };
     this.onSubmitLogin = this.onSubmitLogin.bind(this);
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
@@ -26,11 +33,11 @@ class Login extends React.Component {
   componentDidMount() {
     // 3rd party script for handling login animation
     /* eslint-disable */
-    $('.veen .rgstr-btn button').click(() => {
-      $('.veen .wrapper').addClass('move');
+    $('.login-form .rgstr-btn button').click(() => {
+      $('.login-form .wrapper').addClass('move');
     });
-    $('.veen .login-btn button').click(() => {
-      $('.veen .wrapper').removeClass('move');
+    $('.login-form .login-btn button').click(() => {
+      $('.login-form .wrapper').removeClass('move');
     });
     /* eslint-enable */
   }
@@ -50,9 +57,21 @@ class Login extends React.Component {
     const data = await res.json();
     if (res.ok) {
       window.localStorage.setItem('jwt', data.token);
-      alert('Successfully Login!');
+      Router.push({
+        pathname: '/home',
+      });
     } else {
-      alert('Something wrong...');
+      this.setState({
+        alertModal: {
+          isShow: true,
+          title: 'Login Error',
+          message: 'Something wrong',
+        },
+        login: {
+          id: '',
+          password: '',
+        },
+      });
     }
   }
 
@@ -73,26 +92,41 @@ class Login extends React.Component {
     if (res.ok) {
       alert('Successfully Registered！');
     } else {
-      alert('Something wrong...');
+      this.setState({
+        alertModal: {
+          isShow: true,
+          title: 'Register Error',
+          message: 'Something wrong',
+        },
+      });
     }
   }
 
   render() {
     return (
-      <div>
+      <div className="login-page">
+        {
+          this.state.alertModal.isShow ?
+            <AlertModal
+              title={this.state.alertModal.title}
+              message={this.state.alertModal.message}
+              onCancel={() => this.setState({ alertModal: { title: '', message: '', isShow: false } })}
+            />
+            : null
+        }
         <Header selectedItem="join" />
         <div className="login-panel">
-          <div className="veen">
+          <div className="login-form">
             <div className="login-btn splits">
-              <p>Have an account?</p>
+              <p className="splits-title">Have an account?</p>
               <button>SIGN IN</button>
             </div>
             <div className="rgstr-btn splits">
-              <p>Dont have an account?</p>
+              <p className="splits-title">Dont have an account?</p>
               <button>JOIN NOW</button>
             </div>
             <div className="wrapper">
-              <div id="login">
+              <div className="login">
                 <p className="title">SIGN IN</p>
                 <div className="mail">
                   <input
@@ -128,7 +162,7 @@ class Login extends React.Component {
                   <button className="dark" onClick={this.onSubmitLogin}>SIGN IN</button>
                 </div>
               </div>
-              <div id="register">
+              <div className="register">
                 <p className="title">Be a Chef today!</p>
                 <input
                   type="text"
@@ -195,32 +229,32 @@ class Login extends React.Component {
         </div>
         <style jsx>
           {`
-            .login-panel{
-              transition: all .5s;
-              background-image: url("../static/main-background.jpg");
-              height: 786px;
+            .login-panel {
+              display: flex;
+              justify-content: center;
               width: 100%;
+              height: 786px;
               padding-top: 130px;
               padding-bottom: 176px;
+              transition: all .5s;
+              background-image: url("../static/main-background.jpg");
             }
-            .veen{
+            .login-form {
+              display: flex;
+              position: relative;
+              margin: 0 auto;
               width: 794px;
               height: 480px;
+              min-height: 400px;
               background-color: rgba(0, 0, 0, 0.67);
               border-radius: 4px;
-              min-height: 400px;
-              display:table;
-              position: relative;
               box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
-              margin: 0 auto;
             }
-            .veen > div {
-              display: table-cell;
-              vertical-align: middle;
-              text-align: center;
+            .login-form > div {
+              margin: auto;
               color: #fff;
             }
-            .veen button{
+            .login-form button {
               width: 153px;
               height: 50px;
               border-radius: 4px;
@@ -240,37 +274,42 @@ class Login extends React.Component {
               color: #ffffff;
             }
 
-            .veen button.dark{
+            .login-form button.dark {
               width: 356px;
               height: 50px;
               border-radius: 4px;
               background-color: #3e9f40;
             }
 
-            .veen .move button.dark{
+            .login-form .move button.dark {
               width: 356px;
               height: 50px;
               border-radius: 4px;
               background-color: #3e9f40;
             }
-            .veen .splits p{
-              width: 217px;
-              height: 16px;
+
+            .splits {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+
+            .splits-title {
               font-family: SignPainter-HouseScript;
               font-size: 24px;
               line-height: 0.67;
               text-align: center;
               color: #ffffff;
-              margin-left: 81px;
-              margin-bottom: 46px;
             }
-            .veen button:active{
+            .login-form button:active {
               box-shadow: none;
             }
-            .veen button:focus{
+            .login-form button:focus {
               outline: none;
             }
-            .veen > .wrapper {
+            .login-form > .wrapper {
+              display: flex;
+              justify-content: center;
               position: absolute;
               width: 388px;
               height: 519px
@@ -283,7 +322,10 @@ class Login extends React.Component {
               color: #303030;
               overflow: hidden;
             }
-            .veen .wrapper > div{
+            .login-form .wrapper > div {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
               width: 100%;
               transition: all .5s;
               background: #fff;
@@ -292,20 +334,20 @@ class Login extends React.Component {
               top: 0;
               width: 100%;
             }
-            .veen .wrapper #register{
+            .login-form .wrapper .register {
               left: 100%;
             }
-            .veen .wrapper.move #register{
+            .login-form .wrapper.move .register {
               left: 0%;
             }
-            .veen .wrapper.move #login{
+            .login-form .wrapper.move .login {
               left: -100%;
             }
-            .veen .wrapper > div> div {
+            .login-form .wrapper > div> div {
               position: relative;
               margin-bottom: 15px;
             }
-            .veen .wrapper .title{
+            .login-form .wrapper .title {
               margin: 48px auto 30px auto;
               width: 129px;
               height: 24px;
@@ -315,7 +357,7 @@ class Login extends React.Component {
               text-align: center;
               color: #4a4a4a;
             }
-            .veen .wrapper input{
+            .login-form .wrapper input {
               width: 356px;
               height: 50px;
               border-radius: 4px;
@@ -326,29 +368,48 @@ class Login extends React.Component {
               padding-bottom: 16px;
               padding-left: 16px;
             }
-            .veen .wrapper input:focus{
+            .login-form .wrapper input:focus {
               outline: none;
               border-color: #ff4931;
             }
-            .veen > .wrapper.move{
+            .login-form > .wrapper.move {
               left: 45%;
             }
-            .veen > .wrapper.move input:focus{
+            .login-form > .wrapper.move input:focus {
               border-color: #e0b722;
             }
             .wrapper__submit {
-              margin-top: 75px;
+              padding: 20px;
             }
             .wrapper .wrapper__note {
-              width: 321px;
-              height: 12px;
-              font-family: AvenirNext;
               font-size: 12px;
               font-weight: 500;
               line-height: 1;
               color: #4a4a4a;
-              margin: 20px 0 0 16px;
-              text-align: left;
+            }
+            @media screen and (max-width: 768px) {
+              * {
+                transition: all 0.5s;
+              }
+              .login-form {
+                justify-content: center;
+                background-color: rgba(0, 0, 0, 0);
+              }
+              .login-form > .wrapper {
+                width: 90%;
+                left: auto;
+              }
+              .splits {
+                display: none;
+              }
+              .login-form button.dark,
+              .login-form .move button.dark,
+              .login-form .wrapper input {
+                width: 330px;
+              }
+              .login-form > .wrapper.move {
+                left: auto;
+              }
             }
           `}
         </style>
