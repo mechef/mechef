@@ -13,7 +13,7 @@ menu.post('/', upload.array('images'), create);
 menu.get('/', readAllByEmail);
 menu.get('/:id', readOneById);
 menu.delete('/:id', deleteOneById);
-menu.put('/:id', updateOneById);
+menu.put('/:id', upload.array('images'), updateOneById);
 menu.get('/image/:name', readImageByName);
 
 module.exports = menu;
