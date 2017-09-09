@@ -1,5 +1,6 @@
 const Delivery = require('../../models/delivery');
 const constants = require('../../utils/constants');
+const jwt = require('jsonwebtoken');
 
 module.exports = (req, res) => {
   const token = req.body.token;
@@ -16,8 +17,16 @@ module.exports = (req, res) => {
 
     const delivery = new Delivery();
     delivery.email = decoded.email;
+    if (!(req.body.type in constants.delivery_type)) {
+      res.status(404).json({ status: constants.fail });
+      return;
+    }
     delivery.type = req.body.type;
     delivery.address = req.body.address;
+    if (!(req.body.day in constants.day)) {
+      res.status(404).json({ status: constants.fail });
+      return;
+    }
     delivery.day = req.body.day;
     delivery.startTime = req.body.startTime;
     delivery.endTime = req.body.endTime;

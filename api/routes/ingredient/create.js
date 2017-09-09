@@ -1,5 +1,6 @@
 const IngredientList = require('../../models/ingredientList');
 const constants = require('../../utils/constants');
+const jwt = require('jsonwebtoken');
 
 module.exports = (req, res) => {
   const token = req.body.token;
@@ -19,7 +20,7 @@ module.exports = (req, res) => {
     ingredientList.name = req.body.name;
     ingredientList.ingredients = req.body.ingredients;
 
-    order.save((error) => {
+    ingredientList.save((error) => {
       if (error) {
         res.json({ status: constants.fail });
         return;

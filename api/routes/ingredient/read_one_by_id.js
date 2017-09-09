@@ -1,8 +1,9 @@
 const IngredientList = require('../../models/ingredientList');
 const constants = require('../../utils/constants');
+const jwt = require('jsonwebtoken');
 
 module.exports = (req, res) => {
-  const token = req.body.token;
+  const token = req.query.token;
   if (!token) {
     res.status(404).json({ status: constants.fail, reason: constants.no_token });
     return;
