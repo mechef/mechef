@@ -58,7 +58,7 @@ class Login extends React.Component {
     if (res.ok) {
       window.localStorage.setItem('jwt', data.token);
       Router.push({
-        pathname: '/home',
+        pathname: '/dashboard',
       });
     } else {
       this.setState({
