@@ -11,11 +11,10 @@ app.prepare()
     const server = express();
     server.use(cookieParser());
     // XXX: Create custom rules
-    // server.get('/foo/:id', (req, res) => {
-    //   const actualPage = '/foo'
-    //   const queryParams = { id: req.params.id }
-    //   app.render(req, res, actualPage, queryParams)
-    // })
+    server.get('/dashboard/:page', (req, res) => {
+      const actualPage = '/dashboard';
+      app.render(req, res, actualPage);
+    });
 
     server.get('/', (req, res) => {
       // XXX: Check if jwt token exists and valid
