@@ -10,5 +10,18 @@ module.exports = {
     contacting: 'contacting',
     delivered: 'delivered',
   },
+  delivery_type: {
+    meetup: 'meetup',
+    shipping: 'shipping',
+  },
+  day: {
+    sunday: 'sunday',
+    monday: 'monday',
+    tuesday: 'tuesday',
+    wednesday: 'wednesday',
+    thursday: 'thursday',
+    friday: 'friday',
+    saturday: 'saturday',
+  },
   domain: 'http://localhost:3001',
 };

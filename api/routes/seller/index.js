@@ -13,6 +13,6 @@ seller.get('/', readByEmail);
 seller.post('/', register);
 seller.post('/resetpass/', resetPassEmail);
 seller.post('/resetpass/:hash', resetPass);
-seller.put('/', update);
+seller.patch('/', update);
 
 module.exports = seller;

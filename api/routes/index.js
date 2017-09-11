@@ -1,12 +1,14 @@
 const routes = require('express').Router();
-const seller = require('./seller');
+const delivery = require('./delivery');
+const ingredient = require('./ingredient');
 const menu = require('./menu');
+const order = require('./order');
+const seller = require('./seller');
 
-routes.use('/seller', seller);
+routes.use('/delivery', delivery);
+routes.use('/ingredient', ingredient);
 routes.use('/menu', menu);
-
-// routes.get('/', (req, res) => {
-//   res.status(200).json({ message: 'Connected!' });
-// });
+routes.use('/order', order);
+routes.use('/seller', seller);
 
 module.exports = routes;

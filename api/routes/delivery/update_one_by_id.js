@@ -16,19 +16,19 @@ module.exports = (req, res) => {
     }
 
     const updateFields = {};
-    if (req.body.type) updateFields.type = req.body.type;
+    if (req.body.type && req.body.type in constants.delivery_type) updateFields.type = req.body.type;
     if (req.body.address) updateFields.address = req.body.address;
-    if (req.body.day) updateFields.day = req.body.day;
+    if (req.body.day && req.body.day in constants.day) updateFields.day = req.body.day;
     if (req.body.startTime) updateFields.startTime = req.body.startTime;
     if (req.body.endTime) updateFields.endTime = req.body.endTime;
 
-    Delivery.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields }, (error, deliverys) => {
+    Delivery.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields }, (error, delivery) => {
     if (error) {
       res.json({ status: constants.fail });
       return;
     }
 
-    res.json({ status: constants.success });
+    res.json({ status: constants.success, delivery });
     });
   });
 };

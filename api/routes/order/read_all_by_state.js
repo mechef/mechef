@@ -1,4 +1,4 @@
-const Delivery = require('../../models/delivery');
+const Order = require('../../models/order');
 const constants = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
 
@@ -14,13 +14,16 @@ module.exports = (req, res) => {
       res.status(404).json({ status: constants.fail });
       return;
     }
+    const condition = { email: decoded.email };
+    if (req.query.state) condition.state = req.query.state;
 
-    Delivery.find({ email: decoded.email }, (err, deliveryList) => {
-      if (err) {
-        res.status(404).json({ status: constants.fail, reason: constants.id_not_found });
-        return;
+    const query = Order.find(condition);
+    query.then((orders) => {
+      if (orders) {
+        res.json({ status: constants.success, orders });
+      } else {
+        res.status(404).json({ status: constants.fail, reason: 'Email not found' });
       }
-      res.json({ status: constants.success, deliveryList });
     });
   });
 };
