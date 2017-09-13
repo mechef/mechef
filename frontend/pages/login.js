@@ -43,14 +43,14 @@ class Login extends React.Component {
   }
 
   async onSubmitLogin() {
-    const formValues = urlencoder({
+    const formValues = JSON.stringify({
       email: this.state.login.id,
       password: this.state.login.password,
     });
     const res = await fetch(API_LOGIN, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
       },
       body: formValues,
     });
