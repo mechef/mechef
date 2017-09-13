@@ -1,11 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import fetch from 'isomorphic-unfetch';
 import urlencoder from 'form-urlencoded';
-import Router from 'next/router';
+
+import withRedux from 'next-redux-wrapper';
+import initStore from '../reducers/index';
+import { setLoginField, loginBegin, closeErrorModal } from '../actions/auth';
 
 import Header from '../components/header/header';
 import AlertModal from '../components/alertModal';
-import { API_REGISTER, API_LOGIN } from '../utils/constants';
+import { API_REGISTER } from '../utils/constants';
 
 class Login extends React.Component {
   constructor(props) {
@@ -17,17 +21,12 @@ class Login extends React.Component {
         password: '',
         email: '',
       },
-      login: {
-        id: '',
-        password: '',
-      },
       alertModal: {
         isShow: false,
         title: '',
         message: '',
       },
     };
-    this.onSubmitLogin = this.onSubmitLogin.bind(this);
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
   }
   componentDidMount() {
@@ -42,38 +41,38 @@ class Login extends React.Component {
     /* eslint-enable */
   }
 
-  async onSubmitLogin() {
-    const formValues = JSON.stringify({
-      email: this.state.login.id,
-      password: this.state.login.password,
-    });
-    const res = await fetch(API_LOGIN, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: formValues,
-    });
-    const data = await res.json();
-    if (res.ok) {
-      window.localStorage.setItem('jwt', data.token);
-      Router.push({
-        pathname: '/dashboard',
-      });
-    } else {
-      this.setState({
-        alertModal: {
-          isShow: true,
-          title: 'Login Error',
-          message: 'Something wrong',
-        },
-        login: {
-          id: '',
-          password: '',
-        },
-      });
-    }
-  }
+  // async onSubmitLogin() {
+  // const formValues = JSON.stringify({
+  //   email: this.state.login.id,
+  //   password: this.state.login.password,
+  // });
+  // const res = await fetch(API_LOGIN, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json; charset=utf-8',
+  //   },
+  //   body: formValues,
+  // });
+  // const data = await res.json();
+  // if (res.ok) {
+  //   window.localStorage.setItem('jwt', data.token);
+  //   Router.push({
+  //     pathname: '/dashboard',
+  //   });
+  // } else {
+  //   this.setState({
+  //     alertModal: {
+  //       isShow: true,
+  //       title: 'Login Error',
+  //       message: 'Something wrong',
+  //     },
+  //     login: {
+  //       id: '',
+  //       password: '',
+  //     },
+  //   });
+  // }
+  // }
 
   async onSubmitSignup() {
     const formValues = urlencoder({
@@ -104,13 +103,13 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="login-page">
+      <div>
         {
           this.state.alertModal.isShow ?
             <AlertModal
-              title={this.state.alertModal.title}
-              message={this.state.alertModal.message}
-              onCancel={() => this.setState({ alertModal: { title: '', message: '', isShow: false } })}
+              title={this.props.errorModal.title}
+              message={this.props.errorModal.message}
+              onCancel={this.props.closeErrorModal}
             />
             : null
         }
@@ -132,14 +131,9 @@ class Login extends React.Component {
                   <input
                     type="mail"
                     placeholder="Mail or Username"
-                    value={this.state.login.id}
+                    value={this.props.login.email}
                     onChange={(evt) => {
-                      this.setState({
-                        login: {
-                          ...this.state.login,
-                          id: evt.target.value,
-                        },
-                      });
+                      this.props.onChangeField('email', evt.target.value);
                     }}
                   />
                 </div>
@@ -147,19 +141,14 @@ class Login extends React.Component {
                   <input
                     type="password"
                     placeholder="Password"
-                    value={this.state.login.password}
+                    value={this.props.login.password}
                     onChange={(evt) => {
-                      this.setState({
-                        login: {
-                          ...this.state.login,
-                          password: evt.target.value,
-                        },
-                      });
+                      this.props.onChangeField('password', evt.target.value);
                     }}
                   />
                 </div>
                 <div className="submit">
-                  <button className="dark" onClick={this.onSubmitLogin}>SIGN IN</button>
+                  <button className="dark" onClick={this.props.onSubmitLogin}>SIGN IN</button>
                 </div>
               </div>
               <div className="register">
@@ -418,4 +407,43 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  onChangeField: PropTypes.func.isRequired,
+  onSubmitLogin: PropTypes.func.isRequired,
+  login: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+  }).isRequired,
+  errorModal: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    isShow: PropTypes.bool.isRequired,
+  }),
+};
+
+Login.defaultProps = {
+  errorModal: {
+    title: '',
+    message: '',
+    isShow: false,
+  },
+};
+
+const mapStateToProps = state => ({
+  login: state.auth.login,
+  errorModal: state.auth.errorModal,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onChangeField: (field, value) => {
+    dispatch(setLoginField(field, value));
+  },
+  onSubmitLogin: () => {
+    dispatch(loginBegin());
+  },
+  closeErrorModal: () => {
+    dispatch(closeErrorModal());
+  },
+});
+
+export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Login);
