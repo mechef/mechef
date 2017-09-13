@@ -5,7 +5,7 @@ const Gridfs = require('gridfs-stream');
 const mongoose = require('mongoose');
 
 module.exports = (req, res) => {
-  const token = req.body.token;
+  const token = req.headers.authorization;
   if (!token) {
     res.status(404).json({ status: constants.fail, reason: constants.no_token });
     return;
