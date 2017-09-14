@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import Home from '../pages/home';
-import Ingredient from '../pages/ingredient';
+import Ingredient from './ingredient';
+import Home from './home';
 
 const DashboardPageRouter = (props) => {
   const pathname = props.pathname;

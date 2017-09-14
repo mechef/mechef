@@ -2,12 +2,15 @@ import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import DashboardPageRouter from '../components/DashboardPageRouter';
+import withRedux from 'next-redux-wrapper';
 
+import initStore from '../reducers/index';
+import DashboardPageRouter from '../components/DashboardPageRouter';
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
+    // TODO: Move asPath to the store
     this.state = {
       asPath: props.asPath,
     };
@@ -31,8 +34,7 @@ class Dashboard extends React.Component {
                 <li><Link href="/dashboard">HOME</Link></li>
                 <li><Link href="/menu">MENU</Link></li>
                 <li><Link href="/order">ORDERS</Link></li>
-                {/* <li><a onClick={() => this.setState({ pathname: '/dashboard/ingredient' })}>INGREDIENTS</a></li> */}
-                <li><a onClick={() => Router.push('/dashboard', '/dashboard/ingredient')}>INGREDIENTS</a></li>
+                <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/ingredient')}>INGREDIENTS</a></li>
                 <li><Link href="/shipping">SHIPPING</Link></li>
                 <li><Link href="/account">ACCOUNT</Link></li>
                 <li><Link href="/setting">SETTINGS</Link></li>
@@ -255,4 +257,4 @@ Dashboard.propTypes = {
 
 Dashboard.getInitialProps = async ({ asPath }) => ({ asPath });
 
-export default Dashboard;
+export default withRedux(initStore, null, null)(Dashboard);

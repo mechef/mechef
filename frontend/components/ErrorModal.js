@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const AlertModal = props => (
+const ErrorModal = props => (
   <div className="alert-modal-overlay">
     <div className="alert-modal">
       <header className="alert-modal-header">
@@ -79,20 +79,20 @@ const AlertModal = props => (
 
         }
       `}
-      </style>
+    </style>
   </div>
 );
 
-AlertModal.propTypes = {
+ErrorModal.propTypes = {
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   onCancel: PropTypes.func,
 };
 
-AlertModal.defaultProps = {
+ErrorModal.defaultProps = {
   title: '',
   message: '',
   onCancel: () => {},
 };
 
-export default AlertModal;
+export default ErrorModal;
