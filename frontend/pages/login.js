@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-unfetch';
 import urlencoder from 'form-urlencoded';
-
 import withRedux from 'next-redux-wrapper';
-import initStore from '../reducers/index';
-import { setLoginField, loginBegin, closeErrorModal } from '../actions/auth';
 
+import initStore from '../reducers/index';
+import { setLoginField, loginBegin } from '../actions/auth';
+import { closeErrorModal } from '../actions/errorModal';
 import Header from '../components/header/header';
-import AlertModal from '../components/alertModal';
+import ErrorModal from '../components/ErrorModal';
 import { API_REGISTER } from '../utils/constants';
 
 class Login extends React.Component {
@@ -20,11 +20,6 @@ class Login extends React.Component {
         lastName: '',
         password: '',
         email: '',
-      },
-      alertModal: {
-        isShow: false,
-        title: '',
-        message: '',
       },
     };
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
@@ -40,39 +35,6 @@ class Login extends React.Component {
     });
     /* eslint-enable */
   }
-
-  // async onSubmitLogin() {
-  // const formValues = JSON.stringify({
-  //   email: this.state.login.id,
-  //   password: this.state.login.password,
-  // });
-  // const res = await fetch(API_LOGIN, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json; charset=utf-8',
-  //   },
-  //   body: formValues,
-  // });
-  // const data = await res.json();
-  // if (res.ok) {
-  //   window.localStorage.setItem('jwt', data.token);
-  //   Router.push({
-  //     pathname: '/dashboard',
-  //   });
-  // } else {
-  //   this.setState({
-  //     alertModal: {
-  //       isShow: true,
-  //       title: 'Login Error',
-  //       message: 'Something wrong',
-  //     },
-  //     login: {
-  //       id: '',
-  //       password: '',
-  //     },
-  //   });
-  // }
-  // }
 
   async onSubmitSignup() {
     const formValues = urlencoder({
@@ -90,14 +52,6 @@ class Login extends React.Component {
     });
     if (res.ok) {
       alert('Successfully Registered！');
-    } else {
-      this.setState({
-        alertModal: {
-          isShow: true,
-          title: 'Register Error',
-          message: 'Something wrong',
-        },
-      });
     }
   }
 
@@ -105,8 +59,8 @@ class Login extends React.Component {
     return (
       <div>
         {
-          this.state.alertModal.isShow ?
-            <AlertModal
+          this.props.errorModal.isShow ?
+            <ErrorModal
               title={this.props.errorModal.title}
               message={this.props.errorModal.message}
               onCancel={this.props.closeErrorModal}
@@ -410,6 +364,7 @@ class Login extends React.Component {
 Login.propTypes = {
   onChangeField: PropTypes.func.isRequired,
   onSubmitLogin: PropTypes.func.isRequired,
+  closeErrorModal: PropTypes.func,
   login: PropTypes.shape({
     email: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
@@ -422,6 +377,7 @@ Login.propTypes = {
 };
 
 Login.defaultProps = {
+  closeErrorModal: () => {},
   errorModal: {
     title: '',
     message: '',
@@ -431,7 +387,7 @@ Login.defaultProps = {
 
 const mapStateToProps = state => ({
   login: state.auth.login,
-  errorModal: state.auth.errorModal,
+  errorModal: state.errorModal,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -3,12 +3,16 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import 'rxjs';
+
 import auth, { authEpic } from './auth';
+import ingredient, { ingredientEpic } from './ingredient';
+import errorModal from './errorModal';
 
 const epics = combineEpics(
   authEpic,
+  ingredientEpic,
 );
-const reducers = combineReducers({ auth });
+const reducers = combineReducers({ auth, ingredient, errorModal });
 
 const epicMiddleware = createEpicMiddleware(epics);
 

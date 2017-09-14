@@ -1,6 +1,15 @@
 import Router from 'next/router';
 import { ajax } from 'rxjs/observable/dom/ajax';
-import { SET_LOGIN_FIELD, LOGIN_BEGIN, LOGIN_SUCCESS, LOGIN_ERROR, CLOSE_ERROR_MODAL, loginSuccess, loginError } from '../actions/auth';
+
+import {
+  SET_LOGIN_FIELD,
+  LOGIN_BEGIN,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  loginSuccess,
+  loginError,
+} from '../actions/auth';
+import { setError } from '../actions/errorModal';
 import { API_LOGIN } from '../utils/constants';
 
 const initialState = {
@@ -8,14 +17,8 @@ const initialState = {
     email: '',
     password: '',
   },
-  errorModal: {
-    isShow: false,
-    title: '',
-    message: '',
-  },
 };
 
-// REDUCERS
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_LOGIN_FIELD:
@@ -37,14 +40,6 @@ const reducer = (state = initialState, action) => {
           message: action.payload.message,
         },
       });
-    case CLOSE_ERROR_MODAL:
-      return Object.assign({}, state, {
-        errorModal: {
-          isShow: false,
-          title: '',
-          message: '',
-        },
-      });
     default:
       return state;
   }
@@ -61,17 +56,15 @@ export const authEpic = (action$, store) =>
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
         },
-      }).map((response) => {
-        window.localStorage.setItem('jwt', response.token);
+        responseType: 'json',
+      }).map((data) => {
+        window.localStorage.setItem('jwt', data.response.token);
         Router.push({
           pathname: '/dashboard',
         });
         return loginSuccess();
       }).catch(error => Observable.of(
-        loginError({
-          title: `Login Error: ${error}`,
-          message: 'Something wrong',
-        }),
+        setError('Login Error', error.message, true),
       )),
     );
 
