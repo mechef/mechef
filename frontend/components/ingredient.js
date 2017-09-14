@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withRedux from 'next-redux-wrapper';
+import { connect } from 'react-redux';
 
-import initStore from '../reducers/index';
 import { fetchIngredientBegin } from '../actions/ingredient';
 import { closeErrorModal } from '../actions/errorModal';
 import ErrorModal from '../components/ErrorModal';
@@ -185,4 +184,4 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Ingredient);
+export default connect(mapStateToProps, mapDispatchToProps)(Ingredient);
