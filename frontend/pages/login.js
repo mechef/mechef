@@ -8,10 +8,10 @@ import urlencoder from 'form-urlencoded';
 import { connect } from '../state/RxState';
 import authActions from '../actions/authActions';
 
-import { setLoginField, loginBegin } from '../actions/auth';
-import { closeErrorModal } from '../actions/errorModal';
+// import { setLoginField, loginBegin } from '../actions/auth';
+// import { closeErrorModal } from '../actions/errorModal';
 import Header from '../components/header/header';
-import ErrorModal from '../components/ErrorModal';
+// import ErrorModal from '../components/ErrorModal';
 import { API_REGISTER } from '../utils/constants';
 
 class Login extends React.Component {
@@ -103,7 +103,7 @@ class Login extends React.Component {
                 <div className="submit">
                   <button className="dark"
                     onClick={() => {
-                      login$({ email: '1234', password: '12345' })
+                      login$({ email, password })
                     }}
                   >
                     SIGN IN

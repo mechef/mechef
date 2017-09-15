@@ -2,9 +2,9 @@ import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import withRedux from 'next-redux-wrapper';
-
-import initStore from '../reducers/index';
+// import withRedux from 'next-redux-wrapper';
+import { connect } from '../state/RxState';
+// import initStore from '../reducers/index';
 import DashboardPageRouter from '../components/DashboardPageRouter';
 
 class Dashboard extends React.Component {
@@ -257,4 +257,4 @@ Dashboard.propTypes = {
 
 Dashboard.getInitialProps = async ({ asPath }) => ({ asPath });
 
-export default withRedux(initStore, null, null)(Dashboard);
+export default connect(() => {}, {})(Dashboard);
