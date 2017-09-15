@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-unfetch';
 import urlencoder from 'form-urlencoded';
-import withRedux from 'next-redux-wrapper';
+// import withRedux from 'next-redux-wrapper';
 
-import initStore from '../reducers/index';
+// import initStore from '../reducers/index';
+import { connect } from '../state/RxState';
+import authActions from '../actions/authActions';
+
 import { setLoginField, loginBegin } from '../actions/auth';
 import { closeErrorModal } from '../actions/errorModal';
 import Header from '../components/header/header';
@@ -56,17 +59,11 @@ class Login extends React.Component {
   }
 
   render() {
+    const { setLoginField$, login$ } = this.props;
+    const email = this.props.auth.email;
+    const password = this.props.auth.password;
     return (
       <div>
-        {
-          this.props.errorModal.isShow ?
-            <ErrorModal
-              title={this.props.errorModal.title}
-              message={this.props.errorModal.message}
-              onCancel={this.props.closeErrorModal}
-            />
-            : null
-        }
         <Header selectedItem="join" />
         <div className="login-panel">
           <div className="login-form">
@@ -85,9 +82,10 @@ class Login extends React.Component {
                   <input
                     type="mail"
                     placeholder="Mail or Username"
-                    value={this.props.login.email}
+                    value={email}
                     onChange={(evt) => {
-                      this.props.onChangeField('email', evt.target.value);
+                      setLoginField$({ email: evt.target.value })
+                      {/* this.props.onChangeField('email', evt.target.value); */}
                     }}
                   />
                 </div>
@@ -95,14 +93,21 @@ class Login extends React.Component {
                   <input
                     type="password"
                     placeholder="Password"
-                    value={this.props.login.password}
+                    value={password}
                     onChange={(evt) => {
-                      this.props.onChangeField('password', evt.target.value);
+                      setLoginField$({ password: evt.target.value })
+                      {/* this.props.onChangeField('password', evt.target.value); */}
                     }}
                   />
                 </div>
                 <div className="submit">
-                  <button className="dark" onClick={this.props.onSubmitLogin}>SIGN IN</button>
+                  <button className="dark"
+                    onClick={() => {
+                      login$({ email: '1234', password: '12345' })
+                    }}
+                  >
+                    SIGN IN
+                  </button>
                 </div>
               </div>
               <div className="register">
@@ -385,21 +390,23 @@ Login.defaultProps = {
   },
 };
 
-const mapStateToProps = state => ({
-  login: state.auth.login,
-  errorModal: state.errorModal,
-});
+// const mapStateToProps = state => ({
+//   login: state.auth.login,
+//   errorModal: state.errorModal,
+// });
 
-const mapDispatchToProps = dispatch => ({
-  onChangeField: (field, value) => {
-    dispatch(setLoginField(field, value));
-  },
-  onSubmitLogin: () => {
-    dispatch(loginBegin());
-  },
-  closeErrorModal: () => {
-    dispatch(closeErrorModal());
-  },
-});
+// const mapDispatchToProps = dispatch => ({
+//   onChangeField: (field, value) => {
+//     dispatch(setLoginField(field, value));
+//   },
+//   onSubmitLogin: () => {
+//     dispatch(loginBegin());
+//   },
+//   closeErrorModal: () => {
+//     dispatch(closeErrorModal());
+//   },
+// });
 
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Login);
+// export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Login);
+
+export default connect(({ auth }) => ({ auth }), authActions)(Login);
