@@ -6,6 +6,7 @@
     "react/react-in-jsx-scope": 0,
     "func-names": 0,
     "jsx-a11y/label-has-for": 0,
-    "no-undef": 0
+    "no-undef": 0,
+    "new-parens": 0
   }
 }

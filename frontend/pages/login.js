@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-unfetch';
 import urlencoder from 'form-urlencoded';
-import withRedux from 'next-redux-wrapper';
 
-import initStore from '../reducers/index';
-import { setLoginField, loginBegin } from '../actions/auth';
-import { closeErrorModal } from '../actions/errorModal';
+import { connect } from '../state/RxState';
+import authActions from '../actions/authActions';
+import errorActions from '../actions/errorActions';
+import { API_REGISTER } from '../utils/constants';
 import Header from '../components/header/header';
 import ErrorModal from '../components/ErrorModal';
-import { API_REGISTER } from '../utils/constants';
 
 class Login extends React.Component {
   constructor(props) {
@@ -56,14 +55,15 @@ class Login extends React.Component {
   }
 
   render() {
+    const { setLoginField$, login$, auth: { email, password }, error, setError$ } = this.props;
     return (
       <div>
         {
-          this.props.errorModal.isShow ?
+          error.isShowModal ?
             <ErrorModal
-              title={this.props.errorModal.title}
-              message={this.props.errorModal.message}
-              onCancel={this.props.closeErrorModal}
+              title={error.title}
+              message={error.message}
+              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
             />
             : null
         }
@@ -85,9 +85,9 @@ class Login extends React.Component {
                   <input
                     type="mail"
                     placeholder="Mail or Username"
-                    value={this.props.login.email}
+                    value={email}
                     onChange={(evt) => {
-                      this.props.onChangeField('email', evt.target.value);
+                      setLoginField$({ email: evt.target.value });
                     }}
                   />
                 </div>
@@ -95,14 +95,23 @@ class Login extends React.Component {
                   <input
                     type="password"
                     placeholder="Password"
-                    value={this.props.login.password}
+                    value={password}
                     onChange={(evt) => {
-                      this.props.onChangeField('password', evt.target.value);
+                      setLoginField$({ password: evt.target.value });
                     }}
                   />
                 </div>
                 <div className="submit">
-                  <button className="dark" onClick={this.props.onSubmitLogin}>SIGN IN</button>
+                  <button
+                    className="dark"
+                    onClick={() => {
+                      console.log('onclick Login');
+                      console.log(login$);
+                      login$({ email, password });
+                    }}
+                  >
+                    SIGN IN
+                  </button>
                 </div>
               </div>
               <div className="register">
@@ -362,44 +371,38 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  onChangeField: PropTypes.func.isRequired,
-  onSubmitLogin: PropTypes.func.isRequired,
-  closeErrorModal: PropTypes.func,
-  login: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
+  setLoginField$: PropTypes.func.isRequired,
+  login$: PropTypes.func.isRequired,
+  auth: PropTypes.shape({
+    email: PropTypes.string,
+    password: PropTypes.string,
   }).isRequired,
-  errorModal: PropTypes.shape({
+  setError$: PropTypes.func.isRequired,
+  error: PropTypes.shape({
     title: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
-    isShow: PropTypes.bool.isRequired,
+    isShowModal: PropTypes.bool.isRequired,
   }),
 };
 
 Login.defaultProps = {
-  closeErrorModal: () => {},
-  errorModal: {
+  auth: {
+    email: '',
+    password: '',
+  },
+  error: {
     title: '',
     message: '',
-    isShow: false,
+    isShowModal: false,
   },
 };
 
-const mapStateToProps = state => ({
-  login: state.auth.login,
-  errorModal: state.errorModal,
-});
 
-const mapDispatchToProps = dispatch => ({
-  onChangeField: (field, value) => {
-    dispatch(setLoginField(field, value));
-  },
-  onSubmitLogin: () => {
-    dispatch(loginBegin());
-  },
-  closeErrorModal: () => {
-    dispatch(closeErrorModal());
-  },
-});
+const stateSelector = ({ auth, error }) => ({ auth, error });
 
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Login);
+const actionSubjects = {
+  ...errorActions,
+  ...authActions,
+};
+
+export default connect(stateSelector, actionSubjects)(Login);

@@ -2,9 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Router from 'next/router';
-import withRedux from 'next-redux-wrapper';
 
-import initStore from '../reducers/index';
+import { connect } from '../state/RxState';
 import DashboardPageRouter from '../components/DashboardPageRouter';
 
 class Dashboard extends React.Component {
@@ -31,13 +30,13 @@ class Dashboard extends React.Component {
             <div className="dashboard-sidebar__inner">
               <img src="../static/logo.png" alt="logo" />
               <ul className="dashboard-sidebar__menu">
-                <li><Link href="/dashboard">HOME</Link></li>
-                <li><Link href="/menu">MENU</Link></li>
-                <li><Link href="/order">ORDERS</Link></li>
+                <li><Link href="/dashboard"><a>HOME</a></Link></li>
+                <li><Link href="/menu"><a>MENU</a></Link></li>
+                <li><Link href="/order"><a>ORDERS</a></Link></li>
                 <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/ingredient')}>INGREDIENTS</a></li>
-                <li><Link href="/shipping">SHIPPING</Link></li>
-                <li><Link href="/account">ACCOUNT</Link></li>
-                <li><Link href="/setting">SETTINGS</Link></li>
+                <li><Link href="/shipping"><a>SHIPPING</a></Link></li>
+                <li><Link href="/account"><a>ACCOUNT</a></Link></li>
+                <li><Link href="/setting"><a>SETTINGS</a></Link></li>
               </ul>
               <ul className="dashboard-sidebar__footer">
                 <li><a>Service Agreement</a></li>
@@ -255,6 +254,8 @@ Dashboard.propTypes = {
   asPath: PropTypes.string.isRequired,
 };
 
-Dashboard.getInitialProps = async ({ asPath }) => ({ asPath });
+const DashboardWrapper = connect(() => ({}), {})(Dashboard);
 
-export default withRedux(initStore, null, null)(Dashboard);
+DashboardWrapper.getInitialProps = async ({ asPath }) => ({ asPath });
+
+export default DashboardWrapper;
