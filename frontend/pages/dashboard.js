@@ -255,6 +255,12 @@ Dashboard.propTypes = {
   asPath: PropTypes.string.isRequired,
 };
 
-Dashboard.getInitialProps = async ({ asPath }) => ({ asPath });
+const DashboardWrapper = connect(() => {}, {})(Dashboard);
 
-export default connect(() => {}, {})(Dashboard);
+DashboardWrapper.getInitialProps = async ({ asPath }) => {
+  console.log('getInitialProps dashboard');
+  return { asPath };
+};
+
+
+export default DashboardWrapper;

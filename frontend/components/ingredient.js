@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { fetchIngredientBegin } from '../actions/ingredient';
-import { closeErrorModal } from '../actions/errorModal';
-import ErrorModal from '../components/ErrorModal';
+// import { connect } from 'react-redux';
+import { connect } from '../state/RxState';
+import ingredientActions from '../actions/ingredientActions';
+// import { fetchIngredientBegin } from '../actions/ingredient';
+// import { closeErrorModal } from '../actions/errorModal';
+// import ErrorModal from '../components/ErrorModal';
 
 class Ingredient extends React.Component {
   componentDidMount() {
-    this.props.fetchIngredientList();
+    this.props.fetchIngredient$();
   }
   render() {
-    const ingredientList = this.props.ingredientList;
+    const ingredientList = this.props.ingredient.ingredientList;
     return (
       <div className="container">
-        {
+        {/* {
           this.props.errorModal.isShow ?
             <ErrorModal
               title={this.props.errorModal.title}
@@ -22,7 +23,7 @@ class Ingredient extends React.Component {
               onCancel={this.props.closeErrorModal}
             />
             : null
-        }
+        } */}
         <div className="header">
           <span className="title">Ingredients List</span>
           <div className="addButton">
@@ -154,34 +155,39 @@ Ingredient.propTypes = {
   })).isRequired,
   fetchIngredientList: PropTypes.func.isRequired,
   closeErrorModal: PropTypes.func,
-  errorModal: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    isShow: PropTypes.bool.isRequired,
-  }),
+  // errorModal: PropTypes.shape({
+  //   title: PropTypes.string.isRequired,
+  //   message: PropTypes.string.isRequired,
+  //   isShow: PropTypes.bool.isRequired,
+  // }),
 };
 
 Ingredient.defaultProps = {
   closeErrorModal: () => {},
-  errorModal: {
-    title: '',
-    message: '',
-    isShow: false,
-  },
+  // errorModal: {
+  //   title: '',
+  //   message: '',
+  //   isShow: false,
+  // },
 };
 
-const mapStateToProps = state => ({
-  ingredientList: state.ingredient.ingredientList,
-  errorModal: state.errorModal,
-});
+const stateSelector = state => ({ ingredient: state.ingredient });
 
-const mapDispatchToProps = dispatch => ({
-  fetchIngredientList: () => {
-    dispatch(fetchIngredientBegin());
-  },
-  closeErrorModal: () => {
-    dispatch(closeErrorModal());
-  },
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ingredient);
+export default connect(stateSelector, ingredientActions)(Ingredient);
+
+// const mapStateToProps = state => ({
+//   ingredientList: state.ingredient.ingredientList,
+//   errorModal: state.errorModal,
+// });
+
+// const mapDispatchToProps = dispatch => ({
+//   fetchIngredientList: () => {
+//     dispatch(fetchIngredientBegin());
+//   },
+//   closeErrorModal: () => {
+//     dispatch(closeErrorModal());
+//   },
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Ingredient);

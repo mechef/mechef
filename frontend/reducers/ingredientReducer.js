@@ -1,5 +1,6 @@
 import Rx from 'rxjs';
 import ingredientActions from '../actions/ingredientActions';
+import { API_GET_INGREDIENT_LIST } from '../utils/constants';
 
 const initialState = {
   ingredientList: [],
@@ -7,8 +8,8 @@ const initialState = {
 
 const ingredientReducer$ = Rx.Observable.of(() => initialState)
   .merge(
-    ingredientActions.fetchIngredient$.flatMap(() => {
-      return Rx.Observable.ajax({
+    ingredientActions.fetchIngredient$.flatMap(() => (
+      Rx.Observable.ajax({
         crossDomain: true,
         url: API_GET_INGREDIENT_LIST,
         method: 'GET',
@@ -17,9 +18,8 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
       })
-      .map(data => data.response.ingredientLists)
-      .catch(error => console.error(error));
-    })
+    )).map(data => state => ({ ingredientList: data.response.ingredientLists }))
+      .catch(error => console.error(error)),
   );
 
 export default ingredientReducer$;
