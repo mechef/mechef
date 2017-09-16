@@ -55,7 +55,7 @@ class Ingredient extends React.Component {
               padding-top: 49px
               padding-left: 19px;
               width: 100%;
-              height: 998px;
+              height: 792px;
               background-color: #f8f7f7;
             }
             .header {

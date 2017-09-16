@@ -114,10 +114,12 @@ class Dashboard extends React.Component {
               .dashboard-sidebar {
                 background-color: #252525;
                 width: 100%;
+                height: 882px;
               }
 
               .dashboard-sidebar__inner {
-                padding: 28px 36px;
+                padding-top: 28px;
+                padding-bottom: 28px;
               }
 
               .dashboard-sidebar__menu {
@@ -125,10 +127,14 @@ class Dashboard extends React.Component {
                 padding: 0px;
               }
               .dashboard-sidebar__menu > li {
+                padding-left: 36px;
                 width: 108px;
                 height: 50px;
+                cursor: pointer;
               }
-
+              .dashboard-sidebar__menu > li:hover {
+                border-left: 9px solid #8cc63f;
+              }
               .dashboard-sidebar__menu > li > a {
                 line-height: 50px;
                 width: 75.9px;
@@ -137,6 +143,7 @@ class Dashboard extends React.Component {
                 font-size: 14px;
                 letter-spacing: 1px;
                 color: #ffffff;
+                text-decoration: none;
               }
 
               .dashboard-sidebar__footer {

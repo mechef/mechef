@@ -17,10 +17,6 @@ app.prepare()
     });
 
     server.get('/', (req, res) => {
-      // XXX: Check if jwt token exists and valid
-      if (!req.cookies.jwt) {
-        app.render(req, res, '/login');
-      }
       handle(req, res);
     });
 
