@@ -1,5 +1,6 @@
 import Rx from 'rxjs';
 import ingredientActions from '../actions/ingredientActions';
+import errorActions from '../actions/errorActions';
 import { API_GET_INGREDIENT_LIST } from '../utils/constants';
 
 const initialState = {
@@ -17,9 +18,13 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           'Content-Type': 'application/json; charset=utf-8',
           Authorization: window.localStorage.getItem('jwt'),
         },
-      })
-    )).map(data => () => ({ ingredientList: data.response.ingredientLists }))
-      .catch(error => console.error(error)),
+        responseType: 'json',
+      }).map(data => state => ({ ...state, ingredientList: data.response.ingredientLists }))
+        .catch((error) => {
+          errorActions.setError$.next({ isShowModal: true, title: 'Login Error', message: error.message });
+          return Rx.Observable.of(state => state);
+        })
+    )),
   );
 
 export default ingredientReducer$;

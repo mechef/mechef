@@ -13,7 +13,9 @@ export function createState(reducerStream, initialState$ = Rx.Observable.of({}))
 
 export function connect(selector = state => state, actionSubjects) {
   const actions = Object.keys(actionSubjects)
-    .reduce((acc, key) => ({ ...acc, [key]: value => actionSubjects[key].next(value) }), {});
+    .reduce((acc, key) => ({ ...acc, [key]: (value) => {
+      actionSubjects[key].next(value);
+    }}), {});
 
   return function wrapWithConnect(WrappedComponent) {
     return class Connect extends Component {

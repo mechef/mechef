@@ -1,29 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+
 import { connect } from '../state/RxState';
 import ingredientActions from '../actions/ingredientActions';
-// import { fetchIngredientBegin } from '../actions/ingredient';
-// import { closeErrorModal } from '../actions/errorModal';
-// import ErrorModal from '../components/ErrorModal';
+import errorActions from '../actions/errorActions';
+import ErrorModal from '../components/ErrorModal';
 
 class Ingredient extends React.Component {
   componentDidMount() {
     this.props.fetchIngredient$();
   }
   render() {
-    const ingredientList = this.props.ingredient.ingredientList;
+    const { ingredient: { ingredientList }, setError$, error } = this.props;
     return (
       <div className="container">
-        {/* {
-          this.props.errorModal.isShow ?
+        {
+          error.isShowModal ?
             <ErrorModal
-              title={this.props.errorModal.title}
-              message={this.props.errorModal.message}
-              onCancel={this.props.closeErrorModal}
+              title={error.title}
+              message={error.message}
+              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
             />
             : null
-        } */}
+        }
         <div className="header">
           <span className="title">Ingredients List</span>
           <div className="addButton">
@@ -149,45 +148,38 @@ class Ingredient extends React.Component {
 }
 
 Ingredient.propTypes = {
-  ingredientList: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    amount: PropTypes.number.isRequired,
-  })).isRequired,
-  fetchIngredientList: PropTypes.func.isRequired,
-  closeErrorModal: PropTypes.func,
-  // errorModal: PropTypes.shape({
-  //   title: PropTypes.string.isRequired,
-  //   message: PropTypes.string.isRequired,
-  //   isShow: PropTypes.bool.isRequired,
-  // }),
+  ingredient: PropTypes.shape({
+    ingredientList: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      amount: PropTypes.number,
+    })),
+  }),
+  fetchIngredient$: PropTypes.func.isRequired,
+  setError$: PropTypes.func.isRequired,
+  error: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    isShowModal: PropTypes.bool.isRequired,
+  }),
 };
 
 Ingredient.defaultProps = {
-  closeErrorModal: () => {},
-  // errorModal: {
-  //   title: '',
-  //   message: '',
-  //   isShow: false,
-  // },
+  ingredient: {
+    ingredientList: [],
+  },
+  error: {
+    title: '',
+    message: '',
+    isShowModal: false,
+  },
 };
 
-const stateSelector = state => ({ ingredient: state.ingredient });
 
+const stateSelector = ({ ingredient, error }) => ({ ingredient, error });
 
-export default connect(stateSelector, ingredientActions)(Ingredient);
+const actionSubjects = {
+  ...errorActions,
+  ...ingredientActions,
+};
 
-// const mapStateToProps = state => ({
-//   ingredientList: state.ingredient.ingredientList,
-//   errorModal: state.errorModal,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//   fetchIngredientList: () => {
-//     dispatch(fetchIngredientBegin());
-//   },
-//   closeErrorModal: () => {
-//     dispatch(closeErrorModal());
-//   },
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Ingredient);
+export default connect(stateSelector, actionSubjects)(Ingredient);

@@ -1,6 +1,7 @@
 import Rx from 'rxjs';
 import Router from 'next/router';
 import authActions from '../actions/authActions';
+import errorActions from '../actions/errorActions';
 import { API_LOGIN } from '../utils/constants';
 
 const initialState = {
@@ -21,17 +22,17 @@ const authReducer$ = Rx.Observable.of(() => initialState)
           'Content-Type': 'application/json; charset=utf-8',
         },
         responseType: 'json',
+      }).map((data) => {
+        window.localStorage.setItem('jwt', data.response.token);
+        Router.push({
+          pathname: '/dashboard',
+        });
+        return state => state;
+      }).catch((error) => {
+        errorActions.setError$.next({ isShowModal: true, title: 'Login Error', message: error.message });
+        return Rx.Observable.of(state => state);
       })
-    )).map(data => (state) => {
-      window.localStorage.setItem('jwt', data.response.token);
-      Router.push({
-        pathname: '/dashboard',
-      });
-      return {
-        ...state,
-        isFetching: false,
-      };
-    }).catch(error => console.error(error)),
+    )),
   );
 
 export default authReducer$;

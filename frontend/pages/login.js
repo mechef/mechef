@@ -5,11 +5,10 @@ import urlencoder from 'form-urlencoded';
 
 import { connect } from '../state/RxState';
 import authActions from '../actions/authActions';
+import errorActions from '../actions/errorActions';
 import { API_REGISTER } from '../utils/constants';
 import Header from '../components/header/header';
-
-// import { closeErrorModal } from '../actions/errorModal';
-// import ErrorModal from '../components/ErrorModal';
+import ErrorModal from '../components/ErrorModal';
 
 class Login extends React.Component {
   constructor(props) {
@@ -56,9 +55,18 @@ class Login extends React.Component {
   }
 
   render() {
-    const { setLoginField$, login$, auth: { email, password } } = this.props;
+    const { setLoginField$, login$, auth: { email, password }, error, setError$ } = this.props;
     return (
       <div>
+        {
+          error.isShowModal ?
+            <ErrorModal
+              title={error.title}
+              message={error.message}
+              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+            />
+            : null
+        }
         <Header selectedItem="join" />
         <div className="login-panel">
           <div className="login-form">
@@ -79,7 +87,7 @@ class Login extends React.Component {
                     placeholder="Mail or Username"
                     value={email}
                     onChange={(evt) => {
-                      setLoginField$({ email: evt.target.value })
+                      setLoginField$({ email: evt.target.value });
                     }}
                   />
                 </div>
@@ -89,14 +97,18 @@ class Login extends React.Component {
                     placeholder="Password"
                     value={password}
                     onChange={(evt) => {
-                      setLoginField$({ password: evt.target.value })
+                      setLoginField$({ password: evt.target.value });
                     }}
                   />
                 </div>
                 <div className="submit">
                   <button
                     className="dark"
-                    onClick={() => { login$({ email, password }); }}
+                    onClick={() => {
+                      console.log('onclick Login');
+                      console.log(login$);
+                      login$({ email, password });
+                    }}
                   >
                     SIGN IN
                   </button>
@@ -362,24 +374,35 @@ Login.propTypes = {
   setLoginField$: PropTypes.func.isRequired,
   login$: PropTypes.func.isRequired,
   auth: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
+    email: PropTypes.string,
+    password: PropTypes.string,
   }).isRequired,
-  closeErrorModal: PropTypes.func,
-  errorModal: PropTypes.shape({
+  setError$: PropTypes.func.isRequired,
+  error: PropTypes.shape({
     title: PropTypes.string.isRequired,
     message: PropTypes.string.isRequired,
-    isShow: PropTypes.bool.isRequired,
+    isShowModal: PropTypes.bool.isRequired,
   }),
 };
 
 Login.defaultProps = {
-  closeErrorModal: () => {},
-  errorModal: {
+  auth: {
+    email: '',
+    password: '',
+  },
+  error: {
     title: '',
     message: '',
-    isShow: false,
+    isShowModal: false,
   },
 };
 
-export default connect(({ auth }) => ({ auth }), authActions)(Login);
+
+const stateSelector = ({ auth, error }) => ({ auth, error });
+
+const actionSubjects = {
+  ...errorActions,
+  ...authActions,
+};
+
+export default connect(stateSelector, actionSubjects)(Login);
