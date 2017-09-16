@@ -36,30 +36,28 @@ module.exports = (req, res) => {
 
   Seller.findOne({ email }, (err, seller) => {
     if (err) {
-      console.log(err);
-      res.status(404).json({ status: constants.fail, reason: err });
+      res.status(500).json({ status: constants.fail, reason: err });
     }
-    // console.log(seller);
     if (seller) {
       if (!seller.isActivate) {
-        res.status(404).json({ status: constants.fail, reason: 'Email not activated' });
+        res.status(401).json({ status: constants.fail, reason: 'Email not activated' });
       } else {
         const password = req.body.password;
         const combined = seller.passwordCombined;
         cryptoUtils.verifyPassword(password, combined, (error, verify) => {
           if (verify) {
             const token = jwt.sign({ email }, constants.secret, {
-              expiresIn: 60 * 60 * 24,
+              expiresIn: 60 * 60 * 24 * 30,
             });
 
             res.json({ status: constants.success, token });
           } else {
-            res.status(404).json({ status: constants.fail, reason: 'Password not match' });
+            res.status(401).json({ status: constants.fail, reason: 'Password not match' });
           }
         });
       }
     } else {
-      res.status(404).json({ status: constants.fail, reason: 'Email not found' });
+      res.status(401).json({ status: constants.fail, reason: constants.email_not_found });
     }
   });
 };

@@ -34,14 +34,13 @@ module.exports = (req, res) => {
   const query = Seller.findOne({ email: req.body.email });
   query.then((user) => {
     if (user) {
-      res.json({ status: constants.fail, reason: 'Duplicated email' });
+      res.status(400).json({ status: constants.fail, reason: 'Duplicated email' });
       return;
     }
 
     cryptoUtils.hashPassword(req.body.password, (err, combined) => {
       if (err) {
-        console.log(err);
-        res.json({ status: constants.fail });
+        res.status(500).json({ status: constants.fail });
         return;
       }
 
@@ -61,15 +60,13 @@ module.exports = (req, res) => {
 
       mailer.sendMail(mailOptions, (erro) => {
         if (erro) {
-          console.log(erro);
-          res.json({ status: constants.fail });
+          res.status(500).json({ status: constants.fail });
           return;
         }
 
         seller.save((error) => {
           if (error) {
-            console.log(error);
-            res.json({ status: constants.fail });
+            res.status(500).json({ status: constants.fail });
             return;
           }
 

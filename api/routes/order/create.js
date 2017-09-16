@@ -15,7 +15,7 @@ module.exports = (req, res) => {
   order.deliveryAddress = req.body.deliveryAddress;
   Menu.findOne({ _id: order.menuId, email: order.sellerEmail }, (err, menu) => {
     if (err) {
-      res.status(404).json({ status: constants.fail, reason: constants.id_not_found });
+      res.status(500).json({ status: constants.fail, reason: constants.id_not_found });
       return;
     }
     // do quantity check
@@ -26,7 +26,7 @@ module.exports = (req, res) => {
 
     Menu.findOneAndUpdate({ _id: menu._id }, { $inc: { quantity: -order.quantity } }, { new: true }, (error, newMenu) => {
     if (error) {
-      res.json({ status: constants.fail });
+      res.status(500).json({ status: constants.fail });
       return;
     }
 
@@ -41,7 +41,7 @@ module.exports = (req, res) => {
 
       mailer.sendMail(mailOptions, (erro) => {
         if (erro) {
-          res.json({ status: constants.fail });
+          res.status(500).json({ status: constants.fail });
           return;
         }
         res.json({ status: constants.success });
@@ -50,13 +50,13 @@ module.exports = (req, res) => {
     } else if (newMenu.quantity < 0) {
       // maybe there will be race condition
       Menu.findOneAndUpdate({ _id: menu._id }, { $set: { quantity: 0 } });
-      res.json({ status: constants.fail });
+      res.status(500).json({ status: constants.fail });
       return;
     }
 
     order.save((error, savedOrder) => {
       if (erro) {
-        res.json({ status: constants.fail });
+        res.status(500).json({ status: constants.fail });
         return;
       }
 
@@ -69,7 +69,7 @@ module.exports = (req, res) => {
 
       mailer.sendMail(mailOptions, (erro) => {
         if (erro) {
-          res.json({ status: constants.fail });
+          res.status(500).json({ status: constants.fail });
           return;
         }
         res.json({ status: constants.success });

@@ -1,4 +1,4 @@
-const Delivery = require('../../models/delivery');
+const Memo = require('../../models/memo');
 const constants = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
 
@@ -15,12 +15,23 @@ module.exports = (req, res) => {
       return;
     }
 
-    Delivery.find({ email: decoded.email }, (err, deliveryList) => {
-      if (err) {
+    const memo = new Memo();
+    memo.email = decoded.email;
+    memo.name = req.body.name;
+    memo.ingredients = req.body.ingredients;
+    memo.sum = 0;
+
+    for (let i = 0; memo.ingredients && i < memo.ingredients.length; i += 1) {
+      memo.sum += memo.ingredients[i].amount;
+    }
+
+    memo.save((error) => {
+      if (error) {
         res.status(500).json({ status: constants.fail });
         return;
       }
-      res.json({ status: constants.success, deliveryList });
+
+      res.json({ status: constants.success });
     });
   });
 };

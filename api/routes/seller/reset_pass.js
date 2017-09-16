@@ -33,16 +33,14 @@ module.exports = (req, res) => {
   const password = req.body.password;
   cryptoUtils.hashPassword(password, (err, combined) => {
     if (err) {
-      console.log(err);
-      res.json({ status: constants.fail });
+      res.status(500).json({ status: constants.fail });
       return;
     }
 
     Seller.update({ resetPassHash }, { passwordCombined: combined },
       (error) => {
         if (error) {
-          console.log(error);
-          res.json({ status: constants.fail });
+          res.status(500).json({ status: constants.fail });
           return;
         }
 

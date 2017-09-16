@@ -29,8 +29,7 @@ module.exports = (req, res) => {
     { isActivate: true },
     (err) => {
       if (err) {
-        console.log(err);
-        res.status(404).json({ status: constants.fail });
+        res.status(500).json({ status: constants.fail });
         return;
       }
       res.json({ status: constants.success });

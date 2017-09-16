@@ -31,7 +31,7 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res) => {
   const token = req.body.token;
   if (!token) {
-    res.json({ status: constants.fail, reason: constants.no_token });
+    res.status(400).json({ status: constants.fail, reason: constants.no_token });
     return;
   }
 
@@ -42,12 +42,11 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.json({ status: constants.fail });
+      res.status(500).json({ status: constants.fail });
     } else {
       Seller.update({ email: decoded.email }, {$set: updateFields }, (error) => {
         if (error) {
-          console.log(error);
-          res.json({ status: constants.fail });
+          res.status(500).json({ status: constants.fail });
           return;
         }
 
