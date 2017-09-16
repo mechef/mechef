@@ -5,6 +5,7 @@ module.exports = {
   success: 'success',
   no_token: 'no_token',
   id_not_found: 'id not found',
+  email_not_found: 'email not found',
   order_state: {
     pending: 'pending',
     contacting: 'contacting',

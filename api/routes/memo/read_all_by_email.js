@@ -1,4 +1,4 @@
-const Delivery = require('../../models/delivery');
+const Memo = require('../../models/memo');
 const constants = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
 
@@ -15,12 +15,12 @@ module.exports = (req, res) => {
       return;
     }
 
-    Delivery.find({ email: decoded.email }, (err, deliveryList) => {
+    Memo.find({ email: decoded.email }, { __v: false, email: false }, (err, memos) => {
       if (err) {
         res.status(500).json({ status: constants.fail });
         return;
       }
-      res.json({ status: constants.success, deliveryList });
+      res.json({ status: constants.success, memos });
     });
   });
 };

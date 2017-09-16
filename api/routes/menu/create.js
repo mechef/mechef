@@ -11,13 +11,13 @@ module.exports = (req, res) => {
   // req.body will contain the text fields, if there were any
   const token = req.headers.authorization;
   if (!token) {
-    res.status(404).json({ status: constants.fail, reason: constants.no_token });
+    res.status(400).json({ status: constants.fail, reason: constants.no_token });
     return;
   }
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(404).json({ status: constants.fail });
+      res.status(500).json({ status: constants.fail });
       return;
     }
 
@@ -41,7 +41,7 @@ module.exports = (req, res) => {
     menu.save((error, savedMenu) => {
       if (error) {
         console.log(error);
-        res.json({ status: constants.fail });
+        res.status(500).json({ status: constants.fail });
         return;
       }
 

@@ -39,14 +39,12 @@ module.exports = (req, res) => {
 
   mailer.sendMail(mailOptions, (error) => {
     if (error) {
-      console.log(error);
-      res.json({ status: constants.fail });
+      res.status(500).json({ status: constants.fail });
       return;
     }
     Seller.update({ email: req.body.email }, { resetPassHash }, (err) => {
       if (err) {
-        console.log(err);
-        res.json({ status: constants.fail });
+        res.status(500).json({ status: constants.fail });
         return;
       }
       res.json({ status: constants.success });

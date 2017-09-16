@@ -31,20 +31,20 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res) => {
   const token = req.query.token;
   if (!token) {
-    res.status(404).json({ status: constants.fail, reason: constants.no_token });
+    res.status(400).json({ status: constants.fail, reason: constants.no_token });
     return;
   }
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(404).json({ status: constants.fail });
+      res.status(500).json({ status: constants.fail });
     } else {
       const query = Seller.findOne({ email: decoded.email });
       query.then((seller) => {
         if (seller) {
           res.json({ status: constants.success, seller });
         } else {
-          res.status(404).json({ status: constants.fail, reason: 'Email not found' });
+          res.status(401).json({ status: constants.fail, reason: constants.email_not_found });
         }
       });
     }

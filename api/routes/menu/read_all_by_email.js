@@ -7,7 +7,7 @@ module.exports = (req, res) => {
     if (menu) {
       res.json({ status: constants.success, menu });
     } else {
-      res.status(404).json({ status: constants.fail, reason: 'Email not found' });
+      res.status(404).json({ status: constants.fail, reason: constants.email_not_found });
     }
   });
 };
