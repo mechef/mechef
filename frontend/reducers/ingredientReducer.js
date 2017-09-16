@@ -18,7 +18,7 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
       })
-    )).map(data => state => ({ ingredientList: data.response.ingredientLists }))
+    )).map(data => () => ({ ingredientList: data.response.ingredientLists }))
       .catch(error => console.error(error)),
   );
 
