@@ -34,7 +34,7 @@ class Dashboard extends React.Component {
                 <li><Link href="/menu"><a>MENU</a></Link></li>
                 <li><Link href="/order"><a>ORDERS</a></Link></li>
                 <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/ingredient')}>INGREDIENTS</a></li>
-                <li><Link href="/shipping"><a>SHIPPING</a></Link></li>
+                <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/shipping')}>SHIPPING</a></li>
                 <li><Link href="/account"><a>ACCOUNT</a></Link></li>
                 <li><Link href="/setting"><a>SETTINGS</a></Link></li>
               </ul>
