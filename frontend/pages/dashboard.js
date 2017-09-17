@@ -22,6 +22,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    const { backArrow } = this.props;
     return (
       <div className="dashboard">
         <input type="checkbox" id="dashboard-header__menu-toggle" hidden />
@@ -53,6 +54,18 @@ class Dashboard extends React.Component {
         <div className="dashboard__right">
           <div className="dashboard-header">
             <div className="dashboard-header__wrapper">
+              {
+                backArrow.isShow ?
+                  <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
+                    <i className="fa fa-arrow-left dashboard-header__icon" aria-hidden="true" />
+                    <span className="dashboard-header__title" >{backArrow.title}</span>
+                  </label>
+                  :
+                  <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
+                    <i className="fa fa-bars dashboard-header__icon" aria-hidden="true" />
+                    <span className="dashboard-header__title" >MENU</span>
+                  </label>
+              }
               <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
                 <i className="fa fa-bars dashboard-header__icon" aria-hidden="true" />
                 <span className="dashboard-header__title" >MENU</span>
@@ -252,9 +265,24 @@ class Dashboard extends React.Component {
 
 Dashboard.propTypes = {
   asPath: PropTypes.string.isRequired,
+  global: PropTypes.shape({
+    backArrow: PropTypes.shape({
+      isShow: PropTypes.bool,
+      title: PropTypes.string,
+    })
+  }),
 };
 
-const DashboardWrapper = connect(() => ({}), {})(Dashboard);
+Dashboard.defaultProps = {
+  global: {
+    backArrow: {
+      isShow: false,
+      title: '',
+    },
+  }
+};
+
+const DashboardWrapper = connect(({ global }) => ({ global }), {})(Dashboard);
 
 DashboardWrapper.getInitialProps = async ({ asPath }) => ({ asPath });
 
