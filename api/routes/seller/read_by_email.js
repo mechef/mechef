@@ -29,7 +29,7 @@ const jwt = require('jsonwebtoken');
  *
  */
 module.exports = (req, res) => {
-  const token = req.query.token;
+  const token = req.headers.authorization;
   if (!token) {
     res.status(400).json({ status: constants.fail, reason: constants.no_token });
     return;
@@ -39,13 +39,14 @@ module.exports = (req, res) => {
     if (err) {
       res.status(500).json({ status: constants.fail });
     } else {
-      const query = Seller.findOne({ email: decoded.email });
-      query.then((seller) => {
-        if (seller) {
-          res.json({ status: constants.success, seller });
-        } else {
-          res.status(401).json({ status: constants.fail, reason: constants.email_not_found });
+      Seller.findOne({ email: decoded.email },
+        { __v: false, email: false, isActivate: false, activateHash: false, passwordCombined: false },
+        (error, seller) => {
+        if (error) {
+          res.status(500).json({ status: constants.fail });
+          return;
         }
+        res.json({ status: constants.success, seller });
       });
     }
   });
