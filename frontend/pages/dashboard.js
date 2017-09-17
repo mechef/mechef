@@ -34,7 +34,7 @@ class Dashboard extends React.Component {
               <ul className="dashboard-sidebar__menu">
                 <li><Link href="/dashboard"><a>HOME</a></Link></li>
                 <li><Link href="/menu"><a>MENU</a></Link></li>
-                <li><Link href="/order"><a>ORDERS</a></Link></li>
+                <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/order')}>ORDERS</a></li>
                 <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/ingredient')}>INGREDIENTS</a></li>
                 <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/shipping')}>SHIPPING</a></li>
                 <li><Link href="/account"><a>ACCOUNT</a></Link></li>
