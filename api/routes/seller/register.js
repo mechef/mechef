@@ -45,11 +45,16 @@ module.exports = (req, res) => {
       }
 
       const seller = new Seller();
-      seller.name = req.body.name;
       seller.email = req.body.email;
       seller.passwordCombined = combined;
       seller.activateHash = uuidv4() + uuidv4();
       seller.isActivate = false;
+      seller.coverPhoto = '';
+      seller.profileImage = '';
+      seller.kitchenDescription = req.body.kitchenDescription ? req.body.kitchenDescription : '';
+      seller.firstName = req.body.firstName ? req.body.firstName : '';
+      seller.lastName = req.body.lastName ? req.body.lastName : '';
+      seller.phoneNumber = req.body.phoneNumber ? req.body.phoneNumber : '';
 
       const mailOptions = {
         from: '"Mechef" <mechef@mechef.com>', // sender address
