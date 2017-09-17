@@ -5,6 +5,7 @@ import Router from 'next/router';
 
 import { connect } from '../state/RxState';
 import DashboardPageRouter from '../components/DashboardPageRouter';
+import globalActions from '../actions/globalActions';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { backArrow } = this.props;
+    const { global: { backArrow }, toggleBackArrow$ } = this.props;
     return (
       <div className="dashboard">
         <input type="checkbox" id="dashboard-header__menu-toggle" hidden />
@@ -55,21 +56,17 @@ class Dashboard extends React.Component {
           <div className="dashboard-header">
             <div className="dashboard-header__wrapper">
               {
-                backArrow.isShow ?
-                  <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
-                    <i className="fa fa-arrow-left dashboard-header__icon" aria-hidden="true" />
+                backArrow && backArrow.isShow ?
+                  <div className="dashboard-header__menu" onClick={() => toggleBackArrow$('')}>
+                    <i className="fa fa-arrow-left fa-arrow-leftx2 dashboard-header__icon" aria-hidden="true" />
                     <span className="dashboard-header__title" >{backArrow.title}</span>
-                  </label>
+                  </div>
                   :
                   <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
                     <i className="fa fa-bars dashboard-header__icon" aria-hidden="true" />
                     <span className="dashboard-header__title" >MENU</span>
                   </label>
               }
-              <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
-                <i className="fa fa-bars dashboard-header__icon" aria-hidden="true" />
-                <span className="dashboard-header__title" >MENU</span>
-              </label>
               <div className="dashboard-header__user-profile">
                 <div className="dashboard-header__user-head" />
                 <div className="dashboard-header__user-head" />
@@ -282,7 +279,7 @@ Dashboard.defaultProps = {
   }
 };
 
-const DashboardWrapper = connect(({ global }) => ({ global }), {})(Dashboard);
+const DashboardWrapper = connect(({ global }) => ({ global }), { ...globalActions })(Dashboard);
 
 DashboardWrapper.getInitialProps = async ({ asPath }) => ({ asPath });
 

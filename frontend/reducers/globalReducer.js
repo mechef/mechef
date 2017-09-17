@@ -10,7 +10,7 @@ const initialState = {
 
 const globalReducer$ = Rx.Observable.of(() => initialState)
   .merge(
-    globalActions.toggleBackArrow$.map(() => state => ({ ...state, backArrow: { ...state.backArrow, isShow: !state.showBackArrow } })),
+    globalActions.toggleBackArrow$.map(title => state => ({ ...state, backArrow: { title, isShow: !state.backArrow.isShow } })),
   );
 
 export default globalReducer$;
