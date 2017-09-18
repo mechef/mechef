@@ -8,5 +8,6 @@
     "jsx-a11y/label-has-for": 0,
     "no-undef": 0,
     "new-parens": 0
-  }
+  },
+  "parser": "babel-eslint"
 }
