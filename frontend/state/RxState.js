@@ -50,14 +50,17 @@ export function connect(
         actionSubjects[key].next(value);
       },
     }), {});
-
   return function wrapWithConnect(
     WrappedComponent: React.ComponentType<any>,
   ): React.ComponentType<any> {
     return class Connect extends React.Component<{}> {
+      static getInitialProps({ asPath }) {
+        return {
+          asPath,
+        };
+      }
       // eslint-disable-next-line react/sort-comp
       subscription: Observable;
-
       componentWillMount() {
         this.subscription = createState(reducer$).map(selector).subscribe(this.setState.bind(this));
       }

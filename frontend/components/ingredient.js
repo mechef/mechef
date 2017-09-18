@@ -8,10 +8,10 @@ import ErrorModal from '../components/ErrorModal';
 
 class Ingredient extends React.Component {
   componentDidMount() {
-    this.props.fetchIngredient$();
+    this.props.fetchMemos$();
   }
   render() {
-    const { ingredient: { ingredientList }, setError$, error } = this.props;
+    const { ingredient: { memos }, setError$, error } = this.props;
     return (
       <div className="container">
         {
@@ -31,14 +31,14 @@ class Ingredient extends React.Component {
         </div>
         {/* TODO: state shape of ingredientList might be modified  */}
         {
-          ingredientList.map(() => (
-            <div className="ingredient-list">
+          memos.map(memo => (
+            <div key={memo.id} className="ingredient-list">
               <div className="ingredient-item">
                 <div className="ingredient-content">
-                  <p className="ingredient-title">Jasmine Tea</p>
+                  <p className="ingredient-title">{memo.name}</p>
                   <p className="ingredient-detail">
-                    <span className="ingredient-subtext">Ingredient: 4</span>
-                    <span className="ingredient-subtext">Total: $300</span>
+                    <span className="ingredient-subtext">Ingredient: {memo.ingredients && memo.length}</span>
+                    <span className="ingredient-subtext">Total: {`$${memo.sum}`}</span>
                   </p>
                 </div>
                 <span className="update-button">
@@ -55,7 +55,7 @@ class Ingredient extends React.Component {
               padding-top: 49px
               padding-left: 19px;
               width: 100%;
-              height: 998px;
+              height: 792px;
               background-color: #f8f7f7;
             }
             .header {
@@ -149,12 +149,16 @@ class Ingredient extends React.Component {
 
 Ingredient.propTypes = {
   ingredient: PropTypes.shape({
-    ingredientList: PropTypes.arrayOf(PropTypes.shape({
+    memos: PropTypes.arrayOf(PropTypes.shape({
+      sum: PropTypes.number,
       name: PropTypes.string,
-      amount: PropTypes.number,
+      ingredients: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string,
+        amount: PropTypes.number,
+      })),
     })),
   }),
-  fetchIngredient$: PropTypes.func.isRequired,
+  fetchMemos$: PropTypes.func.isRequired,
   setError$: PropTypes.func.isRequired,
   error: PropTypes.shape({
     title: PropTypes.string.isRequired,
@@ -165,7 +169,7 @@ Ingredient.propTypes = {
 
 Ingredient.defaultProps = {
   ingredient: {
-    ingredientList: [],
+    memos: [],
   },
   error: {
     title: '',
