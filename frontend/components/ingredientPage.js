@@ -1,5 +1,7 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import Rx from 'rxjs';
 
 import { connect } from '../state/RxState';
 import ingredientActions from '../actions/ingredientActions';
@@ -9,12 +11,46 @@ import ErrorModal from './ErrorModal';
 import IngredientList from './IngredientList';
 import IngredientEdit from './IngredientEdit';
 
-class IngredientPage extends React.Component {
+type Props = {
+  ingredient: {
+    memos: [{
+      id: string,
+      sum: number,
+      name: string,
+      ingredients: [{
+        name: string,
+        amount: number,
+      }],
+    }],
+  },
+  fetchMemos$: any => Rx.Observable,
+  setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
+  error: {
+    title: string,
+    message: string,
+    isShowModal: bool,
+  },
+  global: {
+    backArrow: {
+      isShow: boolean,
+      title: string,
+    },
+  },
+  toggleBackArrow$: string => Rx.Observable,
+}
+
+class IngredientPage extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchMemos$();
   }
   render() {
-    const { ingredient: { memos }, setError$, error, global: { backArrow }, toggleBackArrow$ } = this.props;
+    const {
+      ingredient: { memos },
+      setError$,
+      error,
+      global: { backArrow },
+      toggleBackArrow$,
+    } = this.props;
     return (
       <div className="container">
         {
@@ -48,37 +84,6 @@ class IngredientPage extends React.Component {
     );
   }
 }
-
-IngredientPage.propTypes = {
-  ingredient: PropTypes.shape({
-    memos: PropTypes.arrayOf(PropTypes.shape({
-      sum: PropTypes.number,
-      name: PropTypes.string,
-      ingredients: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string,
-        amount: PropTypes.number,
-      })),
-    })),
-  }),
-  fetchMemos$: PropTypes.func.isRequired,
-  setError$: PropTypes.func.isRequired,
-  error: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    isShowModal: PropTypes.bool.isRequired,
-  }),
-};
-
-IngredientPage.defaultProps = {
-  ingredient: {
-    memos: [],
-  },
-  error: {
-    title: '',
-    message: '',
-    isShowModal: false,
-  },
-};
 
 
 const stateSelector = ({ ingredient, error, global }) => ({ ingredient, error, global });

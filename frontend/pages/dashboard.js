@@ -1,13 +1,31 @@
-import React from 'react';
+// @flow
+
+import * as React from 'react';
+import Rx from 'rxjs';
 import Link from 'next/link';
-import PropTypes from 'prop-types';
 import Router from 'next/router';
 
 import { connect } from '../state/RxState';
 import DashboardPageRouter from '../components/DashboardPageRouter';
 import globalActions from '../actions/globalActions';
 
-class Dashboard extends React.Component {
+type Props = {
+  asPath: string,
+  global: {
+    backArrow: {
+      isShow: boolean,
+      title: string,
+    },
+  },
+  toggleBackArrow$: string => Rx.Observable,
+}
+
+type State = {
+  asPath: string,
+}
+
+class Dashboard extends React.Component<Props, State> {
+  static getInitialProps = async ({ asPath }) => ({ asPath });
   constructor(props) {
     super(props);
     // TODO: Move asPath to the store
@@ -16,14 +34,14 @@ class Dashboard extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps: Props) {
     this.setState({
       asPath: nextProps.asPath,
     });
   }
 
   render() {
-    const { global: { backArrow }, toggleBackArrow$ } = this.props;
+    const { global: { backArrow }, toggleBackArrow$ }: Props = this.props;
     return (
       <div className="dashboard">
         <input type="checkbox" id="dashboard-header__menu-toggle" hidden />
@@ -57,7 +75,7 @@ class Dashboard extends React.Component {
             <div className="dashboard-header__wrapper">
               {
                 backArrow && backArrow.isShow ?
-                  <div className="dashboard-header__menu" onClick={() => toggleBackArrow$('')}>
+                  <div role="button" tabIndex="-1" className="dashboard-header__menu" onClick={() => toggleBackArrow$('')}>
                     <i className="fa fa-arrow-left fa-arrow-leftx2 dashboard-header__icon" aria-hidden="true" />
                     <span className="dashboard-header__title" >{backArrow.title}</span>
                   </div>
@@ -282,27 +300,6 @@ class Dashboard extends React.Component {
   }
 }
 
-Dashboard.propTypes = {
-  asPath: PropTypes.string.isRequired,
-  global: PropTypes.shape({
-    backArrow: PropTypes.shape({
-      isShow: PropTypes.bool,
-      title: PropTypes.string,
-    })
-  }),
-};
-
-Dashboard.defaultProps = {
-  global: {
-    backArrow: {
-      isShow: false,
-      title: '',
-    },
-  }
-};
-
 const DashboardWrapper = connect(({ global }) => ({ global }), { ...globalActions })(Dashboard);
-
-DashboardWrapper.getInitialProps = async ({ asPath }) => ({ asPath });
 
 export default DashboardWrapper;

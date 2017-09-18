@@ -7,7 +7,8 @@
     "func-names": 0,
     "jsx-a11y/label-has-for": 0,
     "no-undef": 0,
-    "new-parens": 0
+    "new-parens": 0,
+    "react/prop-types": 0
   },
   "parser": "babel-eslint"
 }

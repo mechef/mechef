@@ -1,6 +1,20 @@
-import PropTypes from 'prop-types';
+// @flow
+import * as React from 'react';
+import Rx from 'rxjs';
 
-const IngredientList = ({ memos, onAdd }) => (
+type Props = {
+  memos: [{
+    id: string,
+    sum: number,
+    name: string,
+    ingredients: [{
+      name: string,
+      amount: number,
+    }],
+  }],
+  onAdd: any => Rx.Observable,
+}
+const IngredientList = ({ memos, onAdd }: Props): React.Element<'div'> => (
   <div>
     <div className="header">
       <span className="title">Ingredients List</span>
@@ -16,7 +30,7 @@ const IngredientList = ({ memos, onAdd }) => (
               <p className="ingredient-title">{memo.name}</p>
               <p className="ingredient-detail">
                 <span className="ingredient-subtext">
-                  Ingredient: {memo.ingredients && memo.length}
+                  Ingredient: {memo.ingredients && memo.ingredients.length}
                 </span>
                 <span className="ingredient-subtext">
                   Total: {`$${memo.sum}`}
@@ -118,22 +132,5 @@ const IngredientList = ({ memos, onAdd }) => (
     </style>
   </div>
 );
-
-IngredientList.propTypes = {
-  memos: PropTypes.arrayOf(PropTypes.shape({
-    sum: PropTypes.number,
-    name: PropTypes.string,
-    ingredients: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      amount: PropTypes.number,
-    })),
-  })),
-  onAdd: PropTypes.func,
-};
-
-IngredientList.defaultProps = {
-  memos: [],
-  onClick: () => {},
-};
 
 export default IngredientList;
