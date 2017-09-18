@@ -25,7 +25,6 @@ type State = {
 }
 
 class Dashboard extends React.Component<Props, State> {
-  static getInitialProps = async ({ asPath }) => ({ asPath });
   constructor(props) {
     super(props);
     // TODO: Move asPath to the store

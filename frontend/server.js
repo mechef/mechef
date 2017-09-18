@@ -17,7 +17,10 @@ app.prepare()
     });
 
     server.get('/', (req, res) => {
-      handle(req, res);
+      // TODO: Find a way to login automatically by jwt
+      app.render(req, res, '/login');
+      // For rendering index.js
+      // handle(req, res);
     });
 
     server.get('*', (req, res) => handle(req, res));
