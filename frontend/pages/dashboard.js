@@ -197,6 +197,21 @@ class Dashboard extends React.Component {
                 color: #4a4a4a;
               }
 
+              .dashboard-header__menu {
+                padding-left: 8px;
+                padding-right: 8px;
+              }
+
+              .dashboard-header__menu:hover {
+                border-radius: 4px;
+                background: #3f9f40;
+                cursor: pointer;
+              }
+
+              .dashboard-header__menu:hover > i, .dashboard-header__menu:hover > span {
+                color: #ffffff;
+              }
+
               #dashboard-header__menu-toggle:checked ~ .dashboard__right {
                 width: 100%;
               }
