@@ -13,17 +13,19 @@ import IngredientEdit from './IngredientEdit';
 
 type Props = {
   ingredient: {
-    memos: [{
+    memos: Array<{
       id: string,
       sum: number,
       name: string,
-      ingredients: [{
+      ingredients: Array<{
         name: string,
         amount: number,
-      }],
-    }],
+      }>,
+    }>,
   },
   fetchMemos$: any => Rx.Observable,
+  addIngredient$: ({ name: string, amount: number }) => Rx.Observable,
+  createMemo$: ({ name: string, ingredients: Array<{ name: string, amount: number }> }) => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -64,7 +66,7 @@ class IngredientPage extends React.Component<Props> {
         }
         {
           backArrow.isShow ?
-            <IngredientEdit />
+            <IngredientEdit onAddIngredient={this.props.addIngredient$} onCreateMemo={this.props.createMemo$} />
             :
             <IngredientList memos={memos} onAdd={() => toggleBackArrow$('Edit Ingredient')} />
         }

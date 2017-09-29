@@ -7,10 +7,10 @@ type Props = {
     id: string,
     sum: number,
     name: string,
-    ingredients: [{
+    ingredients: Array<{
       name: string,
       amount: number,
-    }],
+    }>,
   }],
   onAdd: any => Rx.Observable,
 }
