@@ -3,12 +3,6 @@ import * as React from 'react';
 import Rx from 'rxjs';
 
 type Props = {
-  sum?: number,
-  name?: string,
-  ingredients?: Array<{
-    name: string,
-    amount: number,
-  }>,
   onCreateMemo: ({
     name: string,
     ingredients: Array<{
@@ -16,6 +10,18 @@ type Props = {
       amount: number,
     }>
   }) => Rx.Observable,
+  onDeleteMemo: (memoId: string) => Rx.Observable,
+  memos: Array<{
+    _id: string,
+    sum: number,
+    name: string,
+    ingredients: Array<{
+      name: string,
+      amount: number,
+    }>,
+  }>,
+  currentMemoId: string,
+  goBack: () => Rx.Observable,
 }
 
 type State = {
@@ -30,23 +36,23 @@ type State = {
 }
 
 class IngredientEdit extends React.Component<Props, State> {
-  static defaultProps = {
-    sum: 0,
-    name: '',
-    ingredients: [],
-  };
   constructor(props: Props) {
     super(props);
+    const currentMemo = props.memos.find(memo => memo._id === props.currentMemoId) || {
+      sum: 0,
+      name: '',
+      ingredients: [],
+    };
     this.state = {
-      memoName: this.props.name || '',
-      total: this.props.sum || 0,
+      memoName: currentMemo.name,
+      total: currentMemo.sum,
+      ingredients: currentMemo.ingredients,
       inputIngredientName: '',
       inputIngredientAmount: 0,
-      ingredients: this.props.ingredients || [],
     };
   }
   render() {
-    const { onCreateMemo } = this.props;
+    const { onCreateMemo, onDeleteMemo, goBack } = this.props;
     return (
       <div className="dashboard-content">
         <p className="dashboard-content__title">Edit Ingredients</p>
@@ -82,6 +88,8 @@ class IngredientEdit extends React.Component<Props, State> {
                       },
                     ],
                     total: parseInt(this.state.total, 10) + parseInt(this.state.inputIngredientAmount, 10),
+                    inputIngredientName: '',
+                    inputIngredientAmount: 0,
                   })}
                 >
                   <i className="fa fa-plus " aria-hidden="true" />
@@ -89,19 +97,31 @@ class IngredientEdit extends React.Component<Props, State> {
               </div>
             </p>
             {
-              this.state.ingredients.map(ingredient => (
+              this.state.ingredients.map((ingredient, index) => (
                 <div className="ingredients">
                   <span className="ingredients__name">{ingredient.name}</span>
                   <span className="ingredients__cost">$ {ingredient.amount}</span>
-                  <span className="ingredients__remove-btn">X</span>
+                  <span
+                    className="ingredients__remove-btn"
+                    role="button"
+                    tabIndex="-1"
+                    onClick={() => {
+                      this.setState({
+                        ingredients: this.state.ingredients.filter((element, i) => i !== index),
+                        total: parseInt(this.state.total, 10) - parseInt(ingredient.amount, 10),
+                      });
+                    }}
+                  >
+                    X
+                  </span>
                 </div>
               ))
             }
           </div>
         </div>
         <div className="buttonGroup">
-          <span className="secondaryBtn">DELETE</span>
-          <span className="secondaryBtn">CANCEL</span>
+          <span className="secondaryBtn" role="button" tabIndex="-1" onClick={() => onDeleteMemo(this.props.currentMemoId)}>DELETE</span>
+          <span className="secondaryBtn" role="button" tabIndex="-1" onClick={() => goBack()}>CANCEL</span>
           <span
             className="primaryBtn"
             role="button"

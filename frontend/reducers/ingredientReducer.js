@@ -31,15 +31,9 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           return Rx.Observable.of(state => state);
         })
     )),
-    ingredientActions.setCurrentMemoId$.map(payload => state => ({
+    ingredientActions.setCurrentMemoId$.map(memoId => state => ({
       ...state,
-      currentMemoId: payload.memoId,
-    })),
-    ingredientActions.addIngredient$.map(payload => state => ({
-      ...state,
-      memos: [...state.memos, ingredients: { name: payload.ingredientName, amount: payload.ingredientAmount }],
-      ingredientName: '',
-      ingredientAmount: 0,
+      currentMemoId: memoId,
     })),
     ingredientActions.createMemo$.flatMap(reqbody => (
       Rx.Observable.ajax({
@@ -59,6 +53,27 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
         return state => state;
       }).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
+        return Rx.Observable.of(state => state);
+      })
+    )),
+    ingredientActions.deleteMemo$.flatMap(memoId => (
+      Rx.Observable.ajax({
+        crossDomain: true,
+        url: `${API_MEMO}/${memoId}`,
+        method: 'DELETE',
+        body: {},
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Authorization: window.localStorage.getItem('jwt'),
+        },
+        responseType: 'json',
+      }).map(() => {
+        // Router.push({
+        //   pathname: '/dashboard/ingredient',
+        // });
+        return state => state;
+      }).catch((error) => {
+        errorActions.setError$.next({ isShowModal: true, title: 'Delete Memo Error', message: error.message });
         return Rx.Observable.of(state => state);
       })
     )),

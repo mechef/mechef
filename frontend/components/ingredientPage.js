@@ -14,7 +14,7 @@ import IngredientEdit from './IngredientEdit';
 type Props = {
   ingredient: {
     memos: Array<{
-      id: string,
+      _id: string,
       sum: number,
       name: string,
       ingredients: Array<{
@@ -22,10 +22,18 @@ type Props = {
         amount: number,
       }>,
     }>,
+    currentMemoId: string,
   },
   fetchMemos$: any => Rx.Observable,
-  addIngredient$: ({ name: string, amount: number }) => Rx.Observable,
-  createMemo$: ({ name: string, ingredients: Array<{ name: string, amount: number }> }) => Rx.Observable,
+  createMemo$: ({
+    name: string,
+    ingredients: Array<{
+      name: string,
+      amount: number
+    }>
+  }) => Rx.Observable,
+  deleteMemo$: (memoId: string) => Rx.Observable,
+  setCurrentMemoId$: (memoId: string) => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -47,11 +55,14 @@ class IngredientPage extends React.Component<Props> {
   }
   render() {
     const {
-      ingredient: { memos },
+      ingredient: { memos, currentMemoId },
       setError$,
       error,
       global: { backArrow },
+      createMemo$,
+      deleteMemo$,
       toggleBackArrow$,
+      setCurrentMemoId$,
     } = this.props;
     return (
       <div className="container">
@@ -66,9 +77,21 @@ class IngredientPage extends React.Component<Props> {
         }
         {
           backArrow.isShow ?
-            <IngredientEdit onAddIngredient={this.props.addIngredient$} onCreateMemo={this.props.createMemo$} />
+            <IngredientEdit
+              memos={memos}
+              currentMemoId={currentMemoId}
+              onCreateMemo={createMemo$}
+              onDeleteMemo={memoId => deleteMemo$(memoId)}
+              goBack={() => toggleBackArrow$('')}
+            />
             :
-            <IngredientList memos={memos} onAdd={() => toggleBackArrow$('Edit Ingredient')} />
+            <IngredientList
+              memos={memos}
+              onEditMemo={(memoId) => {
+                setCurrentMemoId$(memoId);
+                toggleBackArrow$('Edit Ingredient');
+              }}
+            />
         }
         <style jsx>
           {`

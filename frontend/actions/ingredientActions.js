@@ -5,4 +5,5 @@ export default {
   addIngredient$: new Rx.Subject,
   createMemo$: new Rx.Subject,
   setCurrentMemoId$: new Rx.Subject,
+  deleteMemo$: new Rx.Subject,
 };
