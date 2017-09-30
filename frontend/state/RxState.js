@@ -33,12 +33,13 @@ export function createState(
 ): Observable {
   return initialState$
     .merge(reducerStream)
-    .debug(() => console.log('createState'))
+    .debug('createState')
     .scan((state, [scope, reducer]) => ({ ...state, [scope]: reducer(state[scope]) }))
     .publishReplay(1)
     .refCount();
 }
 
+const globalState = createState(reducer$);
 export function connect(
   selector?: any => any = state => state,
   actionSubjects: { [key: string]: Rx.Subject },
@@ -62,7 +63,7 @@ export function connect(
       // eslint-disable-next-line react/sort-comp
       subscription: Observable;
       componentWillMount() {
-        this.subscription = createState(reducer$).map(selector).subscribe(this.setState.bind(this));
+        this.subscription = globalState.map(selector).subscribe(this.setState.bind(this));
       }
 
       componentWillUnmount() {

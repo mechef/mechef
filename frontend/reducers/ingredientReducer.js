@@ -1,7 +1,6 @@
 // @flow
 
 import Rx from 'rxjs';
-import Router from 'next/router';
 import ingredientActions from '../actions/ingredientActions';
 import errorActions from '../actions/errorActions';
 import { API_MEMO } from '../utils/constants';
@@ -46,11 +45,8 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(() => {
-        // Router.push({
-        //   pathname: '/dashboard/ingredient',
-        // });
-        return state => state;
+      }).map((data) => {
+        return state => ({ ...state, memos: [...state.memos, data.response.memo] });
       }).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
         return Rx.Observable.of(state => state);
@@ -68,10 +64,7 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
         },
         responseType: 'json',
       }).map(() => {
-        // Router.push({
-        //   pathname: '/dashboard/ingredient',
-        // });
-        return state => state;
+        return state => ({ ...state, memos: state.memos.filter(memo => memo._id !== memoId) });
       }).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Delete Memo Error', message: error.message });
         return Rx.Observable.of(state => state);

@@ -120,7 +120,17 @@ class IngredientEdit extends React.Component<Props, State> {
           </div>
         </div>
         <div className="buttonGroup">
-          <span className="secondaryBtn" role="button" tabIndex="-1" onClick={() => onDeleteMemo(this.props.currentMemoId)}>DELETE</span>
+          <span
+            className="secondaryBtn"
+            role="button"
+            tabIndex="-1"
+            onClick={() => {
+              onDeleteMemo(this.props.currentMemoId);
+              goBack();
+            }}
+          >
+            DELETE
+          </span>
           <span className="secondaryBtn" role="button" tabIndex="-1" onClick={() => goBack()}>CANCEL</span>
           <span
             className="primaryBtn"
@@ -131,6 +141,7 @@ class IngredientEdit extends React.Component<Props, State> {
                 name: this.state.memoName,
                 ingredients: this.state.ingredients,
               });
+              goBack();
             }}
           >
             SAVE
