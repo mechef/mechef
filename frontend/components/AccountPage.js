@@ -73,10 +73,15 @@ class AccountPage extends React.Component<Props> {
         }
         {
           backArrow.isShow ?
-            <AccountEdit />
+            <AccountEdit
+              account={account}
+            />
             :
             <AccountDetail
               account={account}
+              onUpdateAccount={() => {
+                toggleBackArrow$('EDIT ACCOUNT');
+              }}
             />
         }
         <style jsx>

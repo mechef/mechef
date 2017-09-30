@@ -29,7 +29,7 @@ const AccountDetail = props => (
         </div>
       </div>
       <div className="buttonGroup">
-        <span role="button" tabIndex="-1" className="updateBtn" onClick={() => {}}>
+        <span role="button" tabIndex="-1" className="updateBtn" onClick={props.onUpdateAccount}>
           <span className="updateBtnText">UPDATE</span>
         </span>
       </div>
