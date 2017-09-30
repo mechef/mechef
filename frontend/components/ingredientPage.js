@@ -32,6 +32,14 @@ type Props = {
       amount: number
     }>
   }) => Rx.Observable,
+  updateMemo$: ({
+    _id: string,
+    name: string,
+    ingredients: Array<{
+      name: string,
+      amount: number
+    }>
+  }) => Rx.Observable,
   deleteMemo$: (memoId: string) => Rx.Observable,
   setCurrentMemoId$: (memoId: string) => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
@@ -60,6 +68,7 @@ class IngredientPage extends React.Component<Props> {
       error,
       global: { backArrow },
       createMemo$,
+      updateMemo$,
       deleteMemo$,
       toggleBackArrow$,
       setCurrentMemoId$,
@@ -81,6 +90,7 @@ class IngredientPage extends React.Component<Props> {
               memos={memos}
               currentMemoId={currentMemoId}
               onCreateMemo={createMemo$}
+              onUpdateMemo={updateMemo$}
               onDeleteMemo={memoId => deleteMemo$(memoId)}
               goBack={() => toggleBackArrow$('')}
             />

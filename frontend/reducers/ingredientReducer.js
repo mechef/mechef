@@ -52,6 +52,31 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
         return Rx.Observable.of(state => state);
       })
     )),
+    ingredientActions.updateMemo$.flatMap(reqbody => (
+      Rx.Observable.ajax({
+        crossDomain: true,
+        url: `${API_MEMO}/${reqbody._id}`,
+        method: 'PATCH',
+        body: reqbody,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Authorization: window.localStorage.getItem('jwt'),
+        },
+        responseType: 'json',
+      }).map(() => (
+        state => ({ ...state,
+          memos: state.memos.map((memo) => {
+            if (memo._id === reqbody._id) {
+              return { ...memo, ...reqbody };
+            }
+            return memo;
+          }),
+        })
+      )).catch((error) => {
+        errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
+        return Rx.Observable.of(state => state);
+      })
+    )),
     ingredientActions.deleteMemo$.flatMap(memoId => (
       Rx.Observable.ajax({
         crossDomain: true,

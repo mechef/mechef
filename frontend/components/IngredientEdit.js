@@ -10,6 +10,14 @@ type Props = {
       amount: number,
     }>
   }) => Rx.Observable,
+  onUpdateMemo: ({
+    _id: string,
+    name: string,
+    ingredients: Array<{
+      name: string,
+      amount: number,
+    }>
+  }) => Rx.Observable,
   onDeleteMemo: (memoId: string) => Rx.Observable,
   memos: Array<{
     _id: string,
@@ -25,6 +33,7 @@ type Props = {
 }
 
 type State = {
+  id?: string,
   memoName: string,
   total: number,
   inputIngredientName: string,
@@ -39,11 +48,13 @@ class IngredientEdit extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const currentMemo = props.memos.find(memo => memo._id === props.currentMemoId) || {
+      _id: '',
       sum: 0,
       name: '',
       ingredients: [],
     };
     this.state = {
+      id: currentMemo._id,
       memoName: currentMemo.name,
       total: currentMemo.sum,
       ingredients: currentMemo.ingredients,
@@ -52,7 +63,7 @@ class IngredientEdit extends React.Component<Props, State> {
     };
   }
   render() {
-    const { onCreateMemo, onDeleteMemo, goBack } = this.props;
+    const { onCreateMemo, onUpdateMemo, onDeleteMemo, goBack } = this.props;
     return (
       <div className="dashboard-content">
         <p className="dashboard-content__title">Edit Ingredients</p>
@@ -137,10 +148,19 @@ class IngredientEdit extends React.Component<Props, State> {
             role="button"
             tabIndex="-1"
             onClick={() => {
-              onCreateMemo({
-                name: this.state.memoName,
-                ingredients: this.state.ingredients,
-              });
+              if (this.state.id) {
+                // TODO: Modify to only provide updated data
+                onUpdateMemo({
+                  _id: this.state.id,
+                  name: this.state.memoName,
+                  ingredients: this.state.ingredients,
+                });
+              } else {
+                onCreateMemo({
+                  name: this.state.memoName,
+                  ingredients: this.state.ingredients,
+                });
+              }
               goBack();
             }}
           >
