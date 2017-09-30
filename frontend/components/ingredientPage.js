@@ -110,7 +110,8 @@ class IngredientPage extends React.Component<Props> {
               padding-top: 49px
               padding-left: 19px;
               width: 100%;
-              height: 792px;
+              min-height: 792px;
+              height: 100%;
               background-color: #f8f7f7;
             }
           `}

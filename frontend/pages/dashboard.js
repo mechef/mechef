@@ -103,12 +103,12 @@ class Dashboard extends React.Component<Props, State> {
               }
               body {
                 margin: 0px;
-                background-color: #f8f7f7;
               }
               .dashboard {
                 display: -webkit-box;
                 display: -ms-flexbox;
                 display: flex;
+                background-color: #252525;
               }
               .dashboard__left {
                 width: 240px;
@@ -120,6 +120,7 @@ class Dashboard extends React.Component<Props, State> {
                 -webkit-box-flex: 5;
                 -ms-flex: 5;
                 flex: 5;
+                height: 100%;
               }
               @media all and (max-width: 600px) {
                 .dashboard__left {
@@ -129,9 +130,9 @@ class Dashboard extends React.Component<Props, State> {
                 }
               }
               .dashboard-sidebar {
-                background-color: #252525;
                 width: 100%;
-                height: 882px;
+                min-height: 882px;
+                height: 100%;
               }
 
               .dashboard-sidebar__inner {

@@ -64,13 +64,14 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
           margin-left: 20px;
           border-radius: 4px;
           background-color: #ffffff;
+          cursor: pointer;
         }
         .plus-icon {
           margin: auto;
           color: #009245;
         }
         .addButton:hover {
-          background-color: #3e9f40;
+          background-color: #3f9f40;
         }
         .addButton:hover .plus-icon {
           color: #ffffff;
@@ -126,7 +127,7 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
           cursor: default;
         }
         .update-button:hover, .update-button:active {
-          background-color: #969696;
+          background-color: #367d36;
         }
       `}
     </style>

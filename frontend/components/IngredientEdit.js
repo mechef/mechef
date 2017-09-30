@@ -153,6 +153,7 @@ class IngredientEdit extends React.Component<Props, State> {
                 onUpdateMemo({
                   _id: this.state.id,
                   name: this.state.memoName,
+                  sum: this.state.total,
                   ingredients: this.state.ingredients,
                 });
               } else {
@@ -315,6 +316,11 @@ class IngredientEdit extends React.Component<Props, State> {
             .ingredients__remove-btn {
               margin: auto 16.4px;
               color: #9b9b9b;
+              transition: all .2s ease-in-out;
+            }
+
+            .ingredients__remove-btn:hover {
+              transform: scale(1.5);
             }
 
             .buttonGroup {
@@ -333,6 +339,12 @@ class IngredientEdit extends React.Component<Props, State> {
               border-radius: 4px;
               border: solid 1px #3e9f40;
               margin-left: 12px;
+              color: #3e9f40;
+            }
+
+            .secondaryBtn:hover, .secondaryBtn:active {
+              background-color: #3f9f40;
+              color: #ffffff;
             }
 
             .primaryBtn {
@@ -344,6 +356,11 @@ class IngredientEdit extends React.Component<Props, State> {
               border-radius: 4px;
               background-color: #3e9f40;
               margin-left: 12px;
+              color: #ffffff;
+            }
+
+            .primaryBtn:hover, .primaryBtn:active {
+              background-color: #367d36;
             }
           `}
         </style>
