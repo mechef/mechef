@@ -1,7 +1,6 @@
 // @flow
 
 import Rx from 'rxjs';
-import Router from 'next/router';
 import ingredientActions from '../actions/ingredientActions';
 import errorActions from '../actions/errorActions';
 import { API_MEMO } from '../utils/constants';
@@ -31,15 +30,9 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           return Rx.Observable.of(state => state);
         })
     )),
-    ingredientActions.setCurrentMemoId$.map(payload => state => ({
+    ingredientActions.setCurrentMemoId$.map(memoId => state => ({
       ...state,
-      currentMemoId: payload.memoId,
-    })),
-    ingredientActions.addIngredient$.map(payload => state => ({
-      ...state,
-      memos: [...state.memos, ingredients: { name: payload.ingredientName, amount: payload.ingredientAmount }],
-      ingredientName: '',
-      ingredientAmount: 0,
+      currentMemoId: memoId,
     })),
     ingredientActions.createMemo$.flatMap(reqbody => (
       Rx.Observable.ajax({
@@ -52,13 +45,53 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(() => {
-        // Router.push({
-        //   pathname: '/dashboard/ingredient',
-        // });
-        return state => state;
+      }).map((data) => {
+        return state => ({ ...state, memos: [...state.memos, data.response.memo] });
       }).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
+        return Rx.Observable.of(state => state);
+      })
+    )),
+    ingredientActions.updateMemo$.flatMap(reqbody => (
+      Rx.Observable.ajax({
+        crossDomain: true,
+        url: `${API_MEMO}/${reqbody._id}`,
+        method: 'PATCH',
+        body: reqbody,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Authorization: window.localStorage.getItem('jwt'),
+        },
+        responseType: 'json',
+      }).map(() => (
+        state => ({ ...state,
+          memos: state.memos.map((memo) => {
+            if (memo._id === reqbody._id) {
+              return { ...memo, ...reqbody };
+            }
+            return memo;
+          }),
+        })
+      )).catch((error) => {
+        errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
+        return Rx.Observable.of(state => state);
+      })
+    )),
+    ingredientActions.deleteMemo$.flatMap(memoId => (
+      Rx.Observable.ajax({
+        crossDomain: true,
+        url: `${API_MEMO}/${memoId}`,
+        method: 'DELETE',
+        body: {},
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Authorization: window.localStorage.getItem('jwt'),
+        },
+        responseType: 'json',
+      }).map(() => {
+        return state => ({ ...state, memos: state.memos.filter(memo => memo._id !== memoId) });
+      }).catch((error) => {
+        errorActions.setError$.next({ isShowModal: true, title: 'Delete Memo Error', message: error.message });
         return Rx.Observable.of(state => state);
       })
     )),

@@ -3,28 +3,28 @@ import * as React from 'react';
 import Rx from 'rxjs';
 
 type Props = {
-  memos: [{
-    id: string,
+  memos: Array<{
+    _id: string,
     sum: number,
     name: string,
     ingredients: Array<{
       name: string,
       amount: number,
     }>,
-  }],
-  onAdd: any => Rx.Observable,
+  }>,
+  onEditMemo: (memoId: string) => Rx.Observable,
 }
-const IngredientList = ({ memos, onAdd }: Props): React.Element<'div'> => (
+const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
   <div>
     <div className="header">
       <span className="title">Ingredients List</span>
-      <div role="link" tabIndex="-1" className="addButton" onClick={onAdd}>
+      <div role="link" tabIndex="-1" className="addButton" onClick={() => onEditMemo('')}>
         <i className="fa fa-plus plus-icon" aria-hidden="true" />
       </div>
     </div>
     {
       memos.map(memo => (
-        <div key={memo.id} className="ingredient-list">
+        <div key={memo._id} className="ingredient-list">
           <div className="ingredient-item">
             <div className="ingredient-content">
               <p className="ingredient-title">{memo.name}</p>
@@ -37,7 +37,7 @@ const IngredientList = ({ memos, onAdd }: Props): React.Element<'div'> => (
                 </span>
               </p>
             </div>
-            <span className="update-button">
+            <span role="button" tabIndex="-1" className="update-button" onClick={() => onEditMemo(memo._id)}>
               <span className="update-button-text">UPDATE</span>
             </span>
           </div>
@@ -64,13 +64,14 @@ const IngredientList = ({ memos, onAdd }: Props): React.Element<'div'> => (
           margin-left: 20px;
           border-radius: 4px;
           background-color: #ffffff;
+          cursor: pointer;
         }
         .plus-icon {
           margin: auto;
           color: #009245;
         }
         .addButton:hover {
-          background-color: #3e9f40;
+          background-color: #3f9f40;
         }
         .addButton:hover .plus-icon {
           color: #ffffff;
@@ -126,7 +127,7 @@ const IngredientList = ({ memos, onAdd }: Props): React.Element<'div'> => (
           cursor: default;
         }
         .update-button:hover, .update-button:active {
-          background-color: #969696;
+          background-color: #367d36;
         }
       `}
     </style>

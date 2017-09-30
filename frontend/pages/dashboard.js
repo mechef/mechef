@@ -49,13 +49,13 @@ class Dashboard extends React.Component<Props, State> {
             <div className="dashboard-sidebar__inner">
               <img src="../static/logo.png" alt="logo" />
               <ul className="dashboard-sidebar__menu">
-                <li><Link href="/dashboard"><a>HOME</a></Link></li>
-                <li><Link href="/menu"><a>MENU</a></Link></li>
-                <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/order')}>ORDERS</a></li>
-                <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/ingredient')}>INGREDIENTS</a></li>
-                <li><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/shipping')}>SHIPPING</a></li>
-                <li><Link href="/account"><a>ACCOUNT</a></Link></li>
-                <li><Link href="/setting"><a>SETTINGS</a></Link></li>
+                <li className={this.state.asPath === '/dashboard/home' ? 'active' : ''}><Link href="/dashboard"><a>HOME</a></Link></li>
+                <li className={this.state.asPath === '/dashboard/menu' ? 'active' : ''}><Link href="/menu"><a>MENU</a></Link></li>
+                <li className={this.state.asPath === '/dashboard/order' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/order')}>ORDERS</a></li>
+                <li className={this.state.asPath === '/dashboard/ingredient' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/ingredient')}>INGREDIENTS</a></li>
+                <li className={this.state.asPath === '/dashboard/shipping' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/shipping')}>SHIPPING</a></li>
+                <li className={this.state.asPath === '/dashboard/account' ? 'active' : ''}><Link href="/account"><a>ACCOUNT</a></Link></li>
+                <li className={this.state.asPath === '/dashboard/settings' ? 'active' : ''}><Link href="/setting"><a>SETTINGS</a></Link></li>
               </ul>
               <ul className="dashboard-sidebar__footer">
                 <li><a>Service Agreement</a></li>
@@ -103,12 +103,12 @@ class Dashboard extends React.Component<Props, State> {
               }
               body {
                 margin: 0px;
-                background-color: #f8f7f7;
               }
               .dashboard {
                 display: -webkit-box;
                 display: -ms-flexbox;
                 display: flex;
+                background-color: #252525;
               }
               .dashboard__left {
                 width: 240px;
@@ -120,6 +120,7 @@ class Dashboard extends React.Component<Props, State> {
                 -webkit-box-flex: 5;
                 -ms-flex: 5;
                 flex: 5;
+                height: 100%;
               }
               @media all and (max-width: 600px) {
                 .dashboard__left {
@@ -129,9 +130,9 @@ class Dashboard extends React.Component<Props, State> {
                 }
               }
               .dashboard-sidebar {
-                background-color: #252525;
                 width: 100%;
-                height: 882px;
+                min-height: 882px;
+                height: 100%;
               }
 
               .dashboard-sidebar__inner {
@@ -150,6 +151,9 @@ class Dashboard extends React.Component<Props, State> {
                 cursor: pointer;
               }
               .dashboard-sidebar__menu > li:hover {
+                border-left: 9px solid #8cc63f;
+              }
+              .dashboard-sidebar__menu > li.active {
                 border-left: 9px solid #8cc63f;
               }
               .dashboard-sidebar__menu > li > a {

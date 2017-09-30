@@ -25,13 +25,13 @@ module.exports = (req, res) => {
       memo.sum += memo.ingredients[i].amount;
     }
 
-    memo.save((error) => {
+    memo.save((error, memo) => {
       if (error) {
         res.status(500).json({ status: constants.fail });
         return;
       }
-
-      res.json({ status: constants.success });
+      // TODO: Yuan: Get rid of __v from memo
+      res.json({ status: constants.success, memo });
     });
   });
 };
