@@ -50,11 +50,11 @@ module.exports = (req, res) => {
     if (req.body.lastName) updateFields.lastName = req.body.lastName;
     if (req.body.phoneNumber) updateFields.phoneNumber = req.body.phoneNumber;
     const updateFieldsOfImage = [];
-    if (req.files['coverPhoto']) {
+    if (req.files && req.files['coverPhoto']) {
       updateFields.coverPhoto = req.files['coverPhoto'][0].filename;
       updateFieldsOfImage.push('coverPhoto');
     }
-    if (req.files['profileImage']) {
+    if (req.files && req.files['profileImage']) {
       updateFields.profileImage = req.files['profileImage'][0].filename;
       updateFieldsOfImage.push('profileImage');
     }
