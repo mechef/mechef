@@ -14,7 +14,7 @@ const SellerSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   phoneNumber: String,
-});
+}, { versionKey: false, });
 
 // Export the Mongoose model
 module.exports = mongoose.model('Seller', SellerSchema);

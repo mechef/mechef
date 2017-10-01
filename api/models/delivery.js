@@ -9,7 +9,7 @@ const DeliverySchema = new mongoose.Schema({
   day:  String,
   startTime:  String,
   endTime:  String,
-});
+}, { versionKey: false, });
 
 // Export the Mongoose model
 module.exports = mongoose.model('Delivery', DeliverySchema);

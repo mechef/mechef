@@ -15,7 +15,7 @@ module.exports = (req, res) => {
       return;
     }
 
-    Memo.find({ email: decoded.email }, { __v: false, email: false }, (err, memos) => {
+    Memo.find({ email: decoded.email }, { __v: false, email: false }).sort({ _id: -1 }).exec((err, memos) => {
       if (err) {
         res.status(500).json({ status: constants.fail });
         return;
