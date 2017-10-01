@@ -12,7 +12,7 @@ const OrderSchema = new mongoose.Schema({
   orderTime: Date,
   deliveryTime: Date,
   deliveryAddress: String,
-});
+}, { versionKey: false, });
 
 // Export the Mongoose model
 module.exports = mongoose.model('Order', OrderSchema);

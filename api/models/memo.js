@@ -7,7 +7,7 @@ const MemoSchema = new mongoose.Schema({
   name: String,
   ingredients:  [mongoose.Schema.Types.Mixed],
   sum: Number,
-});
+}, { versionKey: false, });
 
 // Export the Mongoose model
 module.exports = mongoose.model('Memo', MemoSchema);
