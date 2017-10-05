@@ -30,7 +30,7 @@ function hashPassword(password, callback) {
       return callback(err);
     }
 
-    return crypto.pbkdf2(password, salt, config.iterations, config.hashBytes,
+    return crypto.pbkdf2(password, salt, config.iterations, config.hashBytes, 'sha1',
       (error, hash) => {
         if (error) {
           return callback(error);
@@ -71,7 +71,7 @@ function verifyPassword(password, combined, callback) {
   const hash = combined.toString('binary', saltBytes + 8);
 
   // verify the salt and hash against the password
-  crypto.pbkdf2(password, salt, iterations, hashBytes, (err, verify) => {
+  crypto.pbkdf2(password, salt, iterations, hashBytes, 'sha1', (err, verify) => {
     if (err) {
       return callback(err, false);
     }
