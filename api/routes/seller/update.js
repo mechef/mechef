@@ -59,7 +59,9 @@ module.exports = (req, res) => {
       updateFieldsOfImage.push('profileImage');
     }
 
-    Seller.findOneAndUpdate({ email: decoded.email }, { $set: updateFields }, (error, seller) => {
+    Seller.findOneAndUpdate({ email: decoded.email }, { $set: updateFields },
+      { projection: { __v: false, email: false, isActivate: false, activateHash: false, passwordCombined: false },
+       new: true, upsert: true }, (error, seller) => {
       if (error) {
         res.status(500).json({ status: constants.fail });
         return;
@@ -98,7 +100,6 @@ module.exports = (req, res) => {
               }
             });
           }
-
         }
       }
 
