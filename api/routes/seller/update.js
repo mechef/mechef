@@ -45,6 +45,7 @@ module.exports = (req, res) => {
       return;
     }
     const updateFields = {};
+    if (req.body.kitchenName) updateFields.kitchenName = req.body.kitchenName;
     if (req.body.kitchenDescription) updateFields.kitchenDescription = req.body.kitchenDescription;
     if (req.body.firstName) updateFields.firstName = req.body.firstName;
     if (req.body.lastName) updateFields.lastName = req.body.lastName;
@@ -60,7 +61,7 @@ module.exports = (req, res) => {
     }
 
     Seller.findOneAndUpdate({ email: decoded.email }, { $set: updateFields },
-      { projection: { __v: false, email: false, isActivate: false, activateHash: false, passwordCombined: false },
+      { projection: { __v: false, isActivate: false, activateHash: false, passwordCombined: false },
        new: true, upsert: true }, (error, seller) => {
       if (error) {
         res.status(500).json({ status: constants.fail });
