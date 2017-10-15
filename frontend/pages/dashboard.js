@@ -31,12 +31,22 @@ class Dashboard extends React.Component<Props, State> {
     this.state = {
       asPath: props.asPath,
     };
+    this.navigate = this.navigate.bind(this);
   }
 
   componentWillReceiveProps(nextProps: Props) {
     this.setState({
       asPath: nextProps.asPath,
     });
+  }
+
+  navigate: Function;
+
+  navigate(path: string) {
+    Router.push('/dashboard', `/dashboard/${path}`);
+    if (this.props.global.backArrow.isShow) {
+      this.props.toggleBackArrow$('');
+    }
   }
 
   render() {
@@ -51,10 +61,10 @@ class Dashboard extends React.Component<Props, State> {
               <ul className="dashboard-sidebar__menu">
                 <li className={this.state.asPath === '/dashboard/home' ? 'active' : ''}><Link href="/dashboard"><a>HOME</a></Link></li>
                 <li className={this.state.asPath === '/dashboard/menu' ? 'active' : ''}><Link href="/menu"><a>MENU</a></Link></li>
-                <li className={this.state.asPath === '/dashboard/order' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/order')}>ORDERS</a></li>
-                <li className={this.state.asPath === '/dashboard/ingredient' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/ingredient')}>INGREDIENTS</a></li>
-                <li className={this.state.asPath === '/dashboard/shipping' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/shipping')}>SHIPPING</a></li>
-                <li className={this.state.asPath === '/dashboard/account' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => Router.push('/dashboard', '/dashboard/account')}>ACCOUNT</a></li>
+                <li className={this.state.asPath === '/dashboard/order' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => this.navigate('order')}>ORDERS</a></li>
+                <li className={this.state.asPath === '/dashboard/ingredient' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => this.navigate('ingredient')}>INGREDIENTS</a></li>
+                <li className={this.state.asPath === '/dashboard/shipping' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => this.navigate('shipping')}>SHIPPING</a></li>
+                <li className={this.state.asPath === '/dashboard/account' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => this.navigate('account')}>ACCOUNT</a></li>
                 <li className={this.state.asPath === '/dashboard/settings' ? 'active' : ''}><Link href="/setting"><a>SETTINGS</a></Link></li>
               </ul>
               <ul className="dashboard-sidebar__footer">

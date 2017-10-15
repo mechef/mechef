@@ -13,24 +13,37 @@ import AccountEdit from './AccountEdit';
 
 type Props = {
   account: {
-    name: string,
-    kitchenDescription: string,
-    firstName: string,
-    lastName: string,
-    phoneNumber: string,
-    coverPhoto: string,
-    profileImage: string,
-  },
-  fetchAccountDetail$: any => Rx.Observable,
-  updateAccountDetail$: ({
     name?: string,
+    kitchenName?: string,
     kitchenDescription?: string,
     firstName?: string,
     lastName?: string,
     phoneNumber?: string,
     coverPhoto?: string,
     profileImage?: string,
+    update: {
+      name?: string,
+      kitchenName?: string,
+      kitchenDescription?: string,
+      firstName?: string,
+      lastName?: string,
+      phoneNumber?: string,
+      coverPhoto?: File,
+      profileImage?: File,
+    },
+  },
+  fetchAccountDetail$: any => Rx.Observable,
+  updateAccountDetail$: ({
+    name?: string,
+    kitchenName?: string,
+    kitchenDescription?: string,
+    firstName?: string,
+    lastName?: string,
+    phoneNumber?: string,
+    coverPhoto?: File,
+    profileImage?: File,
   }) => Rx.Observable,
+  setField$: any => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -56,8 +69,8 @@ class AccountPage extends React.Component<Props> {
       setError$,
       error,
       global: { backArrow },
-      fetchAccountDetail$,
       updateAccountDetail$,
+      setField$,
       toggleBackArrow$,
     } = this.props;
     return (
@@ -75,6 +88,9 @@ class AccountPage extends React.Component<Props> {
           backArrow.isShow ?
             <AccountEdit
               account={account}
+              onUpdateField={setField$}
+              onSubmit={updateAccountDetail$}
+              goback={() => toggleBackArrow$('')}
             />
             :
             <AccountDetail

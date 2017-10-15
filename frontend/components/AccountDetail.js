@@ -16,7 +16,7 @@ const AccountDetail = props => (
       </div>
       <div className="description">
         <span className="smallTitle">Kitchen Description</span>
-        <p className="contentText">Hello Hello Hello</p>
+        <p className="contentText">{props.account.kitchenDescription || ''}</p>
       </div>
       <div className="name">
         <div className="kitchenName">
