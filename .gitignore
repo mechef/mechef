@@ -1,3 +1,5 @@
 node_modules/
 .next/
 .DS_Store
+**/mongo_data/**
+npm-debug.log

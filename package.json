@@ -1,0 +1,52 @@
+{
+  "name": "mechef",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start-frontend-server": "node frontend/server.js",
+    "lint": "eslint ./",
+    "serve": "nodemon api/app.js",
+    "start": "node api/app.js",
+    "flow": "flow"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mechef/mechef.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mechef/mechef/issues"
+  },
+  "homepage": "https://github.com/mechef/mechef/#readme",
+  "dependencies": {
+    "apidoc": "0.17.6",
+    "body-parser": "1.15.0",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "form-urlencoded": "^2.0.4",
+    "gridfs-stream": "1.1.1",
+    "isomorphic-unfetch": "^2.0.0",
+    "jsonwebtoken": "7.4.1",
+    "mongoose": "4.11.1",
+    "multer": "1.3.0",
+    "next": "^2.4.6",
+    "nodemailer": "^4.0.1",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "rxjs": "^5.4.3",
+    "uuid": "3.1.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.0",
+    "babel-plugin-inline-react-svg": "^0.4.0",
+    "eslint": "^4.4.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.1.0",
+    "flow-bin": "^0.54.1"
+  }
+}

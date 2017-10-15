@@ -1,0 +1,144 @@
+* {
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out;
+}
+body {
+  margin: 0px;
+  background-color: #f8f7f7;
+}
+.dashboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.dashboard__left {
+  width: 240px;
+}
+.dashboard__right {
+  -webkit-box-flex: 5;
+  -ms-flex: 5;
+  flex: 5;
+}
+@media all and (max-width: 600px) {
+  .dashboard__left {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+.dashboard-sidebar {
+  background-color: #252525;
+}
+
+.dashboard-sidebar__inner {
+  padding: 28px 36px;
+}
+
+.dashboard-sidebar__menu {
+  list-style-type: none;
+  padding: 0px;
+}
+.dashboard-sidebar__menu > li {
+  width: 108px;
+  height: 50px;
+}
+
+.dashboard-sidebar__menu > li > a {
+  line-height: 50px;
+  width: 75.9px;
+  height: 19px;
+  font-family: AvenirNext;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.dashboard-sidebar__footer {
+  list-style-type: none;
+  padding: 0px;
+}
+
+.dashboard-sidebar__footer > li {
+  height: 32px;
+}
+
+.dashboard-sidebar__footer > li > a{
+  line-height: 32px;
+  height: 16px;
+  font-family: AvenirNext;
+  font-size: 12px;
+  letter-spacing: 0.9px;
+  color: #9b9b9b;
+}
+
+.dashboard-header {
+  height: 90px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+}
+
+.dashboard-header__wrapper {
+  padding-left:20px;
+  padding-top: 38px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.dashboard-header__icon {
+  width: 16px;
+  height: 14.2px;
+  color: #3e9f40;
+}
+
+.dashboard-header__title {
+  margin-left: 24px;
+  width: 55px;
+  height: 20px;
+  font-family: OpenSans;
+  font-size: 18px;
+  line-height: 30px;
+  letter-spacing: 0.5px;
+  color: #4a4a4a;
+}
+
+#dashboard-header__menu-toggle:checked ~ .dashboard__right {
+  width: 100%;
+}
+
+#dashboard-header__menu-toggle:checked ~ .dashboard__left {
+  margin-left: -240px;
+}
+
+.dashboard-header__user-profile {
+  margin-right: 40.2px;
+  width: 130px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+@media all and (max-width: 600px) {
+  .dashboard-header__user-profile {
+    display: none;
+  }
+}
+.dashboard-header__user-head {
+  width: 30px;
+  height: 30px;
+  background-color: #d8d8d8;
+  border-radius: 50%;
+}
+
+.dashboard-content {
+  border-radius: 4px;
+  background-color: #ffffff;
+  margin: 10px;
+}
