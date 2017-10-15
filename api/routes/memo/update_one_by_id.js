@@ -25,13 +25,15 @@ module.exports = (req, res) => {
         }
     }
 
-    Memo.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields }, (error) => {
+    Memo.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields },
+      { projection: { __v: false, email: false },
+       new: true, upsert: true }, (error) => {
     if (error) {
       res.status(500).json({ status: constants.fail });
       return;
     }
 
-    res.json({ status: constants.success });
+    res.json({ status: constants.success, memo });
     });
   });
 };
