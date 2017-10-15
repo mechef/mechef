@@ -102,7 +102,7 @@ module.exports = (req, res) => {
         }
       }
 
-      res.json({ status: constants.success });
+      res.json({ status: constants.success, seller });
     });
 
   });
