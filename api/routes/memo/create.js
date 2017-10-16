@@ -30,7 +30,7 @@ module.exports = (req, res) => {
         res.status(500).json({ status: constants.fail });
         return;
       }
-      // TODO: Yuan: Get rid of __v from memo
+      
       res.json({ status: constants.success, memo });
     });
   });

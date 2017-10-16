@@ -5,10 +5,21 @@ const mongoose = require('mongoose');
 const DeliverySchema = new mongoose.Schema({
   email: String,
   type: String,
-  address:  String,
-  day:  String,
-  startTime:  String,
-  endTime:  String,
+  meetupAddress: String,
+  meetupLatitude: Number,
+  meetLongitude: Number,
+  meetupSunday: Boolean,
+  meetupMonday: Boolean,
+  meetupTuesday: Boolean,
+  meetupWednesday: Boolean,
+  meetupThursday: Boolean,
+  meetupFriday: Boolean,
+  meetupSaturday: Boolean,
+  meetupStartTime: String,
+  meetupEndTime: String,
+  shippingAreas: [String],
+  shippingCost: Number,
+  note: String,
 }, { versionKey: false, });
 
 // Export the Mongoose model
