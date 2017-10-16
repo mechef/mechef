@@ -64,7 +64,7 @@ module.exports = (req, res) => {
     }
 
     Delivery.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields },
-      { projection: { __v: false }, new: true, upsert: true } (error, delivery) => {
+      { projection: { __v: false }, new: true, upsert: true }, (error, delivery) => {
     if (error) {
       res.status(500).json({ status: constants.fail });
       return;
