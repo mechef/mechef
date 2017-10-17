@@ -36,7 +36,7 @@ DeliverySchema.methods.toMeetup = function() {
     meetupSaturday: this.meetupSaturday,
     meetupStartTime: this.meetupStartTime,
     meetupEndTime: this.meetupEndTime,
-    not: this.note
+    note: this.note
   }
 };
 
