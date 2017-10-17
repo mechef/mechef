@@ -22,5 +22,30 @@ const DeliverySchema = new mongoose.Schema({
   note: String,
 }, { versionKey: false, });
 
+DeliverySchema.methods.toMeetup = function() {
+  return {
+    meetupAddress: this.meetupAddress,
+    meetupLatitude: this.meetupLatitude,
+    meetLongitude: this.meetLongitude,
+    meetupSunday: this.meetupSunday,
+    meetupMonday: this.meetupMonday,
+    meetupTuesday: this.meetupTuesday,
+    meetupWednesday: this.meetupWednesday,
+    meetupThursday: this.meetupThursday,
+    meetupFriday: this.meetupFriday,
+    meetupSaturday: this.meetupSaturday,
+    meetupStartTime: this.meetupStartTime,
+    meetupEndTime: this.meetupEndTime,
+    note: this.note
+  }
+};
+
+DeliverySchema.methods.toShipping = function() {
+  return {
+    shippingAreas: this.shippingAreas,
+    shippingCost: this.shippingCost,
+    note: this.note,
+  }
+};
 // Export the Mongoose model
 module.exports = mongoose.model('Delivery', DeliverySchema);

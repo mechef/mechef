@@ -10,6 +10,7 @@ const SellerSchema = new mongoose.Schema({
   resetPassHash: String,
   coverPhoto: String,
   profileImage: String,
+  kitchenName: String,
   kitchenDescription: String,
   firstName: String,
   lastName: String,

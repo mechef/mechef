@@ -20,6 +20,12 @@ module.exports = (req, res) => {
         res.status(500).json({ status: constants.fail });
         return;
       }
+      if (delivery.type == constants.delivery_type.meetup) {
+        delivery = delivery.toMeetup();
+      } else if (delivery.type == constants.delivery_type.shipping) {
+        delivery = delivery.toShipping();
+      }
+
       res.json({ status: constants.success, delivery });
     });
   });
