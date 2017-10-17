@@ -45,9 +45,12 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map((data) => {
-        return state => ({ ...state, memos: [...state.memos, data.response.memo] });
-      }).catch((error) => {
+      }).map(data => (
+        state => ({
+          ...state,
+          memos: [...state.memos, data.response.memo]
+        })
+      )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
         return Rx.Observable.of(state => state);
       })

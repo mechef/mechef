@@ -1,22 +1,51 @@
-const DeliveryList = props => (
+// @flow
+
+import * as React from 'react';
+import Rx from 'rxjs';
+
+type Props = {
+  deliveryList: Array<{
+    _id: string,
+    note: string,
+    shippingCost: number,
+    meetupEndTime: string,
+    meetupStartTime: string,
+    meetupSaturday: boolean,
+    meetupFriday: boolean,
+    meetupThursday: boolean,
+    meetupWednesday: boolean,
+    meetupTuesday: boolean,
+    meetupMonday: boolean,
+    meetupSunday: boolean,
+    meetLongitude: number,
+    meetupLatitude: number,
+    meetupAddress: string,
+    type: string,
+    email: string,
+    shippingAreas: Array
+  }>,
+  onEditDelivery: (meetupId: string) => Rx.Observable,
+}
+
+const DeliveryList = ({ deliveryList, onEditDelivery }: Props): React.Element<'div'> => (
   <div>
     <div className="header">
-      <span className="title">{props.title}</span>
-      <div className="addButton" onClick={props.onAdd}>
+      <span className="title">Delivery List</span>
+      <div role="link" tabIndex="-1" className="addButton" onClick={() => onEditDelivery('')}>
         <i className="fa fa-plus plus-icon" aria-hidden="true" />
       </div>
     </div>
     {
-      props.deliveryList.map(delivery => (
+      deliveryList.map(delivery => (
         <div className="delivery-list">
           <div className="delivery-item">
             <div className="delivery-content">
-              <p className="delivery-title">{delivery.address}</p>
+              <p className="delivery-title">{delivery.meetupAddress}</p>
               <p className="delivery-detail">
-                <span className="delivery-subtext">Shipping Cost: $300</span>
+                <span className="delivery-subtext">Shipping Cost: {delivery.shippingCost}</span>
               </p>
             </div>
-            <span className="update-button">
+            <span role="button" tabIndex="-1" className="update-button" onClick={() => onEditDelivery(delivery._id)}>
               <span className="update-button-text">UPDATE</span>
             </span>
           </div>
