@@ -1,5 +1,7 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import Rx from 'rxjs';
 
 import { connect } from '../state/RxState';
 import deliveryActions from '../actions/deliveryActions';
@@ -9,12 +11,95 @@ import ErrorModal from './ErrorModal';
 import DeliveryList from './DeliveryList';
 import DeliveryEdit from './DeliveryEdit';
 
-class DeliveryPage extends React.Component {
+type Props = {
+  delivery: {
+    deliveryList: {
+      meetupList: Array<{
+        _id: string,
+        note: string,
+        meetupEndTime: string,
+        meetupStartTime: string,
+        meetupSaturday: boolean,
+        meetupFriday: boolean,
+        meetupThursday: boolean,
+        meetupWednesday: boolean,
+        meetupTuesday: boolean,
+        meetupMonday: boolean,
+        meetupSunday: boolean,
+        meetLongitude: number,
+        meetupLatitude: number,
+        meetupAddress: string,
+      }>,
+    },
+    currentMeetupId: string,
+    currentShippingId: string,
+  },
+  fetchDelivery$: any => Rx.Observable,
+  createMeetup$: ({
+    type: string,
+    meetupAddress: string,
+    meetupLatitude: number,
+    meetLongitude: number,
+    meetupSunday: boolean,
+    meetupMonday: boolean,
+    meetupTuesday: boolean,
+    meetupWednesday: boolean,
+    meetupThursday: boolean,
+    meetupFriday: boolean,
+    meetupSaturday: boolean,
+    meetupStartTime: string,
+    meetupEndTime: string,
+    note: string
+  }) => Rx.Observable,
+  updateMeetup$: ({
+    _id: string,
+    note: string,
+    meetupEndTime: string,
+    meetupStartTime: string,
+    meetupSaturday: boolean,
+    meetupFriday: boolean,
+    meetupThursday: boolean,
+    meetupWednesday: boolean,
+    meetupTuesday: boolean,
+    meetupMonday: boolean,
+    meetupSunday: boolean,
+    meetLongitude: number,
+    meetupLatitude: number,
+    meetupAddress: string,
+    type: string,
+  }) => Rx.Observable,
+  deleteMeetup$: () => Rx.Observable,
+  setCurrentMeetupId$: (meetupId: string) => Rx.Observable,
+  setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
+  error: {
+    title: string,
+    message: string,
+    isShowModal: bool,
+  },
+  global: {
+    backArrow: {
+      isShow: boolean,
+      title: string,
+    },
+  },
+  toggleBackArrow$: string => Rx.Observable,
+}
+
+class DeliveryPage extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchDelivery$();
   }
   render() {
-    const { delivery: { shippingList, meetupList }, setError$, error, global: { backArrow }, toggleBackArrow$ } = this.props;
+    const {
+      delivery: { deliveryList: { meetupList }, currentMeetupId },
+      setError$, error,
+      global: { backArrow },
+      toggleBackArrow$,
+      createMeetup$,
+      updateMeetup$,
+      deleteMeetup$,
+      setCurrentMeetupId$,
+    } = this.props;
     return (
       <div className="container">
         {
@@ -28,12 +113,22 @@ class DeliveryPage extends React.Component {
         }
         {
           backArrow.isShow ?
-            <DeliveryEdit />
+            <DeliveryEdit
+              meetupList={meetupList}
+              currentMeetupId={currentMeetupId}
+              onCreateMeetup={createMeetup$}
+              onUpdateMeetup={updateMeetup$}
+              onDeleteMeetup={deleteMeetup$}
+              goBack={() => toggleBackArrow$('')}
+            />
             :
-            <div>
-              <DeliveryList title="Shipping List" deliveryList={shippingList} onAdd={() => toggleBackArrow$('Edit Delivery')} />
-              <DeliveryList title="Meetup List" deliveryList={meetupList} onAdd={() => toggleBackArrow$('Edit Delivery')} />
-            </div>
+            <DeliveryList
+              meetupList={meetupList}
+              onEditDelivery={(meetupId) => {
+                setCurrentMeetupId$(meetupId);
+                toggleBackArrow$('Edit Delivery');
+              }}
+            />
         }
         <style jsx>
           {`
@@ -51,44 +146,6 @@ class DeliveryPage extends React.Component {
     );
   }
 }
-
-DeliveryPage.propTypes = {
-  delivery: PropTypes.shape({
-    shippingList: PropTypes.arrayOf(PropTypes.shape({
-      type: PropTypes.string,
-      address: PropTypes.string,
-      day: PropTypes.string,
-      startTime: PropTypes.string,
-      endTime: PropTypes.string,
-    })),
-    meetupList: PropTypes.arrayOf(PropTypes.shape({
-      type: PropTypes.string,
-      address: PropTypes.string,
-      day: PropTypes.string,
-      startTime: PropTypes.string,
-      endTime: PropTypes.string,
-    })),
-  }),
-  fetchDelivery$: PropTypes.func.isRequired,
-  setError$: PropTypes.func.isRequired,
-  error: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    isShowModal: PropTypes.bool.isRequired,
-  }),
-};
-
-DeliveryPage.defaultProps = {
-  delivery: {
-    shippingList: [],
-    meetupList: [],
-  },
-  error: {
-    title: '',
-    message: '',
-    isShowModal: false,
-  },
-};
 
 
 const stateSelector = ({ delivery, error, global }) => ({ delivery, error, global });
