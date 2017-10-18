@@ -13,26 +13,24 @@ import DeliveryEdit from './DeliveryEdit';
 
 type Props = {
   delivery: {
-    deliveryList: Array<{
-      _id: string,
-      note: string,
-      shippingCost: number,
-      meetupEndTime: string,
-      meetupStartTime: string,
-      meetupSaturday: boolean,
-      meetupFriday: boolean,
-      meetupThursday: boolean,
-      meetupWednesday: boolean,
-      meetupTuesday: boolean,
-      meetupMonday: boolean,
-      meetupSunday: boolean,
-      meetLongitude: number,
-      meetupLatitude: number,
-      meetupAddress: string,
-      type: string,
-      email: string,
-      shippingAreas: Array
-    }>,
+    deliveryList: {
+      meetupList: Array<{
+        _id: string,
+        note: string,
+        meetupEndTime: string,
+        meetupStartTime: string,
+        meetupSaturday: boolean,
+        meetupFriday: boolean,
+        meetupThursday: boolean,
+        meetupWednesday: boolean,
+        meetupTuesday: boolean,
+        meetupMonday: boolean,
+        meetupSunday: boolean,
+        meetLongitude: number,
+        meetupLatitude: number,
+        meetupAddress: string,
+      }>,
+    },
     currentMeetupId: string,
     currentShippingId: string,
   },
@@ -56,7 +54,6 @@ type Props = {
   updateMeetup$: ({
     _id: string,
     note: string,
-    shippingCost: number,
     meetupEndTime: string,
     meetupStartTime: string,
     meetupSaturday: boolean,
@@ -70,7 +67,6 @@ type Props = {
     meetupLatitude: number,
     meetupAddress: string,
     type: string,
-    shippingAreas: Array
   }) => Rx.Observable,
   deleteMeetup$: () => Rx.Observable,
   setCurrentMeetupId$: (meetupId: string) => Rx.Observable,
@@ -95,7 +91,7 @@ class DeliveryPage extends React.Component<Props> {
   }
   render() {
     const {
-      delivery: { deliveryList, currentMeetupId },
+      delivery: { deliveryList: { meetupList }, currentMeetupId },
       setError$, error,
       global: { backArrow },
       toggleBackArrow$,
@@ -118,7 +114,7 @@ class DeliveryPage extends React.Component<Props> {
         {
           backArrow.isShow ?
             <DeliveryEdit
-              deliveryList={deliveryList}
+              meetupList={meetupList}
               currentMeetupId={currentMeetupId}
               onCreateMeetup={createMeetup$}
               onUpdateMeetup={updateMeetup$}
@@ -127,7 +123,7 @@ class DeliveryPage extends React.Component<Props> {
             />
             :
             <DeliveryList
-              deliveryList={deliveryList}
+              meetupList={meetupList}
               onEditDelivery={(meetupId) => {
                 setCurrentMeetupId$(meetupId);
                 toggleBackArrow$('Edit Delivery');

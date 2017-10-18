@@ -4,7 +4,10 @@ import errorActions from '../actions/errorActions';
 import { API_GET_DELIVERY_LIST } from '../utils/constants';
 
 const initialState = {
-  deliveryList: [],
+  deliveryList: {
+    meetupList: [],
+    shippingList: [],
+  },
   currentMeetupId: -1,
 };
 
@@ -45,12 +48,15 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState)
         responseType: 'json',
       }).map(() => (
         state => ({ ...state,
-          deliveryList: state.memos.map((delivery) => {
-            if (delivery._id === reqbody._id) {
-              return { ...delivery, ...reqbody };
-            }
-            return delivery;
-          }),
+          deliveryList: {
+            ...state.deliveryList,
+            meetupList: state.deliveryList.meetupList.map((meetup) => {
+              if (meetup._id === reqbody._id) {
+                return { ...meetup, ...reqbody };
+              }
+              return meetup;
+            }),
+          },
         })
       )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
@@ -71,7 +77,7 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState)
       }).map(() => (
         state => ({
           ...state,
-          deliveryList: state.deliveryList.filter(delivery => delivery._id !== meetupId)
+          deliveryList: state.deliveryList.meetupList.filter(meetup => meetup._id !== meetupId),
         })
       )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Delete Memo Error', message: error.message });

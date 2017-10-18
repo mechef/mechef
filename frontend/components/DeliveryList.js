@@ -4,10 +4,9 @@ import * as React from 'react';
 import Rx from 'rxjs';
 
 type Props = {
-  deliveryList: Array<{
+  meetupList: Array<{
     _id: string,
     note: string,
-    shippingCost: number,
     meetupEndTime: string,
     meetupStartTime: string,
     meetupSaturday: boolean,
@@ -19,15 +18,12 @@ type Props = {
     meetupSunday: boolean,
     meetLongitude: number,
     meetupLatitude: number,
-    meetupAddress: string,
-    type: string,
-    email: string,
-    shippingAreas: Array
+    meetupAddress: string
   }>,
   onEditDelivery: (meetupId: string) => Rx.Observable,
 }
 
-const DeliveryList = ({ deliveryList, onEditDelivery }: Props): React.Element<'div'> => (
+const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div'> => (
   <div>
     <div className="header">
       <span className="title">Delivery List</span>
@@ -36,7 +32,7 @@ const DeliveryList = ({ deliveryList, onEditDelivery }: Props): React.Element<'d
       </div>
     </div>
     {
-      deliveryList.map(delivery => (
+      meetupList.map(delivery => (
         <div className="delivery-list">
           <div className="delivery-item">
             <div className="delivery-content">

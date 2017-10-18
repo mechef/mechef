@@ -22,7 +22,6 @@ type Props = {
   onUpdateMeetup: ({
     _id: string,
     note: string,
-    shippingCost: number,
     meetupEndTime: string,
     meetupStartTime: string,
     meetupSaturday: boolean,
@@ -36,13 +35,11 @@ type Props = {
     meetupLatitude: number,
     meetupAddress: string,
     type: string,
-    shippingAreas: Array
   }) => Rx.Observable,
   onDeleteMeetup: (meetupId: string) => Rx.Observable,
-  deliveryList: Array<{
+  meetupList: Array<{
     _id: string,
     note: string,
-    shippingCost: number,
     meetupEndTime: string,
     meetupStartTime: string,
     meetupSaturday: boolean,
@@ -55,9 +52,6 @@ type Props = {
     meetLongitude: number,
     meetupLatitude: number,
     meetupAddress: string,
-    type: string,
-    email: string,
-    shippingAreas: Array
   }>,
   currentMeetupId: string,
   goBack: () => Rx.Observable,
@@ -66,11 +60,10 @@ type Props = {
 class DeliveryEdit extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    const currentMeetup = props.deliveryList.find(
+    const currentMeetup = props.meetupList.find(
       delivery => delivery._id === props.currentMeetupId) || {
         _id: '',
         note: '',
-        shippingCost: 0,
         meetupEndTime: '',
         meetupStartTime: '',
         meetupSaturday: false,
@@ -84,13 +77,10 @@ class DeliveryEdit extends React.Component<Props> {
         meetupLatitude: -1,
         meetupAddress: '',
         type: 'meetup',
-        email: '',
-        shippingAreas: [],
       };
     this.state = {
       id: currentMeetup._id,
       note: currentMeetup.note,
-      shippingCost: currentMeetup.shippingCost,
       meetupEndTime: currentMeetup.meetupEndTime,
       meetupStartTime: currentMeetup.meetupStartTime,
       meetupSaturday: currentMeetup.meetupSaturday,
@@ -104,8 +94,6 @@ class DeliveryEdit extends React.Component<Props> {
       meetupLatitude: currentMeetup.meetupLatitude,
       meetupAddress: currentMeetup.meetupAddress,
       type: currentMeetup.type,
-      email: currentMeetup.email,
-      shippingAreas: currentMeetup.shippingAreas,
     };
   }
   render() {
@@ -113,7 +101,25 @@ class DeliveryEdit extends React.Component<Props> {
     return (
       <div className="dashboard-content">
         <p className="dashboard-content__title">Edit Delivery</p>
-        <div className="edit-ingredient">
+        <div className="editContainer">
+          <div className="meetupLocation">
+            <h3 className="title">Meet up location</h3>
+            <p className="subtitle">Location and Time</p>
+            <input className="largInput" type="text" />
+          </div>
+          <h3 className="title">Meet up date</h3>
+          <div className="meetupDate">
+            <div className="smallInputContainer">
+              <span className="subtitle">Select Date MM/DD/YYYY</span>
+              <input type="select" className="selectbox" />
+            </div>
+            <div className="smallInputContainer">
+              <span className="subtitle">Dynamic Period</span>
+              <input type="select" className="selectbox" />
+            </div>
+          </div>
+          <h3 className="title">Meet up time</h3>
+          <p className="subtitle">Location and Time</p>
         </div>
         <div className="buttonGroup">
           <span
@@ -138,7 +144,6 @@ class DeliveryEdit extends React.Component<Props> {
                 onUpdateMeetup({
                   _id: this.state.currentMeetup._id,
                   note: this.state.currentMeetup.note,
-                  shippingCost: this.state.currentMeetup.shippingCost,
                   meetupEndTime: this.state.currentMeetup.meetupEndTime,
                   meetupStartTime: this.state.currentMeetup.meetupStartTime,
                   meetupSaturday: this.state.currentMeetup.meetupSaturday,
@@ -152,13 +157,10 @@ class DeliveryEdit extends React.Component<Props> {
                   meetupLatitude: this.state.currentMeetup.meetupLatitude,
                   meetupAddress: this.state.currentMeetup.meetupAddress,
                   type: this.state.currentMeetup.type,
-                  email: this.state.currentMeetup.email,
-                  shippingAreas: this.state.currentMeetup.shippingAreas,
                 });
               } else {
                 onCreateMeetup({
                   note: this.state.currentMeetup.note,
-                  shippingCost: this.state.currentMeetup.shippingCost,
                   meetupEndTime: this.state.currentMeetup.meetupEndTime,
                   meetupStartTime: this.state.currentMeetup.meetupStartTime,
                   meetupSaturday: this.state.currentMeetup.meetupSaturday,
@@ -172,8 +174,6 @@ class DeliveryEdit extends React.Component<Props> {
                   meetupLatitude: this.state.currentMeetup.meetupLatitude,
                   meetupAddress: this.state.currentMeetup.meetupAddress,
                   type: this.state.currentMeetup.type,
-                  email: this.state.currentMeetup.email,
-                  shippingAreas: this.state.currentMeetup.shippingAreas,
                 });
               }
               goBack();
@@ -196,7 +196,7 @@ class DeliveryEdit extends React.Component<Props> {
               color: #4a4a4a;
             }
 
-            .edit-ingredient {
+            .editContainer {
               margin-top: 24px;
               width: 744px;
               height: 515px;
@@ -206,8 +206,12 @@ class DeliveryEdit extends React.Component<Props> {
               background-color: #ffffff;
             }
 
-            .edit-ingredient__title {
-              margin: 0;
+            .meetupLocation {
+              margin-bottom: 13px;
+            }
+
+            .title {
+              margin: 0 0 16px 0;
               font-family: AvenirNext;
               font-size: 16px;
               font-weight: 500;
@@ -216,131 +220,49 @@ class DeliveryEdit extends React.Component<Props> {
               color: #4a4a4a;
             }
 
-            .edit-ingredient__explanation {
-              display: -webkit-box;
-              display: -ms-flexbox;
-              display: flex;
-              margin-top: 12px;
-              margin-bottom: 0;
-              width: 520px;
-              font-family: AvenirNext;
-              font-size: 14px;
-              font-weight: 600;
-              letter-spacing: 0.6px;
-              color: #4a4a4a;
-            }
-
-            .edit-ingredient__explanation-text {
-              margin-right: auto;
+            .subtitle {
+              margin: 0 0 16px 0;
+              width: 341px;
+              height: 14px;
               font-family: AvenirNext;
               font-size: 14px;
               font-weight: 500;
               line-height: 1;
               letter-spacing: 0.6px;
+              text-align: left;
               color: #9b9b9b;
             }
 
-            .edit-ingredient__explanation-total {
-              width: 57px;
-              height: 19px;
+            .meetupDate {
+              display: flex;
+              margin-bottom: 26px;
             }
 
-            .edit-ingredient__explanation-cost {
-              width: 57px;
-              height: 19px;
+            .smallInputContainer {
+              display: flex;
+              flex-direction: column;
             }
 
-            .edit-ingredient__input-name {
-              margin-top: 16px;
-              width: 100%;
-              height: 50px;
+            .selectbox {
+              width: 250px;
+              height: 44px;
               border-radius: 4px;
-              background-color: #ffffff;
               border: solid 1px #979797;
             }
 
-            .edit-ingredient__choose-ingredient {
-              margin-top: 40px;
-            }
-
-            .edit-ingredient__input {
-              display: flex;
-              justify-content: space-between;
-              width: 520px;
-              position: relative;
-            }
-
-            .edit-ingredient__input > div:nth-child(2) {
-              margin-left: 5px;
-            }
-
-            .edit-ingredient__input-medium-wrapper {
-              flex: 3;
-            }
-
-            .edit-ingredient__input-small-wrapper {
-              flex: 2;
-            }
-
-            .edit-ingredient__add-btn {
-              position: absolute;
-              right: 10px
-              top: 50%;
-              transform: translateX(-50%);
-              color: #3e9f40;
-              transition: all .2s ease-in-out;
-            }
-
-            .edit-ingredient__add-btn:hover {
-              transform: scale(1.5);
-            }
-
-            .ingredients {
-              display: -webkit-box;
-              display: -ms-flexbox;
-              display: flex;
-              -webkit-box-pack: justify;
-              -ms-flex-pack: justify;
-              justify-content: space-between;
-              margin-top: 14px;
-              width: 518px;
-              height: 50px;
-              border-radius: 4px;
-              border: solid 1px #3e9f40;
-            }
-            .ingredients__name {
-              margin: auto auto auto 17px;
-              font-family: AvenirNext;
-              font-size: 14px;
-              font-weight: 500;
-              letter-spacing: 0.6px;
-              color: #3e9f40;
-            }
-
-            .ingredients__cost {
-              margin-top: auto;
-              margin-bottom: auto;
-              font-family: AvenirNext;
-              font-size: 14px;
-              font-weight: 500;
-              letter-spacing: 0.6px;
-              color: #3e9f40;
-            }
-
-            .ingredients__remove-btn {
-              margin: auto 16.4px;
-              color: #9b9b9b;
-              transition: all .2s ease-in-out;
-            }
-
-            .ingredients__remove-btn:hover {
-              transform: scale(1.5);
-            }
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
               width: 744px;
               padding-top: 30px;
+            }
+
+            .largInput {
+              width: 447px;
+              height: 44px;
+              opacity: 0.6;
+              border-radius: 4px;
+              border: solid 1px #979797;
             }
 
             .secondaryBtn {
