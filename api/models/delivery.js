@@ -24,6 +24,7 @@ const DeliverySchema = new mongoose.Schema({
 
 DeliverySchema.methods.toMeetup = function() {
   return {
+    _id: this._id,
     meetupAddress: this.meetupAddress,
     meetupLatitude: this.meetupLatitude,
     meetLongitude: this.meetLongitude,
@@ -42,6 +43,7 @@ DeliverySchema.methods.toMeetup = function() {
 
 DeliverySchema.methods.toShipping = function() {
   return {
+    _id: this._id,
     shippingAreas: this.shippingAreas,
     shippingCost: this.shippingCost,
     note: this.note,
