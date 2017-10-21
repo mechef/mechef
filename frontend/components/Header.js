@@ -1,6 +1,12 @@
-import PropTypes from 'prop-types';
+// @flow
 
-const Header = props => (
+import React from 'react';
+
+type Props = {
+  selectedItem: string,
+};
+
+const Header = (props: Props) => (
   <nav className="mechef-navbar">
     <img className="mechef-navbar-logo" src="../static/food.png" alt="logo" />
     <div className="mechef-navbar-collapse">
@@ -56,10 +62,6 @@ const Header = props => (
     </style>
   </nav>
 );
-
-Header.propTypes = {
-  selectedItem: PropTypes.string,
-};
 
 Header.defaultProps = {
   selectedItem: '',

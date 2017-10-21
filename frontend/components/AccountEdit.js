@@ -48,7 +48,6 @@ type Props = {
 }
 
 class AccountEdit extends React.Component<Props> {
-
   constructor(props: Props) {
     super(props);
     this.handleCoverPhotoUpload = this.handleCoverPhotoUpload.bind(this);
@@ -168,7 +167,9 @@ class AccountEdit extends React.Component<Props> {
               type="text"
               className="bank-info__text-area"
               value={this.props.account.kitchenDescription || ''}
-              onChange={(evt) => { this.props.onUpdateField({ kitchenDescription: evt.target.value }); }}
+              onChange={(evt) => {
+                this.props.onUpdateField({ kitchenDescription: evt.target.value });
+              }}
             />
           </div>
           <div className="bank-info">
@@ -179,13 +180,17 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 className="bank-info__input smallSize"
                 value={this.props.account.firstName || ''}
-                onChange={(evt) => { this.props.onUpdateField({ firstName: evt.target.value }); }}
+                onChange={(evt) => {
+                  this.props.onUpdateField({ firstName: evt.target.value });
+                }}
               />
               <input
                 type="text"
                 className="bank-info__input smallSize"
                 value={this.props.account.lastName || ''}
-                onChange={(evt) => { this.props.onUpdateField({ lastName: evt.target.value }); }}
+                onChange={(evt) => {
+                  this.props.onUpdateField({ lastName: evt.target.value });
+                }}
               />
             </div>
           </div>
@@ -197,7 +202,9 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 className="bank-info__input smallSize"
                 value={this.props.account.phoneNumber || ''}
-                onChange={(evt) => { this.props.onUpdateField({ phoneNumber: evt.target.value }); }}
+                onChange={(evt) => {
+                  this.props.onUpdateField({ phoneNumber: evt.target.value });
+                }}
               />
             </div>
             <div className="right">
@@ -207,7 +214,9 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 className="bank-info__input smallSize"
                 value={this.props.account.email || ''}
-                onChange={(evt) => { this.props.onUpdateField({ email: evt.target.value }); }}
+                onChange={(evt) => {
+                  this.props.onUpdateField({ email: evt.target.value });
+                }}
               />
             </div>
           </div>

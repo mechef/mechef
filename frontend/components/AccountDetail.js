@@ -1,4 +1,17 @@
-const AccountDetail = props => (
+// @flow
+
+import React from 'react';
+import Rx from 'rxjs';
+
+type Props = {
+  account: {
+    name: string,
+    kitchenDescription?: string,
+  },
+  onUpdateAccount: () => Rx.Observable,
+}
+
+const AccountDetail = (props: Props) => (
   <div>
     <div className="coverPhoto" />
     <p className="sellerId">@MomooKitchen</p>

@@ -1,11 +1,17 @@
-import PropTypes from 'prop-types';
-import IngredientPage from './ingredientPage';
-import DeliveryPage from './deliveryPage';
-import OrderPage from './orderPage';
-import Home from './home';
+// @flow
+
+import React from 'react';
+import IngredientPage from './IngredientPage';
+import DeliveryPage from './DeliveryPage';
+import OrderPage from './OrderPage';
+import Home from './Home';
 import AccountPage from './AccountPage';
 
-const DashboardPageRouter = (props) => {
+type Props = {
+  pathname: string,
+}
+
+const DashboardPageRouter = (props: Props) => {
   const pathname = props.pathname;
   switch (pathname) {
     case '/dashboard':
@@ -21,10 +27,6 @@ const DashboardPageRouter = (props) => {
     default:
       return <Home />;
   }
-};
-
-DashboardPageRouter.propTypes = {
-  pathname: PropTypes.string.isRequired,
 };
 
 export default DashboardPageRouter;

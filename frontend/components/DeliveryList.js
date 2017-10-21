@@ -18,7 +18,8 @@ type Props = {
     meetupSunday: boolean,
     meetLongitude: number,
     meetupLatitude: number,
-    meetupAddress: string
+    meetupAddress: string,
+    type: string,
   }>,
   onEditDelivery: (meetupId: string) => Rx.Observable,
 }
@@ -32,16 +33,16 @@ const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div
       </div>
     </div>
     {
-      meetupList.map(delivery => (
+      meetupList.map(meetup => (
         <div className="delivery-list">
           <div className="delivery-item">
             <div className="delivery-content">
-              <p className="delivery-title">{delivery.meetupAddress}</p>
+              <p className="delivery-title">{meetup.meetupAddress}</p>
               <p className="delivery-detail">
-                <span className="delivery-subtext">Shipping Cost: {delivery.shippingCost}</span>
+                <span className="delivery-subtext">Shipping Cost:</span>
               </p>
             </div>
-            <span role="button" tabIndex="-1" className="update-button" onClick={() => onEditDelivery(delivery._id)}>
+            <span role="button" tabIndex="-1" className="update-button" onClick={() => onEditDelivery(meetup._id)}>
               <span className="update-button-text">UPDATE</span>
             </span>
           </div>

@@ -1,6 +1,15 @@
-import PropTypes from 'prop-types';
+// @flow
 
-const ErrorModal = props => (
+import React from 'react';
+import Rx from 'rxjs';
+
+type Props = {
+  title: string,
+  message: string,
+  onCancel: () => Rx.Observable,
+}
+
+const ErrorModal = (props: Props) => (
   <div className="alert-modal-overlay">
     <div className="alert-modal">
       <header className="alert-modal-header">
@@ -82,12 +91,6 @@ const ErrorModal = props => (
     </style>
   </div>
 );
-
-ErrorModal.propTypes = {
-  title: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
-  onCancel: PropTypes.func,
-};
 
 ErrorModal.defaultProps = {
   title: '',

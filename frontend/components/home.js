@@ -1,24 +1,28 @@
+// @flow
+
+import React from 'react';
+
 const Home = () => (
   <div className="homeContainer">
     <div className="dashboard-content__header" />
     <p className="sellerId">@MomooKitchen</p>
-      <p className="sellerName">@MomooKitchen</p>
-      <div className="orderTable">
-        <p className="orderTableTitle">
-          <span className="titleText">ORDERS</span>
-          <span className="orderCount">
-            <span className="orderCountNum">
-              14
-            </span>
+    <p className="sellerName">@MomooKitchen</p>
+    <div className="orderTable">
+      <p className="orderTableTitle">
+        <span className="titleText">ORDERS</span>
+        <span className="orderCount">
+          <span className="orderCountNum">
+            14
           </span>
-        </p>
-        <div className="header">
-          <div className="firstCell">Delivery Time</div>
-          <div className="secondCell">Buyer's Name</div>
-          <div className="thirdCell">Order Name</div>
-          <div className="fourthCell">Quantity</div>
-        </div>
+        </span>
+      </p>
+      <div className="header">
+        <div className="firstCell">Delivery Time</div>
+        <div className="secondCell">Buyer‘s Name</div>
+        <div className="thirdCell">Order Name</div>
+        <div className="fourthCell">Quantity</div>
       </div>
+    </div>
     <style jsx>
       {`
         .homeContainer {

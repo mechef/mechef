@@ -29,6 +29,7 @@ type Props = {
         meetLongitude: number,
         meetupLatitude: number,
         meetupAddress: string,
+        type: string,
       }>,
     },
     currentMeetupId: string,

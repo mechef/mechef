@@ -1,5 +1,7 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import Rx from 'rxjs';
 import fetch from 'isomorphic-unfetch';
 import urlencoder from 'form-urlencoded';
 
@@ -7,10 +9,51 @@ import { connect } from '../state/RxState';
 import authActions from '../actions/authActions';
 import errorActions from '../actions/errorActions';
 import { API_REGISTER } from '../utils/constants';
-import Header from '../components/header/header';
+import Header from '../components/Header';
 import ErrorModal from '../components/ErrorModal';
 
-class Login extends React.Component {
+type Props = {
+  setLoginField$: (any) => Rx.Observable,
+  login$: ({ email: string, password: string }) => Rx.Observable,
+  auth: {
+    email: string,
+    password: string,
+  },
+  setError$: ({
+    isShowModal: boolean,
+    title: string,
+    message: string,
+  }) => Rx.Observable,
+  error: {
+    title: string,
+    message: string,
+    isShowModal: boolean,
+  }
+}
+
+type State = {
+  signup: {
+    firstName: string,
+    lastName: string,
+    password: string,
+    email: string,
+  },
+  isWrapperMove: boolean,
+};
+
+class Login extends React.Component<Props, State> {
+  static defaultProps: {
+    auth: {
+      email: '',
+      password: '',
+    },
+    error: {
+      title: '',
+      message: '',
+      isShowModal: false,
+    },
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,20 +63,12 @@ class Login extends React.Component {
         password: '',
         email: '',
       },
+      isWrapperMove: false,
     };
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
   }
-  componentDidMount() {
-    // 3rd party script for handling login animation
-    /* eslint-disable */
-    $('.login-form .rgstr-btn button').click(() => {
-      $('.login-form .wrapper').addClass('move');
-    });
-    $('.login-form .login-btn button').click(() => {
-      $('.login-form .wrapper').removeClass('move');
-    });
-    /* eslint-enable */
-  }
+
+  onSubmitSignup: Function;
 
   async onSubmitSignup() {
     const formValues = urlencoder({
@@ -72,13 +107,25 @@ class Login extends React.Component {
           <div className="login-form">
             <div className="login-btn splits">
               <p className="splits-title">Have an account?</p>
-              <button>SIGN IN</button>
+              <button
+                onClick={() => {
+                  this.setState({ isWrapperMove: false });
+                }}
+              >
+                SIGN IN
+              </button>
             </div>
             <div className="rgstr-btn splits">
               <p className="splits-title">Dont have an account?</p>
-              <button>JOIN NOW</button>
+              <button
+                onClick={() => {
+                  this.setState({ isWrapperMove: true });
+                }}
+              >
+                JOIN NOW
+              </button>
             </div>
-            <div className="wrapper">
+            <div className={`wrapper ${this.state.isWrapperMove ? 'move' : ''}`}>
               <div className="login">
                 <p className="title">SIGN IN</p>
                 <div className="mail">
@@ -105,8 +152,6 @@ class Login extends React.Component {
                   <button
                     className="dark"
                     onClick={() => {
-                      console.log('onclick Login');
-                      console.log(login$);
                       login$({ email, password });
                     }}
                   >
@@ -369,33 +414,6 @@ class Login extends React.Component {
     );
   }
 }
-
-Login.propTypes = {
-  setLoginField$: PropTypes.func.isRequired,
-  login$: PropTypes.func.isRequired,
-  auth: PropTypes.shape({
-    email: PropTypes.string,
-    password: PropTypes.string,
-  }).isRequired,
-  setError$: PropTypes.func.isRequired,
-  error: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    isShowModal: PropTypes.bool.isRequired,
-  }),
-};
-
-Login.defaultProps = {
-  auth: {
-    email: '',
-    password: '',
-  },
-  error: {
-    title: '',
-    message: '',
-    isShowModal: false,
-  },
-};
 
 
 const stateSelector = ({ auth, error }) => ({ auth, error });

@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import Rx from 'rxjs';
 
@@ -52,12 +53,31 @@ type Props = {
     meetLongitude: number,
     meetupLatitude: number,
     meetupAddress: string,
+    type: string,
   }>,
   currentMeetupId: string,
   goBack: () => Rx.Observable,
 }
 
-class DeliveryEdit extends React.Component<Props> {
+type State = {
+  id: string,
+  type: string,
+  meetupAddress: string,
+  meetupLatitude: number,
+  meetLongitude: number,
+  meetupSunday: boolean,
+  meetupMonday: boolean,
+  meetupTuesday: boolean,
+  meetupWednesday: boolean,
+  meetupThursday: boolean,
+  meetupFriday: boolean,
+  meetupSaturday: boolean,
+  meetupStartTime: string,
+  meetupEndTime: string,
+  note: string,
+}
+
+class DeliveryEdit extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const currentMeetup = props.meetupList.find(
@@ -142,38 +162,38 @@ class DeliveryEdit extends React.Component<Props> {
               if (this.state.id) {
                 // TODO: Modify to only provide updated data
                 onUpdateMeetup({
-                  _id: this.state.currentMeetup._id,
-                  note: this.state.currentMeetup.note,
-                  meetupEndTime: this.state.currentMeetup.meetupEndTime,
-                  meetupStartTime: this.state.currentMeetup.meetupStartTime,
-                  meetupSaturday: this.state.currentMeetup.meetupSaturday,
-                  meetupFriday: this.state.currentMeetup.meetupFriday,
-                  meetupThursday: this.state.currentMeetup.meetupThursday,
-                  meetupWednesday: this.state.currentMeetup.meetupWednesday,
-                  meetupTuesday: this.state.currentMeetup.meetupTuesday,
-                  meetupMonday: this.state.currentMeetup.meetupMonday,
-                  meetupSunday: this.state.currentMeetup.meetupSunday,
-                  meetLongitude: this.state.currentMeetup.meetLongitude,
-                  meetupLatitude: this.state.currentMeetup.meetupLatitude,
-                  meetupAddress: this.state.currentMeetup.meetupAddress,
-                  type: this.state.currentMeetup.type,
+                  _id: this.state.id,
+                  note: this.state.note,
+                  meetupEndTime: this.state.meetupEndTime,
+                  meetupStartTime: this.state.meetupStartTime,
+                  meetupSaturday: this.state.meetupSaturday,
+                  meetupFriday: this.state.meetupFriday,
+                  meetupThursday: this.state.meetupThursday,
+                  meetupWednesday: this.state.meetupWednesday,
+                  meetupTuesday: this.state.meetupTuesday,
+                  meetupMonday: this.state.meetupMonday,
+                  meetupSunday: this.state.meetupSunday,
+                  meetLongitude: this.state.meetLongitude,
+                  meetupLatitude: this.state.meetupLatitude,
+                  meetupAddress: this.state.meetupAddress,
+                  type: this.state.type,
                 });
               } else {
                 onCreateMeetup({
-                  note: this.state.currentMeetup.note,
-                  meetupEndTime: this.state.currentMeetup.meetupEndTime,
-                  meetupStartTime: this.state.currentMeetup.meetupStartTime,
-                  meetupSaturday: this.state.currentMeetup.meetupSaturday,
-                  meetupFriday: this.state.currentMeetup.meetupFriday,
-                  meetupThursday: this.state.currentMeetup.meetupThursday,
-                  meetupWednesday: this.state.currentMeetup.meetupWednesday,
-                  meetupTuesday: this.state.currentMeetup.meetupTuesday,
-                  meetupMonday: this.state.currentMeetup.meetupMonday,
-                  meetupSunday: this.state.currentMeetup.meetupSunday,
-                  meetLongitude: this.state.currentMeetup.meetLongitude,
-                  meetupLatitude: this.state.currentMeetup.meetupLatitude,
-                  meetupAddress: this.state.currentMeetup.meetupAddress,
-                  type: this.state.currentMeetup.type,
+                  note: this.state.note,
+                  meetupEndTime: this.state.meetupEndTime,
+                  meetupStartTime: this.state.meetupStartTime,
+                  meetupSaturday: this.state.meetupSaturday,
+                  meetupFriday: this.state.meetupFriday,
+                  meetupThursday: this.state.meetupThursday,
+                  meetupWednesday: this.state.meetupWednesday,
+                  meetupTuesday: this.state.meetupTuesday,
+                  meetupMonday: this.state.meetupMonday,
+                  meetupSunday: this.state.meetupSunday,
+                  meetLongitude: this.state.meetLongitude,
+                  meetupLatitude: this.state.meetupLatitude,
+                  meetupAddress: this.state.meetupAddress,
+                  type: this.state.type,
                 });
               }
               goBack();
@@ -302,7 +322,6 @@ class DeliveryEdit extends React.Component<Props> {
       </div>
     );
   }
-
 }
 
 export default DeliveryEdit;
