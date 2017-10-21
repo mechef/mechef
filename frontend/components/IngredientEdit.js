@@ -204,8 +204,6 @@ class IngredientEdit extends React.Component<Props, State> {
             }
 
             .edit-ingredient__explanation {
-              display: -webkit-box;
-              display: -ms-flexbox;
               display: flex;
               margin-top: 12px;
               margin-bottom: 0;
@@ -283,11 +281,7 @@ class IngredientEdit extends React.Component<Props, State> {
             }
 
             .ingredients {
-              display: -webkit-box;
-              display: -ms-flexbox;
               display: flex;
-              -webkit-box-pack: justify;
-              -ms-flex-pack: justify;
               justify-content: space-between;
               margin-top: 14px;
               width: 518px;

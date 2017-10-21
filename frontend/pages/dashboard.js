@@ -106,36 +106,25 @@ class Dashboard extends React.Component<Props, State> {
         <style jsx>
           {`
               * {
-                -webkit-transition: .25s ease-in-out;
-                -moz-transition: .25s ease-in-out;
-                -o-transition: .25s ease-in-out;
                 transition: .25s ease-in-out;
               }
               body {
                 margin: 0px;
               }
               .dashboard {
-                display: -webkit-box;
-                display: -ms-flexbox;
                 display: flex;
               }
               .dashboard__left {
                 width: 240px;
-                display: -webkit-box;
-                display: -ms-flexbox;
                 display: flex;
                 background-color: #252525;
               }
               .dashboard__right {
-                -webkit-box-flex: 5;
-                -ms-flex: 5;
                 flex: 5;
                 height: 100%;
               }
               @media all and (max-width: 600px) {
                 .dashboard__left {
-                  -webkit-box-flex: 1;
-                  -ms-flex: 1;
                   flex: 1;
                 }
               }
@@ -203,11 +192,7 @@ class Dashboard extends React.Component<Props, State> {
               .dashboard-header__wrapper {
                 padding-left:20px;
                 padding-top: 38px;
-                display: -webkit-box;
-                display: -ms-flexbox;
                 display: flex;
-                -webkit-box-pack: justify;
-                -ms-flex-pack: justify;
                 justify-content: space-between;
               }
 
@@ -254,11 +239,7 @@ class Dashboard extends React.Component<Props, State> {
               .dashboard-header__user-profile {
                 margin-right: 40.2px;
                 width: 130px;
-                display: -webkit-box;
-                display: -ms-flexbox;
                 display: flex;
-                -webkit-box-pack: justify;
-                -ms-flex-pack: justify;
                 justify-content: space-between;
               }
               @media all and (max-width: 600px) {

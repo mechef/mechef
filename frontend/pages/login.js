@@ -107,6 +107,7 @@ class Login extends React.Component<Props, State> {
           <div className="login-form">
             <div className="login-btn splits">
               <p className="splits-title">Have an account?</p>
+              <h1>Test</h1>
               <button
                 onClick={() => {
                   this.setState({ isWrapperMove: false });
