@@ -45,6 +45,11 @@ exports[`Pages With Snapshot Testing snapshot login page 1`] = `
         >
           Have an account?
         </p>
+        <h1
+          className="jsx-3737081844"
+        >
+          Test
+        </h1>
         <button
           className="jsx-3737081844"
           onClick={[Function]}

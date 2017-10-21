@@ -1,6 +1,8 @@
 [ignore]
 
 .*/node_modules/mitt/.*
+.*/node_modules/npmconf/test/.*
+.*/node_modules/config-chain/test/.*
 
 [include]
 

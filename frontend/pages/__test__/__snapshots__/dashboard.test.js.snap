@@ -2,36 +2,36 @@
 
 exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
 <div
-  className="jsx-1898138370 dashboard"
+  className="jsx-1189005922 dashboard"
 >
   <input
-    className="jsx-1898138370"
+    className="jsx-1189005922"
     hidden={true}
     id="dashboard-header__menu-toggle"
     type="checkbox"
   />
   <div
-    className="jsx-1898138370 dashboard__left"
+    className="jsx-1189005922 dashboard__left"
   >
     <div
-      className="jsx-1898138370 dashboard-sidebar"
+      className="jsx-1189005922 dashboard-sidebar"
     >
       <div
-        className="jsx-1898138370 dashboard-sidebar__inner"
+        className="jsx-1189005922 dashboard-sidebar__inner"
       >
         <img
           alt="logo"
-          className="jsx-1898138370"
+          className="jsx-1189005922"
           src="../static/logo.png"
         />
         <ul
-          className="jsx-1898138370 dashboard-sidebar__menu"
+          className="jsx-1189005922 dashboard-sidebar__menu"
         >
           <li
-            className="jsx-1898138370 active"
+            className="jsx-1189005922 active"
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
               href="/dashboard"
               onClick={[Function]}
             >
@@ -39,10 +39,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1898138370 "
+            className="jsx-1189005922 "
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
               href="/menu"
               onClick={[Function]}
             >
@@ -50,10 +50,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1898138370 "
+            className="jsx-1189005922 "
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
               onClick={[Function]}
               role="link"
               tabIndex="-1"
@@ -62,10 +62,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1898138370 "
+            className="jsx-1189005922 "
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
               onClick={[Function]}
               role="link"
               tabIndex="-1"
@@ -74,10 +74,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1898138370 "
+            className="jsx-1189005922 "
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
               onClick={[Function]}
               role="link"
               tabIndex="-1"
@@ -86,10 +86,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1898138370 "
+            className="jsx-1189005922 "
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
               onClick={[Function]}
               role="link"
               tabIndex="-1"
@@ -98,10 +98,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1898138370 "
+            className="jsx-1189005922 "
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
               href="/setting"
               onClick={[Function]}
             >
@@ -110,67 +110,67 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
           </li>
         </ul>
         <ul
-          className="jsx-1898138370 dashboard-sidebar__footer"
+          className="jsx-1189005922 dashboard-sidebar__footer"
         >
           <li
-            className="jsx-1898138370"
+            className="jsx-1189005922"
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
             >
               Service Agreement
             </a>
           </li>
           <li
-            className="jsx-1898138370"
+            className="jsx-1189005922"
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
             >
               Privacy Policy
             </a>
           </li>
           <li
-            className="jsx-1898138370"
+            className="jsx-1189005922"
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
             >
               Service
             </a>
           </li>
           <li
-            className="jsx-1898138370"
+            className="jsx-1189005922"
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
             >
               About us
             </a>
           </li>
           <li
-            className="jsx-1898138370"
+            className="jsx-1189005922"
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
             >
               Contact us
             </a>
           </li>
           <li
-            className="jsx-1898138370"
+            className="jsx-1189005922"
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
             >
               Version 1.0
             </a>
           </li>
           <li
-            className="jsx-1898138370"
+            className="jsx-1189005922"
           >
             <a
-              className="jsx-1898138370"
+              className="jsx-1189005922"
             >
               @Mechef 2017
             </a>
@@ -180,39 +180,39 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
     </div>
   </div>
   <div
-    className="jsx-1898138370 dashboard__right"
+    className="jsx-1189005922 dashboard__right"
   >
     <div
-      className="jsx-1898138370 dashboard-header"
+      className="jsx-1189005922 dashboard-header"
     >
       <div
-        className="jsx-1898138370 dashboard-header__wrapper"
+        className="jsx-1189005922 dashboard-header__wrapper"
       >
         <label
-          className="jsx-1898138370 dashboard-header__menu"
+          className="jsx-1189005922 dashboard-header__menu"
           htmlFor="dashboard-header__menu-toggle"
         >
           <i
             aria-hidden="true"
-            className="jsx-1898138370 fa fa-bars dashboard-header__icon"
+            className="jsx-1189005922 fa fa-bars dashboard-header__icon"
           />
           <span
-            className="jsx-1898138370 dashboard-header__title"
+            className="jsx-1189005922 dashboard-header__title"
           >
             MENU
           </span>
         </label>
         <div
-          className="jsx-1898138370 dashboard-header__user-profile"
+          className="jsx-1189005922 dashboard-header__user-profile"
         >
           <div
-            className="jsx-1898138370 dashboard-header__user-head"
+            className="jsx-1189005922 dashboard-header__user-head"
           />
           <div
-            className="jsx-1898138370 dashboard-header__user-head"
+            className="jsx-1189005922 dashboard-header__user-head"
           />
           <div
-            className="jsx-1898138370 dashboard-header__user-head"
+            className="jsx-1189005922 dashboard-header__user-head"
           />
         </div>
       </div>

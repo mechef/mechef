@@ -99,7 +99,8 @@ class IngredientEdit extends React.Component<Props, State> {
                         amount: this.state.inputIngredientAmount,
                       },
                     ],
-                    total: parseInt(this.state.total, 10) + parseInt(this.state.inputIngredientAmount, 10),
+                    total: parseInt(this.state.total, 10) +
+                      parseInt(this.state.inputIngredientAmount, 10),
                     inputIngredientName: '',
                     inputIngredientAmount: 0,
                   })}
@@ -110,7 +111,9 @@ class IngredientEdit extends React.Component<Props, State> {
             </p>
             {
               this.state.ingredients.map((ingredient, index) => (
-                <div className="ingredients">
+                /* eslint-disable */
+                <div key={index} className="ingredients">
+                {/* eslint-enable */}
                   <span className="ingredients__name">{ingredient.name}</span>
                   <span className="ingredients__cost">$ {ingredient.amount}</span>
                   <span

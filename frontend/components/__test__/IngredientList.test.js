@@ -9,6 +9,7 @@ describe('Pages With Snapshot Testing', () => {
     const component = renderer.create(
       <IngredientList
         memos={[{
+          _id: '59d054c8a70e5b90e75111b8',
           sum: '100',
           name: 'bible memo',
           ingredients: [
