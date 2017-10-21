@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
+<div
+  className="jsx-1402385676 dashboard-content"
+>
+  <div
+    className="jsx-1402385676 dashboard-content__form"
+  >
+    <div
+      className="jsx-1402385676 update-cover-photo"
+      onClick={[Function]}
+      role="button"
+      tabIndex="-1"
+    >
+      <input
+        className="jsx-1402385676 hidden"
+        onChange={[Function]}
+        type="file"
+      />
+      <img
+        alt="cover"
+        className="jsx-1402385676 coverPhoto"
+        src="../static/pancake.jpg"
+      />
+      <div
+        className="jsx-1402385676 update-cover-photo__title"
+      >
+        <i
+          aria-hidden="true"
+          className="jsx-1402385676 fa fa-camera update-cover-photo__icon"
+        />
+        <span
+          className="jsx-1402385676"
+        >
+          Update your cover photo
+        </span>
+      </div>
+    </div>
+    <div
+      className="jsx-1402385676 update-profile-image"
+    >
+      <input
+        className="jsx-1402385676 hidden"
+        onChange={[Function]}
+        type="file"
+      />
+      <div
+        className="jsx-1402385676 update-profile-image__avatar"
+        onClick={[Function]}
+        role="button"
+        tabIndex="-1"
+      >
+        <img
+          alt="profile"
+          className="jsx-1402385676 profileImage"
+          src="../static/avatar.jpg"
+        />
+        <i
+          aria-hidden="true"
+          className="jsx-1402385676 fa fa-camera update-profile-image__avatar-camera-icon"
+        />
+      </div>
+      <div
+        className="jsx-1402385676 update-profile-image__description"
+      >
+        <span
+          className="jsx-1402385676 update-profile-image__description-title"
+        >
+          Profile Image
+        </span>
+        <span
+          className="jsx-1402385676 update-profile-image__description-subtitle"
+        >
+          Add Image Add Image Add Image
+        </span>
+      </div>
+    </div>
+    <div
+      className="jsx-1402385676 bank-info"
+    >
+      <p
+        className="jsx-1402385676 bank-info__title"
+      >
+        Kitchen Name*
+      </p>
+      <p
+        className="jsx-1402385676 bank-info__subtitle"
+      >
+        Add Images Add Images Add Images
+      </p>
+      <input
+        className="jsx-1402385676 bank-info__input"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="jsx-1402385676 bank-info"
+    >
+      <p
+        className="jsx-1402385676 bank-info__title"
+      >
+        Kitchen Description*
+      </p>
+      <p
+        className="jsx-1402385676 bank-info__subtitle"
+      >
+        Add Images Add Images Add Images
+      </p>
+      <textarea
+        className="jsx-1402385676 bank-info__text-area"
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="jsx-1402385676 bank-info"
+    >
+      <p
+        className="jsx-1402385676 bank-info__title"
+      >
+        User Name*
+      </p>
+      <p
+        className="jsx-1402385676 bank-info__subtitle"
+      >
+        Add Images Add Images Add Images
+      </p>
+      <div
+        className="jsx-1402385676 inputGroup"
+      >
+        <input
+          className="jsx-1402385676 bank-info__input smallSize"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+        <input
+          className="jsx-1402385676 bank-info__input smallSize"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="jsx-1402385676 two-div"
+    >
+      <div
+        className="jsx-1402385676 left"
+      >
+        <p
+          className="jsx-1402385676 bank-info__title"
+        >
+          Phone Number*
+        </p>
+        <p
+          className="jsx-1402385676 bank-info__subtitle"
+        >
+          Add Images Add Images Add Images
+        </p>
+        <input
+          className="jsx-1402385676 bank-info__input smallSize"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        className="jsx-1402385676 right"
+      >
+        <p
+          className="jsx-1402385676 bank-info__title"
+        >
+          Email Address*
+        </p>
+        <p
+          className="jsx-1402385676 bank-info__subtitle"
+        >
+          Add Images Add Images Add Images
+        </p>
+        <input
+          className="jsx-1402385676 bank-info__input smallSize"
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="jsx-1402385676 buttonGroup"
+  >
+    <span
+      className="jsx-1402385676 secondaryBtn"
+      onClick={undefined}
+      role="button"
+      tabIndex="-1"
+    >
+      CANCLE
+    </span>
+    <span
+      className="jsx-1402385676 primaryBtn"
+      onClick={[Function]}
+      role="button"
+      tabIndex="-1"
+    >
+      SAVE
+    </span>
+  </div>
+</div>
+`;

@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 
 type Props = {
   meetupList: Array<{
@@ -34,7 +34,7 @@ const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div
     </div>
     {
       meetupList.map(meetup => (
-        <div className="delivery-list">
+        <div key={meetup._id} className="delivery-list">
           <div className="delivery-item">
             <div className="delivery-content">
               <p className="delivery-title">{meetup.meetupAddress}</p>

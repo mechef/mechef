@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages With Snapshot Testing snapshot DeliveryPage Component 1`] = `
+<div
+  className="jsx-4065268649 container"
+>
+  <div
+    className="jsx-2767775796"
+  >
+    <div
+      className="jsx-2767775796 header"
+    >
+      <span
+        className="jsx-2767775796 title"
+      >
+        Delivery List
+      </span>
+      <div
+        className="jsx-2767775796 addButton"
+        onClick={[Function]}
+        role="link"
+        tabIndex="-1"
+      >
+        <i
+          aria-hidden="true"
+          className="jsx-2767775796 fa fa-plus plus-icon"
+        />
+      </div>
+    </div>
+    <div
+      className="jsx-2767775796 delivery-list"
+    >
+      <div
+        className="jsx-2767775796 delivery-item"
+      >
+        <div
+          className="jsx-2767775796 delivery-content"
+        >
+          <p
+            className="jsx-2767775796 delivery-title"
+          >
+            Rakuten Crimson House
+          </p>
+          <p
+            className="jsx-2767775796 delivery-detail"
+          >
+            <span
+              className="jsx-2767775796 delivery-subtext"
+            >
+              Shipping Cost:
+            </span>
+          </p>
+        </div>
+        <span
+          className="jsx-2767775796 update-button"
+          onClick={[Function]}
+          role="button"
+          tabIndex="-1"
+        >
+          <span
+            className="jsx-2767775796 update-button-text"
+          >
+            UPDATE
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

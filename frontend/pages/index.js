@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
-import PropTypes from 'prop-types';
 
 const Index = props => (
   <div>
@@ -37,11 +36,5 @@ Index.getInitialProps = async function () {
   };
 };
 
-Index.propTypes = {
-  shows: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-  })).isRequired,
-};
 
 export default Index;

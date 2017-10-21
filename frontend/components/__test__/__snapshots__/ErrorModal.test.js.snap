@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages With Snapshot Testing snapshot DeliveryPage Component 1`] = `
+<div
+  className="jsx-936375905 alert-modal-overlay"
+>
+  <div
+    className="jsx-936375905 alert-modal"
+  >
+    <header
+      className="jsx-936375905 alert-modal-header"
+    >
+      <img
+        alt="logo"
+        className="jsx-936375905 alert-modal-logo"
+        src="../static/food.png"
+      />
+      <i
+        aria-hidden="true"
+        className="jsx-936375905 fa fa-times cancel-btn fa-2x"
+        onClick={[Function]}
+      />
+    </header>
+    <section
+      className="jsx-936375905 alert-modal-body"
+    >
+      <p
+        className="jsx-936375905 alert-title"
+      >
+        Error
+      </p>
+      <p
+        className="jsx-936375905 alert-message"
+      >
+        Something Wrong
+      </p>
+      <p
+        className="jsx-936375905 alert-bottom-style"
+      />
+    </section>
+  </div>
+</div>
+`;

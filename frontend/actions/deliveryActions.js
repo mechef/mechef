@@ -1,4 +1,4 @@
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 
 export default {
   fetchDelivery$: new Rx.Subject, // eslint-disable-line new-parens

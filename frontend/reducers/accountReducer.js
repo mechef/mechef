@@ -1,6 +1,6 @@
 // @flow
 
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 import accountActions from '../actions/accountActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';

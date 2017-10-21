@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 
 import { connect } from '../state/RxState';
 import deliveryActions from '../actions/deliveryActions';
@@ -86,7 +86,7 @@ type Props = {
   toggleBackArrow$: string => Rx.Observable,
 }
 
-class DeliveryPage extends React.Component<Props> {
+export class DeliveryPage extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchDelivery$();
   }

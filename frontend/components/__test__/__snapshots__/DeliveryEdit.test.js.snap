@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
+<div
+  className="jsx-2895497480 dashboard-content"
+>
+  <p
+    className="jsx-2895497480 dashboard-content__title"
+  >
+    Edit Delivery
+  </p>
+  <div
+    className="jsx-2895497480 editContainer"
+  >
+    <div
+      className="jsx-2895497480 meetupLocation"
+    >
+      <h3
+        className="jsx-2895497480 title"
+      >
+        Meet up location
+      </h3>
+      <p
+        className="jsx-2895497480 subtitle"
+      >
+        Location and Time
+      </p>
+      <input
+        className="jsx-2895497480 largInput"
+        type="text"
+      />
+    </div>
+    <h3
+      className="jsx-2895497480 title"
+    >
+      Meet up date
+    </h3>
+    <div
+      className="jsx-2895497480 meetupDate"
+    >
+      <div
+        className="jsx-2895497480 smallInputContainer"
+      >
+        <span
+          className="jsx-2895497480 subtitle"
+        >
+          Select Date MM/DD/YYYY
+        </span>
+        <input
+          className="jsx-2895497480 selectbox"
+          type="select"
+        />
+      </div>
+      <div
+        className="jsx-2895497480 smallInputContainer"
+      >
+        <span
+          className="jsx-2895497480 subtitle"
+        >
+          Dynamic Period
+        </span>
+        <input
+          className="jsx-2895497480 selectbox"
+          type="select"
+        />
+      </div>
+    </div>
+    <h3
+      className="jsx-2895497480 title"
+    >
+      Meet up time
+    </h3>
+    <p
+      className="jsx-2895497480 subtitle"
+    >
+      Location and Time
+    </p>
+  </div>
+  <div
+    className="jsx-2895497480 buttonGroup"
+  >
+    <span
+      className="jsx-2895497480 secondaryBtn"
+      onClick={[Function]}
+      role="button"
+      tabIndex="-1"
+    >
+      DELETE
+    </span>
+    <span
+      className="jsx-2895497480 secondaryBtn"
+      onClick={[Function]}
+      role="button"
+      tabIndex="-1"
+    >
+      CANCEL
+    </span>
+    <span
+      className="jsx-2895497480 primaryBtn"
+      onClick={[Function]}
+      role="button"
+      tabIndex="-1"
+    >
+      SAVE
+    </span>
+  </div>
+</div>
+`;

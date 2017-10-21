@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 import Link from 'next/link';
 import Router from 'next/router';
 

@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages With Snapshot Testing snapshot DeliveryPage Component 1`] = `
+<div
+  className="homeContainer"
+  data-jsx={3874687171}
+>
+  <div
+    className="dashboard-content__header"
+    data-jsx={3874687171}
+  />
+  <p
+    className="sellerId"
+    data-jsx={3874687171}
+  >
+    @MomooKitchen
+  </p>
+  <p
+    className="sellerName"
+    data-jsx={3874687171}
+  >
+    @MomooKitchen
+  </p>
+  <div
+    className="orderTable"
+    data-jsx={3874687171}
+  >
+    <p
+      className="orderTableTitle"
+      data-jsx={3874687171}
+    >
+      <span
+        className="titleText"
+        data-jsx={3874687171}
+      >
+        ORDERS
+      </span>
+      <span
+        className="orderCount"
+        data-jsx={3874687171}
+      >
+        <span
+          className="orderCountNum"
+          data-jsx={3874687171}
+        >
+          14
+        </span>
+      </span>
+    </p>
+    <div
+      className="header"
+      data-jsx={3874687171}
+    >
+      <div
+        className="firstCell"
+        data-jsx={3874687171}
+      >
+        Delivery Time
+      </div>
+      <div
+        className="secondCell"
+        data-jsx={3874687171}
+      >
+        Buyer‘s Name
+      </div>
+      <div
+        className="thirdCell"
+        data-jsx={3874687171}
+      >
+        Order Name
+      </div>
+      <div
+        className="fourthCell"
+        data-jsx={3874687171}
+      >
+        Quantity
+      </div>
+    </div>
+  </div>
+</div>
+`;

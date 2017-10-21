@@ -1,6 +1,6 @@
 // @flow
 
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 import ingredientActions from '../actions/ingredientActions';
 import errorActions from '../actions/errorActions';
 import { API_MEMO } from '../utils/constants';

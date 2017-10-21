@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 
 type Props = {
   account: {

@@ -1,4 +1,4 @@
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 import Router from 'next/router';
 import authActions from '../actions/authActions';
 import errorActions from '../actions/errorActions';

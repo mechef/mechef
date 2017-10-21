@@ -1,12 +1,12 @@
 // @flow
 
 import * as React from 'react';
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
 import reducer$ from '../reducers';
 
-const debuggerOn = true;
+const debuggerOn = process.env.debug;
 Observable.prototype.debug = function (message: string): Observable {
   return this.do(
     (next) => {
@@ -33,7 +33,6 @@ export function createState(
 ): Observable {
   return initialState$
     .merge(reducerStream)
-    .debug('createState')
     .scan((state, [scope, reducer]) => ({ ...state, [scope]: reducer(state[scope]) }))
     .publishReplay(1)
     .refCount();

@@ -1,4 +1,4 @@
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 import deliveryActions from '../actions/deliveryActions';
 import errorActions from '../actions/errorActions';
 import { API_GET_DELIVERY_LIST } from '../utils/constants';

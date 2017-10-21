@@ -1,4 +1,4 @@
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 
 export default {
   setLoginField$: new Rx.Subject,

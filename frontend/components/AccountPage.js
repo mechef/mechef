@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 
 import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
@@ -59,7 +59,7 @@ type Props = {
   toggleBackArrow$: string => Rx.Observable,
 }
 
-class AccountPage extends React.Component<Props> {
+export class AccountPage extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAccountDetail$();
   }

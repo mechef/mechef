@@ -1,4 +1,4 @@
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 import authReducer$ from './authReducer';
 import ingredientReducer$ from './ingredientReducer';
 import accountReducer$ from './accountReducer';

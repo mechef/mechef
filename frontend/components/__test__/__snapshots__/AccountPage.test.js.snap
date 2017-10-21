@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages With Snapshot Testing snapshot AccountPage Component 1`] = `
+<div
+  className="jsx-1943351365 accountContainer"
+>
+  <div
+    className="jsx-2706824839"
+  >
+    <div
+      className="jsx-2706824839 coverPhoto"
+    />
+    <p
+      className="jsx-2706824839 sellerId"
+    >
+      @MomooKitchen
+    </p>
+    <p
+      className="jsx-2706824839 sellerName"
+    />
+    <div
+      className="jsx-2706824839 kitchenInfo"
+    >
+      <div
+        className="jsx-2706824839 name"
+      >
+        <div
+          className="jsx-2706824839 kitchenName"
+        >
+          <span
+            className="jsx-2706824839 smallTitle"
+          >
+            Kitchen Name
+          </span>
+          <span
+            className="jsx-2706824839 contentText"
+          >
+            @MomooKitchen
+          </span>
+        </div>
+        <div
+          className="jsx-2706824839 userName"
+        >
+          <span
+            className="jsx-2706824839 smallTitle"
+          >
+            User Name
+          </span>
+          <span
+            className="jsx-2706824839 contentText"
+          />
+        </div>
+      </div>
+      <div
+        className="jsx-2706824839 description"
+      >
+        <span
+          className="jsx-2706824839 smallTitle"
+        >
+          Kitchen Description
+        </span>
+        <p
+          className="jsx-2706824839 contentText"
+        >
+          
+        </p>
+      </div>
+      <div
+        className="jsx-2706824839 name"
+      >
+        <div
+          className="jsx-2706824839 kitchenName"
+        >
+          <span
+            className="jsx-2706824839 smallTitle"
+          >
+            Phone Number
+          </span>
+          <span
+            className="jsx-2706824839 contentText"
+          >
+            8868008000
+          </span>
+        </div>
+        <div
+          className="jsx-2706824839 userName"
+        >
+          <span
+            className="jsx-2706824839 smallTitle"
+          >
+            Email Address
+          </span>
+          <span
+            className="jsx-2706824839 contentText"
+          >
+            momoochen@gmail.com
+          </span>
+        </div>
+      </div>
+      <div
+        className="jsx-2706824839 buttonGroup"
+      >
+        <span
+          className="jsx-2706824839 updateBtn"
+          onClick={[Function]}
+          role="button"
+          tabIndex="-1"
+        >
+          <span
+            className="jsx-2706824839 updateBtnText"
+          >
+            UPDATE
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      className="jsx-2706824839 additionalInfo"
+    >
+      <p
+        className="jsx-2706824839 smallTitle"
+      >
+        Bank Account
+      </p>
+      <div
+        className="jsx-2706824839 infoContent"
+      >
+        <div
+          className="jsx-2706824839 left"
+        >
+          <span
+            className="jsx-2706824839 contentText"
+          >
+            000 000 0000
+          </span>
+        </div>
+        <div
+          className="jsx-2706824839 right"
+        >
+          <span
+            className="jsx-2706824839 updateBtn"
+            onClick={[Function]}
+            role="button"
+            tabIndex="-1"
+          >
+            <span
+              className="jsx-2706824839 updateBtnText"
+            >
+              EDIT
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      className="jsx-2706824839 additionalInfo"
+    >
+      <p
+        className="jsx-2706824839 smallTitle"
+      >
+        Password
+      </p>
+      <div
+        className="jsx-2706824839 infoContent"
+      >
+        <div
+          className="jsx-2706824839 left"
+        >
+          <span
+            className="jsx-2706824839 contentText"
+          >
+            ******
+          </span>
+        </div>
+        <div
+          className="jsx-2706824839 right"
+        >
+          <span
+            className="jsx-2706824839 updateBtn"
+            onClick={[Function]}
+            role="button"
+            tabIndex="-1"
+          >
+            <span
+              className="jsx-2706824839 updateBtnText"
+            >
+              UPDATE
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

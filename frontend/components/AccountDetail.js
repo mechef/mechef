@@ -1,12 +1,28 @@
 // @flow
 
 import React from 'react';
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 
 type Props = {
   account: {
-    name: string,
+    name?: string,
+    kitchenName?: string,
     kitchenDescription?: string,
+    firstName?: string,
+    lastName?: string,
+    phoneNumber?: string,
+    coverPhoto?: string,
+    profileImage?: string,
+    update: {
+      name?: string,
+      kitchenName?: string,
+      kitchenDescription?: string,
+      firstName?: string,
+      lastName?: string,
+      phoneNumber?: string,
+      coverPhoto?: File,
+      profileImage?: File,
+    },
   },
   onUpdateAccount: () => Rx.Observable,
 }

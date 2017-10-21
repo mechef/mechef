@@ -1,4 +1,4 @@
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 import errorActions from '../actions/errorActions';
 
 const initialState = {

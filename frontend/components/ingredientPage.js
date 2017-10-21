@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import Rx from 'rxjs';
+import Rx from 'rxjs/Rx';
 
 import { connect } from '../state/RxState';
 import ingredientActions from '../actions/ingredientActions';
@@ -57,7 +57,7 @@ type Props = {
   toggleBackArrow$: string => Rx.Observable,
 }
 
-class IngredientPage extends React.Component<Props> {
+export class IngredientPage extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchMemos$();
   }

@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages With Snapshot Testing snapshot IngredientPage Component 1`] = `
+<div
+  className="jsx-2726819105 container"
+>
+  <div
+    className="jsx-158552079"
+  >
+    <div
+      className="jsx-158552079 header"
+    >
+      <span
+        className="jsx-158552079 title"
+      >
+        Ingredients List
+      </span>
+      <div
+        className="jsx-158552079 addButton"
+        onClick={[Function]}
+        role="link"
+        tabIndex="-1"
+      >
+        <i
+          aria-hidden="true"
+          className="jsx-158552079 fa fa-plus plus-icon"
+        />
+      </div>
+    </div>
+    <div
+      className="jsx-158552079 ingredient-list"
+    >
+      <div
+        className="jsx-158552079 ingredient-item"
+      >
+        <div
+          className="jsx-158552079 ingredient-content"
+        >
+          <p
+            className="jsx-158552079 ingredient-title"
+          >
+            bible memo
+          </p>
+          <p
+            className="jsx-158552079 ingredient-detail"
+          >
+            <span
+              className="jsx-158552079 ingredient-subtext"
+            >
+              Ingredient: 
+              1
+            </span>
+            <span
+              className="jsx-158552079 ingredient-subtext"
+            >
+              Total: 
+              $100
+            </span>
+          </p>
+        </div>
+        <span
+          className="jsx-158552079 update-button"
+          onClick={[Function]}
+          role="button"
+          tabIndex="-1"
+        >
+          <span
+            className="jsx-158552079 update-button-text"
+          >
+            UPDATE
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
