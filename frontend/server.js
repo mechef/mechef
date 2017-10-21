@@ -16,6 +16,18 @@ app.prepare()
       app.render(req, res, actualPage);
     });
 
+    server.get('/kitchen/:kitchen', (req, res) => {
+      const actualPage = '/store';
+      const queryParams = {kitchen: req.params.kitchen};
+      app.render(req, res, actualPage);
+    });
+
+    server.get('/kitchen/:kitchen/:product', (req, res) => {
+      const actualPage = '/store';
+      const queryParams = {kitchen: req.params.kitchen, product: req.params.product};
+      app.render(req, res, actualPage, queryParams);
+    });
+
     server.get('/', (req, res) => {
       // TODO: Find a way to login automatically by jwt
       app.render(req, res, '/login');

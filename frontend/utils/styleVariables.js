@@ -53,3 +53,6 @@ export const successModalColor = '#3f9f40';
 export const warningModalColor = '#f0ad4f';
 export const errorModalColor = '#d9524f';
 export const hintModalColor = '#9b9b9b';
+
+// Cart Button
+export const badgeBackgroundColor = '#8cc63f';

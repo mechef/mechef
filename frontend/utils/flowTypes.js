@@ -83,3 +83,20 @@ export type OrderObject = {
   dishName: string,
   image: string,
 };
+
+export type ProductObject = {
+  _id?: string,
+  name?: string,
+  description?: string,
+  price?: number,
+  image?: string,
+};
+
+export type StoreObject = {
+  _id?: string,
+  kitchenName?: string,
+  description?: string,
+  coverPhoto?: string,
+  chefProfileImage?: string,
+  products?: Array<ProductObject>,
+};
