@@ -8,6 +8,7 @@ import Router from 'next/router';
 import { connect } from '../state/RxState';
 import DashboardPageRouter from '../components/DashboardPageRouter';
 import globalActions from '../actions/globalActions';
+import { primaryColor, transparent } from '../utils/styleVariables';
 
 type Props = {
   asPath: string,
@@ -59,7 +60,7 @@ class Dashboard extends React.Component<Props, State> {
             <div className="dashboard-sidebar__inner">
               <img src="../static/logo.png" alt="logo" />
               <ul className="dashboard-sidebar__menu">
-                <li className={this.state.asPath === '/dashboard/home' ? 'active' : ''}><Link href="/dashboard"><a>HOME</a></Link></li>
+                <li className={this.state.asPath === '/dashboard/' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => this.navigate('')}>HOME</a></li>
                 <li className={this.state.asPath === '/dashboard/menu' ? 'active' : ''}><Link href="/menu"><a>MENU</a></Link></li>
                 <li className={this.state.asPath === '/dashboard/order' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => this.navigate('order')}>ORDERS</a></li>
                 <li className={this.state.asPath === '/dashboard/ingredient' ? 'active' : ''}><a role="link" tabIndex="-1" onClick={() => this.navigate('ingredient')}>INGREDIENTS</a></li>
@@ -144,18 +145,21 @@ class Dashboard extends React.Component<Props, State> {
                 padding: 0px;
               }
               .dashboard-sidebar__menu > li {
+                outline: none;
                 padding-left: 36px;
-                width: 108px;
+                width: 100%;
                 height: 50px;
                 cursor: pointer;
+                border-left: 9px solid ${transparent};
               }
               .dashboard-sidebar__menu > li:hover {
-                border-left: 9px solid #8cc63f;
+                border-left-color: ${primaryColor};
               }
               .dashboard-sidebar__menu > li.active {
-                border-left: 9px solid #8cc63f;
+                border-left-color: ${primaryColor};
               }
               .dashboard-sidebar__menu > li > a {
+                outline: none;
                 line-height: 50px;
                 width: 75.9px;
                 height: 19px;

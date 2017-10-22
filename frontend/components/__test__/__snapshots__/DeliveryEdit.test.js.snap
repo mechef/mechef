@@ -2,85 +2,115 @@
 
 exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
 <div
-  className="jsx-4097871851 dashboard-content"
+  className="jsx-1544920060 dashboard-content"
 >
   <p
-    className="jsx-4097871851 dashboard-content__title"
+    className="jsx-1544920060 dashboard-content__title"
   >
     Edit Delivery
   </p>
   <div
-    className="jsx-4097871851 editContainer"
+    className="jsx-1544920060 editContainer"
   >
     <div
-      className="jsx-4097871851 meetupLocation"
+      className="jsx-1544920060 meetupLocation"
     >
       <h3
-        className="jsx-4097871851 title"
+        className="jsx-1544920060 title"
       >
         Meet up location
       </h3>
       <p
-        className="jsx-4097871851 subtitle"
+        className="jsx-1544920060 subtitle"
       >
         Location and Time
       </p>
-      <input
-        className="jsx-4097871851 largInput"
-        type="text"
-      />
+      <div
+        className="jsx-3090447383"
+      >
+        <input
+          className="jsx-3090447383 
+        textInput
+        large
+      "
+          onChange={[Function]}
+          placeholder="Enter Ingredients..."
+          type="text"
+          value=""
+        />
+      </div>
     </div>
     <h3
-      className="jsx-4097871851 title"
+      className="jsx-1544920060 title"
     >
       Meet up date
     </h3>
     <div
-      className="jsx-4097871851 meetupDate"
+      className="jsx-1544920060 meetupDate"
     >
       <div
-        className="jsx-4097871851 smallInputContainer"
+        className="jsx-1544920060 smallInputContainer"
       >
         <span
-          className="jsx-4097871851 subtitle"
+          className="jsx-1544920060 subtitle"
         >
           Select Date MM/DD/YYYY
         </span>
-        <input
-          className="jsx-4097871851 selectbox"
-          type="select"
-        />
+        <div
+          className="jsx-3090447383"
+        >
+          <input
+            className="jsx-3090447383 
+        textInput
+        small
+      "
+            onChange={[Function]}
+            placeholder=""
+            type="text"
+            value=""
+          />
+        </div>
       </div>
       <div
-        className="jsx-4097871851 smallInputContainer"
+        className="jsx-1544920060 smallInputContainer"
       >
         <span
-          className="jsx-4097871851 subtitle"
+          className="jsx-1544920060 subtitle"
         >
           Dynamic Period
         </span>
-        <input
-          className="jsx-4097871851 selectbox"
-          type="select"
-        />
+        <div
+          className="jsx-3090447383"
+        >
+          <input
+            className="jsx-3090447383 
+        textInput
+        small
+      "
+            onChange={[Function]}
+            placeholder=""
+            type="select"
+            value=""
+          />
+        </div>
       </div>
     </div>
     <h3
-      className="jsx-4097871851 title"
+      className="jsx-1544920060 title"
     >
       Meet up time
     </h3>
     <p
-      className="jsx-4097871851 subtitle"
+      className="jsx-1544920060 subtitle"
     >
       Location and Time
     </p>
   </div>
   <div
-    className="jsx-4097871851 buttonGroup"
+    className="jsx-1544920060 buttonGroup"
   >
     <div
-      className="jsx-4097871851"
+      className="jsx-1544920060"
     >
       <button
         className="jsx-675350272 
@@ -95,7 +125,7 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
       </button>
     </div>
     <div
-      className="jsx-4097871851"
+      className="jsx-1544920060"
     >
       <button
         className="jsx-675350272 
@@ -110,7 +140,7 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
       </button>
     </div>
     <div
-      className="jsx-4097871851"
+      className="jsx-1544920060"
     >
       <button
         className="jsx-675350272 

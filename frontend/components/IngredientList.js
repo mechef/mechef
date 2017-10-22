@@ -26,7 +26,7 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
     </div>
     {
       memos.map(memo => (
-        <div key={memo._id} className="ingredient-list">
+        <div key={memo._id} className="ingredientList">
           <div className="ingredient-item">
             <div className="ingredient-content">
               <p className="ingredient-title">{memo.name}</p>
@@ -39,19 +39,24 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
                 </span>
               </p>
             </div>
-            <Button
-              size="small"
-              buttonStyle="primary"
-              onClick={() => onEditMemo(memo._id)}
-            >
-              UPDATE
-            </Button>
+            <div className="buttonWrapper">
+              <Button
+                size="small"
+                buttonStyle="primary"
+                onClick={() => onEditMemo(memo._id)}
+              >
+                UPDATE
+              </Button>
+            </div>
           </div>
         </div>
       ))
     }
     <style jsx>
       {`
+        .ingredientList {
+          width: 800px;
+        }
         .header {
           display: flex;
           align-items: center;
@@ -114,6 +119,9 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
           letter-spacing: 0.6px;
           text-align: left;
           color: #9b9b9b;
+        }
+        .buttonWrapper {
+          align-self: center;
         }
       `}
     </style>

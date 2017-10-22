@@ -5,70 +5,74 @@ exports[`Pages With Snapshot Testing snapshot IngredientPage Component 1`] = `
   className="jsx-2726819105 container"
 >
   <div
-    className="jsx-3731210381"
+    className="jsx-1552839758"
   >
     <div
-      className="jsx-3731210381 header"
+      className="jsx-1552839758 header"
     >
       <span
-        className="jsx-3731210381 title"
+        className="jsx-1552839758 title"
       >
         Ingredients List
       </span>
       <div
-        className="jsx-3731210381 addButton"
+        className="jsx-1552839758 addButton"
         onClick={[Function]}
         role="link"
         tabIndex="-1"
       >
         <i
           aria-hidden="true"
-          className="jsx-3731210381 fa fa-plus plus-icon"
+          className="jsx-1552839758 fa fa-plus plus-icon"
         />
       </div>
     </div>
     <div
-      className="jsx-3731210381 ingredient-list"
+      className="jsx-1552839758 ingredientList"
     >
       <div
-        className="jsx-3731210381 ingredient-item"
+        className="jsx-1552839758 ingredient-item"
       >
         <div
-          className="jsx-3731210381 ingredient-content"
+          className="jsx-1552839758 ingredient-content"
         >
           <p
-            className="jsx-3731210381 ingredient-title"
+            className="jsx-1552839758 ingredient-title"
           >
             bible memo
           </p>
           <p
-            className="jsx-3731210381 ingredient-detail"
+            className="jsx-1552839758 ingredient-detail"
           >
             <span
-              className="jsx-3731210381 ingredient-subtext"
+              className="jsx-1552839758 ingredient-subtext"
             >
               Ingredient: 
               1
             </span>
             <span
-              className="jsx-3731210381 ingredient-subtext"
+              className="jsx-1552839758 ingredient-subtext"
             >
               Total: 
               $100
             </span>
           </p>
         </div>
-        <button
-          className="jsx-675350272 
+        <div
+          className="jsx-1552839758 buttonWrapper"
+        >
+          <button
+            className="jsx-675350272 
       button
       primary
       small
     "
-          onClick={[Function]}
-          type="button"
-        >
-          UPDATE
-        </button>
+            onClick={[Function]}
+            type="button"
+          >
+            UPDATE
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -12,6 +12,7 @@ import { API_REGISTER } from '../utils/constants';
 import Header from '../components/Header';
 import ErrorModal from '../components/ErrorModal';
 import Button from '../components/Button';
+import TextInput from '../components/TextInput';
 
 type Props = {
   setLoginField$: (any) => Rx.Observable,
@@ -108,7 +109,6 @@ class Login extends React.Component<Props, State> {
           <div className="login-form">
             <div className="login-btn splits">
               <p className="splits-title">Have an account?</p>
-              <h1>Test</h1>
               <Button
                 buttonStyle="whiteBorderOnly"
                 size="small"
@@ -135,22 +135,28 @@ class Login extends React.Component<Props, State> {
               <div className="login">
                 <p className="title">SIGN IN</p>
                 <div className="mail">
-                  <input
+                  <TextInput
                     type="mail"
                     placeholder="Mail or Username"
+                    size="medium"
                     value={email}
                     onChange={(evt) => {
-                      setLoginField$({ email: evt.target.value });
+                      if (evt && evt.target) {
+                        setLoginField$({ email: evt.target.value });
+                      }
                     }}
                   />
                 </div>
                 <div className="passwd">
-                  <input
+                  <TextInput
                     type="password"
                     placeholder="Password"
+                    size="medium"
                     value={password}
                     onChange={(evt) => {
-                      setLoginField$({ password: evt.target.value });
+                      if (evt && evt.target) {
+                        setLoginField$({ password: evt.target.value });
+                      }
                     }}
                   />
                 </div>
@@ -166,63 +172,82 @@ class Login extends React.Component<Props, State> {
               </div>
               <div className="register">
                 <p className="title">Be a Chef today!</p>
-                <input
-                  type="text"
-                  name=""
-                  placeholder="First Name"
-                  value={this.state.signup.firstName}
-                  onChange={(evt) => {
-                    this.setState({
-                      signup: {
-                        ...this.state.signup,
-                        firstName: evt.target.value,
-                      },
-                    });
-                  }}
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  value={this.state.signup.lastName}
-                  onChange={(evt) => {
-                    this.setState({
-                      signup: {
-                        ...this.state.signup,
-                        lastName: evt.target.value,
-                      },
-                    });
-                  }}
-                />
-                <input
-                  type="tel"
-                  placeholder="Password"
-                  value={this.state.signup.password}
-                  onChange={(evt) => {
-                    this.setState({
-                      signup: {
-                        ...this.state.signup,
-                        password: evt.target.value,
-                      },
-                    });
-                  }}
-                />
-                <input
-                  type="mail"
-                  placeholder="Email Address"
-                  value={this.state.signup.email}
-                  onChange={(evt) => {
-                    this.setState({
-                      signup: {
-                        ...this.state.signup,
-                        email: evt.target.value,
-                      },
-                    });
-                  }}
-                />
+                <div>
+                  <TextInput
+                    type="text"
+                    placeholder="First Name"
+                    size="medium"
+                    value={this.state.signup.firstName}
+                    onChange={(evt) => {
+                      if (evt && evt.target) {
+                        this.setState({
+                          signup: {
+                            ...this.state.signup,
+                            firstName: evt.target.value,
+                          },
+                        });
+                      }
+                    }}
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    type="text"
+                    placeholder="Last Name"
+                    size="medium"
+                    value={this.state.signup.lastName}
+                    onChange={(evt) => {
+                      if (evt && evt.target) {
+                        this.setState({
+                          signup: {
+                            ...this.state.signup,
+                            lastName: evt.target.value,
+                          },
+                        });
+                      }
+                    }}
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    type="password"
+                    placeholder="Telephone Number"
+                    size="medium"
+                    value={this.state.signup.password}
+                    onChange={(evt) => {
+                      if (evt && evt.target) {
+                        this.setState({
+                          signup: {
+                            ...this.state.signup,
+                            password: evt.target.value,
+                          },
+                        });
+                      }
+                    }}
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    type="mail"
+                    placeholder="Email Address"
+                    size="medium"
+                    value={this.state.signup.email}
+                    onChange={(evt) => {
+                      if (evt && evt.target) {
+                        this.setState({
+                          signup: {
+                            ...this.state.signup,
+                            password: evt.target.value,
+                          },
+                        });
+                      }
+                    }}
+                  />
+                </div>
                 <div className="wrapper__submit">
-                  <button type="primary" size="medium" onClick={this.onSubmitSignup}>
+                  <Button type="primary" size="medium" onClick={this.onSubmitSignup}>
                     JOIN NOW
-                  </button>
+                  </Button>
                 </div>
                 <div className="wrapper__note">
                   <span >If you click JOIN NOW, it means you agree with terms of service.</span>
@@ -239,7 +264,6 @@ class Login extends React.Component<Props, State> {
               width: 100%;
               height: 786px;
               padding-top: 130px;
-              padding-bottom: 176px;
               transition: all .5s;
               background-image: url("../static/main-background.jpg");
             }
@@ -258,38 +282,6 @@ class Login extends React.Component<Props, State> {
               margin: auto;
               color: #fff;
             }
-            .login-form button {
-              width: 153px;
-              height: 50px;
-              border-radius: 4px;
-              background: transparent;
-              display: inline-block;
-              padding: 10px 30px;
-              border: solid 1px #ffffff;
-              background-clip: padding-box;
-              position: relative;
-              color: #FFF;
-              transition: all .25s;
-              font-size: 14px;
-              font-weight: 500;
-              line-height: 1.14;
-              text-align: center;
-              color: #ffffff;
-            }
-
-            .login-form button.dark {
-              width: 356px;
-              height: 50px;
-              border-radius: 4px;
-              background-color: #3e9f40;
-            }
-
-            .login-form .move button.dark {
-              width: 356px;
-              height: 50px;
-              border-radius: 4px;
-              background-color: #3e9f40;
-            }
 
             .splits {
               display: flex;
@@ -303,12 +295,7 @@ class Login extends React.Component<Props, State> {
               text-align: center;
               color: #ffffff;
             }
-            .login-form button:active {
-              box-shadow: none;
-            }
-            .login-form button:focus {
-              outline: none;
-            }
+
             .login-form > .wrapper {
               display: flex;
               justify-content: center;
@@ -324,6 +311,7 @@ class Login extends React.Component<Props, State> {
               color: #303030;
               overflow: hidden;
             }
+
             .login-form .wrapper > div {
               display: flex;
               flex-direction: column;
@@ -388,6 +376,11 @@ class Login extends React.Component<Props, State> {
               line-height: 1;
               color: #4a4a4a;
             }
+
+            .register > div {
+              margin-bottom: 15px;
+            }
+
             @media screen and (max-width: 768px) {
               * {
                 transition: all 0.5s;

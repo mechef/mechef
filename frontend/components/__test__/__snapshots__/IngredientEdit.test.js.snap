@@ -2,114 +2,139 @@
 
 exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
 <div
-  className="jsx-2776982312 dashboard-content"
+  className="jsx-399955778 dashboard-content"
 >
   <p
-    className="jsx-2776982312 dashboard-content__title"
+    className="jsx-399955778 dashboard-content__title"
   >
     Edit Ingredients
   </p>
   <div
-    className="jsx-2776982312 edit-ingredient"
+    className="jsx-399955778 edit-ingredient"
   >
     <p
-      className="jsx-2776982312 edit-ingredient__title"
+      className="jsx-399955778 edit-ingredient__title"
     >
       List Name*
     </p>
     <p
-      className="jsx-2776982312 edit-ingredient__explanation"
+      className="jsx-399955778 edit-ingredient__explanation"
     >
       The number of characters is limited to 50.
     </p>
     <p
-      className="jsx-2776982312 edit-ingredient__input"
+      className="jsx-399955778 edit-ingredient__input"
     >
-      <input
-        className="jsx-2776982312 edit-ingredient__input-name"
-        onChange={[Function]}
-        type="text"
-        value="bible memo"
-      />
+      <div
+        className="jsx-3090447383"
+      >
+        <input
+          className="jsx-3090447383 
+        textInput
+        medium
+      "
+          onChange={[Function]}
+          placeholder="Input memo name"
+          type="text"
+          value="bible memo"
+        />
+      </div>
     </p>
     <div
-      className="jsx-2776982312 edit-ingredient__choose-ingredient"
+      className="jsx-399955778 edit-ingredient__choose-ingredient"
     >
       <p
-        className="jsx-2776982312 edit-ingredient__title"
+        className="jsx-399955778 edit-ingredient__title"
       >
         Ingredients
       </p>
       <p
-        className="jsx-2776982312 edit-ingredient__explanation"
+        className="jsx-399955778 edit-ingredient__explanation"
       >
         <span
-          className="jsx-2776982312 edit-ingredient__explanation-text"
+          className="jsx-399955778 edit-ingredient__explanation-text"
         >
           Choose Ingredients.
         </span>
         <span
-          className="jsx-2776982312 edit-ingredient__explanation-total"
+          className="jsx-399955778 edit-ingredient__explanation-total"
         >
           Total:
         </span>
         <span
-          className="jsx-2776982312 edit-ingredient__explanation-cost"
+          className="jsx-399955778 edit-ingredient__explanation-cost"
         >
           $ 
           100
         </span>
       </p>
       <p
-        className="jsx-2776982312 edit-ingredient__input"
+        className="jsx-399955778 edit-ingredient__input"
       >
         <div
-          className="jsx-2776982312 edit-ingredient__input-medium-wrapper"
+          className="jsx-399955778 edit-ingredient__input-medium-wrapper"
         >
-          <input
-            className="jsx-2776982312 edit-ingredient__input-name"
-            onChange={[Function]}
-            placeholder="Enter Ingredients...."
-            type="text"
-          />
+          <div
+            className="jsx-3090447383"
+          >
+            <input
+              className="jsx-3090447383 
+        textInput
+        medium
+      "
+              onChange={[Function]}
+              placeholder="Enter Ingredients..."
+              type="text"
+              value=""
+            />
+          </div>
         </div>
         <div
-          className="jsx-2776982312 edit-ingredient__input-small-wrapper"
+          className="jsx-399955778 edit-ingredient__input-small-wrapper"
         >
-          <input
-            className="jsx-2776982312 edit-ingredient__input-name"
-            onChange={[Function]}
-            type="text"
-          />
+          <div
+            className="jsx-3090447383"
+          >
+            <input
+              className="jsx-3090447383 
+        textInput
+        medium
+      "
+              onChange={[Function]}
+              placeholder="Input Price"
+              type="text"
+              value={0}
+            />
+          </div>
           <span
-            className="jsx-2776982312 edit-ingredient__add-btn"
+            className="jsx-399955778 edit-ingredient__add-btn"
             onClick={[Function]}
             role="button"
             tabIndex="-1"
           >
             <i
               aria-hidden="true"
-              className="jsx-2776982312 fa fa-plus "
+              className="jsx-399955778 fa fa-plus "
             />
           </span>
         </div>
       </p>
       <div
-        className="jsx-2776982312 ingredients"
+        className="jsx-399955778 ingredients"
       >
         <span
-          className="jsx-2776982312 ingredients__name"
+          className="jsx-399955778 ingredients__name"
         >
           ingredient2
         </span>
         <span
-          className="jsx-2776982312 ingredients__cost"
+          className="jsx-399955778 ingredients__cost"
         >
           $ 
           1234
         </span>
         <span
-          className="jsx-2776982312 ingredients__remove-btn"
+          className="jsx-399955778 ingredients__remove-btn"
           onClick={[Function]}
           role="button"
           tabIndex="-1"
@@ -120,10 +145,10 @@ exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
     </div>
   </div>
   <div
-    className="jsx-2776982312 buttonGroup"
+    className="jsx-399955778 buttonGroup"
   >
     <div
-      className="jsx-2776982312"
+      className="jsx-399955778"
     >
       <button
         className="jsx-675350272 
@@ -138,7 +163,7 @@ exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
       </button>
     </div>
     <div
-      className="jsx-2776982312"
+      className="jsx-399955778"
     >
       <button
         className="jsx-675350272 
@@ -153,7 +178,7 @@ exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
       </button>
     </div>
     <div
-      className="jsx-2776982312"
+      className="jsx-399955778"
     >
       <button
         className="jsx-675350272 

@@ -32,25 +32,28 @@ const Header = (props: Props) => (
         }
         .mechef-navbar-nav {
           display: flex;
-          padding-top: 43px;
+          margin: 0;
+          height: 100%;
           padding-right: 110px;
           list-style: none;
         }
         .mechef-navbar-nav li {
+          display: flex;
+          align-items: center;
           margin-left: 40px;
-          padding-bottom: 23px;
           font-size: 15px;
           font-weight: 500;
           line-height: 1;
           letter-spacing: 0.6px;
           color: #4a4a4a;
           cursor: pointer;
+          border-bottom: 9px solid rgba(0, 0, 0, 0);
         }
         .mechef-navbar-nav li:hover {
-           border-bottom: 9px solid #8cc63f;
+           border-bottom-color: #8cc63f;
         }
         .mechef-navbar-nav li.active {
-           border-bottom: 9px solid #8cc63f;
+           border-bottom-color: #8cc63f;
         }
         @media screen and (max-width: 768px) {
           .mechef-navbar-collapse {

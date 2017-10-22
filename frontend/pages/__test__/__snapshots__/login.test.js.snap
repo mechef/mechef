@@ -2,29 +2,29 @@
 
 exports[`Pages With Snapshot Testing snapshot login page 1`] = `
 <div
-  className="jsx-2449464745"
+  className="jsx-3294668015"
 >
   <nav
-    className="jsx-2813643019 mechef-navbar"
+    className="jsx-2255944320 mechef-navbar"
   >
     <img
       alt="logo"
-      className="jsx-2813643019 mechef-navbar-logo"
+      className="jsx-2255944320 mechef-navbar-logo"
       src="../static/food.png"
     />
     <div
-      className="jsx-2813643019 mechef-navbar-collapse"
+      className="jsx-2255944320 mechef-navbar-collapse"
     >
       <ul
-        className="jsx-2813643019 mechef-navbar-nav"
+        className="jsx-2255944320 mechef-navbar-nav"
       >
         <li
-          className="jsx-2813643019 "
+          className="jsx-2255944320 "
         >
           HOW IT WORKS
         </li>
         <li
-          className="jsx-2813643019 active"
+          className="jsx-2255944320 active"
         >
           JOIN NOW
         </li>
@@ -32,24 +32,19 @@ exports[`Pages With Snapshot Testing snapshot login page 1`] = `
     </div>
   </nav>
   <div
-    className="jsx-2449464745 login-panel"
+    className="jsx-3294668015 login-panel"
   >
     <div
-      className="jsx-2449464745 login-form"
+      className="jsx-3294668015 login-form"
     >
       <div
-        className="jsx-2449464745 login-btn splits"
+        className="jsx-3294668015 login-btn splits"
       >
         <p
-          className="jsx-2449464745 splits-title"
+          className="jsx-3294668015 splits-title"
         >
           Have an account?
         </p>
-        <h1
-          className="jsx-2449464745"
-        >
-          Test
-        </h1>
         <button
           className="jsx-675350272 
       button
@@ -63,10 +58,10 @@ exports[`Pages With Snapshot Testing snapshot login page 1`] = `
         </button>
       </div>
       <div
-        className="jsx-2449464745 rgstr-btn splits"
+        className="jsx-3294668015 rgstr-btn splits"
       >
         <p
-          className="jsx-2449464745 splits-title"
+          className="jsx-3294668015 splits-title"
         >
           Dont have an account?
         </p>
@@ -83,37 +78,51 @@ exports[`Pages With Snapshot Testing snapshot login page 1`] = `
         </button>
       </div>
       <div
-        className="jsx-2449464745 wrapper "
+        className="jsx-3294668015 wrapper "
       >
         <div
-          className="jsx-2449464745 login"
+          className="jsx-3294668015 login"
         >
           <p
-            className="jsx-2449464745 title"
+            className="jsx-3294668015 title"
           >
             SIGN IN
           </p>
           <div
-            className="jsx-2449464745 mail"
+            className="jsx-3294668015 mail"
           >
-            <input
-              className="jsx-2449464745"
-              onChange={[Function]}
-              placeholder="Mail or Username"
-              type="mail"
-              value=""
-            />
+            <div
+              className="jsx-3090447383"
+            >
+              <input
+                className="jsx-3090447383 
+        textInput
+        medium
+      "
+                onChange={[Function]}
+                placeholder="Mail or Username"
+                type="mail"
+                value=""
+              />
+            </div>
           </div>
           <div
-            className="jsx-2449464745 passwd"
+            className="jsx-3294668015 passwd"
           >
-            <input
-              className="jsx-2449464745"
-              onChange={[Function]}
-              placeholder="Password"
-              type="password"
-              value=""
-            />
+            <div
+              className="jsx-3090447383"
+            >
+              <input
+                className="jsx-3090447383 
+        textInput
+        medium
+      "
+                onChange={[Function]}
+                placeholder="Password"
+                type="password"
+                value=""
+              />
+            </div>
           </div>
           <button
             className="jsx-675350272 
@@ -128,59 +137,105 @@ exports[`Pages With Snapshot Testing snapshot login page 1`] = `
           </button>
         </div>
         <div
-          className="jsx-2449464745 register"
+          className="jsx-3294668015 register"
         >
           <p
-            className="jsx-2449464745 title"
+            className="jsx-3294668015 title"
           >
             Be a Chef today!
           </p>
-          <input
-            className="jsx-2449464745"
-            name=""
-            onChange={[Function]}
-            placeholder="First Name"
-            type="text"
-            value=""
-          />
-          <input
-            className="jsx-2449464745"
-            onChange={[Function]}
-            placeholder="Last Name"
-            type="text"
-            value=""
-          />
-          <input
-            className="jsx-2449464745"
-            onChange={[Function]}
-            placeholder="Password"
-            type="tel"
-            value=""
-          />
-          <input
-            className="jsx-2449464745"
-            onChange={[Function]}
-            placeholder="Email Address"
-            type="mail"
-            value=""
-          />
           <div
-            className="jsx-2449464745 wrapper__submit"
+            className="jsx-3294668015"
+          >
+            <div
+              className="jsx-3090447383"
+            >
+              <input
+                className="jsx-3090447383 
+        textInput
+        medium
+      "
+                onChange={[Function]}
+                placeholder="First Name"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="jsx-3294668015"
+          >
+            <div
+              className="jsx-3090447383"
+            >
+              <input
+                className="jsx-3090447383 
+        textInput
+        medium
+      "
+                onChange={[Function]}
+                placeholder="Last Name"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="jsx-3294668015"
+          >
+            <div
+              className="jsx-3090447383"
+            >
+              <input
+                className="jsx-3090447383 
+        textInput
+        medium
+      "
+                onChange={[Function]}
+                placeholder="Telephone Number"
+                type="password"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="jsx-3294668015"
+          >
+            <div
+              className="jsx-3090447383"
+            >
+              <input
+                className="jsx-3090447383 
+        textInput
+        medium
+      "
+                onChange={[Function]}
+                placeholder="Email Address"
+                type="mail"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="jsx-3294668015 wrapper__submit"
           >
             <button
-              className="jsx-2449464745"
+              className="jsx-675350272 
+      button
+      primary
+      medium
+    "
               onClick={[Function]}
-              size="medium"
-              type="primary"
+              type="button"
             >
               JOIN NOW
             </button>
           </div>
           <div
-            className="jsx-2449464745 wrapper__note"
+            className="jsx-3294668015 wrapper__note"
           >
             <span
-              className="jsx-2449464745"
+              className="jsx-3294668015"
             >
               If you click JOIN NOW, it means you agree with terms of service.
             </span>

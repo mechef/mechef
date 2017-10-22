@@ -4,6 +4,7 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
+import TextInput from './TextInput';
 
 type Props = {
   account: {
@@ -13,6 +14,7 @@ type Props = {
     firstName?: string,
     lastName?: string,
     phoneNumber?: string,
+    email?: string,
     coverPhoto?: string,
     profileImage?: string,
     update: {
@@ -22,6 +24,7 @@ type Props = {
       firstName?: string,
       lastName?: string,
       phoneNumber?: string,
+      email?: string,
       coverPhoto?: File,
       profileImage?: File,
     },
@@ -33,6 +36,7 @@ type Props = {
     firstName?: string,
     lastName?: string,
     phoneNumber?: string,
+    email?: string,
     coverPhoto?: File,
     profileImage?: File,
   }) => Rx.Observable,
@@ -43,6 +47,7 @@ type Props = {
     firstName?: string,
     lastName?: string,
     phoneNumber?: string,
+    email?: string,
     coverPhoto?: File,
     profileImage?: File,
   }) => Rx.Observable,
@@ -155,11 +160,16 @@ class AccountEdit extends React.Component<Props> {
           <div className="bank-info">
             <p className="bank-info__title">Kitchen Name*</p>
             <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
-            <input
+            <TextInput
               type="text"
-              className="bank-info__input"
+              placeholder="Enter Kitchen Name"
+              size="large"
               value={this.props.account.kitchenName || ''}
-              onChange={(evt) => { this.props.onUpdateField({ kitchenName: evt.target.value }); }}
+              onChange={(event) => {
+                if (event && event.target.value) {
+                  this.props.onUpdateField({ kitchenName: event.target.value });
+                }
+              }}
             />
           </div>
           <div className="bank-info">
@@ -178,20 +188,26 @@ class AccountEdit extends React.Component<Props> {
             <p className="bank-info__title">User Name*</p>
             <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
             <div className="inputGroup">
-              <input
+              <TextInput
                 type="text"
-                className="bank-info__input smallSize"
+                placeholder="Enter Kitchen Name"
+                size="small"
                 value={this.props.account.firstName || ''}
-                onChange={(evt) => {
-                  this.props.onUpdateField({ firstName: evt.target.value });
+                onChange={(event) => {
+                  if (event && event.target.value) {
+                    this.props.onUpdateField({ firstName: event.target.value });
+                  }
                 }}
               />
-              <input
+              <TextInput
                 type="text"
-                className="bank-info__input smallSize"
+                placeholder="Enter Kitchen Name"
+                size="small"
                 value={this.props.account.lastName || ''}
-                onChange={(evt) => {
-                  this.props.onUpdateField({ lastName: evt.target.value });
+                onChange={(event) => {
+                  if (event && event.target.value) {
+                    this.props.onUpdateField({ lastName: event.target.value });
+                  }
                 }}
               />
             </div>
@@ -200,24 +216,30 @@ class AccountEdit extends React.Component<Props> {
             <div className="left">
               <p className="bank-info__title">Phone Number*</p>
               <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
-              <input
+              <TextInput
                 type="text"
-                className="bank-info__input smallSize"
+                placeholder="Enter Kitchen Name"
+                size="small"
                 value={this.props.account.phoneNumber || ''}
-                onChange={(evt) => {
-                  this.props.onUpdateField({ phoneNumber: evt.target.value });
+                onChange={(event) => {
+                  if (event && event.target.value) {
+                    this.props.onUpdateField({ phoneNumber: event.target.value });
+                  }
                 }}
               />
             </div>
             <div className="right">
               <p className="bank-info__title">Email Address*</p>
               <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
-              <input
+              <TextInput
                 type="text"
-                className="bank-info__input smallSize"
+                placeholder="Enter Kitchen Name"
+                size="small"
                 value={this.props.account.email || ''}
-                onChange={(evt) => {
-                  this.props.onUpdateField({ email: evt.target.value });
+                onChange={(event) => {
+                  if (event && event.target.value) {
+                    this.props.onUpdateField({ email: event.target.value });
+                  }
                 }}
               />
             </div>
@@ -253,7 +275,7 @@ class AccountEdit extends React.Component<Props> {
               padding-left: 21px;
             }
             .dashboard-content__form {
-              width: 552px;
+              width: 800px;
               border-radius: 4px;
               background-color: #ffffff;
               margin-bottom: 30px;
@@ -401,7 +423,7 @@ class AccountEdit extends React.Component<Props> {
 
             .bank-info__text-area {
               height: 100px;
-              width: 512px;
+              width: 533px;
               border-radius: 4px;
               border: solid 1px #979797;
             }
@@ -409,7 +431,7 @@ class AccountEdit extends React.Component<Props> {
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
-              width: 552px;
+              width: 800px;
               margin-bottom: 100px;
               cursor: pointer;
             }
@@ -421,6 +443,7 @@ class AccountEdit extends React.Component<Props> {
             .inputGroup {
               display: flex;
               justify-content: space-between;
+              width: 539px;
             }
 
             .smallSize {
@@ -432,6 +455,7 @@ class AccountEdit extends React.Component<Props> {
               display: flex;
               justify-content: space-between;
               padding: 0 20px 30px;
+              width: 539px;
             }
           `}
         </style>

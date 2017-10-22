@@ -36,7 +36,7 @@ const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div
     </div>
     {
       meetupList.map(meetup => (
-        <div key={meetup._id} className="delivery-list">
+        <div key={meetup._id} className="deliveryList">
           <div className="delivery-item">
             <div className="delivery-content">
               <p className="delivery-title">{meetup.meetupAddress}</p>
@@ -44,19 +44,24 @@ const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div
                 <span className="delivery-subtext">Shipping Cost:</span>
               </p>
             </div>
-            <Button
-              buttonStyle="primary"
-              size="small"
-              onClick={() => onEditDelivery(meetup._id)}
-            >
-              UPDATE
-            </Button>
+            <div className="buttonWrapper">
+              <Button
+                buttonStyle="primary"
+                size="small"
+                onClick={() => onEditDelivery(meetup._id)}
+              >
+                UPDATE
+              </Button>
+            </div>
           </div>
         </div>
       ))
     }
     <style jsx>
       {`
+        .deliveryList {
+          width: 800px;
+        }
         .header {
           display: flex;
           align-items: center;
@@ -118,6 +123,9 @@ const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div
           letter-spacing: 0.6px;
           text-align: left;
           color: #9b9b9b;
+        }
+        .buttonWrapper {
+          align-self: center;
         }
       `}
     </style>

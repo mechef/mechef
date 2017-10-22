@@ -4,6 +4,7 @@ import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
+import TextInput from './TextInput';
 
 type Props = {
   onCreateMeetup: ({
@@ -127,17 +128,27 @@ class DeliveryEdit extends React.Component<Props, State> {
           <div className="meetupLocation">
             <h3 className="title">Meet up location</h3>
             <p className="subtitle">Location and Time</p>
-            <input className="largInput" type="text" />
+            <TextInput
+              type="text"
+              placeholder="Enter Ingredients..."
+              size="large"
+            />
           </div>
           <h3 className="title">Meet up date</h3>
           <div className="meetupDate">
             <div className="smallInputContainer">
               <span className="subtitle">Select Date MM/DD/YYYY</span>
-              <input type="select" className="selectbox" />
+              <TextInput
+                type="text"
+                size="small"
+              />
             </div>
             <div className="smallInputContainer">
               <span className="subtitle">Dynamic Period</span>
-              <input type="select" className="selectbox" />
+              <TextInput
+                type="select"
+                size="small"
+              />
             </div>
           </div>
           <h3 className="title">Meet up time</h3>
@@ -252,7 +263,6 @@ class DeliveryEdit extends React.Component<Props, State> {
 
             .subtitle {
               margin: 0 0 16px 0;
-              width: 341px;
               height: 14px;
               font-size: 14px;
               font-weight: 500;
@@ -264,6 +274,8 @@ class DeliveryEdit extends React.Component<Props, State> {
 
             .meetupDate {
               display: flex;
+              justify-content: space-between;
+              width: 539px;
               margin-bottom: 26px;
             }
 

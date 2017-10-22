@@ -4,6 +4,7 @@ import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
+import TextInput from './TextInput';
 
 type Props = {
   onCreateMemo: ({
@@ -74,7 +75,17 @@ class IngredientEdit extends React.Component<Props, State> {
           <p className="edit-ingredient__title">List Name*</p>
           <p className="edit-ingredient__explanation">The number of characters is limited to 50.</p>
           <p className="edit-ingredient__input">
-            <input type="text" className="edit-ingredient__input-name" value={this.state.memoName} onChange={event => this.setState({ memoName: event.target.value })} />
+            <TextInput
+              type="text"
+              placeholder="Input memo name"
+              size="medium"
+              value={this.state.memoName}
+              onChange={(event) => {
+                if (event && event.target.value) {
+                  this.setState({ memoName: event.target.value });
+                }
+              }}
+            />
           </p>
           <div className="edit-ingredient__choose-ingredient">
             <p className="edit-ingredient__title">Ingredients</p>
@@ -85,10 +96,30 @@ class IngredientEdit extends React.Component<Props, State> {
             </p>
             <p className="edit-ingredient__input">
               <div className="edit-ingredient__input-medium-wrapper">
-                <input type="text" className="edit-ingredient__input-name" placeholder="Enter Ingredients...." onChange={event => this.setState({ inputIngredientName: event.target.value })} />
+                <TextInput
+                  type="text"
+                  placeholder="Enter Ingredients..."
+                  size="medium"
+                  value={this.state.inputIngredientName}
+                  onChange={(event) => {
+                    if (event && event.target.value) {
+                      this.setState({ inputIngredientName: event.target.value });
+                    }
+                  }}
+                />
               </div>
               <div className="edit-ingredient__input-small-wrapper">
-                <input type="text" className="edit-ingredient__input-name" onChange={event => this.setState({ inputIngredientAmount: event.target.value })} />
+                <TextInput
+                  type="text"
+                  placeholder="Input Price"
+                  size="medium"
+                  value={this.state.inputIngredientAmount}
+                  onChange={(event) => {
+                    if (event && event.target.value) {
+                      this.setState({ inputIngredientAmount: event.target.value });
+                    }
+                  }}
+                />
                 <span
                   role="button"
                   tabIndex="-1"
@@ -199,7 +230,7 @@ class IngredientEdit extends React.Component<Props, State> {
 
             .edit-ingredient {
               margin-top: 24px;
-              width: 744px;
+              width: 800px;
               height: 515px;
               padding-top: 21px;
               padding-left: 16px;
@@ -244,15 +275,6 @@ class IngredientEdit extends React.Component<Props, State> {
             .edit-ingredient__explanation-cost {
               width: 57px;
               height: 19px;
-            }
-
-            .edit-ingredient__input-name {
-              margin-top: 16px;
-              width: 100%;
-              height: 50px;
-              border-radius: 4px;
-              background-color: #ffffff;
-              border: solid 1px #979797;
             }
 
             .edit-ingredient__choose-ingredient {

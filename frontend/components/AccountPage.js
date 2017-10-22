@@ -19,6 +19,7 @@ type Props = {
     firstName?: string,
     lastName?: string,
     phoneNumber?: string,
+    email?: string,
     coverPhoto?: string,
     profileImage?: string,
     update: {
@@ -28,6 +29,7 @@ type Props = {
       firstName?: string,
       lastName?: string,
       phoneNumber?: string,
+      email?: string,
       coverPhoto?: File,
       profileImage?: File,
     },
@@ -40,6 +42,7 @@ type Props = {
     firstName?: string,
     lastName?: string,
     phoneNumber?: string,
+    email?: string,
     coverPhoto?: File,
     profileImage?: File,
   }) => Rx.Observable,

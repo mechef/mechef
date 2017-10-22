@@ -2,200 +2,240 @@
 
 exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
 <div
-  className="jsx-3908516416 dashboard-content"
+  className="jsx-2427576136 dashboard-content"
 >
   <div
-    className="jsx-3908516416 dashboard-content__form"
+    className="jsx-2427576136 dashboard-content__form"
   >
     <div
-      className="jsx-3908516416 update-cover-photo"
+      className="jsx-2427576136 update-cover-photo"
       onClick={[Function]}
       role="button"
       tabIndex="-1"
     >
       <input
-        className="jsx-3908516416 hidden"
+        className="jsx-2427576136 hidden"
         onChange={[Function]}
         type="file"
       />
       <img
         alt="cover"
-        className="jsx-3908516416 coverPhoto"
+        className="jsx-2427576136 coverPhoto"
         src="../static/pancake.jpg"
       />
       <div
-        className="jsx-3908516416 update-cover-photo__title"
+        className="jsx-2427576136 update-cover-photo__title"
       >
         <i
           aria-hidden="true"
-          className="jsx-3908516416 fa fa-camera update-cover-photo__icon"
+          className="jsx-2427576136 fa fa-camera update-cover-photo__icon"
         />
         <span
-          className="jsx-3908516416"
+          className="jsx-2427576136"
         >
           Update your cover photo
         </span>
       </div>
     </div>
     <div
-      className="jsx-3908516416 update-profile-image"
+      className="jsx-2427576136 update-profile-image"
     >
       <input
-        className="jsx-3908516416 hidden"
+        className="jsx-2427576136 hidden"
         onChange={[Function]}
         type="file"
       />
       <div
-        className="jsx-3908516416 update-profile-image__avatar"
+        className="jsx-2427576136 update-profile-image__avatar"
         onClick={[Function]}
         role="button"
         tabIndex="-1"
       >
         <img
           alt="profile"
-          className="jsx-3908516416 profileImage"
+          className="jsx-2427576136 profileImage"
           src="../static/avatar.jpg"
         />
         <i
           aria-hidden="true"
-          className="jsx-3908516416 fa fa-camera update-profile-image__avatar-camera-icon"
+          className="jsx-2427576136 fa fa-camera update-profile-image__avatar-camera-icon"
         />
       </div>
       <div
-        className="jsx-3908516416 update-profile-image__description"
+        className="jsx-2427576136 update-profile-image__description"
       >
         <span
-          className="jsx-3908516416 update-profile-image__description-title"
+          className="jsx-2427576136 update-profile-image__description-title"
         >
           Profile Image
         </span>
         <span
-          className="jsx-3908516416 update-profile-image__description-subtitle"
+          className="jsx-2427576136 update-profile-image__description-subtitle"
         >
           Add Image Add Image Add Image
         </span>
       </div>
     </div>
     <div
-      className="jsx-3908516416 bank-info"
+      className="jsx-2427576136 bank-info"
     >
       <p
-        className="jsx-3908516416 bank-info__title"
+        className="jsx-2427576136 bank-info__title"
       >
         Kitchen Name*
       </p>
       <p
-        className="jsx-3908516416 bank-info__subtitle"
+        className="jsx-2427576136 bank-info__subtitle"
       >
         Add Images Add Images Add Images
       </p>
-      <input
-        className="jsx-3908516416 bank-info__input"
-        onChange={[Function]}
-        type="text"
-        value=""
-      />
+      <div
+        className="jsx-3090447383"
+      >
+        <input
+          className="jsx-3090447383 
+        textInput
+        large
+      "
+          onChange={[Function]}
+          placeholder="Enter Kitchen Name"
+          type="text"
+          value=""
+        />
+      </div>
     </div>
     <div
-      className="jsx-3908516416 bank-info"
+      className="jsx-2427576136 bank-info"
     >
       <p
-        className="jsx-3908516416 bank-info__title"
+        className="jsx-2427576136 bank-info__title"
       >
         Kitchen Description*
       </p>
       <p
-        className="jsx-3908516416 bank-info__subtitle"
+        className="jsx-2427576136 bank-info__subtitle"
       >
         Add Images Add Images Add Images
       </p>
       <textarea
-        className="jsx-3908516416 bank-info__text-area"
+        className="jsx-2427576136 bank-info__text-area"
         onChange={[Function]}
         type="text"
         value=""
       />
     </div>
     <div
-      className="jsx-3908516416 bank-info"
+      className="jsx-2427576136 bank-info"
     >
       <p
-        className="jsx-3908516416 bank-info__title"
+        className="jsx-2427576136 bank-info__title"
       >
         User Name*
       </p>
       <p
-        className="jsx-3908516416 bank-info__subtitle"
+        className="jsx-2427576136 bank-info__subtitle"
       >
         Add Images Add Images Add Images
       </p>
       <div
-        className="jsx-3908516416 inputGroup"
+        className="jsx-2427576136 inputGroup"
       >
-        <input
-          className="jsx-3908516416 bank-info__input smallSize"
-          onChange={[Function]}
-          type="text"
-          value=""
-        />
-        <input
-          className="jsx-3908516416 bank-info__input smallSize"
-          onChange={[Function]}
-          type="text"
-          value=""
-        />
+        <div
+          className="jsx-3090447383"
+        >
+          <input
+            className="jsx-3090447383 
+        textInput
+        small
+      "
+            onChange={[Function]}
+            placeholder="Enter Kitchen Name"
+            type="text"
+            value=""
+          />
+        </div>
+        <div
+          className="jsx-3090447383"
+        >
+          <input
+            className="jsx-3090447383 
+        textInput
+        small
+      "
+            onChange={[Function]}
+            placeholder="Enter Kitchen Name"
+            type="text"
+            value=""
+          />
+        </div>
       </div>
     </div>
     <div
-      className="jsx-3908516416 two-div"
+      className="jsx-2427576136 two-div"
     >
       <div
-        className="jsx-3908516416 left"
+        className="jsx-2427576136 left"
       >
         <p
-          className="jsx-3908516416 bank-info__title"
+          className="jsx-2427576136 bank-info__title"
         >
           Phone Number*
         </p>
         <p
-          className="jsx-3908516416 bank-info__subtitle"
+          className="jsx-2427576136 bank-info__subtitle"
         >
           Add Images Add Images Add Images
         </p>
-        <input
-          className="jsx-3908516416 bank-info__input smallSize"
-          onChange={[Function]}
-          type="text"
-          value=""
-        />
+        <div
+          className="jsx-3090447383"
+        >
+          <input
+            className="jsx-3090447383 
+        textInput
+        small
+      "
+            onChange={[Function]}
+            placeholder="Enter Kitchen Name"
+            type="text"
+            value=""
+          />
+        </div>
       </div>
       <div
-        className="jsx-3908516416 right"
+        className="jsx-2427576136 right"
       >
         <p
-          className="jsx-3908516416 bank-info__title"
+          className="jsx-2427576136 bank-info__title"
         >
           Email Address*
         </p>
         <p
-          className="jsx-3908516416 bank-info__subtitle"
+          className="jsx-2427576136 bank-info__subtitle"
         >
           Add Images Add Images Add Images
         </p>
-        <input
-          className="jsx-3908516416 bank-info__input smallSize"
-          onChange={[Function]}
-          type="text"
-          value=""
-        />
+        <div
+          className="jsx-3090447383"
+        >
+          <input
+            className="jsx-3090447383 
+        textInput
+        small
+      "
+            onChange={[Function]}
+            placeholder="Enter Kitchen Name"
+            type="text"
+            value=""
+          />
+        </div>
       </div>
     </div>
   </div>
   <div
-    className="jsx-3908516416 buttonGroup"
+    className="jsx-2427576136 buttonGroup"
   >
     <div
-      className="jsx-3908516416"
+      className="jsx-2427576136"
     >
       <button
         className="jsx-675350272 
@@ -210,7 +250,7 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
       </button>
     </div>
     <div
-      className="jsx-3908516416"
+      className="jsx-2427576136"
     >
       <button
         className="jsx-675350272 
