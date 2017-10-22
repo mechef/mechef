@@ -2,64 +2,63 @@
 
 exports[`Pages With Snapshot Testing snapshot DeliveryList Component 1`] = `
 <div
-  className="jsx-2767775796"
+  className="jsx-2398149190"
 >
   <div
-    className="jsx-2767775796 header"
+    className="jsx-2398149190 header"
   >
     <span
-      className="jsx-2767775796 title"
+      className="jsx-2398149190 title"
     >
       Delivery List
     </span>
     <div
-      className="jsx-2767775796 addButton"
+      className="jsx-2398149190 addButton"
       onClick={[Function]}
       role="link"
       tabIndex="-1"
     >
       <i
         aria-hidden="true"
-        className="jsx-2767775796 fa fa-plus plus-icon"
+        className="jsx-2398149190 fa fa-plus plus-icon"
       />
     </div>
   </div>
   <div
-    className="jsx-2767775796 delivery-list"
+    className="jsx-2398149190 delivery-list"
   >
     <div
-      className="jsx-2767775796 delivery-item"
+      className="jsx-2398149190 delivery-item"
     >
       <div
-        className="jsx-2767775796 delivery-content"
+        className="jsx-2398149190 delivery-content"
       >
         <p
-          className="jsx-2767775796 delivery-title"
+          className="jsx-2398149190 delivery-title"
         >
           Rakuten Crimson House
         </p>
         <p
-          className="jsx-2767775796 delivery-detail"
+          className="jsx-2398149190 delivery-detail"
         >
           <span
-            className="jsx-2767775796 delivery-subtext"
+            className="jsx-2398149190 delivery-subtext"
           >
             Shipping Cost:
           </span>
         </p>
       </div>
-      <span
-        className="jsx-2767775796 update-button"
+      <button
+        className="jsx-675350272 
+      button
+      primary
+      small
+    "
         onClick={[Function]}
-        role="button"
-        tabIndex="-1"
+        type="button"
       >
-        <span
-          className="jsx-2767775796 update-button-text"
-        >
-          UPDATE
-        </span>
-      </span>
+        UPDATE
+      </button>
     </div>
   </div>
 </div>

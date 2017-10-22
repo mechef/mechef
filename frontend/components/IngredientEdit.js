@@ -3,6 +3,8 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
+import Button from './Button';
+
 type Props = {
   onCreateMemo: ({
     name: string,
@@ -135,42 +137,52 @@ class IngredientEdit extends React.Component<Props, State> {
           </div>
         </div>
         <div className="buttonGroup">
-          <span
-            className="secondaryBtn"
-            role="button"
-            tabIndex="-1"
-            onClick={() => {
-              onDeleteMemo(this.props.currentMemoId);
-              goBack();
-            }}
-          >
-            DELETE
-          </span>
-          <span className="secondaryBtn" role="button" tabIndex="-1" onClick={() => goBack()}>CANCEL</span>
-          <span
-            className="primaryBtn"
-            role="button"
-            tabIndex="-1"
-            onClick={() => {
-              if (this.state.id) {
-                // TODO: Modify to only provide updated data
-                onUpdateMemo({
-                  _id: this.state.id,
-                  name: this.state.memoName,
-                  sum: this.state.total,
-                  ingredients: this.state.ingredients,
-                });
-              } else {
-                onCreateMemo({
-                  name: this.state.memoName,
-                  ingredients: this.state.ingredients,
-                });
-              }
-              goBack();
-            }}
-          >
-            SAVE
-          </span>
+          <div>
+            <Button
+              size="small"
+              buttonStyle="greenBorderOnly"
+              onClick={() => {
+                onDeleteMemo(this.props.currentMemoId);
+                goBack();
+              }}
+            >
+              DELETE
+            </Button>
+          </div>
+          <div>
+            <Button
+              size="small"
+              buttonStyle="greenBorderOnly"
+              onClick={() => goBack()}
+            >
+              CANCEL
+            </Button>
+          </div>
+          <div>
+            <Button
+              size="small"
+              buttonStyle="primary"
+              onClick={() => {
+                if (this.state.id) {
+                  // TODO: Modify to only provide updated data
+                  onUpdateMemo({
+                    _id: this.state.id,
+                    name: this.state.memoName,
+                    sum: this.state.total,
+                    ingredients: this.state.ingredients,
+                  });
+                } else {
+                  onCreateMemo({
+                    name: this.state.memoName,
+                    ingredients: this.state.ingredients,
+                  });
+                }
+                goBack();
+              }}
+            >
+              SAVE
+            </Button>
+          </div>
         </div>
         <style jsx>
           {`
@@ -179,7 +191,6 @@ class IngredientEdit extends React.Component<Props, State> {
             }
 
             .dashboard-content__title {
-              font-family: OpenSans;
               font-size: 18px;
               line-height: 1.11;
               letter-spacing: 0.5px;
@@ -198,7 +209,6 @@ class IngredientEdit extends React.Component<Props, State> {
 
             .edit-ingredient__title {
               margin: 0;
-              font-family: AvenirNext;
               font-size: 16px;
               font-weight: 500;
               line-height: 1;
@@ -211,7 +221,6 @@ class IngredientEdit extends React.Component<Props, State> {
               margin-top: 12px;
               margin-bottom: 0;
               width: 520px;
-              font-family: AvenirNext;
               font-size: 14px;
               font-weight: 600;
               letter-spacing: 0.6px;
@@ -220,7 +229,6 @@ class IngredientEdit extends React.Component<Props, State> {
 
             .edit-ingredient__explanation-text {
               margin-right: auto;
-              font-family: AvenirNext;
               font-size: 14px;
               font-weight: 500;
               line-height: 1;
@@ -294,7 +302,6 @@ class IngredientEdit extends React.Component<Props, State> {
             }
             .ingredients__name {
               margin: auto auto auto 17px;
-              font-family: AvenirNext;
               font-size: 14px;
               font-weight: 500;
               letter-spacing: 0.6px;
@@ -304,7 +311,6 @@ class IngredientEdit extends React.Component<Props, State> {
             .ingredients__cost {
               margin-top: auto;
               margin-bottom: auto;
-              font-family: AvenirNext;
               font-size: 14px;
               font-weight: 500;
               letter-spacing: 0.6px;
@@ -328,37 +334,8 @@ class IngredientEdit extends React.Component<Props, State> {
               padding-top: 30px;
             }
 
-            .secondaryBtn {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 150px;
-              height: 50px;
-              border-radius: 4px;
-              border: solid 1px #3e9f40;
-              margin-left: 12px;
-              color: #3e9f40;
-            }
-
-            .secondaryBtn:hover, .secondaryBtn:active {
-              background-color: #3f9f40;
-              color: #ffffff;
-            }
-
-            .primaryBtn {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 150px;
-              height: 50px;
-              border-radius: 4px;
-              background-color: #3e9f40;
-              margin-left: 12px;
-              color: #ffffff;
-            }
-
-            .primaryBtn:hover, .primaryBtn:active {
-              background-color: #367d36;
+            .buttonGroup div {
+              margin-left: 10px;
             }
           `}
         </style>

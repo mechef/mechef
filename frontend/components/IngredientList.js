@@ -2,6 +2,8 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
+import Button from './Button';
+
 type Props = {
   memos: Array<{
     _id: string,
@@ -37,9 +39,13 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
                 </span>
               </p>
             </div>
-            <span role="button" tabIndex="-1" className="update-button" onClick={() => onEditMemo(memo._id)}>
-              <span className="update-button-text">UPDATE</span>
-            </span>
+            <Button
+              size="small"
+              buttonStyle="primary"
+              onClick={() => onEditMemo(memo._id)}
+            >
+              UPDATE
+            </Button>
           </div>
         </div>
       ))
@@ -108,26 +114,6 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
           letter-spacing: 0.6px;
           text-align: left;
           color: #9b9b9b;
-        }
-        .update-button {
-          display: flex;
-          margin-top: auto;
-          margin-bottom: auto;
-          width: 150px;
-          height: 40px;
-          border-radius: 4px;
-          background-color: #3e9f40;
-        }
-        .update-button-text {
-          margin: auto;
-          font-size: 14px;
-          font-weight: 500;
-          line-height: 1.14;
-          color: #ffffff;
-          cursor: default;
-        }
-        .update-button:hover, .update-button:active {
-          background-color: #367d36;
         }
       `}
     </style>

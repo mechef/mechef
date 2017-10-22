@@ -78,7 +78,6 @@ const Home = () => (
         .titleText {
           width: 61px;
           height: 20px;
-          font-family: OpenSans;
           font-size: 18px;
           line-height: 1.11;
           letter-spacing: 0.5px;
@@ -92,7 +91,6 @@ const Home = () => (
           display: flex;
         }
         .orderCountNum {
-          font-family: OpenSans;
           font-size: 16px;
           line-height: 1;
           letter-spacing: 0.4px;

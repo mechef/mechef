@@ -3,6 +3,8 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
+import Button from './Button';
+
 type Props = {
   account: {
     name?: string,
@@ -222,24 +224,26 @@ class AccountEdit extends React.Component<Props> {
           </div>
         </div>
         <div className="buttonGroup">
-          <span
-            role="button"
-            tabIndex="-1"
-            className="secondaryBtn"
-            onClick={this.props.goback}
-          >
-            CANCLE
-          </span>
-          <span
-            role="button"
-            tabIndex="-1"
-            className="primaryBtn"
-            onClick={() => {
-              this.props.onSubmit(this.props.account.update);
-            }}
-          >
-            SAVE
-          </span>
+          <div>
+            <Button
+              buttonStyle="greenBorderOnly"
+              size="small"
+              onClick={this.props.goback}
+            >
+              CANCEL
+            </Button>
+          </div>
+          <div>
+            <Button
+              buttonStyle="primary"
+              size="small"
+              onClick={() => {
+                this.props.onSubmit(this.props.account.update);
+              }}
+            >
+              SAVE
+            </Button>
+          </div>
         </div>
         <style jsx>
           {`
@@ -379,7 +383,6 @@ class AccountEdit extends React.Component<Props> {
             }
 
             .bank-info__subtitle {
-              font-family: AvenirNext;
               font-size: 14px;
               font-weight: 500;
               line-height: 1;
@@ -411,37 +414,8 @@ class AccountEdit extends React.Component<Props> {
               cursor: pointer;
             }
 
-            .secondaryBtn {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 150px;
-              height: 50px;
-              border-radius: 4px;
-              border: solid 1px #3e9f40;
-              margin-left: 12px;
-              color: #3e9f40;
-            }
-
-            .secondaryBtn:hover, .secondaryBtn:active {
-              background-color: #3f9f40;
-              color: #ffffff;
-            }
-
-            .primaryBtn {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 150px;
-              height: 50px;
-              border-radius: 4px;
-              background-color: #3e9f40;
-              margin-left: 12px;
-              color: #ffffff;
-            }
-
-            .primaryBtn:hover, .primaryBtn:active {
-              background-color: #367d36;
+            .buttonGroup div {
+              margin-left: 10px;
             }
 
             .inputGroup {

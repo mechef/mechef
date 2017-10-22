@@ -2,192 +2,189 @@
 
 exports[`Pages With Snapshot Testing snapshot AccountDetail Component 1`] = `
 <div
-  className="jsx-2706824839"
+  className="jsx-3545447565"
 >
   <div
-    className="jsx-2706824839 coverPhoto"
+    className="jsx-3545447565 coverPhoto"
   />
   <p
-    className="jsx-2706824839 sellerId"
+    className="jsx-3545447565 sellerId"
   >
     @MomooKitchen
   </p>
   <p
-    className="jsx-2706824839 sellerName"
+    className="jsx-3545447565 sellerName"
   >
     bible
   </p>
   <div
-    className="jsx-2706824839 kitchenInfo"
+    className="jsx-3545447565 kitchenInfo"
   >
     <div
-      className="jsx-2706824839 name"
+      className="jsx-3545447565 name"
     >
       <div
-        className="jsx-2706824839 kitchenName"
+        className="jsx-3545447565 kitchenName"
       >
         <span
-          className="jsx-2706824839 smallTitle"
+          className="jsx-3545447565 smallTitle"
         >
           Kitchen Name
         </span>
         <span
-          className="jsx-2706824839 contentText"
+          className="jsx-3545447565 contentText"
         >
           @MomooKitchen
         </span>
       </div>
       <div
-        className="jsx-2706824839 userName"
+        className="jsx-3545447565 userName"
       >
         <span
-          className="jsx-2706824839 smallTitle"
+          className="jsx-3545447565 smallTitle"
         >
           User Name
         </span>
         <span
-          className="jsx-2706824839 contentText"
+          className="jsx-3545447565 contentText"
         >
           bible
         </span>
       </div>
     </div>
     <div
-      className="jsx-2706824839 description"
+      className="jsx-3545447565 description"
     >
       <span
-        className="jsx-2706824839 smallTitle"
+        className="jsx-3545447565 smallTitle"
       >
         Kitchen Description
       </span>
       <p
-        className="jsx-2706824839 contentText"
+        className="jsx-3545447565 contentText"
       >
         
       </p>
     </div>
     <div
-      className="jsx-2706824839 name"
+      className="jsx-3545447565 name"
     >
       <div
-        className="jsx-2706824839 kitchenName"
+        className="jsx-3545447565 kitchenName"
       >
         <span
-          className="jsx-2706824839 smallTitle"
+          className="jsx-3545447565 smallTitle"
         >
           Phone Number
         </span>
         <span
-          className="jsx-2706824839 contentText"
+          className="jsx-3545447565 contentText"
         >
           8868008000
         </span>
       </div>
       <div
-        className="jsx-2706824839 userName"
+        className="jsx-3545447565 userName"
       >
         <span
-          className="jsx-2706824839 smallTitle"
+          className="jsx-3545447565 smallTitle"
         >
           Email Address
         </span>
         <span
-          className="jsx-2706824839 contentText"
+          className="jsx-3545447565 contentText"
         >
           momoochen@gmail.com
         </span>
       </div>
     </div>
     <div
-      className="jsx-2706824839 buttonGroup"
+      className="jsx-3545447565 buttonGroup"
     >
-      <span
-        className="jsx-2706824839 updateBtn"
+      <button
+        className="jsx-675350272 
+      button
+      primary
+      small
+    "
         onClick={[Function]}
-        role="button"
-        tabIndex="-1"
+        type="button"
       >
-        <span
-          className="jsx-2706824839 updateBtnText"
-        >
-          UPDATE
-        </span>
-      </span>
+        UPDATE
+      </button>
     </div>
   </div>
   <div
-    className="jsx-2706824839 additionalInfo"
+    className="jsx-3545447565 additionalInfo"
   >
     <p
-      className="jsx-2706824839 smallTitle"
+      className="jsx-3545447565 smallTitle"
     >
       Bank Account
     </p>
     <div
-      className="jsx-2706824839 infoContent"
+      className="jsx-3545447565 infoContent"
     >
       <div
-        className="jsx-2706824839 left"
+        className="jsx-3545447565 left"
       >
         <span
-          className="jsx-2706824839 contentText"
+          className="jsx-3545447565 contentText"
         >
           000 000 0000
         </span>
       </div>
       <div
-        className="jsx-2706824839 right"
+        className="jsx-3545447565 right"
       >
-        <span
-          className="jsx-2706824839 updateBtn"
+        <button
+          className="jsx-675350272 
+      button
+      primary
+      small
+    "
           onClick={[Function]}
-          role="button"
-          tabIndex="-1"
+          type="button"
         >
-          <span
-            className="jsx-2706824839 updateBtnText"
-          >
-            EDIT
-          </span>
-        </span>
+          EDIT
+        </button>
       </div>
     </div>
   </div>
   <div
-    className="jsx-2706824839 additionalInfo"
+    className="jsx-3545447565 additionalInfo"
   >
     <p
-      className="jsx-2706824839 smallTitle"
+      className="jsx-3545447565 smallTitle"
     >
       Password
     </p>
     <div
-      className="jsx-2706824839 infoContent"
+      className="jsx-3545447565 infoContent"
     >
       <div
-        className="jsx-2706824839 left"
+        className="jsx-3545447565 left"
       >
         <span
-          className="jsx-2706824839 contentText"
+          className="jsx-3545447565 contentText"
         >
           ******
         </span>
       </div>
       <div
-        className="jsx-2706824839 right"
+        className="jsx-3545447565 right"
       >
-        <span
-          className="jsx-2706824839 updateBtn"
+        <button
+          className="jsx-675350272 
+      button
+      primary
+      small
+    "
           onClick={[Function]}
-          role="button"
-          tabIndex="-1"
+          type="button"
         >
-          <span
-            className="jsx-2706824839 updateBtnText"
-          >
-            UPDATE
-          </span>
-        </span>
+          UPDATE
+        </button>
       </div>
     </div>
   </div>

@@ -3,6 +3,8 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
+import Button from './Button';
+
 type Props = {
   onCreateMeetup: ({
     type: string,
@@ -142,65 +144,75 @@ class DeliveryEdit extends React.Component<Props, State> {
           <p className="subtitle">Location and Time</p>
         </div>
         <div className="buttonGroup">
-          <span
-            className="secondaryBtn"
-            role="button"
-            tabIndex="-1"
-            onClick={() => {
-              onDeleteMeetup(currentMeetupId);
-              goBack();
-            }}
-          >
-            DELETE
-          </span>
-          <span className="secondaryBtn" role="button" tabIndex="-1" onClick={() => goBack()}>CANCEL</span>
-          <span
-            className="primaryBtn"
-            role="button"
-            tabIndex="-1"
-            onClick={() => {
-              if (this.state.id) {
-                // TODO: Modify to only provide updated data
-                onUpdateMeetup({
-                  _id: this.state.id,
-                  note: this.state.note,
-                  meetupEndTime: this.state.meetupEndTime,
-                  meetupStartTime: this.state.meetupStartTime,
-                  meetupSaturday: this.state.meetupSaturday,
-                  meetupFriday: this.state.meetupFriday,
-                  meetupThursday: this.state.meetupThursday,
-                  meetupWednesday: this.state.meetupWednesday,
-                  meetupTuesday: this.state.meetupTuesday,
-                  meetupMonday: this.state.meetupMonday,
-                  meetupSunday: this.state.meetupSunday,
-                  meetLongitude: this.state.meetLongitude,
-                  meetupLatitude: this.state.meetupLatitude,
-                  meetupAddress: this.state.meetupAddress,
-                  type: this.state.type,
-                });
-              } else {
-                onCreateMeetup({
-                  note: this.state.note,
-                  meetupEndTime: this.state.meetupEndTime,
-                  meetupStartTime: this.state.meetupStartTime,
-                  meetupSaturday: this.state.meetupSaturday,
-                  meetupFriday: this.state.meetupFriday,
-                  meetupThursday: this.state.meetupThursday,
-                  meetupWednesday: this.state.meetupWednesday,
-                  meetupTuesday: this.state.meetupTuesday,
-                  meetupMonday: this.state.meetupMonday,
-                  meetupSunday: this.state.meetupSunday,
-                  meetLongitude: this.state.meetLongitude,
-                  meetupLatitude: this.state.meetupLatitude,
-                  meetupAddress: this.state.meetupAddress,
-                  type: this.state.type,
-                });
-              }
-              goBack();
-            }}
-          >
-            SAVE
-          </span>
+          <div>
+            <Button
+              buttonStyle="greenBorderOnly"
+              size="small"
+              onClick={() => {
+                onDeleteMeetup(currentMeetupId);
+                goBack();
+              }}
+            >
+              DELETE
+            </Button>
+          </div>
+          <div>
+            <Button
+              buttonStyle="greenBorderOnly"
+              size="small"
+              onClick={() => goBack()}
+            >
+              CANCEL
+            </Button>
+          </div>
+          <div>
+            <Button
+              buttonStyle="primary"
+              size="small"
+              onClick={() => {
+                if (this.state.id) {
+                  // TODO: Modify to only provide updated data
+                  onUpdateMeetup({
+                    _id: this.state.id,
+                    note: this.state.note,
+                    meetupEndTime: this.state.meetupEndTime,
+                    meetupStartTime: this.state.meetupStartTime,
+                    meetupSaturday: this.state.meetupSaturday,
+                    meetupFriday: this.state.meetupFriday,
+                    meetupThursday: this.state.meetupThursday,
+                    meetupWednesday: this.state.meetupWednesday,
+                    meetupTuesday: this.state.meetupTuesday,
+                    meetupMonday: this.state.meetupMonday,
+                    meetupSunday: this.state.meetupSunday,
+                    meetLongitude: this.state.meetLongitude,
+                    meetupLatitude: this.state.meetupLatitude,
+                    meetupAddress: this.state.meetupAddress,
+                    type: this.state.type,
+                  });
+                } else {
+                  onCreateMeetup({
+                    note: this.state.note,
+                    meetupEndTime: this.state.meetupEndTime,
+                    meetupStartTime: this.state.meetupStartTime,
+                    meetupSaturday: this.state.meetupSaturday,
+                    meetupFriday: this.state.meetupFriday,
+                    meetupThursday: this.state.meetupThursday,
+                    meetupWednesday: this.state.meetupWednesday,
+                    meetupTuesday: this.state.meetupTuesday,
+                    meetupMonday: this.state.meetupMonday,
+                    meetupSunday: this.state.meetupSunday,
+                    meetLongitude: this.state.meetLongitude,
+                    meetupLatitude: this.state.meetupLatitude,
+                    meetupAddress: this.state.meetupAddress,
+                    type: this.state.type,
+                  });
+                }
+                goBack();
+              }}
+            >
+              SAVE
+            </Button>
+          </div>
         </div>
         <style jsx>
           {`
@@ -209,7 +221,6 @@ class DeliveryEdit extends React.Component<Props, State> {
             }
 
             .dashboard-content__title {
-              font-family: OpenSans;
               font-size: 18px;
               line-height: 1.11;
               letter-spacing: 0.5px;
@@ -232,7 +243,6 @@ class DeliveryEdit extends React.Component<Props, State> {
 
             .title {
               margin: 0 0 16px 0;
-              font-family: AvenirNext;
               font-size: 16px;
               font-weight: 500;
               line-height: 1;
@@ -244,7 +254,6 @@ class DeliveryEdit extends React.Component<Props, State> {
               margin: 0 0 16px 0;
               width: 341px;
               height: 14px;
-              font-family: AvenirNext;
               font-size: 14px;
               font-weight: 500;
               line-height: 1;
@@ -277,45 +286,16 @@ class DeliveryEdit extends React.Component<Props, State> {
               padding-top: 30px;
             }
 
+            .buttonGroup div {
+              margin-left: 10px;
+            }
+
             .largInput {
               width: 447px;
               height: 44px;
               opacity: 0.6;
               border-radius: 4px;
               border: solid 1px #979797;
-            }
-
-            .secondaryBtn {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 150px;
-              height: 50px;
-              border-radius: 4px;
-              border: solid 1px #3e9f40;
-              margin-left: 12px;
-              color: #3e9f40;
-            }
-
-            .secondaryBtn:hover, .secondaryBtn:active {
-              background-color: #3f9f40;
-              color: #ffffff;
-            }
-
-            .primaryBtn {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 150px;
-              height: 50px;
-              border-radius: 4px;
-              background-color: #3e9f40;
-              margin-left: 12px;
-              color: #ffffff;
-            }
-
-            .primaryBtn:hover, .primaryBtn:active {
-              background-color: #367d36;
             }
           `}
         </style>

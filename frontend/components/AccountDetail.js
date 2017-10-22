@@ -3,6 +3,8 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
+import Button from './Button';
+
 type Props = {
   account: {
     name?: string,
@@ -58,9 +60,13 @@ const AccountDetail = (props: Props) => (
         </div>
       </div>
       <div className="buttonGroup">
-        <span role="button" tabIndex="-1" className="updateBtn" onClick={props.onUpdateAccount}>
-          <span className="updateBtnText">UPDATE</span>
-        </span>
+        <Button
+          buttonStyle="primary"
+          size="small"
+          onClick={props.onUpdateAccount}
+        >
+          UPDATE
+        </Button>
       </div>
     </div>
     <div className="additionalInfo">
@@ -70,9 +76,13 @@ const AccountDetail = (props: Props) => (
           <span className="contentText">000 000 0000</span>
         </div>
         <div className="right">
-          <span role="button" tabIndex="-1" className="updateBtn" onClick={() => {}}>
-            <span className="updateBtnText">EDIT</span>
-          </span>
+          <Button
+            buttonStyle="primary"
+            size="small"
+            onClick={() => {}}
+          >
+            EDIT
+          </Button>
         </div>
       </div>
     </div>
@@ -83,9 +93,13 @@ const AccountDetail = (props: Props) => (
           <span className="contentText">******</span>
         </div>
         <div className="right">
-          <span role="button" tabIndex="-1" className="updateBtn" onClick={() => {}}>
-            <span className="updateBtnText">UPDATE</span>
-          </span>
+          <Button
+            buttonStyle="primary"
+            size="small"
+            onClick={() => {}}
+          >
+            UPDATE
+          </Button>
         </div>
       </div>
     </div>
@@ -195,26 +209,6 @@ const AccountDetail = (props: Props) => (
           justify-content: flex-end;
           margin-top: auto;
           margin-bottom: auto;
-        }
-
-        .updateBtn {
-          display: flex;
-          margin-top: auto;
-          margin-bottom: auto;
-          width: 150px;
-          height: 40px;
-          border-radius: 4px;
-          background-color: #3e9f40;
-        }
-        .updateBtnText {
-          margin: auto;
-          font-size: 14px;
-          font-weight: 500;
-          line-height: 1.14;
-          color: #ffffff;
-        }
-        .updateBtn:hover, .updateBtn:active {
-          background-color: #367d36;
         }
 
         .additionalInfo {

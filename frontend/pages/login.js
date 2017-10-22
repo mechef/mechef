@@ -11,6 +11,7 @@ import errorActions from '../actions/errorActions';
 import { API_REGISTER } from '../utils/constants';
 import Header from '../components/Header';
 import ErrorModal from '../components/ErrorModal';
+import Button from '../components/Button';
 
 type Props = {
   setLoginField$: (any) => Rx.Observable,
@@ -108,23 +109,27 @@ class Login extends React.Component<Props, State> {
             <div className="login-btn splits">
               <p className="splits-title">Have an account?</p>
               <h1>Test</h1>
-              <button
+              <Button
+                buttonStyle="whiteBorderOnly"
+                size="small"
                 onClick={() => {
                   this.setState({ isWrapperMove: false });
                 }}
               >
                 SIGN IN
-              </button>
+              </Button>
             </div>
             <div className="rgstr-btn splits">
               <p className="splits-title">Dont have an account?</p>
-              <button
+              <Button
+                buttonStyle="whiteBorderOnly"
+                size="small"
                 onClick={() => {
                   this.setState({ isWrapperMove: true });
                 }}
               >
                 JOIN NOW
-              </button>
+              </Button>
             </div>
             <div className={`wrapper ${this.state.isWrapperMove ? 'move' : ''}`}>
               <div className="login">
@@ -149,16 +154,15 @@ class Login extends React.Component<Props, State> {
                     }}
                   />
                 </div>
-                <div className="submit">
-                  <button
-                    className="dark"
-                    onClick={() => {
-                      login$({ email, password });
-                    }}
-                  >
-                    SIGN IN
-                  </button>
-                </div>
+                <Button
+                  type="primary"
+                  size="medium"
+                  onClick={() => {
+                    login$({ email, password });
+                  }}
+                >
+                  SIGN IN
+                </Button>
               </div>
               <div className="register">
                 <p className="title">Be a Chef today!</p>
@@ -216,7 +220,9 @@ class Login extends React.Component<Props, State> {
                   }}
                 />
                 <div className="wrapper__submit">
-                  <button className="dark" onClick={this.onSubmitSignup}>JOIN NOW</button>
+                  <button type="primary" size="medium" onClick={this.onSubmitSignup}>
+                    JOIN NOW
+                  </button>
                 </div>
                 <div className="wrapper__note">
                   <span >If you click JOIN NOW, it means you agree with terms of service.</span>
@@ -264,7 +270,6 @@ class Login extends React.Component<Props, State> {
               position: relative;
               color: #FFF;
               transition: all .25s;
-              font-family: AvenirNext;
               font-size: 14px;
               font-weight: 500;
               line-height: 1.14;
@@ -293,7 +298,6 @@ class Login extends React.Component<Props, State> {
             }
 
             .splits-title {
-              font-family: SignPainter-HouseScript;
               font-size: 24px;
               line-height: 0.67;
               text-align: center;
@@ -349,7 +353,6 @@ class Login extends React.Component<Props, State> {
               margin: 48px auto 30px auto;
               width: 129px;
               height: 24px;
-              font-family: SignPainter-HouseScript;
               font-size: 24px;
               line-height: 1;
               text-align: center;

@@ -60,7 +60,6 @@ class OrderPage extends React.Component {
             .dashboard-content__title-text {
               width: 61px;
               height: 20px;
-              font-family: OpenSans;
               font-size: 18px;
               line-height: 1.11;
               letter-spacing: 0.5px;
@@ -74,7 +73,6 @@ class OrderPage extends React.Component {
               display: flex;
             }
             .dashboard-content__order-count-num {
-              font-family: OpenSans;
               font-size: 16px;
               line-height: 1;
               letter-spacing: 0.4px;
@@ -121,7 +119,6 @@ class OrderPage extends React.Component {
               margin-bottom: 16px;
             }
             .order__user-name {
-              font-family: OpenSans;
               font-size: 14px;
               font-weight: bold;
               line-height: 1;
@@ -139,7 +136,6 @@ class OrderPage extends React.Component {
               margin-bottom: 12px;
             }
             .order__order-time {
-              font-family: OpenSans;
               font-size: 12px;
               line-height: 1;
               color: #9b9b9b;
@@ -152,7 +148,6 @@ class OrderPage extends React.Component {
               margin-left: 16.4px;
             }
             .order__delivery-to {
-              font-family: OpenSans;
               font-size: 12px;
               line-height: 1;
               color: #9b9b9b;

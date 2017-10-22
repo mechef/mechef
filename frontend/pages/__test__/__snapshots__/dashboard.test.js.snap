@@ -2,36 +2,36 @@
 
 exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
 <div
-  className="jsx-1189005922 dashboard"
+  className="jsx-3902873707 dashboard"
 >
   <input
-    className="jsx-1189005922"
+    className="jsx-3902873707"
     hidden={true}
     id="dashboard-header__menu-toggle"
     type="checkbox"
   />
   <div
-    className="jsx-1189005922 dashboard__left"
+    className="jsx-3902873707 dashboard__left"
   >
     <div
-      className="jsx-1189005922 dashboard-sidebar"
+      className="jsx-3902873707 dashboard-sidebar"
     >
       <div
-        className="jsx-1189005922 dashboard-sidebar__inner"
+        className="jsx-3902873707 dashboard-sidebar__inner"
       >
         <img
           alt="logo"
-          className="jsx-1189005922"
+          className="jsx-3902873707"
           src="../static/logo.png"
         />
         <ul
-          className="jsx-1189005922 dashboard-sidebar__menu"
+          className="jsx-3902873707 dashboard-sidebar__menu"
         >
           <li
-            className="jsx-1189005922 active"
+            className="jsx-3902873707 active"
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
               href="/dashboard"
               onClick={[Function]}
             >
@@ -39,10 +39,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1189005922 "
+            className="jsx-3902873707 "
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
               href="/menu"
               onClick={[Function]}
             >
@@ -50,10 +50,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1189005922 "
+            className="jsx-3902873707 "
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
               onClick={[Function]}
               role="link"
               tabIndex="-1"
@@ -62,10 +62,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1189005922 "
+            className="jsx-3902873707 "
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
               onClick={[Function]}
               role="link"
               tabIndex="-1"
@@ -74,10 +74,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1189005922 "
+            className="jsx-3902873707 "
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
               onClick={[Function]}
               role="link"
               tabIndex="-1"
@@ -86,10 +86,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1189005922 "
+            className="jsx-3902873707 "
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
               onClick={[Function]}
               role="link"
               tabIndex="-1"
@@ -98,10 +98,10 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             </a>
           </li>
           <li
-            className="jsx-1189005922 "
+            className="jsx-3902873707 "
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
               href="/setting"
               onClick={[Function]}
             >
@@ -110,67 +110,67 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
           </li>
         </ul>
         <ul
-          className="jsx-1189005922 dashboard-sidebar__footer"
+          className="jsx-3902873707 dashboard-sidebar__footer"
         >
           <li
-            className="jsx-1189005922"
+            className="jsx-3902873707"
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
             >
               Service Agreement
             </a>
           </li>
           <li
-            className="jsx-1189005922"
+            className="jsx-3902873707"
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
             >
               Privacy Policy
             </a>
           </li>
           <li
-            className="jsx-1189005922"
+            className="jsx-3902873707"
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
             >
               Service
             </a>
           </li>
           <li
-            className="jsx-1189005922"
+            className="jsx-3902873707"
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
             >
               About us
             </a>
           </li>
           <li
-            className="jsx-1189005922"
+            className="jsx-3902873707"
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
             >
               Contact us
             </a>
           </li>
           <li
-            className="jsx-1189005922"
+            className="jsx-3902873707"
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
             >
               Version 1.0
             </a>
           </li>
           <li
-            className="jsx-1189005922"
+            className="jsx-3902873707"
           >
             <a
-              className="jsx-1189005922"
+              className="jsx-3902873707"
             >
               @Mechef 2017
             </a>
@@ -180,114 +180,100 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
     </div>
   </div>
   <div
-    className="jsx-1189005922 dashboard__right"
+    className="jsx-3902873707 dashboard__right"
   >
     <div
-      className="jsx-1189005922 dashboard-header"
+      className="jsx-3902873707 dashboard-header"
     >
       <div
-        className="jsx-1189005922 dashboard-header__wrapper"
+        className="jsx-3902873707 dashboard-header__wrapper"
       >
         <label
-          className="jsx-1189005922 dashboard-header__menu"
+          className="jsx-3902873707 dashboard-header__menu"
           htmlFor="dashboard-header__menu-toggle"
         >
           <i
             aria-hidden="true"
-            className="jsx-1189005922 fa fa-bars dashboard-header__icon"
+            className="jsx-3902873707 fa fa-bars dashboard-header__icon"
           />
           <span
-            className="jsx-1189005922 dashboard-header__title"
+            className="jsx-3902873707 dashboard-header__title"
           >
             MENU
           </span>
         </label>
         <div
-          className="jsx-1189005922 dashboard-header__user-profile"
+          className="jsx-3902873707 dashboard-header__user-profile"
         >
           <div
-            className="jsx-1189005922 dashboard-header__user-head"
+            className="jsx-3902873707 dashboard-header__user-head"
           />
           <div
-            className="jsx-1189005922 dashboard-header__user-head"
+            className="jsx-3902873707 dashboard-header__user-head"
           />
           <div
-            className="jsx-1189005922 dashboard-header__user-head"
+            className="jsx-3902873707 dashboard-header__user-head"
           />
         </div>
       </div>
     </div>
     <div
-      className="homeContainer"
-      data-jsx={3874687171}
+      className="jsx-1306722454 homeContainer"
     >
       <div
-        className="dashboard-content__header"
-        data-jsx={3874687171}
+        className="jsx-1306722454 dashboard-content__header"
       />
       <p
-        className="sellerId"
-        data-jsx={3874687171}
+        className="jsx-1306722454 sellerId"
       >
         @MomooKitchen
       </p>
       <p
-        className="sellerName"
-        data-jsx={3874687171}
+        className="jsx-1306722454 sellerName"
       >
         @MomooKitchen
       </p>
       <div
-        className="orderTable"
-        data-jsx={3874687171}
+        className="jsx-1306722454 orderTable"
       >
         <p
-          className="orderTableTitle"
-          data-jsx={3874687171}
+          className="jsx-1306722454 orderTableTitle"
         >
           <span
-            className="titleText"
-            data-jsx={3874687171}
+            className="jsx-1306722454 titleText"
           >
             ORDERS
           </span>
           <span
-            className="orderCount"
-            data-jsx={3874687171}
+            className="jsx-1306722454 orderCount"
           >
             <span
-              className="orderCountNum"
-              data-jsx={3874687171}
+              className="jsx-1306722454 orderCountNum"
             >
               14
             </span>
           </span>
         </p>
         <div
-          className="header"
-          data-jsx={3874687171}
+          className="jsx-1306722454 header"
         >
           <div
-            className="firstCell"
-            data-jsx={3874687171}
+            className="jsx-1306722454 firstCell"
           >
             Delivery Time
           </div>
           <div
-            className="secondCell"
-            data-jsx={3874687171}
+            className="jsx-1306722454 secondCell"
           >
             Buyer‘s Name
           </div>
           <div
-            className="thirdCell"
-            data-jsx={3874687171}
+            className="jsx-1306722454 thirdCell"
           >
             Order Name
           </div>
           <div
-            className="fourthCell"
-            data-jsx={3874687171}
+            className="jsx-1306722454 fourthCell"
           >
             Quantity
           </div>

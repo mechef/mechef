@@ -39,7 +39,6 @@ const Header = (props: Props) => (
         .mechef-navbar-nav li {
           margin-left: 40px;
           padding-bottom: 23px;
-          font-family: AvenirNext;
           font-size: 15px;
           font-weight: 500;
           line-height: 1;

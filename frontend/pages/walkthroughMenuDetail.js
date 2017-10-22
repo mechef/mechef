@@ -77,7 +77,6 @@ const WalkthroughMenuDetail = () => (
         .title {
           width: 161px;
           height: 24px;
-          font-family: SignPainter-HouseScript;
           font-size: 24px;
           line-height: 1;
           text-align: center;
@@ -87,7 +86,6 @@ const WalkthroughMenuDetail = () => (
         .subtitle {
           width: 138px;
           height: 16px;
-          font-family: AvenirNext;
           font-size: 16px;
           font-weight: 500;
           line-height: 1;
@@ -112,7 +110,6 @@ const WalkthroughMenuDetail = () => (
         .description {
           width: 341px;
           height: 14px;
-          font-family: AvenirNext;
           font-size: 14px;
           font-weight: 500;
           line-height: 1;
@@ -174,7 +171,6 @@ const WalkthroughMenuDetail = () => (
           border-radius: 4px;
           background-color: #3e9f40;
           color: #ffffff;
-          font-family: AvenirNext;
           text-align: center;
           line-height: 48.7px;
         }

@@ -159,7 +159,6 @@ class Dashboard extends React.Component<Props, State> {
                 line-height: 50px;
                 width: 75.9px;
                 height: 19px;
-                font-family: AvenirNext;
                 font-size: 14px;
                 letter-spacing: 1px;
                 color: #ffffff;
@@ -178,7 +177,6 @@ class Dashboard extends React.Component<Props, State> {
               .dashboard-sidebar__footer > li > a{
                 line-height: 32px;
                 height: 16px;
-                font-family: AvenirNext;
                 font-size: 12px;
                 letter-spacing: 0.9px;
                 color: #9b9b9b;
@@ -206,7 +204,6 @@ class Dashboard extends React.Component<Props, State> {
                 margin-left: 24px;
                 width: 55px;
                 height: 20px;
-                font-family: OpenSans;
                 font-size: 18px;
                 line-height: 30px;
                 letter-spacing: 0.5px;
@@ -258,7 +255,6 @@ class Dashboard extends React.Component<Props, State> {
 
               .dashboard-content__title {
                 margin-bottom: 30px;
-                font-family: AvenirNext;
                 font-size: 18px;
                 line-height: 1.11;
                 letter-spacing: 0.5px;

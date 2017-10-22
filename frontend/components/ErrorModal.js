@@ -68,7 +68,6 @@ const ErrorModal = (props: Props) => (
         }
         .alert-title {
           padding-top: 34px;
-          font-family: AvenirNext;
           font-size: 16px;
           font-weight: 500;
           letter-spacing: 0.7px;
@@ -77,7 +76,6 @@ const ErrorModal = (props: Props) => (
         }
         .alert-message {
           padding-top: 23px;
-          font-family: AvenirNext;
           font-size: 16px;
           font-weight: 500;
           letter-spacing: 0.7px;

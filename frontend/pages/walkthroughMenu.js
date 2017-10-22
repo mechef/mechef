@@ -61,7 +61,6 @@ const WalkthroughMenu = () => (
         .title {
           width: 161px;
           height: 24px;
-          font-family: SignPainter-HouseScript;
           font-size: 24px;
           line-height: 1;
           text-align: center;
@@ -87,7 +86,6 @@ const WalkthroughMenu = () => (
           border-radius: 4px;
           background-color: #3e9f40;
           color: #ffffff;
-          font-family: AvenirNext;
           text-align: center;
           line-height: 48.7px;
         }
