@@ -15,6 +15,9 @@ const Index = props => (
     <Link href="/walkthroughMenuDetail">
       <a>Walkthrough Menu Detail Page </a>
     </Link>
+    <Link href="/delivery">
+      <a>Delivery with map example</a>
+    </Link>
     <ul>
       {
         props.shows.map(({ show }) => (
