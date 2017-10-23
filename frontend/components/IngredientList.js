@@ -3,6 +3,7 @@ import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
+import { whiteColor } from '../utils/styleVariables';
 
 type Props = {
   memos: Array<{
@@ -20,8 +21,8 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
   <div>
     <div className="header">
       <span className="title">Ingredients List</span>
-      <div role="link" tabIndex="-1" className="addButton" onClick={() => onEditMemo('')}>
-        <i className="fa fa-plus plus-icon" aria-hidden="true" />
+      <div className="addButton">
+        <div className="plus" role="link" tabIndex="-1" onClick={() => onEditMemo('')} />
       </div>
     </div>
     {
@@ -74,19 +75,25 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
           height: 36px;
           margin-left: 20px;
           border-radius: 4px;
-          background-color: #ffffff;
+          background-color: ${whiteColor};
           cursor: pointer;
         }
-        .plus-icon {
+
+        .plus {
           margin: auto;
-          color: #009245;
+          background-image: url('../static/img/plus.png');
+          background-size: contain;
+          background-position: center;
+          background-repeat:no-repeat;
+          width: 18px;
+          height: 18px;
+          cursor: pointer;
         }
-        .addButton:hover {
-          background-color: #3f9f40;
+
+        .plus:hover {
+          background-image: url('../static/img/plus_hover.png');
         }
-        .addButton:hover .plus-icon {
-          color: #ffffff;
-        }
+
         .ingredient-item {
           display: flex;
           justify-content: space-between;

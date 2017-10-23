@@ -4,6 +4,7 @@ import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
+import { whiteColor } from '../utils/styleVariables';
 
 type Props = {
   meetupList: Array<{
@@ -30,8 +31,8 @@ const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div
   <div>
     <div className="header">
       <span className="title">Delivery List</span>
-      <div role="link" tabIndex="-1" className="addButton" onClick={() => onEditDelivery('')}>
-        <i className="fa fa-plus plus-icon" aria-hidden="true" />
+      <div className="addButton">
+        <div className="plus" role="link" tabIndex="-1" onClick={() => onEditDelivery('')} />
       </div>
     </div>
     {
@@ -79,18 +80,24 @@ const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div
           height: 36px;
           margin-left: 20px;
           border-radius: 4px;
-          background-color: #ffffff;
+          background-color: ${whiteColor};
         }
-        .plus-icon {
+
+        .plus {
           margin: auto;
-          color: #009245;
+          background-image: url('../static/img/plus.png');
+          background-size: contain;
+          background-position: center;
+          background-repeat:no-repeat;
+          width: 18px;
+          height: 18px;
+          cursor: pointer;
         }
-        .addButton:hover {
-          background-color: #3e9f40;
+
+        .plus:hover {
+          background-image: url('../static/img/plus_hover.png');
         }
-        .addButton:hover .plus-icon {
-          color: #ffffff;
-        }
+
         .delivery-item {
           display: flex;
           justify-content: space-between;

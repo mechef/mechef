@@ -9,7 +9,9 @@ export const successColor = '#3e9f40';
 export const errorColor = '#d9524f';
 export const warningColor = '#f0ad4f';
 export const connectErrorColor = '#9b9b9b';
+export const whiteColor = '#ffffff';
 export const borderRadius = '4px';
+
 
 // Button
 export const smallBtnWidth = '150px';

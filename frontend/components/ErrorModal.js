@@ -13,7 +13,7 @@ const ErrorModal = (props: Props) => (
   <div className="alert-modal-overlay">
     <div className="alert-modal">
       <header className="alert-modal-header">
-        <img className="alert-modal-logo" src="../static/food.png" alt="logo" />
+        <img className="alert-modal-logo" src="../static/svg/mechef_logo.svg" alt="logo" />
         <i className="fa fa-times cancel-btn fa-2x" aria-hidden="true" onClick={props.onCancel} />
       </header>
       <section className="alert-modal-body">

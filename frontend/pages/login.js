@@ -265,7 +265,7 @@ class Login extends React.Component<Props, State> {
               height: 786px;
               padding-top: 130px;
               transition: all .5s;
-              background-image: url("../static/main-background.jpg");
+              background-image: url("../static/img/background.png");
             }
             .login-form {
               display: flex;

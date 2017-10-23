@@ -40,7 +40,7 @@ const WalkthroughMenuDetail = () => (
       {`
         .mainContent {
           transition: all .5s;
-          background-image: url("../static/main-background.jpg");
+          background-image: url("../static/img/background.png");
           height: 786px;
           width: 100%;
           padding-top: 83px;

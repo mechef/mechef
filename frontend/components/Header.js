@@ -8,7 +8,7 @@ type Props = {
 
 const Header = (props: Props) => (
   <nav className="mechef-navbar">
-    <img className="mechef-navbar-logo" src="../static/food.png" alt="logo" />
+    <img className="mechef-navbar-logo" src="../static/svg/mechef_logo.svg" alt="logo" />
     <div className="mechef-navbar-collapse">
       <ul className="mechef-navbar-nav">
         <li className={props.selectedItem === 'about' ? 'active' : ''}>HOW IT WORKS</li>

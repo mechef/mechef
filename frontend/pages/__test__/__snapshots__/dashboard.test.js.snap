@@ -2,218 +2,165 @@
 
 exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
 <div
-  className="jsx-2007079637 dashboard"
+  className="jsx-3315052040 dashboard"
 >
   <input
-    className="jsx-2007079637"
+    className="jsx-3315052040"
     hidden={true}
     id="dashboard-header__menu-toggle"
     type="checkbox"
   />
   <div
-    className="jsx-2007079637 dashboard__left"
+    className="jsx-3315052040 dashboard__left"
   >
     <div
-      className="jsx-2007079637 dashboard-sidebar"
+      className="jsx-3315052040 dashboard-sidebar"
     >
       <div
-        className="jsx-2007079637 dashboard-sidebar__inner"
+        className="jsx-3315052040 dashboard-sidebar__inner"
       >
         <img
           alt="logo"
-          className="jsx-2007079637"
-          src="../static/logo.png"
+          className="jsx-3315052040"
+          src="../static/svg/mechef_logo_white.svg"
         />
         <ul
-          className="jsx-2007079637 dashboard-sidebar__menu"
+          className="jsx-3315052040 dashboard-sidebar__menu"
         >
           <li
-            className="jsx-2007079637 "
+            className="jsx-3315052040 "
+            onClick={[Function]}
+            role="menuitem"
           >
-            <a
-              className="jsx-2007079637"
-              onClick={[Function]}
-              role="link"
-              tabIndex="-1"
-            >
-              HOME
-            </a>
+            HOME
           </li>
           <li
-            className="jsx-2007079637 "
+            className="jsx-3315052040 "
+            onClick={[Function]}
+            role="menuitem"
           >
-            <a
-              className="jsx-2007079637"
-              href="/menu"
-              onClick={[Function]}
-            >
-              MENU
-            </a>
+            MENU
           </li>
           <li
-            className="jsx-2007079637 "
+            className="jsx-3315052040 "
+            onClick={[Function]}
+            role="menuitem"
+            tabIndex="-1"
           >
-            <a
-              className="jsx-2007079637"
-              onClick={[Function]}
-              role="link"
-              tabIndex="-1"
-            >
-              ORDERS
-            </a>
+            ORDERS
           </li>
           <li
-            className="jsx-2007079637 "
+            className="jsx-3315052040 "
+            onClick={[Function]}
+            role="menuitem"
+            tabIndex="-1"
           >
-            <a
-              className="jsx-2007079637"
-              onClick={[Function]}
-              role="link"
-              tabIndex="-1"
-            >
-              INGREDIENTS
-            </a>
+            INGREDIENTS
           </li>
           <li
-            className="jsx-2007079637 "
+            className="jsx-3315052040 "
+            onClick={[Function]}
+            role="menuitem"
+            tabIndex="-1"
           >
-            <a
-              className="jsx-2007079637"
-              onClick={[Function]}
-              role="link"
-              tabIndex="-1"
-            >
-              SHIPPING
-            </a>
+            SHIPPING
           </li>
           <li
-            className="jsx-2007079637 "
+            className="jsx-3315052040 "
+            onClick={[Function]}
+            role="menuitem"
+            tabIndex="-1"
           >
-            <a
-              className="jsx-2007079637"
-              onClick={[Function]}
-              role="link"
-              tabIndex="-1"
-            >
-              ACCOUNT
-            </a>
+            ACCOUNT
           </li>
           <li
-            className="jsx-2007079637 "
+            className="jsx-3315052040 "
+            onClick={[Function]}
+            role="menuitem"
+            tabIndex="-1"
           >
-            <a
-              className="jsx-2007079637"
-              href="/setting"
-              onClick={[Function]}
-            >
-              SETTINGS
-            </a>
+            SETTINGS
           </li>
         </ul>
         <ul
-          className="jsx-2007079637 dashboard-sidebar__footer"
+          className="jsx-3315052040 dashboard-sidebar__footer"
         >
           <li
-            className="jsx-2007079637"
+            className="jsx-3315052040"
           >
-            <a
-              className="jsx-2007079637"
-            >
-              Service Agreement
-            </a>
+            Service Agreement
           </li>
           <li
-            className="jsx-2007079637"
+            className="jsx-3315052040"
           >
-            <a
-              className="jsx-2007079637"
-            >
-              Privacy Policy
-            </a>
+            Privacy Policy
           </li>
           <li
-            className="jsx-2007079637"
+            className="jsx-3315052040"
           >
-            <a
-              className="jsx-2007079637"
-            >
-              Service
-            </a>
+            Service
           </li>
           <li
-            className="jsx-2007079637"
+            className="jsx-3315052040"
           >
-            <a
-              className="jsx-2007079637"
-            >
-              About us
-            </a>
+            About us
           </li>
           <li
-            className="jsx-2007079637"
+            className="jsx-3315052040"
           >
-            <a
-              className="jsx-2007079637"
-            >
-              Contact us
-            </a>
+            Contact us
           </li>
           <li
-            className="jsx-2007079637"
+            className="jsx-3315052040"
           >
-            <a
-              className="jsx-2007079637"
-            >
-              Version 1.0
-            </a>
+            Version 1.0
           </li>
           <li
-            className="jsx-2007079637"
+            className="jsx-3315052040"
           >
-            <a
-              className="jsx-2007079637"
-            >
-              @Mechef 2017
-            </a>
+            @Mechef 2017
           </li>
         </ul>
       </div>
     </div>
   </div>
   <div
-    className="jsx-2007079637 dashboard__right"
+    className="jsx-3315052040 dashboard__right"
   >
     <div
-      className="jsx-2007079637 dashboard-header"
+      className="jsx-3315052040 dashboard-header"
     >
       <div
-        className="jsx-2007079637 dashboard-header__wrapper"
+        className="jsx-3315052040 dashboard-header__wrapper"
       >
-        <label
-          className="jsx-2007079637 dashboard-header__menu"
-          htmlFor="dashboard-header__menu-toggle"
+        <div
+          className="jsx-3315052040 menuWrapper"
         >
-          <i
-            aria-hidden="true"
-            className="jsx-2007079637 fa fa-bars dashboard-header__icon"
-          />
+          <label
+            className="jsx-3315052040 dashboard-header__menu"
+            htmlFor="dashboard-header__menu-toggle"
+          >
+            <div
+              className="jsx-3315052040 drawerMenu"
+            />
+          </label>
           <span
-            className="jsx-2007079637 dashboard-header__title"
+            className="jsx-3315052040 dashboard-header__title"
           >
             MENU
           </span>
-        </label>
+        </div>
         <div
-          className="jsx-2007079637 dashboard-header__user-profile"
+          className="jsx-3315052040 dashboard-header__user-profile"
         >
           <div
-            className="jsx-2007079637 dashboard-header__user-head"
+            className="jsx-3315052040 dashboard-header__user-head"
           />
           <div
-            className="jsx-2007079637 dashboard-header__user-head"
+            className="jsx-3315052040 dashboard-header__user-head"
           />
           <div
-            className="jsx-2007079637 dashboard-header__user-head"
+            className="jsx-3315052040 dashboard-header__user-head"
           />
         </div>
       </div>
