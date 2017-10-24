@@ -2,6 +2,7 @@ import Rx from 'rxjs/Rx';
 import Router from 'next/router';
 import authActions from '../actions/authActions';
 import errorActions from '../actions/errorActions';
+import globalActions from '../actions/globalActions';
 import { API_LOGIN } from '../utils/constants';
 
 const initialState = {
@@ -12,8 +13,9 @@ const initialState = {
 const authReducer$ = Rx.Observable.of(() => initialState)
   .merge(
     authActions.setLoginField$.map(payload => state => ({ ...state, ...payload })),
-    authActions.login$.flatMap(reqbody => (
-      Rx.Observable.ajax({
+    authActions.login$.flatMap((reqbody) => {
+      globalActions.showSpinner$.next(true);
+      return Rx.Observable.ajax({
         crossDomain: true,
         url: API_LOGIN,
         method: 'POST',
@@ -27,12 +29,14 @@ const authReducer$ = Rx.Observable.of(() => initialState)
         Router.push({
           pathname: '/dashboard',
         });
+        globalActions.showSpinner$.next(false);
         return state => state;
       }).catch((error) => {
+        globalActions.showSpinner$.next(false);
         errorActions.setError$.next({ isShowModal: true, title: 'Login Error', message: error.message });
         return Rx.Observable.of(state => state);
-      })
-    )),
+      });
+    }),
   );
 
 export default authReducer$;

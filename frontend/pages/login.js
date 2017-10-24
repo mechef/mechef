@@ -13,6 +13,7 @@ import Header from '../components/Header';
 import ErrorModal from '../components/ErrorModal';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
+import Spinner from '../components/Spinner';
 
 type Props = {
   setLoginField$: (any) => Rx.Observable,
@@ -30,6 +31,9 @@ type Props = {
     title: string,
     message: string,
     isShowModal: boolean,
+  },
+  global: {
+    isShowSpinner: boolean,
   }
 }
 
@@ -92,7 +96,14 @@ class Login extends React.Component<Props, State> {
   }
 
   render() {
-    const { setLoginField$, login$, auth: { email, password }, error, setError$ } = this.props;
+    const {
+      setLoginField$,
+      login$,
+      auth: { email, password },
+      error,
+      setError$,
+      global: { isShowSpinner },
+    } = this.props;
     return (
       <div>
         {
@@ -103,6 +114,12 @@ class Login extends React.Component<Props, State> {
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
             />
             : null
+        }
+        {
+          isShowSpinner ?
+            <Spinner />
+            :
+            null
         }
         <Header selectedItem="join" />
         <div className="login-panel">
@@ -413,7 +430,7 @@ class Login extends React.Component<Props, State> {
 }
 
 
-const stateSelector = ({ auth, error }) => ({ auth, error });
+const stateSelector = ({ auth, error, global }) => ({ auth, error, global });
 
 const actionSubjects = {
   ...errorActions,

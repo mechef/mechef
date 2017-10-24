@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages With Snapshot Testing snapshot Spinner Component 1`] = `
+<div
+  className="jsx-3700556267 spinnerOverlay"
+>
+  <div
+    className="jsx-3700556267 spinner"
+  />
+</div>
+`;
