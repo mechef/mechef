@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import CheckBox from '../components/CheckBox';
+import SelectBox from '../components/SelectBox';
 
 const Index = props => (
   <div>
@@ -24,6 +25,12 @@ const Index = props => (
     >
       Test123
     </CheckBox>
+    <div style={{ width: '250px' }}>
+      <SelectBox
+        options={[{ text: '22:00', value: '22:00'}, { text: '23:00', value: '23:00' }, { text: '24:00', value: '24:00' }]}
+        defaultText="24:00"
+      />
+    </div>
     <ul>
       {
         props.shows.map(({ show }) => (
