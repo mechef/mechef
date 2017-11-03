@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pages With Snapshot Testing snapshot CheckBox Component 1`] = `
+<div
+  className="jsx-2607049475 checkboxContainer"
+>
+  <button
+    className="jsx-2607049475 checkedIcon"
+    onClick={[Function]}
+    type="button"
+  />
+  <div
+    className="jsx-2607049475 checkboxLabel"
+  >
+    
+  </div>
+</div>
+`;

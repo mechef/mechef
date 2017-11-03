@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
+import CheckBox from '../components/CheckBox';
 
 const Index = props => (
   <div>
@@ -18,6 +19,11 @@ const Index = props => (
     <Link href="/delivery">
       <a>Delivery with map example</a>
     </Link>
+    <CheckBox
+      onChange={(isChecked) => { alert(isChecked); }}
+    >
+      Test123
+    </CheckBox>
     <ul>
       {
         props.shows.map(({ show }) => (
