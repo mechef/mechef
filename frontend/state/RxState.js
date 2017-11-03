@@ -33,6 +33,7 @@ export function createState(
 ): Observable {
   return initialState$
     .merge(reducerStream)
+    .debug('reducerStrean')
     .scan((state, [scope, reducer]) => ({ ...state, [scope]: reducer(state[scope]) }))
     .publishReplay(1)
     .refCount();

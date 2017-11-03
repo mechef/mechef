@@ -20,6 +20,7 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
           <link rel="stylesheet" href="../static/css/normalize.css" />
           <link rel="stylesheet" href="../static/css/global.css" />
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrgd8aRUu0AczX8jVy5jpYzZOnjhgUpXw&libraries=places" />
         </Head>
         <body>
           <Main />

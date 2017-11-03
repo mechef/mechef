@@ -2,65 +2,143 @@
 
 exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
 <div
-  className="jsx-1544920060 dashboard-content"
+  className="jsx-1810684706 dashboard-content"
 >
   <p
-    className="jsx-1544920060 dashboard-content__title"
+    className="jsx-1810684706 dashboard-content__title"
   >
     Edit Delivery
   </p>
   <div
-    className="jsx-1544920060 editContainer"
+    className="jsx-1810684706 editContainer"
   >
     <div
-      className="jsx-1544920060 meetupLocation"
+      className="jsx-1810684706 meetupLocation"
     >
       <h3
-        className="jsx-1544920060 title"
+        className="jsx-1810684706 title"
       >
         Meet up location
       </h3>
       <p
-        className="jsx-1544920060 subtitle"
+        className="jsx-1810684706 subtitle"
       >
         Location and Time
       </p>
       <div
-        className="jsx-3090447383"
+        className="jsx-2276495436 container"
       >
-        <input
-          className="jsx-3090447383 
-        textInput
-        large
-      "
-          onChange={[Function]}
-          placeholder="Enter Ingredients..."
-          type="text"
-          value=""
+        <div
+          className="jsx-2276495436 mapWrapper"
+          id="map"
         />
+        <[MOCK]Geosuggest
+          onSuggestSelect={[Function]}
+          placeholder="Enter meet up address"
+        />
+        <style>
+          
+          .geosuggest {
+            position: relative;
+            width: 511px;
+            margin-bottom: 13px;
+          }
+          .geosuggest__input {
+            outline: none;
+            border-radius: 4px;
+            height: 44px;
+            background-color: #ffffff;
+            padding-left: 18px;
+            font-size: 14px;
+            font-weight: 500;
+            width: 511px;
+            border: 2px solid transparent;
+            box-shadow: 0 0 1px #3d464d;
+            transition: border 0.2s, box-shadow 0.2s;
+          }
+          .geosuggest__input:focus {
+            border-color: #3e9f40;
+            box-shadow: 0 0 0 transparent;
+          }
+          .geosuggest__suggests {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 25em;
+            padding-left: 18px;
+            width: 511px;
+            height: 161px;
+            margin-top: -1px;
+            background: #fff;
+            border: 2px solid #267dc0;
+            border-top-width: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            list-style: none;
+            z-index: 5;
+            transition: max-height 0.2s, border 0.2s;
+          }
+          .geosuggest__suggests--hidden {
+            max-height: 0;
+            overflow: hidden;
+            border-width: 0;
+          }
+
+          .geosuggest__item {
+            font-size: 18px;
+            font-size: 1rem;
+            padding: .5em .65em;
+            cursor: pointer;
+          }
+
+          .geosuggest__item:hover,
+          .geosuggest__item:focus {
+            background: #f5f5f5;
+          }
+
+          .geosuggest__item--active {
+            background: #267dc0;
+            color: #fff;
+          }
+          .geosuggest__item--active:hover,
+          .geosuggest__item--active:focus {
+            background: #ccc;
+          }
+          .geosuggest__item__matched-text {
+            font-weight: 500;
+          }
+
+          .geosuggest__input-wrapper &gt; input::placeholder {
+            line-height: 1.14;
+            color: #b9b9b9;
+          }
+
+        
+        </style>
       </div>
     </div>
     <h3
-      className="jsx-1544920060 title"
+      className="jsx-1810684706 title"
     >
       Meet up date
     </h3>
     <div
-      className="jsx-1544920060 meetupDate"
+      className="jsx-1810684706 meetupDate"
     >
       <div
-        className="jsx-1544920060 smallInputContainer"
+        className="jsx-1810684706 smallInputContainer"
       >
         <span
-          className="jsx-1544920060 subtitle"
+          className="jsx-1810684706 subtitle"
         >
           Select Date MM/DD/YYYY
         </span>
         <div
-          className="jsx-3090447383"
+          className="jsx-4141203587"
         >
           <input
-            className="jsx-3090447383 
+            className="jsx-4141203587 
         textInput
         small
       "
@@ -72,18 +150,18 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
         </div>
       </div>
       <div
-        className="jsx-1544920060 smallInputContainer"
+        className="jsx-1810684706 smallInputContainer"
       >
         <span
-          className="jsx-1544920060 subtitle"
+          className="jsx-1810684706 subtitle"
         >
           Dynamic Period
         </span>
         <div
-          className="jsx-3090447383"
+          className="jsx-4141203587"
         >
           <input
-            className="jsx-3090447383 
+            className="jsx-4141203587 
         textInput
         small
       "
@@ -96,21 +174,66 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
       </div>
     </div>
     <h3
-      className="jsx-1544920060 title"
+      className="jsx-1810684706 title"
     >
       Meet up time
     </h3>
-    <p
-      className="jsx-1544920060 subtitle"
+    <div
+      className="jsx-1810684706 meetupDate"
     >
-      Location and Time
-    </p>
+      <div
+        className="jsx-1810684706 smallInputContainer"
+      >
+        <span
+          className="jsx-1810684706 subtitle"
+        >
+          From
+        </span>
+        <div
+          className="jsx-4141203587"
+        >
+          <input
+            className="jsx-4141203587 
+        textInput
+        small
+      "
+            onChange={[Function]}
+            placeholder=""
+            type="select"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="jsx-1810684706 smallInputContainer"
+      >
+        <span
+          className="jsx-1810684706 subtitle"
+        >
+          To
+        </span>
+        <div
+          className="jsx-4141203587"
+        >
+          <input
+            className="jsx-4141203587 
+        textInput
+        small
+      "
+            onChange={[Function]}
+            placeholder=""
+            type="select"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
   </div>
   <div
-    className="jsx-1544920060 buttonGroup"
+    className="jsx-1810684706 buttonGroup"
   >
     <div
-      className="jsx-1544920060"
+      className="jsx-1810684706"
     >
       <button
         className="jsx-675350272 
@@ -125,7 +248,7 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
       </button>
     </div>
     <div
-      className="jsx-1544920060"
+      className="jsx-1810684706"
     >
       <button
         className="jsx-675350272 
@@ -140,7 +263,7 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
       </button>
     </div>
     <div
-      className="jsx-1544920060"
+      className="jsx-1810684706"
     >
       <button
         className="jsx-675350272 

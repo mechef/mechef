@@ -3,9 +3,15 @@ import React from 'react';
 
 import DeliveryEdit from '../DeliveryEdit';
 
+jest.mock('react-geosuggest', () => '[MOCK]Geosuggest');
 
 describe('Pages With Snapshot Testing', () => {
   it('snapshot DeliveryEdit Component', () => {
+    global.google = {
+      maps: {
+        Map: jest.fn(),
+      },
+    };
     const component = renderer.create(
       <DeliveryEdit
         meetupList={[{

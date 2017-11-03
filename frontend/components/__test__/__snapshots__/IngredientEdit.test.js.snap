@@ -26,10 +26,10 @@ exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
       className="jsx-399955778 edit-ingredient__input"
     >
       <div
-        className="jsx-3090447383"
+        className="jsx-4141203587"
       >
         <input
-          className="jsx-3090447383 
+          className="jsx-4141203587 
         textInput
         medium
       "
@@ -75,10 +75,10 @@ exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
           className="jsx-399955778 edit-ingredient__input-medium-wrapper"
         >
           <div
-            className="jsx-3090447383"
+            className="jsx-4141203587"
           >
             <input
-              className="jsx-3090447383 
+              className="jsx-4141203587 
         textInput
         medium
       "
@@ -93,10 +93,10 @@ exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
           className="jsx-399955778 edit-ingredient__input-small-wrapper"
         >
           <div
-            className="jsx-3090447383"
+            className="jsx-4141203587"
           >
             <input
-              className="jsx-3090447383 
+              className="jsx-4141203587 
         textInput
         medium
       "

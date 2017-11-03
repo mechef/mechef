@@ -5,79 +5,21 @@ import Rx from 'rxjs/Rx';
 
 import Button from './Button';
 import TextInput from './TextInput';
+import MapWithAutoComplete from './MapWithAutoComplete';
+import { MeetupObject } from '../utils/flowTypes';
+
 
 type Props = {
-  onCreateMeetup: ({
-    type: string,
-    meetupAddress: string,
-    meetupLatitude: number,
-    meetLongitude: number,
-    meetupSunday: boolean,
-    meetupMonday: boolean,
-    meetupTuesday: boolean,
-    meetupWednesday: boolean,
-    meetupThursday: boolean,
-    meetupFriday: boolean,
-    meetupSaturday: boolean,
-    meetupStartTime: string,
-    meetupEndTime: string,
-    note: string
-  }) => Rx.Observable,
-  onUpdateMeetup: ({
-    _id: string,
-    note: string,
-    meetupEndTime: string,
-    meetupStartTime: string,
-    meetupSaturday: boolean,
-    meetupFriday: boolean,
-    meetupThursday: boolean,
-    meetupWednesday: boolean,
-    meetupTuesday: boolean,
-    meetupMonday: boolean,
-    meetupSunday: boolean,
-    meetLongitude: number,
-    meetupLatitude: number,
-    meetupAddress: string,
-    type: string,
-  }) => Rx.Observable,
+  onCreateMeetup: (meetup: MeetupObject) => Rx.Observable,
+  onUpdateMeetup: (meetup: MeetupObject) => Rx.Observable,
   onDeleteMeetup: (meetupId: string) => Rx.Observable,
-  meetupList: Array<{
-    _id: string,
-    note: string,
-    meetupEndTime: string,
-    meetupStartTime: string,
-    meetupSaturday: boolean,
-    meetupFriday: boolean,
-    meetupThursday: boolean,
-    meetupWednesday: boolean,
-    meetupTuesday: boolean,
-    meetupMonday: boolean,
-    meetupSunday: boolean,
-    meetLongitude: number,
-    meetupLatitude: number,
-    meetupAddress: string,
-    type: string,
-  }>,
+  meetupList: Array<MeetupObject>,
   currentMeetupId: string,
   goBack: () => Rx.Observable,
 }
 
 type State = {
-  id: string,
-  type: string,
-  meetupAddress: string,
-  meetupLatitude: number,
-  meetLongitude: number,
-  meetupSunday: boolean,
-  meetupMonday: boolean,
-  meetupTuesday: boolean,
-  meetupWednesday: boolean,
-  meetupThursday: boolean,
-  meetupFriday: boolean,
-  meetupSaturday: boolean,
-  meetupStartTime: string,
-  meetupEndTime: string,
-  note: string,
+  meetup: MeetupObject,
 }
 
 class DeliveryEdit extends React.Component<Props, State> {
@@ -102,21 +44,7 @@ class DeliveryEdit extends React.Component<Props, State> {
         type: 'meetup',
       };
     this.state = {
-      id: currentMeetup._id,
-      note: currentMeetup.note,
-      meetupEndTime: currentMeetup.meetupEndTime,
-      meetupStartTime: currentMeetup.meetupStartTime,
-      meetupSaturday: currentMeetup.meetupSaturday,
-      meetupFriday: currentMeetup.meetupFriday,
-      meetupThursday: currentMeetup.meetupThursday,
-      meetupWednesday: currentMeetup.meetupWednesday,
-      meetupTuesday: currentMeetup.meetupTuesday,
-      meetupMonday: currentMeetup.meetupMonday,
-      meetupSunday: currentMeetup.meetupSunday,
-      meetLongitude: currentMeetup.meetLongitude,
-      meetupLatitude: currentMeetup.meetupLatitude,
-      meetupAddress: currentMeetup.meetupAddress,
-      type: currentMeetup.type,
+      meetup: currentMeetup,
     };
   }
   render() {
@@ -128,11 +56,7 @@ class DeliveryEdit extends React.Component<Props, State> {
           <div className="meetupLocation">
             <h3 className="title">Meet up location</h3>
             <p className="subtitle">Location and Time</p>
-            <TextInput
-              type="text"
-              placeholder="Enter Ingredients..."
-              size="large"
-            />
+            <MapWithAutoComplete />
           </div>
           <h3 className="title">Meet up date</h3>
           <div className="meetupDate">
@@ -152,7 +76,22 @@ class DeliveryEdit extends React.Component<Props, State> {
             </div>
           </div>
           <h3 className="title">Meet up time</h3>
-          <p className="subtitle">Location and Time</p>
+          <div className="meetupDate">
+            <div className="smallInputContainer">
+              <span className="subtitle">From</span>
+              <TextInput
+                type="select"
+                size="small"
+              />
+            </div>
+            <div className="smallInputContainer">
+              <span className="subtitle">To</span>
+              <TextInput
+                type="select"
+                size="small"
+              />
+            </div>
+          </div>
         </div>
         <div className="buttonGroup">
           <div>
@@ -183,40 +122,9 @@ class DeliveryEdit extends React.Component<Props, State> {
               onClick={() => {
                 if (this.state.id) {
                   // TODO: Modify to only provide updated data
-                  onUpdateMeetup({
-                    _id: this.state.id,
-                    note: this.state.note,
-                    meetupEndTime: this.state.meetupEndTime,
-                    meetupStartTime: this.state.meetupStartTime,
-                    meetupSaturday: this.state.meetupSaturday,
-                    meetupFriday: this.state.meetupFriday,
-                    meetupThursday: this.state.meetupThursday,
-                    meetupWednesday: this.state.meetupWednesday,
-                    meetupTuesday: this.state.meetupTuesday,
-                    meetupMonday: this.state.meetupMonday,
-                    meetupSunday: this.state.meetupSunday,
-                    meetLongitude: this.state.meetLongitude,
-                    meetupLatitude: this.state.meetupLatitude,
-                    meetupAddress: this.state.meetupAddress,
-                    type: this.state.type,
-                  });
+                  onUpdateMeetup(this.state.meetup);
                 } else {
-                  onCreateMeetup({
-                    note: this.state.note,
-                    meetupEndTime: this.state.meetupEndTime,
-                    meetupStartTime: this.state.meetupStartTime,
-                    meetupSaturday: this.state.meetupSaturday,
-                    meetupFriday: this.state.meetupFriday,
-                    meetupThursday: this.state.meetupThursday,
-                    meetupWednesday: this.state.meetupWednesday,
-                    meetupTuesday: this.state.meetupTuesday,
-                    meetupMonday: this.state.meetupMonday,
-                    meetupSunday: this.state.meetupSunday,
-                    meetLongitude: this.state.meetLongitude,
-                    meetupLatitude: this.state.meetupLatitude,
-                    meetupAddress: this.state.meetupAddress,
-                    type: this.state.type,
-                  });
+                  onCreateMeetup(this.state.meetup);
                 }
                 goBack();
               }}
@@ -241,9 +149,8 @@ class DeliveryEdit extends React.Component<Props, State> {
             .editContainer {
               margin-top: 24px;
               width: 744px;
-              height: 515px;
-              padding-top: 21px;
-              padding-left: 16px;
+              height: 100%;
+              padding: 24px 20px;
               border-radius: 4px;
               background-color: #ffffff;
             }

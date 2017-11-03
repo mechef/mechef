@@ -47,9 +47,13 @@ const TextInput = (props: Props) => (
           padding-left: 16px;
           font-size: ${placeholderFontSize};
           font-weight: ${placeholderFontWeight};
+          border: 2px solid transparent;
+          box-shadow: 0 0 1px #3d464d;
+          transition: border 0.2s, box-shadow 0.2s;
         }
         .textInput:focus {
           border-color: ${primaryColor};
+          box-shadow: 0 0 0 transparent;
         }
         .textInput::placeholder {
           line-height: ${placeholderLineHeight};
