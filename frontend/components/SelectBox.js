@@ -17,10 +17,12 @@ type Props = {
   }>,
   selectedValue: string,
   defaultText: string,
+  onChange: (selectedValue: string) => mixed,
 };
 
 type State = {
   isOpenOptions: boolean,
+  selectedValue: string,
 }
 
 class SelectBox extends React.Component<Props, State> {
@@ -28,24 +30,60 @@ class SelectBox extends React.Component<Props, State> {
   static defaultProps = {
     selectedValue: '',
     defaultText: '',
+    onChange: () => {},
   }
+
+  box: ?HTMLDivElement;
 
   constructor(props: Props) {
     super(props);
     this.state = {
       isOpenOptions: false,
+      selectedValue: props.selectedValue,
     }
+  }
+
+  componentWillReceiveProps(newProps: Props) {
+    this.setState({
+      selectedValue: newProps.selectedValue,
+    });
+  }
+
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside, true);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside, true);
+  }
+
+  handleChange = (selectedValue: string) => {
+    this.props.onChange(selectedValue);
+    this.setState({
+      isOpenOptions: false,
+      selectedValue,
+    });
   }
 
   handleClick = () => {
     this.setState({ isOpenOptions: !this.state.isOpenOptions });
   };
 
+  handleClickOutside = (e: any) => {
+    if (this.box && !this.box.contains(e.target)) {
+      this.setState({ isOpenOptions: false });
+    }
+  };
+
   render() {
-    const { selectedValue, defaultText, options } = this.props;
+    const { defaultText, options } = this.props;
+    const { selectedValue } = this.state;
     const selectedOption = options.find(option => option.value === selectedValue);
     return (
-      <div className="selectBoxWrapper">
+      <div
+        ref={(box) => { this.box = box; }}
+        className="selectBoxWrapper"
+      >
         <button
           type="button"
           onClick={this.handleClick}
@@ -54,7 +92,9 @@ class SelectBox extends React.Component<Props, State> {
             ${this.state.isOpenOptions ? 'greyBorderBottom' : ''}
           `}
         >
-          <span className="placeholder">{selectedOption ? selectedOption.text : defaultText}</span>
+          <span className={`placeholder ${selectedOption ? 'selectedStyle' : ''}`}>
+            {selectedOption ? selectedOption.text : defaultText}
+          </span>
           <div className="dropdownIcon" />
         </button>
         <ul className={`
@@ -63,7 +103,16 @@ class SelectBox extends React.Component<Props, State> {
         `}>
           {
             this.props.options.map(option => (
-              <li className="optionStyle" value={option.value}>{option.text}</li>
+              <li
+                className={`
+                  optionStyle
+                  ${option.value === selectedValue ? 'selectedStyle' : ''}
+                `}
+                value={option.value}
+                onClick={() => { this.handleChange(option.value); }}
+              >
+                {option.text}
+              </li>
             ))
           }
         </ul>
@@ -87,6 +136,7 @@ class SelectBox extends React.Component<Props, State> {
               border: solid 1px #979797;
               border-top-left-radius: ${borderRadius};
               border-top-right-radius: ${borderRadius};
+              cursor: pointer;
             }
             .greyBorderBottom {
               border-bottom-color: #ececec;
@@ -106,7 +156,7 @@ class SelectBox extends React.Component<Props, State> {
               margin-right: 20px;
             }
 
-            .dropdownIcon:hover {
+            .buttonWrapper:hover .dropdownIcon {
               background-image: url('../static/svg/dropdown_hover.svg');
             }
             .optionWrapper {
@@ -132,6 +182,10 @@ class SelectBox extends React.Component<Props, State> {
             }
 
             .optionStyle:hover {
+              color: ${primaryColor};
+            }
+
+            .selectedStyle {
               color: ${primaryColor};
             }
           `}

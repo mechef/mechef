@@ -29,6 +29,7 @@ const Index = props => (
       <SelectBox
         options={[{ text: '22:00', value: '22:00'}, { text: '23:00', value: '23:00' }, { text: '24:00', value: '24:00' }]}
         defaultText="24:00"
+        selectedValue="24:00"
       />
     </div>
     <ul>
