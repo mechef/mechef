@@ -139,4 +139,5 @@ const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div
   </div>
 );
 
+
 export default DeliveryList;

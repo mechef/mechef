@@ -2,26 +2,26 @@
 
 exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
 <div
-  className="jsx-1810684706 dashboard-content"
+  className="jsx-4277715105 dashboard-content"
 >
   <p
-    className="jsx-1810684706 dashboard-content__title"
+    className="jsx-4277715105 dashboard-content__title"
   >
     Edit Delivery
   </p>
   <div
-    className="jsx-1810684706 editContainer"
+    className="jsx-4277715105 editContainer"
   >
     <div
-      className="jsx-1810684706 meetupLocation"
+      className="jsx-4277715105 meetupLocation"
     >
       <h3
-        className="jsx-1810684706 title"
+        className="jsx-4277715105 title"
       >
         Meet up location
       </h3>
       <p
-        className="jsx-1810684706 subtitle"
+        className="jsx-4277715105 subtitle"
       >
         Location and Time
       </p>
@@ -33,6 +33,8 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
           id="map"
         />
         <[MOCK]Geosuggest
+          initialValue=""
+          onChange={[Function]}
           onSuggestSelect={[Function]}
           placeholder="Enter meet up address"
         />
@@ -118,122 +120,719 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
         </style>
       </div>
     </div>
-    <h3
-      className="jsx-1810684706 title"
-    >
-      Meet up date
-    </h3>
     <div
-      className="jsx-1810684706 meetupDate"
+      className="jsx-4277715105 meetupDate"
     >
+      <h3
+        className="jsx-4277715105 title"
+      >
+        Meet up date
+      </h3>
+      <p
+        className="jsx-4277715105 subtitle"
+      >
+        Select Date
+      </p>
       <div
-        className="jsx-1810684706 smallInputContainer"
+        className="jsx-4277715105 checkboxGroup"
       >
         <span
-          className="jsx-1810684706 subtitle"
+          className="jsx-4277715105 checkbox"
         >
-          Select Date MM/DD/YYYY
+          <div
+            className="jsx-2607049475 checkboxContainer"
+          >
+            <button
+              className="jsx-2607049475 uncheckedIcon"
+              onClick={[Function]}
+              type="button"
+            />
+            <div
+              className="jsx-2607049475 checkboxLabel"
+            >
+              Monday
+            </div>
+          </div>
         </span>
-        <div
-          className="jsx-4141203587"
-        >
-          <input
-            className="jsx-4141203587 
-        textInput
-        small
-      "
-            onChange={[Function]}
-            placeholder=""
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-      <div
-        className="jsx-1810684706 smallInputContainer"
-      >
         <span
-          className="jsx-1810684706 subtitle"
+          className="jsx-4277715105 checkbox"
         >
-          Dynamic Period
+          <div
+            className="jsx-2607049475 checkboxContainer"
+          >
+            <button
+              className="jsx-2607049475 uncheckedIcon"
+              onClick={[Function]}
+              type="button"
+            />
+            <div
+              className="jsx-2607049475 checkboxLabel"
+            >
+              Tuesday
+            </div>
+          </div>
         </span>
-        <div
-          className="jsx-4141203587"
+        <span
+          className="jsx-4277715105 checkbox"
         >
-          <input
-            className="jsx-4141203587 
-        textInput
-        small
-      "
-            onChange={[Function]}
-            placeholder=""
-            type="select"
-            value=""
-          />
-        </div>
+          <div
+            className="jsx-2607049475 checkboxContainer"
+          >
+            <button
+              className="jsx-2607049475 uncheckedIcon"
+              onClick={[Function]}
+              type="button"
+            />
+            <div
+              className="jsx-2607049475 checkboxLabel"
+            >
+              Wednesday
+            </div>
+          </div>
+        </span>
+        <span
+          className="jsx-4277715105 checkbox"
+        >
+          <div
+            className="jsx-2607049475 checkboxContainer"
+          >
+            <button
+              className="jsx-2607049475 uncheckedIcon"
+              onClick={[Function]}
+              type="button"
+            />
+            <div
+              className="jsx-2607049475 checkboxLabel"
+            >
+              Thursday
+            </div>
+          </div>
+        </span>
+        <span
+          className="jsx-4277715105 checkbox"
+        >
+          <div
+            className="jsx-2607049475 checkboxContainer"
+          >
+            <button
+              className="jsx-2607049475 uncheckedIcon"
+              onClick={[Function]}
+              type="button"
+            />
+            <div
+              className="jsx-2607049475 checkboxLabel"
+            >
+              Friday
+            </div>
+          </div>
+        </span>
+        <span
+          className="jsx-4277715105 checkbox"
+        >
+          <div
+            className="jsx-2607049475 checkboxContainer"
+          >
+            <button
+              className="jsx-2607049475 uncheckedIcon"
+              onClick={[Function]}
+              type="button"
+            />
+            <div
+              className="jsx-2607049475 checkboxLabel"
+            >
+              Saturday
+            </div>
+          </div>
+        </span>
+        <span
+          className="jsx-4277715105 checkbox"
+        >
+          <div
+            className="jsx-2607049475 checkboxContainer"
+          >
+            <button
+              className="jsx-2607049475 uncheckedIcon"
+              onClick={[Function]}
+              type="button"
+            />
+            <div
+              className="jsx-2607049475 checkboxLabel"
+            >
+              Sunday
+            </div>
+          </div>
+        </span>
       </div>
     </div>
     <h3
-      className="jsx-1810684706 title"
+      className="jsx-4277715105 title"
     >
       Meet up time
     </h3>
     <div
-      className="jsx-1810684706 meetupDate"
+      className="jsx-4277715105 meetupTime"
     >
       <div
-        className="jsx-1810684706 smallInputContainer"
+        className="jsx-4277715105 smallInputContainer"
       >
         <span
-          className="jsx-1810684706 subtitle"
+          className="jsx-4277715105 subtitle"
         >
           From
         </span>
         <div
-          className="jsx-4141203587"
+          className="jsx-354040114 selectBoxWrapper"
         >
-          <input
-            className="jsx-4141203587 
-        textInput
-        small
-      "
-            onChange={[Function]}
-            placeholder=""
-            type="select"
-            value=""
-          />
+          <button
+            className="jsx-354040114 
+            buttonWrapper
+            
+          "
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="jsx-354040114 placeholder "
+            >
+              24:00
+            </span>
+            <div
+              className="jsx-354040114 dropdownIcon"
+            />
+          </button>
+          <ul
+            className="jsx-354040114 
+          optionWrapper
+          closeOption
+        "
+          >
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="1:00"
+            >
+              1:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="2:00"
+            >
+              2:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="3:00"
+            >
+              3:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="4:00"
+            >
+              4:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="5:00"
+            >
+              5:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="6:00"
+            >
+              6:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="7:00"
+            >
+              7:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="8:00"
+            >
+              8:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="9:00"
+            >
+              9:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="10:00"
+            >
+              10:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="11:00"
+            >
+              11:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="12:00"
+            >
+              12:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="13:00"
+            >
+              13:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="14:00"
+            >
+              14:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="15:00"
+            >
+              15:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="16:00"
+            >
+              16:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="17:00"
+            >
+              17:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="18:00"
+            >
+              18:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="19:00"
+            >
+              19:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="20:00"
+            >
+              20:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="21:00"
+            >
+              21:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="22:00"
+            >
+              22:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="23:00"
+            >
+              23:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="24:00"
+            >
+              24:00
+            </li>
+          </ul>
         </div>
       </div>
       <div
-        className="jsx-1810684706 smallInputContainer"
+        className="jsx-4277715105 smallInputContainer"
       >
         <span
-          className="jsx-1810684706 subtitle"
+          className="jsx-4277715105 subtitle"
         >
           To
         </span>
         <div
-          className="jsx-4141203587"
+          className="jsx-354040114 selectBoxWrapper"
         >
-          <input
-            className="jsx-4141203587 
-        textInput
-        small
-      "
-            onChange={[Function]}
-            placeholder=""
-            type="select"
-            value=""
-          />
+          <button
+            className="jsx-354040114 
+            buttonWrapper
+            
+          "
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="jsx-354040114 placeholder "
+            >
+              24:00
+            </span>
+            <div
+              className="jsx-354040114 dropdownIcon"
+            />
+          </button>
+          <ul
+            className="jsx-354040114 
+          optionWrapper
+          closeOption
+        "
+          >
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="1:00"
+            >
+              1:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="2:00"
+            >
+              2:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="3:00"
+            >
+              3:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="4:00"
+            >
+              4:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="5:00"
+            >
+              5:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="6:00"
+            >
+              6:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="7:00"
+            >
+              7:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="8:00"
+            >
+              8:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="9:00"
+            >
+              9:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="10:00"
+            >
+              10:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="11:00"
+            >
+              11:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="12:00"
+            >
+              12:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="13:00"
+            >
+              13:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="14:00"
+            >
+              14:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="15:00"
+            >
+              15:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="16:00"
+            >
+              16:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="17:00"
+            >
+              17:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="18:00"
+            >
+              18:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="19:00"
+            >
+              19:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="20:00"
+            >
+              20:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="21:00"
+            >
+              21:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="22:00"
+            >
+              22:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="23:00"
+            >
+              23:00
+            </li>
+            <li
+              className="jsx-354040114 
+                  optionStyle
+                  
+                "
+              onClick={[Function]}
+              value="24:00"
+            >
+              24:00
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
   <div
-    className="jsx-1810684706 buttonGroup"
+    className="jsx-4277715105 buttonGroup"
   >
     <div
-      className="jsx-1810684706"
+      className="jsx-4277715105"
     >
       <button
         className="jsx-675350272 
@@ -248,7 +847,7 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
       </button>
     </div>
     <div
-      className="jsx-1810684706"
+      className="jsx-4277715105"
     >
       <button
         className="jsx-675350272 
@@ -263,7 +862,7 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
       </button>
     </div>
     <div
-      className="jsx-1810684706"
+      className="jsx-4277715105"
     >
       <button
         className="jsx-675350272 

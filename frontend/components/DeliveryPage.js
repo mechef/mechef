@@ -14,9 +14,7 @@ import { MeetupObject } from '../utils/flowTypes';
 
 type Props = {
   delivery: {
-    deliveryList: {
-      meetupList: Array<MeetupObject>,
-    },
+    meetupList: Array<MeetupObject>,
     currentMeetupId: string,
     currentShippingId: string,
   },
@@ -46,7 +44,7 @@ export class DeliveryPage extends React.Component<Props> {
   }
   render() {
     const {
-      delivery: { deliveryList: { meetupList }, currentMeetupId },
+      delivery: { meetupList, currentMeetupId },
       setError$, error,
       global: { backArrow },
       toggleBackArrow$,

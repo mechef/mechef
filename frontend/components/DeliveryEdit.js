@@ -5,9 +5,11 @@ import Rx from 'rxjs/Rx';
 
 import Button from './Button';
 import TextInput from './TextInput';
+import SelectBox from './SelectBox';
+import CheckBox from './CheckBox';
 import MapWithAutoComplete from './MapWithAutoComplete';
 import { MeetupObject } from '../utils/flowTypes';
-
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../utils/constants';
 
 type Props = {
   onCreateMeetup: (meetup: MeetupObject) => Rx.Observable,
@@ -18,9 +20,45 @@ type Props = {
   goBack: () => Rx.Observable,
 }
 
-type State = {
-  meetup: MeetupObject,
-}
+type State = MeetupObject
+
+const availableTime = [
+  { text: '1:00', value: '1:00' },
+  { text: '2:00', value: '2:00' },
+  { text: '3:00', value: '3:00' },
+  { text: '4:00', value: '4:00' },
+  { text: '5:00', value: '5:00' },
+  { text: '6:00', value: '6:00' },
+  { text: '7:00', value: '7:00' },
+  { text: '8:00', value: '8:00' },
+  { text: '9:00', value: '9:00' },
+  { text: '10:00', value: '10:00' },
+  { text: '11:00', value: '11:00' },
+  { text: '12:00', value: '12:00' },
+  { text: '13:00', value: '13:00' },
+  { text: '14:00', value: '14:00' },
+  { text: '15:00', value: '15:00' },
+  { text: '16:00', value: '16:00' },
+  { text: '17:00', value: '17:00' },
+  { text: '18:00', value: '18:00' },
+  { text: '19:00', value: '19:00' },
+  { text: '20:00', value: '20:00' },
+  { text: '21:00', value: '21:00' },
+  { text: '22:00', value: '22:00' },
+  { text: '23:00', value: '23:00' },
+  { text: '24:00', value: '24:00' },
+]
+
+// TODO Bible: Change to real i18n in the future
+const days = [
+  { key: 'meetupMonday', text: 'Monday' },
+  { key: 'meetupTuesday', text: 'Tuesday' },
+  { key: 'meetupWednesday', text: 'Wednesday' },
+  { key: 'meetupThursday', text: 'Thursday' },
+  { key: 'meetupFriday', text: 'Friday' },
+  { key: 'meetupSaturday', text: 'Saturday' },
+  { key: 'meetupSunday', text: 'Sunday' },
+];
 
 class DeliveryEdit extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -38,13 +76,17 @@ class DeliveryEdit extends React.Component<Props, State> {
         meetupTuesday: false,
         meetupMonday: false,
         meetupSunday: false,
-        meetLongitude: -1,
-        meetupLatitude: -1,
+        meetupLatitude: DEFAULT_LATITUDE,
+        meetLongitude: DEFAULT_LONGITUDE,
         meetupAddress: '',
         type: 'meetup',
       };
     this.state = {
-      meetup: currentMeetup,
+      // XXX Yuan:
+      // 1. Add type to the response
+      // 2. meetupLoatitude, meetLongitude naming
+      ...currentMeetup,
+      type: 'meetup',
     };
   }
   render() {
@@ -56,39 +98,74 @@ class DeliveryEdit extends React.Component<Props, State> {
           <div className="meetupLocation">
             <h3 className="title">Meet up location</h3>
             <p className="subtitle">Location and Time</p>
-            <MapWithAutoComplete />
+            <MapWithAutoComplete
+              initialValue={this.state.meetupAddress}
+              initialLat={this.state.meetupLatitude}
+              initialLong={this.state.meetLongitude}
+              onChange={(input) => {
+                this.setState({
+                  meetupAddress: input,
+                  meetLongitude: -1,
+                  meetupLatitude: -1,
+                });
+              }}
+              onSuggestSelect={(suggest) => {
+                this.setState({
+                  meetupAddress: suggest.address,
+                  meetLongitude: suggest.longitude,
+                  meetupLatitude: suggest.latitude,
+                })
+              }}
+            />
           </div>
-          <h3 className="title">Meet up date</h3>
           <div className="meetupDate">
-            <div className="smallInputContainer">
-              <span className="subtitle">Select Date MM/DD/YYYY</span>
-              <TextInput
-                type="text"
-                size="small"
-              />
-            </div>
-            <div className="smallInputContainer">
-              <span className="subtitle">Dynamic Period</span>
-              <TextInput
-                type="select"
-                size="small"
-              />
+            <h3 className="title">Meet up date</h3>
+            <p className="subtitle">Select Date</p>
+            <div className="checkboxGroup">
+              {
+                days.map(day => (
+                  <span key={day.key} className="checkbox">
+                    <CheckBox
+                      checked={this.state[day.key]}
+                      onChange={() => {
+                        this.setState({
+                          [day.key]: !this.state[day.key],
+                        });
+                      }}
+                    >
+                      {day.text}
+                    </CheckBox>
+                  </span>
+                ))
+              }
             </div>
           </div>
           <h3 className="title">Meet up time</h3>
-          <div className="meetupDate">
+          <div className="meetupTime">
             <div className="smallInputContainer">
               <span className="subtitle">From</span>
-              <TextInput
-                type="select"
-                size="small"
+              <SelectBox
+                options={availableTime}
+                selectedValue={this.state.meetupStartTime}
+                defaultText="24:00"
+                onChange={(selectedValue) => {
+                  this.setState({
+                    meetupStartTime: selectedValue,
+                  });
+                }}
               />
             </div>
             <div className="smallInputContainer">
               <span className="subtitle">To</span>
-              <TextInput
-                type="select"
-                size="small"
+              <SelectBox
+                options={availableTime}
+                selectedValue={this.state.meetupEndTime}
+                defaultText="24:00"
+                onChange={(selectedValue) => {
+                  this.setState({
+                    meetupEndTime: selectedValue,
+                  });
+                }}
               />
             </div>
           </div>
@@ -120,11 +197,11 @@ class DeliveryEdit extends React.Component<Props, State> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                if (this.state.id) {
+                if (this.state._id) {
                   // TODO: Modify to only provide updated data
-                  onUpdateMeetup(this.state.meetup);
+                  onUpdateMeetup(this.state);
                 } else {
-                  onCreateMeetup(this.state.meetup);
+                  onCreateMeetup(this.state);
                 }
                 goBack();
               }}
@@ -148,7 +225,7 @@ class DeliveryEdit extends React.Component<Props, State> {
 
             .editContainer {
               margin-top: 24px;
-              width: 744px;
+              width: 552px;
               height: 100%;
               padding: 24px 20px;
               border-radius: 4px;
@@ -180,6 +257,23 @@ class DeliveryEdit extends React.Component<Props, State> {
             }
 
             .meetupDate {
+              margin-bottom: 48px;
+            }
+
+            .checkboxGroup {
+              display: grid;
+              width: 387px;
+              grid-template-columns: 1fr 1fr 1fr;
+              grid-template-rows: 1fr 1fr 1fr;
+              grid-column-gap: 30px;
+              grid-row-gap: 16px;
+            }
+
+            .checkbox {
+              width: 116px;
+            }
+
+            .meetupTime {
               display: flex;
               justify-content: space-between;
               width: 539px;
@@ -189,6 +283,7 @@ class DeliveryEdit extends React.Component<Props, State> {
             .smallInputContainer {
               display: flex;
               flex-direction: column;
+              width: 250px;
             }
 
             .selectbox {

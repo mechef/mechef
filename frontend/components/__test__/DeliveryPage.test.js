@@ -9,25 +9,23 @@ describe('Pages With Snapshot Testing', () => {
     const component = renderer.create(
       <DeliveryPage
         delivery={{
-          deliveryList: {
-            meetupList: [{
-              _id: '59e5f7ffd48173ad48d8c8ab',
-              note: '9F caferia',
-              meetupEndTime: '',
-              meetupStartTime: '',
-              meetupSaturday: false,
-              meetupFriday: false,
-              meetupThursday: false,
-              meetupWednesday: false,
-              meetupTuesday: false,
-              meetupMonday: false,
-              meetupSunday: false,
-              meetLongitude: 20,
-              meetupLatitude: 120,
-              meetupAddress: 'Rakuten Crimson House',
-              type: 'meetup',
-            }],
-          },
+          meetupList: [{
+            _id: '59e5f7ffd48173ad48d8c8ab',
+            note: '9F caferia',
+            meetupEndTime: '',
+            meetupStartTime: '',
+            meetupSaturday: false,
+            meetupFriday: false,
+            meetupThursday: false,
+            meetupWednesday: false,
+            meetupTuesday: false,
+            meetupMonday: false,
+            meetupSunday: false,
+            meetLongitude: 20,
+            meetupLatitude: 120,
+            meetupAddress: 'Rakuten Crimson House',
+            type: 'meetup',
+          }],
           currentMeetupId: '59e5f7ffd48173ad48d8c8ab',
           currentShippingId: '',
         }}

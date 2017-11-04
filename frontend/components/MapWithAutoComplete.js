@@ -1,6 +1,7 @@
 
 import React from 'react';
 import Geosuggest from 'react-geosuggest';
+import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../utils/constants';
 
 import {
   primaryColor,
@@ -12,13 +13,30 @@ import {
   placeholderFontSize,
 } from '../utils/styleVariables';
 
+type Props = {
+  initialValue: string,
+  initialLat: number,
+  initialLong: number,
+  onChange: () => mixed,
+  onSuggestSelect: () => mixed,
+}
 
-class MapWithAutoComplete extends React.Component<Props, State> {
+
+class MapWithAutoComplete extends React.Component<Props> {
+
+  static defaultProps = {
+    initialValue: '',
+    initialLat: DEFAULT_LATITUDE,
+    initialLong: DEFAULT_LONGITUDE,
+    onChange: () => {},
+    onSuggestSelect: () => {},
+  }
+
   componentDidMount() {
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {
-        lat: 25.0338836,
-        lng: 121.5623212,
+        lat: this.props.initialLat,
+        lng: this.props.initialLong,
       },
       zoom: 8,
       panControl: false,
@@ -36,6 +54,7 @@ class MapWithAutoComplete extends React.Component<Props, State> {
       <div className="container">
         <div className="mapWrapper" id="map" />
         <Geosuggest
+          initialValue={this.props.initialValue}
           placeholder="Enter meet up address"
           onSuggestSelect={(suggest) => {
             if (this.marker) {
@@ -50,7 +69,13 @@ class MapWithAutoComplete extends React.Component<Props, State> {
             });
             marker.setMap(this.map);
             this.marker = marker;
+            this.props.onSuggestSelect({
+              address: suggest.label,
+              latitude: suggest.location.lat,
+              longitude: suggest.location.lng,
+            })
           }}
+          onChange={this.props.onChange}
         />
         <style>{`
           .geosuggest {

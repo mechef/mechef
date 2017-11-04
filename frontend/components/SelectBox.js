@@ -104,6 +104,7 @@ class SelectBox extends React.Component<Props, State> {
           {
             this.props.options.map(option => (
               <li
+                key={option.value}
                 className={`
                   optionStyle
                   ${option.value === selectedValue ? 'selectedStyle' : ''}
@@ -122,6 +123,7 @@ class SelectBox extends React.Component<Props, State> {
               display: flex;
               flex-direction: column;
               width: 100%;
+              position: relative;
             }
 
             .buttonWrapper {
@@ -134,12 +136,13 @@ class SelectBox extends React.Component<Props, State> {
               align-items: center;
               background-color: ${whiteColor};
               border: solid 1px #979797;
-              border-top-left-radius: ${borderRadius};
-              border-top-right-radius: ${borderRadius};
+              border-radius: ${borderRadius};
               cursor: pointer;
             }
             .greyBorderBottom {
               border-bottom-color: #ececec;
+              border-bottom-right-radius: 0;
+              border-bottom-left-radius: 0;
             }
             .placeholder {
               margin-left: 18px;
@@ -160,13 +163,21 @@ class SelectBox extends React.Component<Props, State> {
               background-image: url('../static/svg/dropdown_hover.svg');
             }
             .optionWrapper {
+              position: absolute;
+              top: 44px;
+              width: 100%;
+              z-index: 2;
               list-style: none;
               margin: 0;
               border-bottom-left-radius: ${borderRadius};
               border-bottom-right-radius: ${borderRadius};
               border: solid 1px #979797;
               border-top: 0;
-              padding-left: 18px;
+              padding: 0;
+              height: 144px;
+              overflow: scroll;
+              box-sizing: border-box;
+              background-color: ${whiteColor};
             }
             .closeOption {
               display: none;
@@ -179,6 +190,7 @@ class SelectBox extends React.Component<Props, State> {
               color: ${placeholderTextColor};
               letter-spacing: 0.6px;
               cursor: pointer;
+              padding-left: 18px;
             }
 
             .optionStyle:hover {
