@@ -113,7 +113,7 @@ class AccountEdit extends React.Component<Props> {
                 this.coverPhotoImg = input;
               }}
               className="coverPhoto"
-              src="../static/pancake.jpg"
+              src={this.props.account.coverPhoto || "../static/pancake.jpg"}
               alt="cover"
             />
             <div className="update-cover-photo__title">
@@ -147,7 +147,7 @@ class AccountEdit extends React.Component<Props> {
                   this.profileImageThumbnail = input;
                 }}
                 className="profileImage"
-                src="../static/avatar.jpg"
+                src={this.props.account.profileImage || "../static/avatar.jpg"}
                 alt="profile"
               />
               <i className="fa fa-camera update-profile-image__avatar-camera-icon" aria-hidden="true" />

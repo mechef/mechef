@@ -4,6 +4,7 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
+import { BASE_URL } from '../utils/constants';
 
 type Props = {
   account: {
@@ -34,13 +35,13 @@ type Props = {
 const AccountDetail = (props: Props) => (
   <div>
     <div className="coverPhoto" />
-    <p className="sellerId">@MomooKitchen</p>
+    <p className="sellerId">{props.account.name}</p>
     <p className="sellerName">{props.account.name}</p>
     <div className="kitchenInfo">
       <div className="name">
         <div className="kitchenName">
           <span className="smallTitle">Kitchen Name</span>
-          <span className="contentText">@MomooKitchen</span>
+          <span className="contentText">{props.account.kitchenName}</span>
         </div>
         <div className="userName">
           <span className="smallTitle">User Name</span>
@@ -54,11 +55,11 @@ const AccountDetail = (props: Props) => (
       <div className="name">
         <div className="kitchenName">
           <span className="smallTitle">Phone Number</span>
-          <span className="contentText">8868008000</span>
+          <span className="contentText">{props.account.phoneNumber}</span>
         </div>
         <div className="userName">
           <span className="smallTitle">Email Address</span>
-          <span className="contentText">momoochen@gmail.com</span>
+          <span className="contentText">{props.account.email}</span>
         </div>
       </div>
       <div className="buttonGroup">
@@ -111,7 +112,7 @@ const AccountDetail = (props: Props) => (
           margin-bottom: 25px;
           width: 100%;
           height: 240px;
-          background-image: url('../static/pancake.jpg');
+          background-image: url('${BASE_URL}/image/${props.account.coverPhoto}'), url('../static/pancake.jpg');
           background-size: cover;
           background-position: center;
           position: relative;
@@ -122,7 +123,7 @@ const AccountDetail = (props: Props) => (
           position: absolute;
           top: 200px;
           left: 20px;
-          background-image: url('../static/avatar.jpg');
+          background-image: url('${BASE_URL}/image/${props.account.profileImage}'), url('../static/avatar.jpg');
           background-size: cover;
           background-position: center;
           width: 80px;
