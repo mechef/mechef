@@ -21,9 +21,9 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
   <div>
     <div className="header">
       <span className="title">Ingredients List</span>
-      <div className="addButton">
-        <div className="plus" role="link" tabIndex="-1" onClick={() => onEditMemo('')} />
-      </div>
+      <button className="addButton" onClick={() => onEditMemo('')}>
+        <div className="plus" />
+      </button>
     </div>
     {
       memos.map(memo => (
@@ -77,6 +77,8 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
           border-radius: 4px;
           background-color: ${whiteColor};
           cursor: pointer;
+          outline: none;
+          border: 0;
         }
 
         .plus {
@@ -87,10 +89,10 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
           background-repeat:no-repeat;
           width: 18px;
           height: 18px;
-          cursor: pointer;
+          outline: none;
         }
 
-        .plus:hover {
+        .addButton:hover .plus {
           background-image: url('../static/img/plus_hover.png');
         }
 

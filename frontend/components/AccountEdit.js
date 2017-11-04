@@ -166,7 +166,7 @@ class AccountEdit extends React.Component<Props> {
               size="large"
               value={this.props.account.kitchenName || ''}
               onChange={(event) => {
-                if (event && event.target.value) {
+                if (event && event.target) {
                   this.props.onUpdateField({ kitchenName: event.target.value });
                 }
               }}
@@ -194,7 +194,7 @@ class AccountEdit extends React.Component<Props> {
                 size="small"
                 value={this.props.account.firstName || ''}
                 onChange={(event) => {
-                  if (event && event.target.value) {
+                  if (event && event.target) {
                     this.props.onUpdateField({ firstName: event.target.value });
                   }
                 }}
@@ -205,7 +205,7 @@ class AccountEdit extends React.Component<Props> {
                 size="small"
                 value={this.props.account.lastName || ''}
                 onChange={(event) => {
-                  if (event && event.target.value) {
+                  if (event && event.target) {
                     this.props.onUpdateField({ lastName: event.target.value });
                   }
                 }}
@@ -222,7 +222,7 @@ class AccountEdit extends React.Component<Props> {
                 size="small"
                 value={this.props.account.phoneNumber || ''}
                 onChange={(event) => {
-                  if (event && event.target.value) {
+                  if (event && event.target) {
                     this.props.onUpdateField({ phoneNumber: event.target.value });
                   }
                 }}
@@ -237,7 +237,7 @@ class AccountEdit extends React.Component<Props> {
                 size="small"
                 value={this.props.account.email || ''}
                 onChange={(event) => {
-                  if (event && event.target.value) {
+                  if (event && event.target) {
                     this.props.onUpdateField({ email: event.target.value });
                   }
                 }}

@@ -81,7 +81,7 @@ class IngredientEdit extends React.Component<Props, State> {
               size="medium"
               value={this.state.memoName}
               onChange={(event) => {
-                if (event && event.target.value) {
+                if (event && event.target) {
                   this.setState({ memoName: event.target.value });
                 }
               }}
@@ -102,7 +102,7 @@ class IngredientEdit extends React.Component<Props, State> {
                   size="medium"
                   value={this.state.inputIngredientName}
                   onChange={(event) => {
-                    if (event && event.target.value) {
+                    if (event && event.target) {
                       this.setState({ inputIngredientName: event.target.value });
                     }
                   }}
@@ -115,7 +115,7 @@ class IngredientEdit extends React.Component<Props, State> {
                   size="medium"
                   value={this.state.inputIngredientAmount}
                   onChange={(event) => {
-                    if (event && event.target.value) {
+                    if (event && event.target) {
                       this.setState({ inputIngredientAmount: event.target.value });
                     }
                   }}

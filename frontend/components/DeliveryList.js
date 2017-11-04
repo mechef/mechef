@@ -4,7 +4,7 @@ import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
-import { whiteColor } from '../utils/styleVariables';
+import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
 
 type Props = {
   meetupList: Array<{
@@ -27,117 +27,154 @@ type Props = {
   onEditDelivery: (meetupId: string) => Rx.Observable,
 }
 
-const DeliveryList = ({ meetupList, onEditDelivery }: Props): React.Element<'div'> => (
-  <div>
-    <div className="header">
-      <span className="title">Delivery List</span>
-      <div className="addButton">
-        <div className="plus" role="link" tabIndex="-1" onClick={() => onEditDelivery('')} />
-      </div>
-    </div>
-    {
-      meetupList.map(meetup => (
-        <div key={meetup._id} className="deliveryList">
-          <div className="delivery-item">
-            <div className="delivery-content">
-              <p className="delivery-title">{meetup.meetupAddress}</p>
-              <p className="delivery-detail">
-                <span className="delivery-subtext">Shipping Cost:</span>
-              </p>
-            </div>
-            <div className="buttonWrapper">
-              <Button
-                buttonStyle="primary"
-                size="small"
-                onClick={() => onEditDelivery(meetup._id)}
-              >
-                UPDATE
-              </Button>
-            </div>
-          </div>
+class DeliveryList extends React.Component<Props> {
+  componentDidMount() {
+    this.props.meetupList.forEach(meetup => {
+      // $FlowFixMe
+      const map = new google.maps.Map(document.getElementById(meetup._id), {
+        center: {
+          lat: meetup.meetupLatitude,
+          lng: meetup.meetLongitude,
+        },
+        zoom: 10,
+        panControl: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        zoomControl: true,
+        fullscreenControl: false,
+      });
+      const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetLongitude);
+      const marker = new google.maps.Marker({
+        position: latlng,
+        title: meetup.meetupAddress,
+        visible: true,
+      });
+      marker.setMap(map);
+    });
+  }
+  render() {
+    const { meetupList, onEditDelivery } = this.props;
+    return (
+      <div className="wrapper">
+        <div className="header">
+          <span className="title">Delivery List</span>
+          <button className="addButton" onClick={() => onEditDelivery('')}>
+            <div className="plus" />
+          </button>
         </div>
-      ))
-    }
-    <style jsx>
-      {`
-        .deliveryList {
-          width: 800px;
+        {
+          meetupList.map(meetup => (
+            <button key={meetup._id} className="deliveryItem" onClick={() => onEditDelivery(meetup._id)}>
+              <div className="mapWrapper" id={meetup._id} />
+              <span className="descriptionText">Meet up at</span>
+              <div className="delivery-content">
+                <span className="text">{meetup.meetupAddress}</span>
+                <span className="text">{meetup.meetupStartTime} - {meetup.meetupEndTime}</span>
+              </div>
+            </button>
+          ))
         }
-        .header {
-          display: flex;
-          align-items: center;
-          padding-bottom: 22px;
-        }
-        .title {
-          font-size: 18px;
-          line-height: 1.11;
-          letter-spacing: 0.5px;
-          color: #4a4a4a;
-        }
-        .addButton {
-          display: flex;
-          width: 36px;
-          height: 36px;
-          margin-left: 20px;
-          border-radius: 4px;
-          background-color: ${whiteColor};
-        }
+        <style jsx>
+          {`
+            .wrapper {
+              height: 791px;
+              overflow: scroll;
+            }
 
-        .plus {
-          margin: auto;
-          background-image: url('../static/img/plus.png');
-          background-size: contain;
-          background-position: center;
-          background-repeat:no-repeat;
-          width: 18px;
-          height: 18px;
-          cursor: pointer;
-        }
+            .mapWrapper {
+              width: 512px;
+              height: 100px;
+              margin-bottom: 12px;
+            }
 
-        .plus:hover {
-          background-image: url('../static/img/plus_hover.png');
-        }
+            .descriptionText {
+              font-size: ${fontSize};
+              line-height: ${lineHeight};
+              color: ${placeholderTextColor};
+              margin-bottom: 8px;
+              margin-left: 21px;
+            }
 
-        .delivery-item {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 12px;
-          padding: 30px 20px 30px 15px;
-          width: 100%;
-          border-radius: 4px;
-          background-color: #ffffff;
-        }
-        .delivery-content {
-          display: flex;
-          flex-direction: column;
-        }
-        .delivery-title {
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 1;
-          letter-spacing: 0.7px;
-          text-align: left;
-          color: #4a4a4a;
-        }
-        .delivery-detail {
-          padding-top: 16px;
-        }
-        .delivery-subtext {
-          margin-right: 40px;
-          font-size: 14px;
-          font-weight: 500;
-          line-height: 1.14;
-          letter-spacing: 0.6px;
-          text-align: left;
-          color: #9b9b9b;
-        }
-        .buttonWrapper {
-          align-self: center;
-        }
-      `}
-    </style>
-  </div>
-);
+            .header {
+              display: flex;
+              padding-bottom: 22px;
+              align-items: center;
+            }
+            .title {
+              font-size: 18px;
+              line-height: 1.11;
+              letter-spacing: 0.5px;
+              color: #4a4a4a;
+            }
+            .addButton {
+              display: flex;
+              width: 36px;
+              height: 36px;
+              margin-left: 20px;
+              border-radius: 4px;
+              background-color: ${whiteColor};
+              cursor: pointer;
+              outline: none;
+              border: 0;
+              outline: none;
+            }
+
+            .plus {
+              margin: auto;
+              background-image: url('../static/img/plus.png');
+              background-size: contain;
+              background-position: center;
+              background-repeat:no-repeat;
+              width: 18px;
+              height: 18px;
+              outline: none;
+            }
+
+            .addButton:hover .plus {
+              background-image: url('../static/img/plus_hover.png');
+            }
+
+            .deliveryItem {
+              width: 512px;
+              height: 226px;
+              border: 0;
+              border-radius: ${borderRadius};
+              box-shadow: 0 5px 7px 0 rgba(201, 201, 201, 0.5);
+              background-color: ${whiteColor};
+              display: flex;
+              flex-direction: column;
+              margin-bottom: 12px;
+              padding: 0;
+              border-radius: 4px;
+              background-color: #ffffff;
+              cursor: pointer;
+              outline: none;
+              transition: all .2s ease-in-out;
+            }
+
+            .deliveryItem:hover {
+              transform: scale(1.01);
+            }
+
+            .delivery-content {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              margin-left: 21px;
+            }
+            .text {
+              font-size: ${fontSize};
+              font-weight: 500;
+              line-height: ${lineHeight};
+              color: ${textColor};
+              padding-bottom: 12px;
+            }
+          `}
+        </style>
+      </div>
+    )
+  }
+}
 
 
 export default DeliveryList;

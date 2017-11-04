@@ -3,6 +3,7 @@ import React from 'react';
 
 import DeliveryList from '../DeliveryList';
 
+jest.mock('react-geosuggest', () => '[MOCK]Geosuggest');
 
 describe('Pages With Snapshot Testing', () => {
   it('snapshot DeliveryList Component', () => {

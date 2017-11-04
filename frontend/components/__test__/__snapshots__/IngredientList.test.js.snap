@@ -2,52 +2,50 @@
 
 exports[`Pages With Snapshot Testing snapshot IngredientList Component 1`] = `
 <div
-  className="jsx-1047294431"
+  className="jsx-3175717653"
 >
   <div
-    className="jsx-1047294431 header"
+    className="jsx-3175717653 header"
   >
     <span
-      className="jsx-1047294431 title"
+      className="jsx-3175717653 title"
     >
       Ingredients List
     </span>
-    <div
-      className="jsx-1047294431 addButton"
+    <button
+      className="jsx-3175717653 addButton"
+      onClick={[Function]}
     >
       <div
-        className="jsx-1047294431 plus"
-        onClick={[Function]}
-        role="link"
-        tabIndex="-1"
+        className="jsx-3175717653 plus"
       />
-    </div>
+    </button>
   </div>
   <div
-    className="jsx-1047294431 ingredientList"
+    className="jsx-3175717653 ingredientList"
   >
     <div
-      className="jsx-1047294431 ingredient-item"
+      className="jsx-3175717653 ingredient-item"
     >
       <div
-        className="jsx-1047294431 ingredient-content"
+        className="jsx-3175717653 ingredient-content"
       >
         <p
-          className="jsx-1047294431 ingredient-title"
+          className="jsx-3175717653 ingredient-title"
         >
           bible memo
         </p>
         <p
-          className="jsx-1047294431 ingredient-detail"
+          className="jsx-3175717653 ingredient-detail"
         >
           <span
-            className="jsx-1047294431 ingredient-subtext"
+            className="jsx-3175717653 ingredient-subtext"
           >
             Ingredient: 
             1
           </span>
           <span
-            className="jsx-1047294431 ingredient-subtext"
+            className="jsx-3175717653 ingredient-subtext"
           >
             Total: 
             $100
@@ -55,7 +53,7 @@ exports[`Pages With Snapshot Testing snapshot IngredientList Component 1`] = `
         </p>
       </div>
       <div
-        className="jsx-1047294431 buttonWrapper"
+        className="jsx-3175717653 buttonWrapper"
       >
         <button
           className="jsx-675350272 

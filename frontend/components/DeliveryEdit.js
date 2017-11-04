@@ -169,6 +169,19 @@ class DeliveryEdit extends React.Component<Props, State> {
               />
             </div>
           </div>
+          <h3 className="title">Note</h3>
+          <p className="subtitle">meet up information to buyer</p>
+          <TextInput
+            type="text"
+            placeholder="Write something......"
+            size="large"
+            value={this.state.note}
+            onChange={(event) => {
+              if (event && event.target) {
+                this.setState({ note: event.target.value });
+              }
+            }}
+          />
         </div>
         <div className="buttonGroup">
           <div>
@@ -296,7 +309,7 @@ class DeliveryEdit extends React.Component<Props, State> {
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
-              width: 744px;
+              width: 592px;
               padding-top: 30px;
             }
 
