@@ -23,8 +23,8 @@ module.exports = (req, res) => {
     if (req.body.meetupLatitude) {
       updateFields.meetupLatitude = req.body.meetupLatitude;
     }
-    if (req.body.meetLongitude) {
-      updateFields.meetLongitude = req.body.meetLongitude;
+    if (req.body.meetupLongitude) {
+      updateFields.meetupLongitude = req.body.meetupLongitude;
     }
     if (req.body.meetupSunday) {
       updateFields.meetupSunday = req.body.meetupSunday;

@@ -4,7 +4,7 @@ export type MeetupObject = {
   note?: string,
   meetupAddress?: string,
   meetupLatitude?: number,
-  meetLongitude?: number,
+  meetupLongitude?: number,
   meetupSunday?: boolean,
   meetupMonday?: boolean,
   meetupTuesday?: boolean,

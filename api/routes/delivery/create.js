@@ -19,7 +19,7 @@ module.exports = (req, res) => {
     // type: String,
     // meetupAddress: String,
     // meetupLatitude: Number,
-    // meetLongitude: Number,
+    // meetupLongitude: Number,
     // meetupSunday: Boolean,
     // meetupMonday: Boolean,
     // meetupTuesday: Boolean,
@@ -52,10 +52,10 @@ module.exports = (req, res) => {
       delivery.meetupLatitude = 0.0;
     }
 
-    if (req.body.meetLongitude) {
-      delivery.meetLongitude = req.body.meetLongitude;
+    if (req.body.meetupLongitude) {
+      delivery.meetupLongitude = req.body.meetupLongitude;
     } else {
-      delivery.meetLongitude = 0.0;
+      delivery.meetupLongitude = 0.0;
     }
 
     if (req.body.meetupSunday) {

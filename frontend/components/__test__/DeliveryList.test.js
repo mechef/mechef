@@ -21,7 +21,7 @@ describe('Pages With Snapshot Testing', () => {
           meetupTuesday: false,
           meetupMonday: false,
           meetupSunday: false,
-          meetLongitude: 20,
+          meetupLongitude: 20,
           meetupLatitude: 120,
           meetupAddress: 'Rakuten Crimson House',
           type: 'meetup',
