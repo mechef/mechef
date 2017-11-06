@@ -77,14 +77,14 @@ class DeliveryEdit extends React.Component<Props, State> {
         meetupMonday: false,
         meetupSunday: false,
         meetupLatitude: DEFAULT_LATITUDE,
-        meetLongitude: DEFAULT_LONGITUDE,
+        meetupLongitude: DEFAULT_LONGITUDE,
         meetupAddress: '',
         type: 'meetup',
       };
     this.state = {
       // XXX Yuan:
       // 1. Add type to the response
-      // 2. meetupLoatitude, meetLongitude naming
+      // 2. meetupLoatitude, meetupLongitude naming
       ...currentMeetup,
       type: 'meetup',
     };
@@ -101,18 +101,18 @@ class DeliveryEdit extends React.Component<Props, State> {
             <MapWithAutoComplete
               initialValue={this.state.meetupAddress}
               initialLat={this.state.meetupLatitude}
-              initialLong={this.state.meetLongitude}
+              initialLong={this.state.meetupLongitude}
               onChange={(input) => {
                 this.setState({
                   meetupAddress: input,
-                  meetLongitude: -1,
+                  meetupLongitude: -1,
                   meetupLatitude: -1,
                 });
               }}
               onSuggestSelect={(suggest) => {
                 this.setState({
                   meetupAddress: suggest.address,
-                  meetLongitude: suggest.longitude,
+                  meetupLongitude: suggest.longitude,
                   meetupLatitude: suggest.latitude,
                 })
               }}

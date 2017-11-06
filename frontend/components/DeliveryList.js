@@ -19,7 +19,7 @@ type Props = {
     meetupTuesday: boolean,
     meetupMonday: boolean,
     meetupSunday: boolean,
-    meetLongitude: number,
+    meetupLongitude: number,
     meetupLatitude: number,
     meetupAddress: string,
     type: string,
@@ -34,7 +34,7 @@ class DeliveryList extends React.Component<Props> {
       const map = new google.maps.Map(document.getElementById(meetup._id), {
         center: {
           lat: meetup.meetupLatitude,
-          lng: meetup.meetLongitude,
+          lng: meetup.meetupLongitude,
         },
         zoom: 10,
         panControl: false,
@@ -43,7 +43,7 @@ class DeliveryList extends React.Component<Props> {
         zoomControl: true,
         fullscreenControl: false,
       });
-      const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetLongitude);
+      const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetupLongitude);
       const marker = new google.maps.Marker({
         position: latlng,
         title: meetup.meetupAddress,

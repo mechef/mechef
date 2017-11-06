@@ -7,7 +7,7 @@ const DeliverySchema = new mongoose.Schema({
   type: String,
   meetupAddress: String,
   meetupLatitude: Number,
-  meetLongitude: Number,
+  meetupLongitude: Number,
   meetupSunday: Boolean,
   meetupMonday: Boolean,
   meetupTuesday: Boolean,
@@ -25,9 +25,10 @@ const DeliverySchema = new mongoose.Schema({
 DeliverySchema.methods.toMeetup = function() {
   return {
     _id: this._id,
+    type: this.type,
     meetupAddress: this.meetupAddress,
     meetupLatitude: this.meetupLatitude,
-    meetLongitude: this.meetLongitude,
+    meetupLongitude: this.meetupLongitude,
     meetupSunday: this.meetupSunday,
     meetupMonday: this.meetupMonday,
     meetupTuesday: this.meetupTuesday,
@@ -44,6 +45,7 @@ DeliverySchema.methods.toMeetup = function() {
 DeliverySchema.methods.toShipping = function() {
   return {
     _id: this._id,
+    type: this.type,
     shippingAreas: this.shippingAreas,
     shippingCost: this.shippingCost,
     note: this.note,
