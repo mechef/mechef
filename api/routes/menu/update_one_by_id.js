@@ -39,7 +39,8 @@ module.exports = (req, res) => {
       }
     }
 
-    Menu.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields }, (error, menu) => {
+    Menu.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields },
+      { projection: { __v: false }, new: true, upsert: true }, (error, menu) => {
     if (error) {
       res.json({ status: constants.fail });
       return;
@@ -81,7 +82,7 @@ module.exports = (req, res) => {
       }
     }
 
-    res.json({ status: constants.success });
+    res.json({ status: constants.success, menu});
     });
   });
 };

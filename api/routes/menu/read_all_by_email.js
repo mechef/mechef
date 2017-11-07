@@ -5,7 +5,7 @@ module.exports = (req, res) => {
   const query = Menu.find({ email: req.query.email });
   query.then((menu) => {
     if (menu) {
-      res.json({ status: constants.success, menu });
+      res.json({ status: constants.success, menuList: menu });
     } else {
       res.status(404).json({ status: constants.fail, reason: constants.email_not_found });
     }
