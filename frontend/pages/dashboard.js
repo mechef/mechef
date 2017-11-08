@@ -10,7 +10,12 @@ import globalActions from '../actions/globalActions';
 import { primaryColor, transparent, btnTextColor, textHintColor } from '../utils/styleVariables';
 
 type Props = {
-  asPath: string,
+  url: {
+    query: {
+      page?: string,
+    },
+    pathname: string,
+  },
   global: {
     backArrow: {
       isShow: boolean,
@@ -21,28 +26,28 @@ type Props = {
 }
 
 type State = {
-  asPath: string,
+  page: string,
 }
 
 class Dashboard extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      asPath: props.asPath,
+      page: props.url.query.page || 'home',
     };
     this.navigate = this.navigate.bind(this);
   }
 
   componentWillReceiveProps(nextProps: Props) {
     this.setState({
-      asPath: nextProps.asPath,
+      page: nextProps.url.query.page,
     });
   }
 
   navigate: Function;
 
   navigate(path: string) {
-    Router.push('/dashboard', path ? `/dashboard/${path}` : '/dashboard');
+    Router.push(`/dashboard?page=${path}`);
     if (this.props.global.backArrow.isShow) {
       this.props.toggleBackArrow$('');
     }
@@ -58,13 +63,13 @@ class Dashboard extends React.Component<Props, State> {
             <div className="dashboard-sidebar__inner">
               <img src="../static/svg/mechef_logo_white.svg" alt="logo" />
               <ul className="dashboard-sidebar__menu">
-                <li className={this.state.asPath === '/dashboard' ? 'active' : ''} role="menuitem" onClick={() => this.navigate('')}>HOME</li>
-                <li className={this.state.asPath === '/dashboard/menu' ? 'active' : ''} role="menuitem" onClick={() => this.navigate('menu')}>MENU</li>
-                <li className={this.state.asPath === '/dashboard/order' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('order')}>ORDERS</li>
-                <li className={this.state.asPath === '/dashboard/ingredient' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('ingredient')}>INGREDIENTS</li>
-                <li className={this.state.asPath === '/dashboard/shipping' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('shipping')}>SHIPPING</li>
-                <li className={this.state.asPath === '/dashboard/account' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('account')}>ACCOUNT</li>
-                <li className={this.state.asPath === '/dashboard/settings' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('setting')}>SETTINGS</li>
+                <li className={this.state.page === 'home' ? 'active' : ''} role="menuitem" onClick={() => this.navigate('home')}>HOME</li>
+                <li className={this.state.page === 'menu' ? 'active' : ''} role="menuitem" onClick={() => this.navigate('menu')}>MENU</li>
+                <li className={this.state.page === 'order' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('order')}>ORDERS</li>
+                <li className={this.state.page === 'ingredient' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('ingredient')}>INGREDIENTS</li>
+                <li className={this.state.page === 'shipping' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('shipping')}>SHIPPING</li>
+                <li className={this.state.page === 'account' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('account')}>ACCOUNT</li>
+                <li className={this.state.page === 'settings' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('setting')}>SETTINGS</li>
               </ul>
               <ul className="dashboard-sidebar__footer">
                 <li>Service Agreement</li>
@@ -102,7 +107,7 @@ class Dashboard extends React.Component<Props, State> {
               </div>
             </div>
           </div>
-          <DashboardPageRouter pathname={this.state.asPath} />
+          <DashboardPageRouter query={this.state.page} />
         </div>
         <style jsx>
           {`

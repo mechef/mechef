@@ -8,21 +8,21 @@ import Home from './Home';
 import AccountPage from './AccountPage';
 
 type Props = {
-  pathname: string,
+  query: string,
 }
 
 const DashboardPageRouter = (props: Props) => {
-  const pathname = props.pathname;
-  switch (pathname) {
-    case '/dashboard':
+  const query = props.query;
+  switch (query) {
+    case 'home':
       return <Home />;
-    case '/dashboard/ingredient':
+    case 'ingredient':
       return <IngredientPage />;
-    case '/dashboard/shipping':
+    case 'shipping':
       return <DeliveryPage />;
-    case '/dashboard/order':
+    case 'order':
       return <OrderPage />;
-    case '/dashboard/account':
+    case 'account':
       return <AccountPage />;
     default:
       return <Home />;
