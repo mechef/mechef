@@ -10,7 +10,8 @@
     "start": "debug=true node api/app.js",
     "flow": "flow",
     "test": "debug=false jest",
-    "test-update": "debug=false jest -u"
+    "test-update": "debug=false jest -u",
+    "precommit": "npm run flow && npm run test"
   },
   "repository": {
     "type": "git",
