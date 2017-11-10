@@ -2,6 +2,7 @@ import Link from 'next/link';
 import fetch from 'isomorphic-unfetch';
 import CheckBox from '../components/CheckBox';
 import SelectBox from '../components/SelectBox';
+import MenuItem from '../components/MenuItem';
 
 const Index = props => (
   <div>
@@ -32,6 +33,13 @@ const Index = props => (
         selectedValue="24:00"
       />
     </div>
+    <MenuItem
+      dishName="Jasmine Honey Green Tea"
+      description="Jasmine Honey Green Tea Jasmine Honey Green Tea"
+      thumbnailUrl="https://source.unsplash.com/random/161x161"
+      isPublish
+      onTogglePublish={() => console.log('onTogglePublish')}
+    />
     <ul>
       {
         props.shows.map(({ show }) => (

@@ -12,7 +12,6 @@ export const connectErrorColor = '#9b9b9b';
 export const whiteColor = '#ffffff';
 export const borderRadius = '4px';
 
-
 // Button
 export const smallBtnWidth = '150px';
 export const mediumBtnWidth = '356px';
@@ -44,3 +43,6 @@ export const fbBtnHoverColor = '#2d5d93';
 export const twitterBtnColor = '#4dbbdd';
 export const twitterBtnHoverColor = '#4194ae';
 
+// Menu Item
+export const titleFontSize = '16px';
+export const subtitleFontSize = '14px';

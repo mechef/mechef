@@ -2,104 +2,98 @@
 
 exports[`Pages With Snapshot Testing snapshot AccountDetail Component 1`] = `
 <div
-  className="jsx-3545447565"
+  className="jsx-2021370696"
 >
   <div
-    className="jsx-3545447565 coverPhoto"
+    className="jsx-2021370696 coverPhoto"
   />
   <p
-    className="jsx-3545447565 sellerId"
+    className="jsx-2021370696 sellerId"
   >
-    @MomooKitchen
+    bible
   </p>
   <p
-    className="jsx-3545447565 sellerName"
+    className="jsx-2021370696 sellerName"
   >
     bible
   </p>
   <div
-    className="jsx-3545447565 kitchenInfo"
+    className="jsx-2021370696 kitchenInfo"
   >
     <div
-      className="jsx-3545447565 name"
+      className="jsx-2021370696 name"
     >
       <div
-        className="jsx-3545447565 kitchenName"
+        className="jsx-2021370696 kitchenName"
       >
         <span
-          className="jsx-3545447565 smallTitle"
+          className="jsx-2021370696 smallTitle"
         >
           Kitchen Name
         </span>
         <span
-          className="jsx-3545447565 contentText"
-        >
-          @MomooKitchen
-        </span>
+          className="jsx-2021370696 contentText"
+        />
       </div>
       <div
-        className="jsx-3545447565 userName"
+        className="jsx-2021370696 userName"
       >
         <span
-          className="jsx-3545447565 smallTitle"
+          className="jsx-2021370696 smallTitle"
         >
           User Name
         </span>
         <span
-          className="jsx-3545447565 contentText"
+          className="jsx-2021370696 contentText"
         >
           bible
         </span>
       </div>
     </div>
     <div
-      className="jsx-3545447565 description"
+      className="jsx-2021370696 description"
     >
       <span
-        className="jsx-3545447565 smallTitle"
+        className="jsx-2021370696 smallTitle"
       >
         Kitchen Description
       </span>
       <p
-        className="jsx-3545447565 contentText"
+        className="jsx-2021370696 contentText"
       >
         
       </p>
     </div>
     <div
-      className="jsx-3545447565 name"
+      className="jsx-2021370696 name"
     >
       <div
-        className="jsx-3545447565 kitchenName"
+        className="jsx-2021370696 kitchenName"
       >
         <span
-          className="jsx-3545447565 smallTitle"
+          className="jsx-2021370696 smallTitle"
         >
           Phone Number
         </span>
         <span
-          className="jsx-3545447565 contentText"
-        >
-          8868008000
-        </span>
+          className="jsx-2021370696 contentText"
+        />
       </div>
       <div
-        className="jsx-3545447565 userName"
+        className="jsx-2021370696 userName"
       >
         <span
-          className="jsx-3545447565 smallTitle"
+          className="jsx-2021370696 smallTitle"
         >
           Email Address
         </span>
         <span
-          className="jsx-3545447565 contentText"
-        >
-          momoochen@gmail.com
-        </span>
+          className="jsx-2021370696 contentText"
+        />
       </div>
     </div>
     <div
-      className="jsx-3545447565 buttonGroup"
+      className="jsx-2021370696 buttonGroup"
     >
       <button
         className="jsx-675350272 
@@ -115,27 +109,27 @@ exports[`Pages With Snapshot Testing snapshot AccountDetail Component 1`] = `
     </div>
   </div>
   <div
-    className="jsx-3545447565 additionalInfo"
+    className="jsx-2021370696 additionalInfo"
   >
     <p
-      className="jsx-3545447565 smallTitle"
+      className="jsx-2021370696 smallTitle"
     >
       Bank Account
     </p>
     <div
-      className="jsx-3545447565 infoContent"
+      className="jsx-2021370696 infoContent"
     >
       <div
-        className="jsx-3545447565 left"
+        className="jsx-2021370696 left"
       >
         <span
-          className="jsx-3545447565 contentText"
+          className="jsx-2021370696 contentText"
         >
           000 000 0000
         </span>
       </div>
       <div
-        className="jsx-3545447565 right"
+        className="jsx-2021370696 right"
       >
         <button
           className="jsx-675350272 
@@ -152,27 +146,27 @@ exports[`Pages With Snapshot Testing snapshot AccountDetail Component 1`] = `
     </div>
   </div>
   <div
-    className="jsx-3545447565 additionalInfo"
+    className="jsx-2021370696 additionalInfo"
   >
     <p
-      className="jsx-3545447565 smallTitle"
+      className="jsx-2021370696 smallTitle"
     >
       Password
     </p>
     <div
-      className="jsx-3545447565 infoContent"
+      className="jsx-2021370696 infoContent"
     >
       <div
-        className="jsx-3545447565 left"
+        className="jsx-2021370696 left"
       >
         <span
-          className="jsx-3545447565 contentText"
+          className="jsx-2021370696 contentText"
         >
           ******
         </span>
       </div>
       <div
-        className="jsx-3545447565 right"
+        className="jsx-2021370696 right"
       >
         <button
           className="jsx-675350272 
