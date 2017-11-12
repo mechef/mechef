@@ -17,5 +17,9 @@ const SellerSchema = new mongoose.Schema({
   phoneNumber: String,
 }, { versionKey: false, });
 
+SellerSchema.statics.getHiddenFields = function getHiddenFields () {
+  return { __v: false, isActivate: false, activateHash: false, passwordCombined: false };
+}
+
 // Export the Mongoose model
 module.exports = mongoose.model('Seller', SellerSchema);
