@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="27px" viewBox="0 0 14 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>default_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="default_icon" stroke-width="1.25" stroke="#FFFFFF">
+            <g id="Page-1">
+                <path d="M2.929,0.6249 L2.929,14.4499" id="Stroke-1"></path>
+                <path d="M3.1507,26.9916 L2.5917,26.9916 C1.6057,26.9916 0.7977,26.1836 0.7977,25.1976 L0.7977,16.3626 C0.7977,15.3756 1.6057,14.5686 2.5917,14.5686 L3.1507,14.5686 C4.1377,14.5686 4.9447,15.3756 4.9447,16.3626 L4.9447,25.1976 C4.9447,26.1836 4.1377,26.9916 3.1507,26.9916 Z" id="Stroke-3"></path>
+                <path d="M5.2332,0.6249 L5.2332,7.7739 C5.2332,8.9759 4.2502,9.9599 3.0472,9.9599 L2.8112,9.9599 C1.6082,9.9599 0.6252,8.9759 0.6252,7.7739 L0.6252,0.6249" id="Stroke-5"></path>
+                <path d="M10.409,26.9916 L9.85,26.9916 C8.864,26.9916 8.056,26.1836 8.056,25.1976 L8.056,16.3626 C8.056,15.3756 8.864,14.5686 9.85,14.5686 L10.409,14.5686 C11.396,14.5686 12.203,15.3756 12.203,16.3626 L12.203,25.1976 C12.203,26.1836 11.396,26.9916 10.409,26.9916 Z" id="Stroke-7"></path>
+                <path d="M10.3602,14.5683 L8.9772,14.5683 L8.9772,0.6253 C8.9772,0.6253 13.1252,0.7433 13.1252,5.3513 L13.1252,9.9603 C13.1252,9.9603 13.1252,14.5683 10.3602,14.5683" id="Stroke-9"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -10,6 +10,7 @@ import globalActions from '../actions/globalActions';
 import ErrorModal from './ErrorModal';
 import MenuList from './MenuList';
 import MenuEdit from './MenuEdit';
+import MenuDefault from './MenuDefault';
 import { MenuObject } from '../utils/flowTypes';
 
 type Props = {
@@ -36,6 +37,8 @@ type Props = {
   },
   toggleBackArrow$: string => Rx.Observable,
 }
+
+
 
 export class MenuPage extends React.Component<Props> {
   componentDidMount() {
@@ -65,6 +68,7 @@ export class MenuPage extends React.Component<Props> {
             : null
         }
         {
+          // eslint-disable-next-line no-nested-ternary
           backArrow.isShow ?
             <MenuEdit
               menuList={menuList}
@@ -75,16 +79,23 @@ export class MenuPage extends React.Component<Props> {
               goBack={() => toggleBackArrow$('')}
             />
             :
-            <MenuList
-              menuList={menuList}
-              onEditMenu={(menuId) => {
-                setCurrentMenuId$(menuId);
-                toggleBackArrow$('Edit Menu');
-              }}
-              onTogglePublish={(menuId) => {
-                console.log('menuId:', menuId);
-              }}
-            />
+            menuList && menuList.length ?
+              <MenuList
+                menuList={menuList}
+                onEditMenu={(menuId) => {
+                  setCurrentMenuId$(menuId);
+                  toggleBackArrow$('Edit Menu');
+                }}
+                onTogglePublish={(menuId) => {
+                  console.log('menuId:', menuId);
+                }}
+              />
+              : <MenuDefault
+                onClick={() => {
+                  setCurrentMenuId$('');
+                  toggleBackArrow$('Edit Menu');
+                }}
+              />
         }
         <style jsx>
           {`
