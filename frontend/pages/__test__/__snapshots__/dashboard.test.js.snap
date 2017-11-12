@@ -35,7 +35,7 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
             HOME
           </li>
           <li
-            className="jsx-3315052040 "
+            className="jsx-3315052040 active"
             onClick={[Function]}
             role="menuitem"
           >
@@ -166,65 +166,27 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
       </div>
     </div>
     <div
-      className="jsx-1306722454 homeContainer"
+      className="jsx-2726819105 container"
     >
       <div
-        className="jsx-1306722454 dashboard-content__header"
-      />
-      <p
-        className="jsx-1306722454 sellerId"
+        className="jsx-1238716459 wrapper"
       >
-        @MomooKitchen
-      </p>
-      <p
-        className="jsx-1306722454 sellerName"
-      >
-        @MomooKitchen
-      </p>
-      <div
-        className="jsx-1306722454 orderTable"
-      >
-        <p
-          className="jsx-1306722454 orderTableTitle"
-        >
-          <span
-            className="jsx-1306722454 titleText"
-          >
-            ORDERS
-          </span>
-          <span
-            className="jsx-1306722454 orderCount"
-          >
-            <span
-              className="jsx-1306722454 orderCountNum"
-            >
-              14
-            </span>
-          </span>
-        </p>
         <div
-          className="jsx-1306722454 header"
+          className="jsx-1238716459 header"
         >
-          <div
-            className="jsx-1306722454 firstCell"
+          <span
+            className="jsx-1238716459 title"
           >
-            Delivery Time
-          </div>
-          <div
-            className="jsx-1306722454 secondCell"
+            MENUS
+          </span>
+          <button
+            className="jsx-1238716459 addButton"
+            onClick={[Function]}
           >
-            Buyer‘s Name
-          </div>
-          <div
-            className="jsx-1306722454 thirdCell"
-          >
-            Order Name
-          </div>
-          <div
-            className="jsx-1306722454 fourthCell"
-          >
-            Quantity
-          </div>
+            <div
+              className="jsx-1238716459 plus"
+            />
+          </button>
         </div>
       </div>
     </div>

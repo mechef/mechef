@@ -90,10 +90,10 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
         Add Images Add Images Add Images
       </p>
       <div
-        className="jsx-4141203587"
+        className="jsx-3069508068"
       >
         <input
-          className="jsx-4141203587 
+          className="jsx-3069508068 
         textInput
         large
       "
@@ -141,10 +141,10 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
         className="jsx-2427576136 inputGroup"
       >
         <div
-          className="jsx-4141203587"
+          className="jsx-3069508068"
         >
           <input
-            className="jsx-4141203587 
+            className="jsx-3069508068 
         textInput
         small
       "
@@ -155,10 +155,10 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
           />
         </div>
         <div
-          className="jsx-4141203587"
+          className="jsx-3069508068"
         >
           <input
-            className="jsx-4141203587 
+            className="jsx-3069508068 
         textInput
         small
       "
@@ -187,10 +187,10 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
           Add Images Add Images Add Images
         </p>
         <div
-          className="jsx-4141203587"
+          className="jsx-3069508068"
         >
           <input
-            className="jsx-4141203587 
+            className="jsx-3069508068 
         textInput
         small
       "
@@ -215,10 +215,10 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
           Add Images Add Images Add Images
         </p>
         <div
-          className="jsx-4141203587"
+          className="jsx-3069508068"
         >
           <input
-            className="jsx-4141203587 
+            className="jsx-3069508068 
         textInput
         small
       "

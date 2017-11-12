@@ -4,25 +4,24 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 
 import { connect } from '../state/RxState';
-import deliveryActions from '../actions/deliveryActions';
+import menuActions from '../actions/menuActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
 import ErrorModal from './ErrorModal';
-import DeliveryList from './DeliveryList';
-import DeliveryEdit from './DeliveryEdit';
-import { MeetupObject } from '../utils/flowTypes';
+import MenuList from './MenuList';
+import MenuEdit from './MenuEdit';
+import { MenuObject } from '../utils/flowTypes';
 
 type Props = {
-  delivery: {
-    meetupList: Array<MeetupObject>,
-    currentMeetupId: string,
-    currentShippingId: string,
+  menu: {
+    menuList: Array<MenuObject>,
+    currentMenuId: string,
   },
-  fetchDelivery$: any => Rx.Observable,
-  createMeetup$: (meetup: MeetupObject) => Rx.Observable,
-  updateMeetup$: (meetup: MeetupObject) => Rx.Observable,
-  deleteMeetup$: (meetupId: string) => Rx.Observable,
-  setCurrentMeetupId$: (meetupId: string) => Rx.Observable,
+  fetchMenus$: any => Rx.Observable,
+  createMenu$: (menu: MenuObject) => Rx.Observable,
+  updateMenu$: (menu: MenuObject) => Rx.Observable,
+  deleteMenu$: (menuId: string) => Rx.Observable,
+  setCurrentMenuId$: (menuId: string) => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -38,20 +37,21 @@ type Props = {
   toggleBackArrow$: string => Rx.Observable,
 }
 
-export class DeliveryPage extends React.Component<Props> {
+export class MenuPage extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchDelivery$();
+    // this.props.fetchMenus$();
   }
   render() {
     const {
-      delivery: { meetupList, currentMeetupId },
-      setError$, error,
+      menu: { menuList, currentMenuId },
+      setError$,
+      error,
       global: { backArrow },
+      createMenu$,
+      updateMenu$,
+      deleteMenu$,
       toggleBackArrow$,
-      createMeetup$,
-      updateMeetup$,
-      deleteMeetup$,
-      setCurrentMeetupId$,
+      setCurrentMenuId$,
     } = this.props;
     return (
       <div className="container">
@@ -66,20 +66,23 @@ export class DeliveryPage extends React.Component<Props> {
         }
         {
           backArrow.isShow ?
-            <DeliveryEdit
-              meetupList={meetupList}
-              currentMeetupId={currentMeetupId}
-              onCreateMeetup={createMeetup$}
-              onUpdateMeetup={updateMeetup$}
-              onDeleteMeetup={deleteMeetup$}
+            <MenuEdit
+              menuList={menuList}
+              currentMenuId={currentMenuId}
+              onCreateMenu={createMenu$}
+              onUpdateMenu={updateMenu$}
+              onDeleteMenu={menuId => deleteMenu$(menuId)}
               goBack={() => toggleBackArrow$('')}
             />
             :
-            <DeliveryList
-              meetupList={meetupList}
-              onEditDelivery={(meetupId) => {
-                setCurrentMeetupId$(meetupId);
-                toggleBackArrow$('Edit Delivery');
+            <MenuList
+              menuList={menuList}
+              onEditMenu={(menuId) => {
+                setCurrentMenuId$(menuId);
+                toggleBackArrow$('Edit Menu');
+              }}
+              onTogglePublish={(menuId) => {
+                console.log('menuId:', menuId);
               }}
             />
         }
@@ -90,7 +93,8 @@ export class DeliveryPage extends React.Component<Props> {
               padding-top: 49px
               padding-left: 19px;
               width: 100%;
-              height: 998px;
+              min-height: 792px;
+              height: 100%;
               background-color: #f8f7f7;
             }
           `}
@@ -101,12 +105,12 @@ export class DeliveryPage extends React.Component<Props> {
 }
 
 
-const stateSelector = ({ delivery, error, global }) => ({ delivery, error, global });
+const stateSelector = ({ menu, error, global }) => ({ menu, error, global });
 
 const actionSubjects = {
   ...errorActions,
-  ...deliveryActions,
+  ...menuActions,
   ...globalActions,
 };
 
-export default connect(stateSelector, actionSubjects)(DeliveryPage);
+export default connect(stateSelector, actionSubjects)(MenuPage);

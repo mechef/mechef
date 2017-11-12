@@ -3,6 +3,7 @@ import fetch from 'isomorphic-unfetch';
 import CheckBox from '../components/CheckBox';
 import SelectBox from '../components/SelectBox';
 import MenuItem from '../components/MenuItem';
+import Tag from '../components/Tag';
 
 const Index = props => (
   <div>
@@ -40,6 +41,7 @@ const Index = props => (
       isPublish
       onTogglePublish={() => console.log('onTogglePublish')}
     />
+    <Tag title="FOOD" />
     <ul>
       {
         props.shows.map(({ show }) => (

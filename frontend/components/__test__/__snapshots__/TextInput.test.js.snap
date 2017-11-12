@@ -2,10 +2,10 @@
 
 exports[`Pages With Snapshot Testing snapshot TextInput Component 1`] = `
 <div
-  className="jsx-4141203587"
+  className="jsx-3069508068"
 >
   <input
-    className="jsx-4141203587 
+    className="jsx-3069508068 
         textInput
         small
       "

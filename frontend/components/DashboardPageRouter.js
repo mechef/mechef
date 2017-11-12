@@ -6,6 +6,7 @@ import DeliveryPage from './DeliveryPage';
 import OrderPage from './OrderPage';
 import Home from './Home';
 import AccountPage from './AccountPage';
+import MenuPage from './MenuPage';
 
 type Props = {
   query: string,
@@ -24,6 +25,8 @@ const DashboardPageRouter = (props: Props) => {
       return <OrderPage />;
     case 'account':
       return <AccountPage />;
+    case 'menu':
+      return <MenuPage />;
     default:
       return <Home />;
   }

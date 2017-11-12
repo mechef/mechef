@@ -7,7 +7,11 @@ describe('Pages With Snapshot Testing', () => {
   it('snapshot dashboard page', () => {
     const component = renderer.create(
       <Dashboard
-        asPath="/dashboard/home"
+        url={{
+          query: {
+            page: 'menu',
+          },
+        }}
         global={{
           backArrow: {
             isShow: false,

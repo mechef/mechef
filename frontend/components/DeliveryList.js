@@ -29,7 +29,7 @@ type Props = {
 
 class DeliveryList extends React.Component<Props> {
   componentDidMount() {
-    this.props.meetupList.forEach(meetup => {
+    this.props.meetupList.forEach((meetup) => {
       // $FlowFixMe
       const map = new google.maps.Map(document.getElementById(meetup._id), {
         center: {

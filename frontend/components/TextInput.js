@@ -49,6 +49,7 @@ const TextInput = (props: Props) => (
           font-weight: ${placeholderFontWeight};
           border: 2px solid transparent;
           box-shadow: 0 0 1px #3d464d;
+          box-sizing: border-box;
           transition: border 0.2s, box-shadow 0.2s;
         }
         .textInput:focus {

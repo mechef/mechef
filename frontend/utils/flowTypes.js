@@ -15,3 +15,17 @@ export type MeetupObject = {
   meetupStartTime?: string,
   meetupEndTime?: string,
 };
+
+export type MenuObject = {
+  _id?: string,
+  serving?: string,
+  cookingBuffer?: string,
+  description?: string,
+  quantity?: number,
+  unitPrice?: string,
+  dishName?: string,
+  email?: string,
+  images?: Array<string>,
+  ingredients?: Array<string>,
+  category?: Array<string>,
+};

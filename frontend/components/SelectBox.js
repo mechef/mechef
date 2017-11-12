@@ -130,7 +130,7 @@ class SelectBox extends React.Component<Props, State> {
               outline: none;
               padding: 0;
               border: 0;
-              height: 44px;
+              height: 50px;
               display: flex;
               justify-content: space-between;
               align-items: center;
@@ -138,6 +138,7 @@ class SelectBox extends React.Component<Props, State> {
               border: solid 1px #979797;
               border-radius: ${borderRadius};
               cursor: pointer;
+              box-sizing: border-box;
             }
             .greyBorderBottom {
               border-bottom-color: #ececec;
