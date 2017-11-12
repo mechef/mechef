@@ -40,7 +40,7 @@ module.exports = (req, res) => {
       res.status(500).json({ status: constants.fail });
     } else {
       Seller.findOne({ email: decoded.email },
-        { __v: false, isActivate: false, activateHash: false, passwordCombined: false },
+        Seller.getHiddenFields(),
         (error, seller) => {
         if (error) {
           res.status(500).json({ status: constants.fail });

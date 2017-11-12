@@ -21,16 +21,7 @@ module.exports = (req, res) => {
         return;
       }
 
-      const processedDeliveryList = {}
-      processedDeliveryList.meetupList = [];
-      processedDeliveryList.shippingList = [];
-      deliveryList.forEach(function(delivery) {
-        if (delivery.type == constants.delivery_type.meetup) {
-          processedDeliveryList.meetupList.push(delivery.toMeetup());
-        } else if (delivery.type == constants.delivery_type.shipping) {
-          processedDeliveryList.shippingList.push(delivery.toShipping());
-        }
-      });
+      const processedDeliveryList = Delivery.getDeliveryList(deliveryList);
 
       res.json({ status: constants.success, deliveryList: processedDeliveryList });
     });

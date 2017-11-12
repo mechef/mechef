@@ -30,8 +30,9 @@ module.exports = (req, res) => {
     if (req.body.description) updateFields.description = req.body.description;
     if (req.body.cookingBuffer) updateFields.cookingBuffer = req.body.cookingBuffer;
     if (req.body.serving) updateFields.serving = req.body.serving;
+    if (req.body.deliveryId) updateFields.deliveryId = req.body.deliveryId;
 
-    if (req.files.length > 0) {
+    if (req.files && req.files.length > 0) {
       updateFields.images = [];
       for (let i = 0; i < req.files.length; i += 1) {
         req.files[i].filename = uuidv4() + req.files[i].filename;
@@ -40,7 +41,7 @@ module.exports = (req, res) => {
     }
 
     Menu.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields },
-      { projection: { __v: false }, new: true, upsert: true }, (error, menu) => {
+      { projection: { __v: false }, new: false, upsert: true }, (error, menu) => {
     if (error) {
       res.json({ status: constants.fail });
       return;
@@ -82,7 +83,15 @@ module.exports = (req, res) => {
       }
     }
 
-    res.json({ status: constants.success, menu});
+    Menu.findOne({ _id: req.params.id, email: decoded.email },
+      { __v: false }, (er, updatedMenu) => {
+        if (er) {
+          res.json({ status: constants.fail });
+          return;
+        }
+
+        res.json({ status: constants.success, menu : updatedMenu});
+        });
     });
   });
 };

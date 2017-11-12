@@ -31,8 +31,9 @@ module.exports = (req, res) => {
     menu.description = req.body.description;
     menu.cookingBuffer = req.body.cookingBuffer;
     menu.serving = req.body.serving;
+    menu.deliveryId = req.body.deliveryId;
     menu.images = [];
-    for (let i = 0; i < req.files.length; i += 1) {
+    for (let i = 0; req.files && i < req.files.length; i += 1) {
       console.log(req.files[i]);
       req.files[i].filename = uuidv4() + req.files[i].filename;
       menu.images.push(req.files[i].filename);
@@ -49,7 +50,7 @@ module.exports = (req, res) => {
       const mongoDriver = mongoose.mongo;
       const gfs = new Gridfs(db, mongoDriver);
 
-      for (let i = 0; i < req.files.length; i += 1) {
+      for (let i = 0; req.files && i < req.files.length; i += 1) {
         const writestream = gfs.createWriteStream({
           filename: req.files[i].filename,
           mode: 'w',
