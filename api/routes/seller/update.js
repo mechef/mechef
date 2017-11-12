@@ -61,8 +61,8 @@ module.exports = (req, res) => {
     }
 
     Seller.findOneAndUpdate({ email: decoded.email }, { $set: updateFields },
-      { projection: { __v: false, isActivate: false, activateHash: false, passwordCombined: false },
-       new: true, upsert: true }, (error, seller) => {
+      { projection: Seller.getHiddenFields(),
+       new: false, upsert: true }, (error, seller) => {
       if (error) {
         res.status(500).json({ status: constants.fail });
         return;
@@ -89,7 +89,7 @@ module.exports = (req, res) => {
           writestream.on('close', (file) => {
             fs.unlink(file.metadata.path, (erro) => {
               if (erro) {
-                console.log(err);
+                console.log(erro);
               }
             });
           });
@@ -104,8 +104,15 @@ module.exports = (req, res) => {
         }
       }
 
-      res.json({ status: constants.success, seller });
-    });
+      Seller.findOne({ email: decoded.email },
+        Seller.getHiddenFields(), (er, updatedSeller) => {
+          if (er) {
+            res.json({ status: constants.fail });
+            return;
+          }
 
+          res.json({ status: constants.success, seller: updatedSeller});
+          });
+    });
   });
 };

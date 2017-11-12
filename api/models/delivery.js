@@ -1,5 +1,6 @@
 // Load required packages
 const mongoose = require('mongoose');
+const constants = require('../utils/constants');
 // Define our user schema
 // schema types http://mongoosejs.com/docs/schematypes.html
 const DeliverySchema = new mongoose.Schema({
@@ -51,5 +52,21 @@ DeliverySchema.methods.toShipping = function() {
     note: this.note,
   }
 };
+
+DeliverySchema.statics.getDeliveryList = function getDeliveryList (deliveryList) {
+  const processedDeliveryList = {}
+  processedDeliveryList.meetupList = [];
+  processedDeliveryList.shippingList = [];
+  deliveryList.forEach(function(delivery) {
+    if (delivery.type == constants.delivery_type.meetup) {
+      processedDeliveryList.meetupList.push(delivery.toMeetup());
+    } else if (delivery.type == constants.delivery_type.shipping) {
+      processedDeliveryList.shippingList.push(delivery.toShipping());
+    }
+  });
+
+  return processedDeliveryList;
+}
+
 // Export the Mongoose model
 module.exports = mongoose.model('Delivery', DeliverySchema);
