@@ -4,6 +4,7 @@ import CheckBox from '../components/CheckBox';
 import SelectBox from '../components/SelectBox';
 import MenuItem from '../components/MenuItem';
 import Tag from '../components/Tag';
+import UploadImage from '../components/UploadImage';
 
 const Index = props => (
   <div>
@@ -42,6 +43,11 @@ const Index = props => (
       onTogglePublish={() => console.log('onTogglePublish')}
     />
     <Tag title="FOOD" />
+    <UploadImage
+      onImageUpload={(file) => {
+        console.log('File:', file);
+      }}
+    />
     <ul>
       {
         props.shows.map(({ show }) => (
