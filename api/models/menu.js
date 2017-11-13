@@ -13,7 +13,8 @@ const MenuSchema = new mongoose.Schema({
   cookingBuffer: String,
   serving: String,
   images: [String],
-  deliveryId: String
+  deliveryIdList: [String]
+  deliveryList: [Object]
 }, { versionKey: false, });
 
 // Export the Mongoose model
