@@ -14,6 +14,7 @@ import {
   placeholderLineHeight,
   placeholderFontWeight,
   placeholderFontSize,
+  transparent,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -22,10 +23,12 @@ type Props = {
   placeholder: string,
   value: string | number,
   onChange: () => mixed,
+  hasAddBtn: boolean,
+  onAdd: () => mixed,
 };
 
 const TextInput = (props: Props) => (
-  <div>
+  <div className="container">
     <input
       type={props.type}
       className={`
@@ -36,8 +39,24 @@ const TextInput = (props: Props) => (
       value={props.value}
       onChange={props.onChange}
     />
+    {
+      props.hasAddBtn ?
+        <button
+          className="addBtn"
+          onClick={props.onAdd}
+        >
+          <div className="plus" />
+        </button>
+        : null
+    }
     <style jsx>
       {`
+        .container {
+          position: relative;
+          display: flex;
+          height: ${textInputHeight};
+        }
+
         .textInput {
           outline: none;
           border: solid 1px #979797;
@@ -69,6 +88,33 @@ const TextInput = (props: Props) => (
         .large {
           width: ${largeWidth};
         }
+
+        .addBtn {
+          position: absolute;
+          margin-top: auto;
+          margin-right: auto;
+          top: 0;
+          bottom: 0;
+          left: 218px;
+          cursor: pointer;
+          background-color: ${transparent};
+          border: 0;
+          outline: none;
+        }
+
+        .plus {
+          background-image: url('../static/img/plus.png');
+          background-size: contain;
+          background-position: center;
+          background-repeat:no-repeat;
+          width: 15px;
+          height: 15px;
+          outline: none;
+        }
+
+        .addBtn:hover .plus {
+          background-image: url('../static/img/plus_hover.png');
+        }
       `}
     </style>
   </div>
@@ -79,6 +125,8 @@ TextInput.defaultProps = {
   value: '',
   onChange: () => {},
   placeholder: '',
+  hasAddBtn: false,
+  onAdd: () => {},
 };
 
 export default TextInput;

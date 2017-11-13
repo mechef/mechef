@@ -6,6 +6,8 @@ import Rx from 'rxjs/Rx';
 import Button from './Button';
 import TextInput from './TextInput';
 import SelectBox from './SelectBox';
+import UploadImage from './UploadImage';
+import Tag from './Tag';
 import { MenuObject } from '../utils/flowTypes';
 
 type Props = {
@@ -76,6 +78,7 @@ class MenuEdit extends React.Component<Props, State> {
     this.state = {
       ...currentMenu,
       ingredientInput: '',
+      categoryInput: '',
     };
   }
   render() {
@@ -87,6 +90,15 @@ class MenuEdit extends React.Component<Props, State> {
           <div className="addImage">
             <h3 className="title">Add Images*</h3>
             <p className="subtitle">Add Images Add Images</p>
+            <div className="uploadImageWrapper">
+              {
+                [1, 2, 3].map(() => (
+                  <div className="imageWrapper">
+                    <UploadImage />
+                  </div>
+                ))
+              }
+            </div>
           </div>
           <div className="dishName">
             <h3 className="title">Dish Name</h3>
@@ -138,16 +150,31 @@ class MenuEdit extends React.Component<Props, State> {
           <div className="formSection">
             <div className="smallInputContainer">
               <p className="subtitle">Choose category</p>
-              <SelectBox
-                options={category}
-                selectedValue={this.state.category}
-                defaultText="Choose category"
-                onChange={(selectedValue) => {
+              <TextInput
+                type="text"
+                placeholder="Enter Category"
+                size="small"
+                value={this.state.categoryInput}
+                onChange={(event) => {
+                  if (event && event.target) {
+                    this.setState({ categoryInput: event.target.value });
+                  }
+                }}
+                onAdd={() => {
                   this.setState({
-                    category: [...this.state.category, selectedValue],
+                    categoryInput: '',
+                    category: [...this.state.category, this.state.categoryInput],
                   });
                 }}
+                hasAddBtn
               />
+            </div>
+            <div className="tagsWrapper">
+              {
+                this.state.category.map((tag) => {
+                  <Tag key={tag.id} title={tag.text} />
+                })
+              }
             </div>
           </div>
           <div className="ingredient">
@@ -163,7 +190,21 @@ class MenuEdit extends React.Component<Props, State> {
                   this.setState({ ingredientInput: event.target.value });
                 }
               }}
+              onAdd={() => {
+                this.setState({
+                  ingredientInput: '',
+                  ingredients: [...this.state.ingredients, this.state.ingredientInput],
+                });
+              }}
+              hasAddBtn
             />
+            <div className="tagsWrapper">
+              {
+                this.state.category.map((tag) => {
+                  <Tag key={tag.id} title={tag.text} />
+                })
+              }
+            </div>
           </div>
           <div className="description">
             <h3 className="title">Description*</h3>
@@ -239,7 +280,7 @@ class MenuEdit extends React.Component<Props, State> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                const { ingredientInput, ...menuObject } = this.state;
+                const { ingredientInput, categoryInput, ...menuObject } = this.state;
                 if (this.state._id) {
                   // TODO: Modify to only provide updated data
                   onUpdateMenu(menuObject);
@@ -273,6 +314,14 @@ class MenuEdit extends React.Component<Props, State> {
               padding: 24px 20px;
               border-radius: 4px;
               background-color: #ffffff;
+            }
+
+            .uploadImageWrapper {
+              display: flex;
+            }
+
+            .imageWrapper {
+              margin-left: 12px;
             }
 
             .addImage {
@@ -335,6 +384,11 @@ class MenuEdit extends React.Component<Props, State> {
               display: flex;
               flex-direction: column;
               width: 250px;
+            }
+
+            .tagsWrapper {
+              width: 250px;
+              height: 50px;
             }
 
             .selectbox {
