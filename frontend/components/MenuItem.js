@@ -3,14 +3,16 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
-import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor } from '../utils/styleVariables';
+import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor, transparent } from '../utils/styleVariables';
 
 type Props = {
   dishName: string,
   description: string,
   thumbnailUrl: string,
   isPublish: boolean,
-  onTogglePublish: (isPublish: boolean) => Rx.Observable
+  onTogglePublish: (isPublish: boolean) => Rx.Observable,
+  onEdit: () => Rx.Observable,
+  onDelete: () => Rx.Observable,
 }
 
 type State = {
@@ -24,19 +26,21 @@ class MenuItem extends React.Component<Props, State> {
     thumbnailUrl: '',
     isPublish: false,
     onTogglePublish: () => { },
+    onEdit: () => { },
+    onDelete: () => { },
   }
 
   constructor(props: Props) {
     super(props);
     this.state = {
       isPublish: props.isPublish,
-    }
+    };
   }
 
   componentWillReceiveProps(newProps: Props) {
     this.setState({
       isPublish: newProps.isPublish,
-    })
+    });
   }
 
   handleChange = () => {
@@ -52,7 +56,17 @@ class MenuItem extends React.Component<Props, State> {
         <div className="menuThumbnail" />
         <div className="menuText">
           <div className="topPart">
-            <span className="title">{this.props.dishName}</span>
+            <div className="titleDiv">
+              <span className="title">{this.props.dishName}</span>
+              <div className="iconWrapper">
+                <button className="btn" onClick={this.props.onEdit}>
+                  <div className="icon editIcon" />
+                </button>
+                <button className="btn" onClick={this.props.onDelete}>
+                  <div className="icon deleteIcon" />
+                </button>
+              </div>
+            </div>
             <span className="description">{this.props.description}</span>
           </div>
           <button
@@ -108,8 +122,13 @@ class MenuItem extends React.Component<Props, State> {
               flex-direction: column;
             }
 
-            .title {
+            .titleDiv {
+              display: flex;
+              justify-content: space-between;
               margin-bottom: 12px;
+            }
+
+            .title {
               font-size: ${titleFontSize};
               color: ${textColor};
             }
@@ -158,6 +177,42 @@ class MenuItem extends React.Component<Props, State> {
               letter-spacing: 0.3px;
               color: ${whiteColor};
               line-height: ${lineHeight};
+            }
+
+            .iconWrapper {
+              margin-right: 21px;
+            }
+
+            .btn {
+              cursor: pointer;
+              background-color: ${transparent};
+              border: 0;
+              outline: none;
+              margin-left: 30px;
+            }
+
+            .icon {
+              background-size: contain;
+              background-position: center;
+              background-repeat:no-repeat;
+              width: 14px;
+              height: 14px;
+              outline: none;
+            }
+
+            .editIcon {
+              background-image: url('../static/svg/edit_icon.svg');
+            }
+
+            .deleteIcon {
+              background-image: url('../static/svg/delete_icon.svg');
+            }
+
+            .btn:hover .editIcon {
+              background-image: url('../static/svg/edit_icon_hover.svg');
+            }
+            .btn:hover .deleteIcon {
+              background-image: url('../static/svg/delete_icon_hover.svg');
             }
           `}
         </style>

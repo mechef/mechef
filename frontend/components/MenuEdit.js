@@ -150,60 +150,90 @@ class MenuEdit extends React.Component<Props, State> {
           <div className="formSection">
             <div className="smallInputContainer">
               <p className="subtitle">Choose category</p>
-              <TextInput
-                type="text"
-                placeholder="Enter Category"
-                size="small"
-                value={this.state.categoryInput}
-                onChange={(event) => {
-                  if (event && event.target) {
-                    this.setState({ categoryInput: event.target.value });
+              <div className="flexWrapper">
+                <TextInput
+                  type="text"
+                  placeholder="Enter Category"
+                  size="small"
+                  value={this.state.categoryInput}
+                  onChange={(event) => {
+                    if (event && event.target) {
+                      this.setState({ categoryInput: event.target.value });
+                    }
+                  }}
+                  onAdd={() => {
+                    this.setState({
+                      categoryInput: '',
+                      category: [...this.state.category, this.state.categoryInput],
+                    });
+                  }}
+                  hasAddBtn
+                />
+                <div className="tagsWrapper">
+                  {
+                    this.state.category.map((tag, index) => (
+                      <div className="tagStyle">
+                        <Tag
+                          key={
+                            // eslint-disable-next-line react/no-array-index-key
+                            index
+                          }
+                          title={tag}
+                          onRemove={() => {
+                            this.setState({
+                              category: this.state.category.filter(categoryTag => categoryTag !== tag)
+                            });
+                          }}
+                        />
+                      </div>
+                    ))
                   }
-                }}
-                onAdd={() => {
-                  this.setState({
-                    categoryInput: '',
-                    category: [...this.state.category, this.state.categoryInput],
-                  });
-                }}
-                hasAddBtn
-              />
-            </div>
-            <div className="tagsWrapper">
-              {
-                this.state.category.map((tag) => {
-                  <Tag key={tag.id} title={tag.text} />
-                })
-              }
+                </div>
+              </div>
             </div>
           </div>
           <div className="ingredient">
             <h3 className="title">Ingredients</h3>
             <p className="subtitle">Choose Ingredients</p>
-            <TextInput
-              type="text"
-              placeholder="Enter Ingredients"
-              size="small"
-              value={this.state.ingredientInput}
-              onChange={(event) => {
-                if (event && event.target) {
-                  this.setState({ ingredientInput: event.target.value });
+            <div className="flexWrapper">
+              <TextInput
+                type="text"
+                placeholder="Enter Ingredients"
+                size="small"
+                value={this.state.ingredientInput}
+                onChange={(event) => {
+                  if (event && event.target) {
+                    this.setState({ ingredientInput: event.target.value });
+                  }
+                }}
+                onAdd={() => {
+                  this.setState({
+                    ingredientInput: '',
+                    ingredients: [...this.state.ingredients, this.state.ingredientInput],
+                  });
+                }}
+                hasAddBtn
+              />
+              <div className="tagsWrapper">
+                {
+                  this.state.ingredients.map((tag, index) => (
+                    <div className="tagStyle">
+                      <Tag
+                        key={
+                          // eslint-disable-next-line react/no-array-index-key
+                          index
+                        }
+                        title={tag}
+                        onRemove={() => {
+                          this.setState({
+                            ingredients: this.state.ingredients.filter(ingredient => ingredient !== tag)
+                          });
+                        }}
+                      />
+                    </div>
+                  ))
                 }
-              }}
-              onAdd={() => {
-                this.setState({
-                  ingredientInput: '',
-                  ingredients: [...this.state.ingredients, this.state.ingredientInput],
-                });
-              }}
-              hasAddBtn
-            />
-            <div className="tagsWrapper">
-              {
-                this.state.category.map((tag) => {
-                  <Tag key={tag.id} title={tag.text} />
-                })
-              }
+              </div>
             </div>
           </div>
           <div className="description">
@@ -356,6 +386,10 @@ class MenuEdit extends React.Component<Props, State> {
               margin-bottom: 37px;
             }
 
+            .flexWrapper {
+              display: flex;
+            }
+
             .description {
               margin-bottom: 39px;
             }
@@ -387,8 +421,13 @@ class MenuEdit extends React.Component<Props, State> {
             }
 
             .tagsWrapper {
+              display: flex;
               width: 250px;
               height: 50px;
+            }
+
+            .tagStyle {
+              padding-left: 5px;
             }
 
             .selectbox {

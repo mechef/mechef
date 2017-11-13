@@ -7,6 +7,7 @@ import {
   borderRadius,
   fontSize,
   whiteColor,
+  transparent,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -20,7 +21,7 @@ const Tag = (props: Props) => (
     className="tag"
   >
     <span className="title">{props.title}</span>
-    <div className="remove" onClick={props.onRemove} />
+    <button className="remove" onClick={props.onRemove} />
     <style jsx>
       {`
         button {
@@ -54,6 +55,9 @@ const Tag = (props: Props) => (
           height: 18px;
           outline: none;
           margin-right: 20px;
+          border: 0;
+          background-color: ${transparent};
+          cursor: pointer;
         }
 
         .remove:hover {

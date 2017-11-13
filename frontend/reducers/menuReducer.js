@@ -46,7 +46,7 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
       }).map(data => (
         state => ({
           ...state,
-          menuList: [...state.menuList, data.response.menuList],
+          menuList: [...state.menuList, data.response.menu],
         })
       )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Menu Error', message: error.message });

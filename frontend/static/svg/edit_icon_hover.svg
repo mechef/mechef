@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>edit_icon_hover</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="edit_icon_hover" stroke="#3F9F40">
+            <g id="Page-1">
+                <path d="M8.25611538,2.973 L11.8065,6.52338462" id="Stroke-1" stroke-width="0.882" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M13.8838846,3.56965385 L11.1423462,0.828115385 C10.8077308,0.4935 10.2596538,0.4935 9.92619231,0.828115385 L1.11080769,9.64234615 C0.935423077,9.81773077 0.858115385,10.0519615 0.866192308,10.2827308 L0.578884615,13.6658077 C0.555807692,13.9323462 0.7785,14.1561923 1.04619231,14.1331154 L4.42926923,13.8446538 C4.66003846,13.8538846 4.89311538,13.7754231 5.0685,13.6000385 L13.8838846,4.78580769 C14.2185,4.45119231 14.2185,3.90426923 13.8838846,3.56965385 Z" id="Stroke-2"></path>
+            </g>
+        </g>
+    </g>
+</svg>

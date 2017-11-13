@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="15px" viewBox="0 0 12 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>delete_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="delete_icon" stroke="#808080">
+            <g id="Page-1">
+                <path d="M0.5,1.8841 L11.077,1.8841" id="Stroke-1" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M11.0767,4.5086 L11.0767,12.8626 C11.0767,13.6516 10.3647,14.5666 9.4937,14.5666 L2.0827,14.5666 C1.2127,14.5666 0.4997,13.6516 0.4997,12.8626 L0.4997,4.5086" id="Stroke-3" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M3.4917,4.5086 L3.4917,12.0086" id="Stroke-5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M8.085,4.5086 L8.085,12.0086" id="Stroke-7" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M5.7881,4.5086 L5.7881,12.0086" id="Stroke-9" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M8.085,1.8841 L8.085,1.0311 C8.085,0.7391 7.846,0.5001 7.554,0.5001 L4.023,0.5001 C3.731,0.5001 3.492,0.7391 3.492,1.0311 L3.492,1.8841 L8.085,1.8841 Z" id="Stroke-11"></path>
+            </g>
+        </g>
+    </g>
+</svg>

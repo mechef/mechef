@@ -38,11 +38,9 @@ type Props = {
   toggleBackArrow$: string => Rx.Observable,
 }
 
-
-
 export class MenuPage extends React.Component<Props> {
   componentDidMount() {
-    // this.props.fetchMenus$();
+    this.props.fetchMenus$();
   }
   render() {
     const {
@@ -86,6 +84,7 @@ export class MenuPage extends React.Component<Props> {
                   setCurrentMenuId$(menuId);
                   toggleBackArrow$('Edit Menu');
                 }}
+                onDeleteMenu={menuId => deleteMenu$(menuId)}
                 onTogglePublish={(menuId) => {
                   console.log('menuId:', menuId);
                 }}
