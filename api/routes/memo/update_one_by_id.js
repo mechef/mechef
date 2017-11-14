@@ -21,13 +21,13 @@ module.exports = (req, res) => {
         updateFields.ingredients = req.body.ingredients;
         updateFields.sum = 0;
         for (let i = 0; i < updateFields.ingredients.length; i += 1) {
-          updateFields.sum += updateFields.ingredients[i].amount;
+          updateFields.sum += parseInt(updateFields.ingredients[i].amount);
         }
     }
 
     Memo.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields },
       { projection: { __v: false, email: false },
-       new: true, upsert: true }, (error) => {
+       new: true, upsert: true }, (error, memo) => {
     if (error) {
       res.status(500).json({ status: constants.fail });
       return;

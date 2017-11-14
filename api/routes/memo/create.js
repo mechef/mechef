@@ -22,7 +22,7 @@ module.exports = (req, res) => {
     memo.sum = 0;
 
     for (let i = 0; memo.ingredients && i < memo.ingredients.length; i += 1) {
-      memo.sum += memo.ingredients[i].amount;
+      memo.sum += parseInt(memo.ingredients[i].amount);
     }
 
     memo.save((error, memo) => {
@@ -30,7 +30,7 @@ module.exports = (req, res) => {
         res.status(500).json({ status: constants.fail });
         return;
       }
-      
+
       res.json({ status: constants.success, memo });
     });
   });
