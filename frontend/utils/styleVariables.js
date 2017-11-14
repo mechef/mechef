@@ -27,6 +27,7 @@ export const largeWidth = '520px';
 export const mediumWidth = '356px';
 export const smallWidth = '250px';
 export const textInputHeight = '50px';
+export const textAreaInputHeight = '150px';
 export const textInputBgColor = '#ffffff';
 
 // Placeholder

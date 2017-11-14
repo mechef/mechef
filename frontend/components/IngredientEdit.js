@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
+import { transparent, whiteColor } from '../utils/styleVariables';
 import Button from './Button';
 import TextInput from './TextInput';
 
@@ -72,13 +73,13 @@ class IngredientEdit extends React.Component<Props, State> {
       <div className="dashboard-content">
         <p className="dashboard-content__title">Edit Ingredients</p>
         <div className="edit-ingredient">
-          <p className="edit-ingredient__title">List Name*</p>
-          <p className="edit-ingredient__explanation">The number of characters is limited to 50.</p>
+          <p className="title">List Name*</p>
+          <p className="subtitle">The number of characters is limited to 50.</p>
           <p className="edit-ingredient__input">
             <TextInput
               type="text"
               placeholder="Input memo name"
-              size="medium"
+              size="large"
               value={this.state.memoName}
               onChange={(event) => {
                 if (event && event.target) {
@@ -88,18 +89,20 @@ class IngredientEdit extends React.Component<Props, State> {
             />
           </p>
           <div className="edit-ingredient__choose-ingredient">
-            <p className="edit-ingredient__title">Ingredients</p>
-            <p className="edit-ingredient__explanation">
-              <span className="edit-ingredient__explanation-text">Choose Ingredients.</span>
-              <span className="edit-ingredient__explanation-total">Total:</span>
-              <span className="edit-ingredient__explanation-cost">$ {this.state.total}</span>
+            <p className="title">Ingredients</p>
+            <p className="subtitleWrapper">
+              <span className="subtitle">Choose Ingredients.</span>
+              <div>
+                <span className="edit-ingredient__explanation-total">Total:</span>
+                <span className="edit-ingredient__explanation-cost">$ {this.state.total}</span>
+              </div>
             </p>
             <p className="edit-ingredient__input">
               <div className="edit-ingredient__input-medium-wrapper">
                 <TextInput
                   type="text"
                   placeholder="Enter Ingredients..."
-                  size="medium"
+                  size="small"
                   value={this.state.inputIngredientName}
                   onChange={(event) => {
                     if (event && event.target) {
@@ -112,34 +115,30 @@ class IngredientEdit extends React.Component<Props, State> {
                 <TextInput
                   type="text"
                   placeholder="Input Price"
-                  size="medium"
-                  value={this.state.inputIngredientAmount}
+                  size="small"
+                  value={this.state.inputIngredientAmount || ''}
                   onChange={(event) => {
                     if (event && event.target) {
                       this.setState({ inputIngredientAmount: event.target.value });
                     }
                   }}
+                  hasAddBtn
+                  onAdd={() => {
+                    this.setState({
+                      ingredients: [
+                        ...this.state.ingredients,
+                        {
+                          name: this.state.inputIngredientName,
+                          amount: this.state.inputIngredientAmount,
+                        },
+                      ],
+                      total: parseInt(this.state.total, 10) +
+                        parseInt(this.state.inputIngredientAmount, 10),
+                      inputIngredientName: '',
+                      inputIngredientAmount: 0,
+                    })
+                  }}
                 />
-                <span
-                  role="button"
-                  tabIndex="-1"
-                  className="edit-ingredient__add-btn"
-                  onClick={() => this.setState({
-                    ingredients: [
-                      ...this.state.ingredients,
-                      {
-                        name: this.state.inputIngredientName,
-                        amount: this.state.inputIngredientAmount,
-                      },
-                    ],
-                    total: parseInt(this.state.total, 10) +
-                      parseInt(this.state.inputIngredientAmount, 10),
-                    inputIngredientName: '',
-                    inputIngredientAmount: 0,
-                  })}
-                >
-                  <i className="fa fa-plus " aria-hidden="true" />
-                </span>
               </div>
             </p>
             {
@@ -149,10 +148,8 @@ class IngredientEdit extends React.Component<Props, State> {
                 {/* eslint-enable */}
                   <span className="ingredients__name">{ingredient.name}</span>
                   <span className="ingredients__cost">$ {ingredient.amount}</span>
-                  <span
-                    className="ingredients__remove-btn"
-                    role="button"
-                    tabIndex="-1"
+                  <button
+                    className="removeWrapper"
                     onClick={() => {
                       this.setState({
                         ingredients: this.state.ingredients.filter((element, i) => i !== index),
@@ -160,8 +157,8 @@ class IngredientEdit extends React.Component<Props, State> {
                       });
                     }}
                   >
-                    X
-                  </span>
+                    <div className="remove" />
+                  </button>
                 </div>
               ))
             }
@@ -230,7 +227,7 @@ class IngredientEdit extends React.Component<Props, State> {
 
             .edit-ingredient {
               margin-top: 24px;
-              width: 800px;
+              width: 552px;
               height: 515px;
               padding-top: 21px;
               padding-left: 16px;
@@ -238,8 +235,8 @@ class IngredientEdit extends React.Component<Props, State> {
               background-color: #ffffff;
             }
 
-            .edit-ingredient__title {
-              margin: 0;
+            .title {
+              margin: 0 0 16px 0;
               font-size: 16px;
               font-weight: 500;
               line-height: 1;
@@ -247,15 +244,21 @@ class IngredientEdit extends React.Component<Props, State> {
               color: #4a4a4a;
             }
 
-            .edit-ingredient__explanation {
-              display: flex;
-              margin-top: 12px;
-              margin-bottom: 0;
-              width: 520px;
+            .subtitle {
+              margin: 0 0 16px 0;
+              height: 14px;
               font-size: 14px;
-              font-weight: 600;
+              font-weight: 500;
+              line-height: 1;
               letter-spacing: 0.6px;
-              color: #4a4a4a;
+              text-align: left;
+              color: #9b9b9b;
+            }
+
+            .subtitleWrapper {
+              display: flex;
+              justify-content: space-between;
+              margin-right: 32px;
             }
 
             .edit-ingredient__explanation-text {
@@ -339,16 +342,6 @@ class IngredientEdit extends React.Component<Props, State> {
               color: #3e9f40;
             }
 
-            .ingredients__remove-btn {
-              margin: auto 16.4px;
-              color: #9b9b9b;
-              transition: all .2s ease-in-out;
-            }
-
-            .ingredients__remove-btn:hover {
-              transform: scale(1.5);
-            }
-
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
@@ -358,6 +351,34 @@ class IngredientEdit extends React.Component<Props, State> {
 
             .buttonGroup div {
               margin-left: 10px;
+            }
+
+            .removeWrapper {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: ${whiteColor};
+              border: 0;
+              margin-right: 18px;
+              margin-left: 33px;
+              outline: none;
+            }
+
+            .remove {
+              background-image: url('../static/svg/cancel_white_click.svg');
+              background-size: contain;
+              background-position: center;
+              background-repeat:no-repeat;
+              width: 18px;
+              height: 18px;
+              outline: none;
+              border: 0;
+              background-color: ${transparent};
+              cursor: pointer;
+            }
+
+            .remove:hover {
+              background-image: url('../static/svg/cancel_white_hover.svg');
             }
           `}
         </style>

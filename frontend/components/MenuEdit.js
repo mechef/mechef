@@ -5,6 +5,7 @@ import Rx from 'rxjs/Rx';
 
 import Button from './Button';
 import TextInput from './TextInput';
+import TextAreaInput from './TextAreaInput';
 import SelectBox from './SelectBox';
 import UploadImage from './UploadImage';
 import Tag from './Tag';
@@ -239,11 +240,8 @@ class MenuEdit extends React.Component<Props, State> {
           <div className="description">
             <h3 className="title">Description*</h3>
             <p className="subtitle">Description</p>
-            {/* TODO Bible: Change to TextArea */}
-            <TextInput
-              type="text"
+            <TextAreaInput
               placeholder="Write some description about your menu...."
-              size="large"
               value={this.state.description}
               onChange={(event) => {
                 if (event && event.target) {
