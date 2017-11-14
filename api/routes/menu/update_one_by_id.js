@@ -31,7 +31,8 @@ module.exports = (req, res) => {
     if (req.body.description) updateFields.description = req.body.description;
     if (req.body.cookingBuffer) updateFields.cookingBuffer = req.body.cookingBuffer;
     if (req.body.serving) updateFields.serving = req.body.serving;
-    if (req.body.deliveryList) updateFields.deliveryList = req.body.deliveryList;
+    if (req.body.deliveryIdList) updateFields.deliveryIdList = req.body.deliveryIdList;
+    if (req.body.publish) updateFields.publish = req.body.publish;
 
     if (req.files && req.files.length > 0) {
       updateFields.images = [];
@@ -97,7 +98,7 @@ module.exports = (req, res) => {
             return;
           }
 
-          const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, updatedMenu.deliveryList);
+          const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, updatedMenu.deliveryIdList);
           updatedMenu.deliveryList = deliveryDetailList;
 
           res.json({ status: constants.success, menu: updatedMenu });

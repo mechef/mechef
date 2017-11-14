@@ -32,6 +32,7 @@ module.exports = (req, res) => {
     menu.cookingBuffer = req.body.cookingBuffer;
     menu.serving = req.body.serving;
     menu.deliveryIdList = req.body.deliveryIdList;
+    menu.publish = true;
     menu.images = [];
     for (let i = 0; req.files && i < req.files.length; i += 1) {
       console.log(req.files[i]);

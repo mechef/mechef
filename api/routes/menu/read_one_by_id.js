@@ -15,7 +15,7 @@ module.exports = (req, res) => {
         return;
       }
 
-      const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryList);
+      const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryIdList);
       menu.deliveryList = deliveryDetailList;
 
       res.json({ status: constants.success, menu });
