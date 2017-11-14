@@ -1,4 +1,5 @@
 const Menu = require('../../models/menu');
+const Delivery = require('../../models/delivery');
 const uuidv4 = require('uuid/v4');
 const fs = require('fs');
 const Gridfs = require('gridfs-stream');
@@ -30,7 +31,8 @@ module.exports = (req, res) => {
     if (req.body.description) updateFields.description = req.body.description;
     if (req.body.cookingBuffer) updateFields.cookingBuffer = req.body.cookingBuffer;
     if (req.body.serving) updateFields.serving = req.body.serving;
-    if (req.body.deliveryId) updateFields.deliveryId = req.body.deliveryId;
+    if (req.body.deliveryIdList) updateFields.deliveryIdList = req.body.deliveryIdList;
+    if (req.body.publish) updateFields.publish = req.body.publish;
 
     if (req.files && req.files.length > 0) {
       updateFields.images = [];
@@ -90,7 +92,17 @@ module.exports = (req, res) => {
           return;
         }
 
-        res.json({ status: constants.success, menu : updatedMenu});
+        Delivery.find({ email: decoded.email }, (e, deliveryList) => {
+          if (e) {
+            res.status(500).json({ status: constants.fail });
+            return;
+          }
+
+          const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, updatedMenu.deliveryIdList);
+          updatedMenu.deliveryList = deliveryDetailList;
+
+          res.json({ status: constants.success, menu: updatedMenu });
+          });
         });
     });
   });

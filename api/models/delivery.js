@@ -68,5 +68,25 @@ DeliverySchema.statics.getDeliveryList = function getDeliveryList (deliveryList)
   return processedDeliveryList;
 }
 
+DeliverySchema.statics.toDeliveryDetail = function toDeliveryDetail (deliveryList, deliveryIdList) {
+  const deliveryMap = {}
+  deliveryList.forEach(function(delivery) {
+    if (delivery.type == constants.delivery_type.meetup) {
+      deliveryMap[delivery._id] = delivery.toMeetup();
+    } else if (delivery.type == constants.delivery_type.shipping) {
+      deliveryMap[delivery._id] = delivery.toShipping();
+    }
+  });
+
+  const list = [];
+  if (deliveryIdList) {
+    deliveryIdList.forEach(function(deliveryId) {
+      list.push(deliveryMap[deliveryId]);
+    });
+  }
+  
+  return list;
+}
+
 // Export the Mongoose model
 module.exports = mongoose.model('Delivery', DeliverySchema);
