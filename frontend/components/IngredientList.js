@@ -2,8 +2,7 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
-import Button from './Button';
-import { whiteColor } from '../utils/styleVariables';
+import { whiteColor, textColor, transparent, placeholderTextColor, borderRadius } from '../utils/styleVariables';
 
 type Props = {
   memos: Array<{
@@ -16,38 +15,38 @@ type Props = {
     }>,
   }>,
   onEditMemo: (memoId: string) => Rx.Observable,
+  onDeleteMemo: (memoId: string) => Rx.Observable,
 }
-const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
+const IngredientList = (props: Props): React.Element<'div'> => (
   <div>
     <div className="header">
       <span className="title">Ingredients List</span>
-      <button className="addButton" onClick={() => onEditMemo('')}>
+      <button className="addButton" onClick={() => props.onEditMemo('')}>
         <div className="plus" />
       </button>
     </div>
     {
-      memos.map(memo => (
+      props.memos.map(memo => (
         <div key={memo._id} className="ingredientList">
-          <div className="ingredient-item">
-            <div className="ingredient-content">
-              <p className="ingredient-title">{memo.name}</p>
-              <p className="ingredient-detail">
-                <span className="ingredient-subtext">
-                  Ingredient: {memo.ingredients && memo.ingredients.length}
-                </span>
-                <span className="ingredient-subtext">
-                  Total: {`$${memo.sum}`}
-                </span>
-              </p>
+          <div className="ingredientItem">
+            <div className="titleWrapper">
+              <span>{memo.name}</span>
+              <div className="iconWrapper">
+                <button className="btn" onClick={() => props.onEditMemo(memo._id)}>
+                  <div className="icon editIcon" />
+                </button>
+                <button className="btn" onClick={props.onDeleteMemo}>
+                  <div className="icon deleteIcon" />
+                </button>
+              </div>
             </div>
-            <div className="buttonWrapper">
-              <Button
-                size="small"
-                buttonStyle="primary"
-                onClick={() => onEditMemo(memo._id)}
-              >
-                UPDATE
-              </Button>
+            <div>
+              <span className="ingredient-subtext">
+                Ingredients: {memo.ingredients && memo.ingredients.length}
+              </span>
+              <span className="ingredient-subtext">
+                Total: {`$${memo.sum}`}
+              </span>
             </div>
           </div>
         </div>
@@ -56,18 +55,29 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
     <style jsx>
       {`
         .ingredientList {
-          width: 800px;
+          width: 552px;
+          height: 108px;
+          padding-top: 30px;
+          padding-left: 20px;
+          padding-bottom: 31px;
+          box-sizing: border-box;
+          background-color: ${whiteColor};
+          border-radius: ${borderRadius};
         }
         .header {
           display: flex;
           align-items: center;
           padding-bottom: 22px;
         }
-        .title {
-          font-size: 18px;
-          line-height: 1.11;
-          letter-spacing: 0.5px;
-          color: #4a4a4a;
+        .titleWrapper {
+          display: flex;
+          justify-content: space-between;
+          font-size: 16px;
+          line-height: 1;
+          letter-spacing: 0.7px;
+          font-weight: 500;
+          color: ${textColor};
+          margin-bottom: 14px;
         }
         .addButton {
           display: flex;
@@ -75,10 +85,10 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
           height: 36px;
           margin-left: 20px;
           border-radius: 4px;
-          background-color: ${whiteColor};
           cursor: pointer;
           outline: none;
           border: 0;
+          background-color: ${whiteColor};
         }
 
         .plus {
@@ -96,38 +106,62 @@ const IngredientList = ({ memos, onEditMemo }: Props): React.Element<'div'> => (
           background-image: url('../static/img/plus_hover.png');
         }
 
-        .ingredient-item {
-          display: flex;
-          justify-content: space-between;
-          margin-bottom: 12px;
-          padding: 30px 20px 30px 15px;
-          width: 100%;
-          border-radius: 4px;
-          background-color: #ffffff;
-        }
-        .ingredient-content {
+        .ingredientItem {
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
+          margin-bottom: 12px;
+          background-color: #ffffff;
+          height: 100%;
         }
-        .ingredient-title {
-          font-size: 16px;
+        .title {
+          font-size: 18px;
           font-weight: 500;
-          line-height: 1;
-          letter-spacing: 0.7px;
-          text-align: left;
-          color: #4a4a4a;
+          line-height: 1.11;
+          letter-spacing: 0.5px;
+          color: ${textColor};
         }
-        .ingredient-detail {
-          padding-top: 16px;
+        .iconWrapper {
+          margin-right: 21px;
         }
+        .btn {
+          cursor: pointer;
+          background-color: ${transparent};
+          border: 0;
+          outline: none;
+          margin-left: 15px;
+        }
+
+        .icon {
+          background-size: contain;
+          background-position: center;
+          background-repeat:no-repeat;
+          width: 14px;
+          height: 14px;
+          outline: none;
+        }
+
+        .editIcon {
+          background-image: url('../static/svg/edit_icon.svg');
+        }
+
+        .deleteIcon {
+          background-image: url('../static/svg/delete_icon.svg');
+        }
+
+        .btn:hover .editIcon {
+          background-image: url('../static/svg/edit_icon_hover.svg');
+        }
+        .btn:hover .deleteIcon {
+          background-image: url('../static/svg/delete_icon_hover.svg');
+        }
+
         .ingredient-subtext {
           margin-right: 40px;
           font-size: 14px;
-          font-weight: 500;
           line-height: 1.14;
           letter-spacing: 0.6px;
-          text-align: left;
-          color: #9b9b9b;
+          color: ${placeholderTextColor};
         }
         .buttonWrapper {
           align-self: center;

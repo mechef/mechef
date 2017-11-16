@@ -32,14 +32,25 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
       ...state,
       currentMenuId: menuId,
     })),
-    menuActions.createMenu$.flatMap(reqbody => (
+    menuActions.createMenu$.map((reqbody) => {
+      const formData = new FormData();
+      Object.keys(reqbody).forEach((key) => {
+        if (Array.isArray(reqbody[key])) {
+          for (let i = 0; i < reqbody[key].length; i += 1) {
+            formData.append(`${key}[]`, reqbody[key][i]);
+          }
+        } else {
+          formData.append(key, reqbody[key]);
+        }
+      });
+      return formData;
+    }).flatMap(formData => (
       Rx.Observable.ajax({
         crossDomain: true,
         url: API_MENU,
         method: 'POST',
-        body: reqbody,
+        body: formData,
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
@@ -53,22 +64,33 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
         return Rx.Observable.of(state => state);
       })
     )),
-    menuActions.updateMenu$.flatMap(reqbody => (
+    menuActions.updateMenu$.map((reqbody) => {
+      const formData = new FormData();
+      Object.keys(reqbody).forEach((key) => {
+        if (Array.isArray(reqbody[key])) {
+          for (let i = 0; i < reqbody[key].length; i += 1) {
+            formData.append(`${key}[]`, reqbody[key][i]);
+          }
+        } else {
+          formData.append(key, reqbody[key]);
+        }
+      });
+      return formData;
+    }).flatMap(formData => (
       Rx.Observable.ajax({
         crossDomain: true,
-        url: `${API_MENU}/${reqbody._id}`,
+        url: `${API_MENU}/${formData.get('_id')}`,
         method: 'PATCH',
-        body: reqbody,
+        body: formData,
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(() => (
+      }).map(data => (
         state => ({ ...state,
           menuList: state.menuList.map((menu) => {
-            if (menu._id === reqbody._id) {
-              return { ...menu, ...reqbody };
+            if (menu._id === data.response.menu._id) {
+              return { ...menu, ...data.response.menu };
             }
             return menu;
           }),

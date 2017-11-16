@@ -97,6 +97,7 @@ export class IngredientPage extends React.Component<Props> {
             :
             <IngredientList
               memos={memos}
+              onDeleteMemo={memoId => deleteMemo$(memoId)}
               onEditMemo={(memoId) => {
                 setCurrentMemoId$(memoId);
                 toggleBackArrow$('Edit Ingredient');

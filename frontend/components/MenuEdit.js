@@ -8,14 +8,18 @@ import TextInput from './TextInput';
 import TextAreaInput from './TextAreaInput';
 import SelectBox from './SelectBox';
 import UploadImage from './UploadImage';
+import CheckBox from './CheckBox';
 import Tag from './Tag';
-import { MenuObject } from '../utils/flowTypes';
+import { MenuObject, MeetupObject } from '../utils/flowTypes';
+import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
 
 type Props = {
   onCreateMenu: (menu: MenuObject) => Rx.Observable,
   onUpdateMenu: (menu: MenuObject) => Rx.Observable,
   onDeleteMenu: (menuId: string) => Rx.Observable,
   menuList: Array<MenuObject>,
+  deliveryList: Array<MeetupObject>,
+  fetchDelivery: () => Rx.Observable,
   currentMenuId: string,
   goBack: () => Rx.Observable,
 }
@@ -33,13 +37,6 @@ const quantity = [
   { text: '8', value: '8' },
   { text: '9', value: '9' },
   { text: '10', value: '10' },
-];
-
-const category = [
-  { text: 'FOOD', value: 'food' },
-  { text: 'DRINK', value: 'drink' },
-  { text: 'SNACK', value: 'snack' },
-  { text: 'FROZEN', value: 'frozen' },
 ];
 
 const cookingBuffer = [
@@ -72,30 +69,50 @@ class MenuEdit extends React.Component<Props, State> {
         unitPrice: '',
         dishName: '',
         email: '',
+        deliveryIdList: [],
         images: [],
         ingredients: [],
         category: [],
       };
     this.state = {
       ...currentMenu,
+      deliveryList: [],
       ingredientInput: '',
       categoryInput: '',
     };
   }
+
+  componentDidMount() {
+    this.props.fetchDelivery();
+  }
+
+  componentWillReceiveProps(newProps: Props) {
+    if (newProps.deliveryList.length) {
+      this.setState({
+        deliveryList: newProps.deliveryList,
+      });
+    }
+  }
+
   render() {
     const { goBack, onCreateMenu, onUpdateMenu, onDeleteMenu, currentMenuId } = this.props;
     return (
       <div className="dashboard-content">
-        <p className="dashboard-content__title">Edit Menu</p>
+        <p className="mainTitle">Edit Menu</p>
         <div className="editContainer">
           <div className="addImage">
             <h3 className="title">Add Images*</h3>
             <p className="subtitle">Add Images Add Images</p>
             <div className="uploadImageWrapper">
               {
-                [1, 2, 3].map(() => (
+                [1, 2, 3].map((_, index) => (
                   <div className="imageWrapper">
-                    <UploadImage />
+                    <UploadImage
+                      imgSrc={this.state.images[index] || ''}
+                      onImageUpload={(file) => {
+                        console.log('File:', file);
+                      }}
+                    />
                   </div>
                 ))
               }
@@ -182,7 +199,8 @@ class MenuEdit extends React.Component<Props, State> {
                           title={tag}
                           onRemove={() => {
                             this.setState({
-                              category: this.state.category.filter(categoryTag => categoryTag !== tag)
+                              category: this.state.category
+                                .filter(categoryTag => categoryTag !== tag),
                             });
                           }}
                         />
@@ -227,7 +245,8 @@ class MenuEdit extends React.Component<Props, State> {
                         title={tag}
                         onRemove={() => {
                           this.setState({
-                            ingredients: this.state.ingredients.filter(ingredient => ingredient !== tag)
+                            ingredients: this.state.ingredients
+                              .filter(ingredient => ingredient !== tag),
                           });
                         }}
                       />
@@ -281,6 +300,48 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
         </div>
+        <p className="mainTitle">Set Up Delivery</p>
+        <div className="shippingContainer">
+          <div className="meetup">
+            <h3 className="title">MEET UP</h3>
+            <p className="subtitle">Location &amp; Time</p>
+            <div className="meetupWrapper">
+              {
+                this.state.deliveryList
+                  .filter(delivery => delivery.type === 'meetup')
+                  .map(meetup => (
+                    <div className="meetupItem">
+                      <span className="checkbox">
+                        <CheckBox
+                          checked={this.state.deliveryIdList.includes(meetup._id)}
+                          onChange={(isChecked) => {
+                            if (isChecked) {
+                              this.setState({
+                                deliveryIdList: [...this.state.deliveryIdList, meetup._id],
+                              });
+                            } else {
+                              this.setState({
+                                deliveryIdList: this.state.deliveryIdList
+                                  .filter(deliveryId => deliveryId !== meetup._id),
+                              });
+                            }
+                          }}
+                        />
+                      </span>
+                      <div key={meetup._id} className="deliveryItem">
+                        <div className="mapWrapper" id={meetup._id} />
+                        <span className="descriptionText">Meet up at</span>
+                        <div className="delivery-content">
+                          <span className="text">{meetup.meetupAddress}</span>
+                          <span className="text">{meetup.meetupStartTime} - {meetup.meetupEndTime}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+              }
+            </div>
+          </div>
+        </div>
         <div className="buttonGroup">
           <div>
             <Button
@@ -308,7 +369,7 @@ class MenuEdit extends React.Component<Props, State> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                const { ingredientInput, categoryInput, ...menuObject } = this.state;
+                const { ingredientInput, categoryInput, deliveryList, ...menuObject } = this.state;
                 if (this.state._id) {
                   // TODO: Modify to only provide updated data
                   onUpdateMenu(menuObject);
@@ -328,7 +389,7 @@ class MenuEdit extends React.Component<Props, State> {
               padding-left: 19px;
             }
 
-            .dashboard-content__title {
+            .mainTitle {
               font-size: 18px;
               line-height: 1.11;
               letter-spacing: 0.5px;
@@ -337,10 +398,11 @@ class MenuEdit extends React.Component<Props, State> {
 
             .editContainer {
               margin-top: 24px;
+              margin-bottom: 39px;
               width: 552px;
               height: 100%;
               padding: 24px 20px;
-              border-radius: 4px;
+              border-radius: ${borderRadius};
               background-color: #ffffff;
             }
 
@@ -353,6 +415,10 @@ class MenuEdit extends React.Component<Props, State> {
             }
 
             .addImage {
+              margin-bottom: 40px;
+            }
+
+            .meetup {
               margin-bottom: 40px;
             }
 
@@ -392,19 +458,6 @@ class MenuEdit extends React.Component<Props, State> {
               margin-bottom: 39px;
             }
 
-            .checkboxGroup {
-              display: grid;
-              width: 387px;
-              grid-template-columns: 1fr 1fr 1fr;
-              grid-template-rows: 1fr 1fr 1fr;
-              grid-column-gap: 30px;
-              grid-row-gap: 16px;
-            }
-
-            .checkbox {
-              width: 116px;
-            }
-
             .formSection {
               display: flex;
               justify-content: space-between;
@@ -433,6 +486,70 @@ class MenuEdit extends React.Component<Props, State> {
               height: 44px;
               border-radius: 4px;
               border: solid 1px #979797;
+            }
+
+            .shippingContainer {
+              height: 532px;
+              width: 552px;
+              margin-top: 24px;
+              background-color: ${whiteColor};
+              padding: 24px 20px;
+              border-radius: ${borderRadius};
+            }
+
+            .meetupItem {
+              display: flex;
+            }
+
+            .checkbox {
+              width: 20px;
+              margin-right: 21px;
+            }
+
+            .deliveryItem {
+              width: 512px;
+              height: 226px;
+              border: 0;
+              border-radius: ${borderRadius};
+              box-shadow: 0 5px 7px 0 rgba(201, 201, 201, 0.5);
+              background-color: ${whiteColor};
+              display: flex;
+              flex-direction: column;
+              margin-bottom: 12px;
+              padding: 0;
+              border-radius: 4px;
+              background-color: #ffffff;
+              cursor: pointer;
+              outline: none;
+              transition: all .2s ease-in-out;
+            }
+
+            .mapWrapper {
+              width: 512px;
+              height: 100px;
+              margin-bottom: 12px;
+            }
+
+            .descriptionText {
+              font-size: ${fontSize};
+              line-height: ${lineHeight};
+              color: ${placeholderTextColor};
+              margin-bottom: 8px;
+              margin-left: 21px;
+            }
+
+            .delivery-content {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              margin-left: 21px;
+            }
+            .text {
+              font-size: ${fontSize};
+              font-weight: 500;
+              line-height: ${lineHeight};
+              color: ${textColor};
+              padding-bottom: 12px;
             }
 
             .buttonGroup {

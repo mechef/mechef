@@ -61,7 +61,7 @@ class IngredientEdit extends React.Component<Props, State> {
     this.state = {
       id: currentMemo._id,
       memoName: currentMemo.name,
-      total: currentMemo.sum,
+      total: parseInt(currentMemo.sum, 10),
       ingredients: currentMemo.ingredients,
       inputIngredientName: '',
       inputIngredientAmount: 0,
@@ -93,8 +93,8 @@ class IngredientEdit extends React.Component<Props, State> {
             <p className="subtitleWrapper">
               <span className="subtitle">Choose Ingredients.</span>
               <div>
-                <span className="edit-ingredient__explanation-total">Total:</span>
-                <span className="edit-ingredient__explanation-cost">$ {this.state.total}</span>
+                <span className="totalText">Total:</span>
+                <span className="costText">$ {this.state.total}</span>
               </div>
             </p>
             <p className="edit-ingredient__input">
@@ -114,12 +114,12 @@ class IngredientEdit extends React.Component<Props, State> {
               <div className="edit-ingredient__input-small-wrapper">
                 <TextInput
                   type="text"
-                  placeholder="Input Price"
+                  placeholder="$"
                   size="small"
                   value={this.state.inputIngredientAmount || ''}
                   onChange={(event) => {
                     if (event && event.target) {
-                      this.setState({ inputIngredientAmount: event.target.value });
+                      this.setState({ inputIngredientAmount: parseInt(event.target.value, 10) });
                     }
                   }}
                   hasAddBtn
@@ -132,11 +132,11 @@ class IngredientEdit extends React.Component<Props, State> {
                           amount: this.state.inputIngredientAmount,
                         },
                       ],
-                      total: parseInt(this.state.total, 10) +
-                        parseInt(this.state.inputIngredientAmount, 10),
+                      total: this.state.total +
+                        this.state.inputIngredientAmount,
                       inputIngredientName: '',
                       inputIngredientAmount: 0,
-                    })
+                    });
                   }}
                 />
               </div>
@@ -261,23 +261,13 @@ class IngredientEdit extends React.Component<Props, State> {
               margin-right: 32px;
             }
 
-            .edit-ingredient__explanation-text {
-              margin-right: auto;
+            .totalText {
+              padding-right: 40px;
               font-size: 14px;
-              font-weight: 500;
-              line-height: 1;
-              letter-spacing: 0.6px;
-              color: #9b9b9b;
             }
 
-            .edit-ingredient__explanation-total {
-              width: 57px;
-              height: 19px;
-            }
-
-            .edit-ingredient__explanation-cost {
-              width: 57px;
-              height: 19px;
+            .costText {
+              font-size: 14px;
             }
 
             .edit-ingredient__choose-ingredient {
@@ -345,7 +335,7 @@ class IngredientEdit extends React.Component<Props, State> {
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
-              width: 744px;
+              width: 568px;
               padding-top: 30px;
             }
 

@@ -5,15 +5,19 @@ import Rx from 'rxjs/Rx';
 
 import { connect } from '../state/RxState';
 import menuActions from '../actions/menuActions';
+import deliveryActions from '../actions/deliveryActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
 import ErrorModal from './ErrorModal';
 import MenuList from './MenuList';
 import MenuEdit from './MenuEdit';
 import MenuDefault from './MenuDefault';
-import { MenuObject } from '../utils/flowTypes';
+import { MenuObject, MeetupObject } from '../utils/flowTypes';
 
 type Props = {
+  delivery: {
+    meetupList: Array<MeetupObject>,
+  },
   menu: {
     menuList: Array<MenuObject>,
     currentMenuId: string,
@@ -23,6 +27,7 @@ type Props = {
   updateMenu$: (menu: MenuObject) => Rx.Observable,
   deleteMenu$: (menuId: string) => Rx.Observable,
   setCurrentMenuId$: (menuId: string) => Rx.Observable,
+  fetchDelivery$: any => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -44,6 +49,7 @@ export class MenuPage extends React.Component<Props> {
   }
   render() {
     const {
+      delivery: { meetupList },
       menu: { menuList, currentMenuId },
       setError$,
       error,
@@ -75,6 +81,8 @@ export class MenuPage extends React.Component<Props> {
               onUpdateMenu={updateMenu$}
               onDeleteMenu={menuId => deleteMenu$(menuId)}
               goBack={() => toggleBackArrow$('')}
+              fetchDelivery={this.props.fetchDelivery$}
+              deliveryList={meetupList}
             />
             :
             menuList && menuList.length ?
@@ -115,11 +123,12 @@ export class MenuPage extends React.Component<Props> {
 }
 
 
-const stateSelector = ({ menu, error, global }) => ({ menu, error, global });
+const stateSelector = ({ delivery, menu, error, global }) => ({ delivery, menu, error, global });
 
 const actionSubjects = {
   ...errorActions,
   ...menuActions,
+  ...deliveryActions,
   ...globalActions,
 };
 

@@ -25,6 +25,7 @@ export type MenuObject = {
   unitPrice?: string,
   dishName?: string,
   email?: string,
+  deliveryList?: Array<MeetupObject>,
   images?: Array<string>,
   ingredients?: Array<string>,
   category?: Array<string>,
