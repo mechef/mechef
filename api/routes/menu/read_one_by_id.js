@@ -9,16 +9,6 @@ module.exports = (req, res) => {
       return;
     }
 
-    Delivery.find({ email: decoded.email }, (err, deliveryList) => {
-      if (err) {
-        res.status(500).json({ status: constants.fail });
-        return;
-      }
-
-      const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryIdList);
-      menu.deliveryList = deliveryDetailList;
-
-      res.json({ status: constants.success, menu });
-    });
+    res.json({ status: constants.success, menu });
   });
 };
