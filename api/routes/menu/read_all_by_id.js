@@ -24,6 +24,7 @@ module.exports = (req, res) => {
             menuList.forEach(function(menu) {
               const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryIdList);
               menu.deliveryList = deliveryDetailList;
+              delete menu.deliveryIdList;
             });
 
             res.json({ status: constants.success, menuList });
@@ -43,20 +44,7 @@ module.exports = (req, res) => {
       const query = Menu.find({ email: decoded.email });
       query.then((menuList) => {
         if (menuList) {
-          menuList[0].deliveryList = [{}];
-          Delivery.find({ email: decoded.email }, (err, deliveryList) => {
-            if (err) {
-              res.status(500).json({ status: constants.fail });
-              return;
-            }
-
-            menuList.forEach(function(menu) {
-              const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryIdList);
-              menu.deliveryList = deliveryDetailList;
-            });
-
-            res.json({ status: constants.success, menuList: menuList });
-          });
+          res.json({ status: constants.success, menuList: menuList });
         } else {
           res.status(404).json({ status: constants.fail, reason: constants.email_not_found });
         }
