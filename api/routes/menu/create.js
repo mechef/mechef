@@ -1,8 +1,6 @@
 const Menu = require('../../models/menu');
 const uuidv4 = require('uuid/v4');
 const fs = require('fs');
-const Gridfs = require('gridfs-stream');
-const mongoose = require('mongoose');
 const constants = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
 
@@ -33,12 +31,7 @@ module.exports = (req, res) => {
     menu.serving = req.body.serving;
     menu.deliveryIdList = req.body.deliveryIdList;
     menu.publish = true;
-    menu.images = [];
-    for (let i = 0; req.files && i < req.files.length; i += 1) {
-      console.log(req.files[i]);
-      req.files[i].filename = uuidv4() + req.files[i].filename;
-      menu.images.push(req.files[i].filename);
-    }
+    menu.images = req.body.images;
 
     menu.save((error, savedMenu) => {
       if (error) {
@@ -47,31 +40,6 @@ module.exports = (req, res) => {
         return;
       }
 
-      const db = mongoose.connection.db;
-      const mongoDriver = mongoose.mongo;
-      const gfs = new Gridfs(db, mongoDriver);
-
-      for (let i = 0; req.files && i < req.files.length; i += 1) {
-        const writestream = gfs.createWriteStream({
-          filename: req.files[i].filename,
-          mode: 'w',
-          content_type: req.files[i].mimetype,
-          metadata: {
-            email: decoded.email,
-            menuId: savedMenu._id,
-            path: req.files[i].path,
-          },
-        });
-
-        fs.createReadStream(req.files[i].path).pipe(writestream);
-        writestream.on('close', (file) => {
-          fs.unlink(file.metadata.path, (erro) => {
-            if (erro) {
-              console.log(err);
-            }
-          });
-        });
-      }
       res.json({ status: constants.success, menu: savedMenu });
     });
   });
