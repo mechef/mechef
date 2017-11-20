@@ -10,7 +10,7 @@ import {
 
 type Props = {
   onImageUpload: ({ image: File }) => mixed,
-  imageSrc: string,
+  imgSrc: string,
 };
 
 type State = {
@@ -27,7 +27,7 @@ class UploadImage extends React.Component<Props, State> {
     super(props);
     this.handleImageUpload = this.handleImageUpload.bind(this);
     this.state = {
-      imageSrc: props.imageSrc,
+      imageSrc: props.imgSrc,
     };
   }
 
@@ -43,7 +43,7 @@ class UploadImage extends React.Component<Props, State> {
       this.setState({
         imageSrc: imgSrc,
       });
-      this.props.onImageUpload({ image: file });
+      this.props.onImageUpload(file);
     }
   }
 
@@ -63,7 +63,7 @@ class UploadImage extends React.Component<Props, State> {
             this.imageSrc = input;
           }}
           className="image"
-          src={this.props.imageSrc}
+          src={this.props.imgSrc}
           alt="food"
         />
         <button

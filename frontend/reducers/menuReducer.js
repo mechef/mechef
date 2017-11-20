@@ -37,7 +37,7 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
       Object.keys(reqbody).forEach((key) => {
         if (Array.isArray(reqbody[key])) {
           for (let i = 0; i < reqbody[key].length; i += 1) {
-            formData.append(`${key}[]`, reqbody[key][i]);
+            formData.append(key, reqbody[key]);
           }
         } else {
           formData.append(key, reqbody[key]);
@@ -69,7 +69,7 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
       Object.keys(reqbody).forEach((key) => {
         if (Array.isArray(reqbody[key])) {
           for (let i = 0; i < reqbody[key].length; i += 1) {
-            formData.append(`${key}[]`, reqbody[key][i]);
+            formData.append(key, reqbody[key]);
           }
         } else {
           formData.append(key, reqbody[key]);

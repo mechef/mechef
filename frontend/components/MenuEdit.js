@@ -12,6 +12,7 @@ import CheckBox from './CheckBox';
 import Tag from './Tag';
 import { MenuObject, MeetupObject } from '../utils/flowTypes';
 import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
+import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
   onCreateMenu: (menu: MenuObject) => Rx.Observable,
@@ -108,9 +109,11 @@ class MenuEdit extends React.Component<Props, State> {
                 [1, 2, 3].map((_, index) => (
                   <div className="imageWrapper">
                     <UploadImage
-                      imgSrc={this.state.images[index] || ''}
+                      imgSrc={this.state.images[index] ? `${IMAGE_URL}/${this.state.images[index]}` : ''}
                       onImageUpload={(file) => {
-                        console.log('File:', file);
+                        this.setState({
+                          images: [...this.state.images, file],
+                        });
                       }}
                     />
                   </div>

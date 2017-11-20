@@ -6,6 +6,7 @@ import Rx from 'rxjs/Rx';
 import { MenuObject } from '../utils/flowTypes';
 import MenuItem from './MenuItem';
 import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
+import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
   menuList: Array<MenuObject>,
@@ -29,7 +30,7 @@ const MenuList = (props: Props) => (
           <MenuItem
             dishName={menu.dishName}
             description={menu.description}
-            thumbnailUrl={menu.thumbnailUrl}
+            thumbnailUrl={menu.images.length ? `${IMAGE_URL}/${menu.images[0]}` : ''}
             isPublish={menu.isPublish}
             onTogglePublish={() => props.onTogglePublish(menu._id)}
             onEdit={() => props.onEditMenu(menu._id)}
