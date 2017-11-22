@@ -33,14 +33,7 @@ module.exports = (req, res) => {
     if (req.body.serving) updateFields.serving = req.body.serving;
     if (req.body.deliveryIdList) updateFields.deliveryIdList = req.body.deliveryIdList;
     if (req.body.publish) updateFields.publish = req.body.publish;
-
-    if (req.files && req.files.length > 0) {
-      updateFields.images = [];
-      for (let i = 0; i < req.files.length; i += 1) {
-        req.files[i].filename = uuidv4() + req.files[i].filename;
-        updateFields.images.push(req.files[i].filename);
-      }
-    }
+    if (req.body.images) updateFields.images = req.body.images;
 
     Menu.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields },
       { projection: { __v: false }, new: false, upsert: true }, (error, menu) => {
@@ -50,33 +43,21 @@ module.exports = (req, res) => {
     }
 
     if (updateFields.images) {
+      const deleteSet = {};
+
+      for (let i = 0; i < menu.images.length; i++) {
+        deleteSet[menu.images[i]] = true;
+      }
+
+      for (let i = 0; i < updateFields.images.length; i++) {
+        delete deleteSet[updateFields.images[i]];
+      }
+
       const db = mongoose.connection.db;
       const mongoDriver = mongoose.mongo;
       const gfs = new Gridfs(db, mongoDriver);
-
-      for (let i = 0; i < req.files.length; i += 1) {
-        const writestream = gfs.createWriteStream({
-          filename: req.files[i].filename,
-          mode: 'w',
-          content_type: req.files[i].mimetype,
-          metadata: {
-            email: decoded.email,
-            menuId: menu._id,
-            path: req.files[i].path,
-          },
-        });
-
-        fs.createReadStream(req.files[i].path).pipe(writestream);
-        writestream.on('close', (file) => {
-          fs.unlink(file.metadata.path, (erro) => {
-            if (erro) {
-              console.log(err);
-            }
-          });
-        });
-      }
-
-      for (let filename in menu.images) {
+      
+      for (let filename in deleteSet) {
         gfs.remove({ filename }, (erro) => {
           if (erro) {
             console.log(erro);
