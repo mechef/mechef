@@ -22,6 +22,11 @@ const PORT = process.env.PORT || 3001;
 //  Connect all our routes to our application
 app.use('/', routes);
 
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
 // Turn on that server!
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
