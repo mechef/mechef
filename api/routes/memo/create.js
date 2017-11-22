@@ -27,7 +27,7 @@ module.exports = (req, res) => {
 
     memo.save((error, memo) => {
       if (error) {
-        res.status(500).json({ status: constants.fail });
+        res.status(500).json({ status: constants.fail });        
         return;
       }
 

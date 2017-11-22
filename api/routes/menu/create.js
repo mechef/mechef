@@ -35,8 +35,7 @@ module.exports = (req, res) => {
 
     menu.save((error, savedMenu) => {
       if (error) {
-        console.log(error);
-        res.status(500).json({ status: constants.fail });
+        res.status(500).json({ status: constants.fail });        
         return;
       }
 
