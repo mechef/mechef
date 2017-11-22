@@ -40,7 +40,7 @@ module.exports = (req, res) => {
     writestream.on('close', (file) => {
       fs.unlink(file.metadata.path, (erro) => {
         if (erro) {
-          console.log(err);
+          console.log(erro);
         }
       });
     });
