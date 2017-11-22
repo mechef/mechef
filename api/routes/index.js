@@ -8,7 +8,7 @@ const seller = require('./seller');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
-const create = require('./create');
+const createImage = require('./create_image');
 const readImageByName = require('./read_image_by_name');
 
 routes.use('/delivery', delivery);
@@ -17,7 +17,7 @@ routes.use('/menu', menu);
 routes.use('/order', order);
 routes.use('/seller', seller);
 
-routes.post('/image', upload.single('image'), create);
+routes.post('/image', upload.single('image'), createImage);
 routes.get('/image/:name', readImageByName);
 
 module.exports = routes;
