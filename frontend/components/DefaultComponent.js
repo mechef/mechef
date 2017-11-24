@@ -7,20 +7,23 @@ import { whiteColor, borderRadius, primaryColor, textColor, primaryBtnHoverColor
 
 type Props = {
   onClick: () => Rx.Observable,
+  coverPhotoSrc: string,
+  title: string,
+  description: string,
+  actionText: string,
 }
 
-const MenuDefault = (props: Props) => (
+const DefaultComponent = (props: Props) => (
   <div className="wrapper">
     <div className="cover" />
     <div className="defaultIcon">
       <img alt="default icon" src="../static/img/default_icon.svg" />
     </div>
     <div className="textSection">
-      <h2 className="title">Hello there!</h2>
-      <p>Fill this place with your signature dishes,</p>
-      <p>build your own menu!</p>
+      <h2 className="title">{props.title}</h2>
+      <p className="description">{props.description}</p>
     </div>
-    <button className="addDish" onClick={props.onClick}>Add A DISH</button>
+    <button className="addDish" onClick={props.onClick}>{props.actionText}</button>
     <style jsx>
       {`
         .wrapper {
@@ -35,7 +38,7 @@ const MenuDefault = (props: Props) => (
         .cover {
           height: 150px;
           width: 100%;
-          background-image: url('../static/img/menu_default.jpg');
+          background-image: url(${props.coverPhotoSrc});
           background-size: cover;
           background-position: center;
           border-top-left-radius: ${borderRadius};
@@ -64,10 +67,14 @@ const MenuDefault = (props: Props) => (
           font-size: 24px;
           color: ${textColor};
         }
-        .textSection p {
-          margin: 0;
-          padding-bottom: 5px;
+
+        .description {
+          width: 315px;
+          display: flex;
+          justify-content: center;
+          line-height: 1.5;
           font-size: 16px;
+          text-align: center;
           color: ${textColor};
         }
         .addDish {
@@ -90,4 +97,4 @@ const MenuDefault = (props: Props) => (
 );
 
 
-export default MenuDefault;
+export default DefaultComponent;

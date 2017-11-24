@@ -6,6 +6,7 @@ import deliveryReducer$ from './deliveryReducer';
 import errorReducer$ from './errorReducer';
 import globalReducer$ from './globalReducer';
 import menuReducer$ from './menuReducer';
+import orderReducer$ from './orderReducer';
 
 const reducer$ = Rx.Observable.merge(
   authReducer$.map(reducer => ['auth', reducer]),
@@ -15,6 +16,7 @@ const reducer$ = Rx.Observable.merge(
   errorReducer$.map(reducer => ['error', reducer]),
   globalReducer$.map(reducer => ['global', reducer]),
   menuReducer$.map(reducer => ['menu', reducer]),
+  orderReducer$.map(reducer => ['order', reducer]),
 );
 
 export default reducer$;

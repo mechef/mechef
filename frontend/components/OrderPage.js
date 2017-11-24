@@ -1,156 +1,199 @@
+// @flow
+
 import React from 'react';
-import PropTypes from 'prop-types';
+import Rx from 'rxjs/Rx';
 
 import { connect } from '../state/RxState';
+import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
 import ErrorModal from './ErrorModal';
+import { OrderObject } from '../utils/flowTypes';
+import { IMAGE_URL } from '../utils/constants';
+import { primaryColor, textColor, whiteColor } from '../utils/styleVariables';
+import DefaultComponent from './DefaultComponent';
+import OrderItem from './OrderItem';
 
-class OrderPage extends React.Component {
+type Props = {
+  order: {
+    orderList: Array<OrderObject>,
+  },
+  fetchOrders$: any => Rx.Observable,
+  updateOrderStatus$: () => Rx.Observable,
+  setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
+  error: {
+    title: string,
+    message: string,
+    isShowModal: bool,
+  },
+}
+
+const sampleOrderList = [
+  {
+    sellerId: '@bibletang',
+    menuTitle: 'Lemon Tea',
+    quantity: 1,
+    orderTime: 'JUN 20 18:12:34',
+    deliveryTo: 'Rakuten Crimson House',
+    deliveryTime: 'JUN 21 18:30:00',
+    totalPrice: '100.00',
+    status: 'finished',
+    profileImage: '8f4221976dbd9c7c513d51b76b1e704b',
+    menuImage: '909769ed91bdfaef92411e91826159ee',
+  },
+  {
+    sellerId: '@yuan',
+    menuTitle: '沙茶牛肉',
+    quantity: 14,
+    orderTime: 'JUN 20 18:12:34',
+    deliveryTo: 'Rakuten Crimson House',
+    deliveryTime: 'JUN 21 18:30:00',
+    totalPrice: '100.00',
+    status: 'cancelled',
+    profileImage: '8f4221976dbd9c7c513d51b76b1e704b',
+    menuImage: '909769ed91bdfaef92411e91826159ee',
+  },
+  {
+    sellerId: '@tzu',
+    menuTitle: 'Hamburger',
+    quantity: 2,
+    orderTime: 'JUN 20 18:12:34',
+    deliveryTo: 'Rakuten Crimson House',
+    deliveryTime: 'JUN 21 18:30:00',
+    totalPrice: '100.00',
+    status: 'waiting',
+    profileImage: '8f4221976dbd9c7c513d51b76b1e704b',
+    menuImage: '909769ed91bdfaef92411e91826159ee',
+  },
+];
+
+class OrderPage extends React.Component<Props> {
   componentDidMount() {
-    // this.props.fetchDelivery$();
+    // this.props.fetchOrders$();
   }
   render() {
-    const { setError$, error, global: { backArrow }, toggleBackArrow$ } = this.props;
+    const {
+      order: { orderList },
+      setError$,
+      error,
+      updateOrderStatus$,
+    } = this.props;
+
     return (
-      <div className="dashboard-content">
-        <p className="dashboard-content__title">
-          <span className="dashboard-content__title-text">Order</span>
-          <span className="dashboard-content__order-count">
-            <span className="dashboard-content__order-count-num">
-              14
-            </span>
-          </span>
-        </p>
-        <div className="order">
-          <div className="order__image"></div>
-          <div className="order__detail">
-            <p className="order__detail-first-line">
-              <span className="order__user-name">@alvinarmstrong</span>
-              <i className="fa fa-envelope order__mail-icon" aria-hidden="true"></i>
-            </p>
-            <p className="order__detail-second-line">
-              <span className="order__content">Jasmine Honey Green Tea X 1</span>
-              <span className="order__price">$100.00</span>
-            </p>
-            <p className="order__detail-third-line">
-              <span className="order__order-time">Order Time: JUN 20 18:12:34</span>
-              <span className="order__delivery-time">Delivery Time: JUN 22 18:12:00</span>
-              <i className="fa fa-check-circle order__checked-icon" aria-hidden="true"></i>
-            </p>
-            <p className="order__detail-fourth-line">
-              <span className="order__delivery-to">Delivery To: 1040N st. Suite B Sanjose 95112, USA</span>
-            </p>
-          </div>
-        </div>
+      <div className="container">
+        {
+          error.isShowModal ?
+            <ErrorModal
+              title={error.title}
+              message={error.message}
+              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+            />
+            : null
+        }
+        {
+          // orderList && orderList.length ?
+          sampleOrderList && sampleOrderList.length ?
+            <div className="orderWrapper">
+              <div className="header">
+                <div className="titleWithNotification">
+                  <span className="orderTitle">Orders</span>
+                  <button className="notification selected">14</button>
+                </div>
+                <div className="titleWithNotification">
+                  <span className="orderTitle">Pending Orders</span>
+                  <button className="notification">14</button>
+                </div>
+                <div className="titleWithNotification">
+                  <span className="orderTitle">Cancelled Orders</span>
+                  <button className="notification">14</button>
+                </div>
+              </div>
+              {
+                sampleOrderList.map(order => (
+                  <div className="orderItemWrapper">
+                    <OrderItem
+                      sellerId={order.sellerId}
+                      menuTitle={order.menuTitle}
+                      quantity={order.quantity}
+                      orderTime={order.orderTime}
+                      deliveryTo={order.deliveryTo}
+                      deliveryTime={order.deliveryTime}
+                      totalPrice={order.totalPrice}
+                      status={order.status}
+                      profileImageUrl={`${IMAGE_URL}/${order.profileImage}`}
+                      menuImageUrl={`${IMAGE_URL}/${order.menuImage}`}
+                    />
+                  </div>
+                ))
+              }
+            </div>
+            :
+            <DefaultComponent
+              onClick={() => {
+              }}
+              coverPhotoSrc="../static/img/orders_default.jpg"
+              title="Hello there!"
+              description="Share your menu to get your first order!"
+              actionText="MY STORE'S LINK"
+            />
+        }
         <style jsx>
           {`
-            .dashboard-content {
-              padding-top: 49px;
+            .container {
+              margin: 0;
+              padding-top: 49px
               padding-left: 19px;
               width: 100%;
-              height: 998px;
+              min-height: 792px;
+              height: 100%;
               background-color: #f8f7f7;
             }
-            .dashboard-content__title {
-              padding-bottom: 30px;
-              display: flex;
-              align-items: center;
+
+            .orderWrapper {
+              height: 100%;
+              overflow: scroll;
             }
-            .dashboard-content__title-text {
-              width: 61px;
-              height: 20px;
+
+            .header {
+              display: flex;
+              width: 619px;
+              justify-content: space-around;
+              margin-bottom: 27px;
+            }
+
+            .titleWithNotification {
+              display: flex;
+            }
+
+            .orderTitle {
               font-size: 18px;
               line-height: 1.11;
               letter-spacing: 0.5px;
-              color: #4a4a4a;
+              color: ${textColor};
             }
-            .dashboard-content__order-count {
+
+            .notification {
+              display: flex;
+              justify-content: center;
+              align-items: center;
               width: 40px;
               height: 26px;
+              margin-left: 15px;
+              background-color: #b9b9b9;
               border-radius: 26px;
-              background-color: #3e9f40;
-              display: flex;
-            }
-            .dashboard-content__order-count-num {
+              color: ${whiteColor};
+              border: 0;
+              outline: none;
               font-size: 16px;
-              line-height: 1;
-              letter-spacing: 0.4px;
-              color: #ffffff;
-              margin: auto;
+              cursor: pointer;
             }
-            .order {
-              height: 164px;
-              border-radius: 4px;
-              background-color: #ffffff;
-              margin-right: 20px;
-              display: flex;
+
+            .notification:hover, .notification.selected {
+              background-color: ${primaryColor};
             }
-            .order__image {
-              background-image: url('../static/pancake.jpg');
-              background-size: cover;
-              background-position: center;
-              width: 164px;
-              height: 164px;
-              position: relative;
-            }
-            .order__image:after {
-              content: '';
-              position: absolute;
-              width: 52px;
-              height: 52px;
-              border-radius: 26px;
-              top: 20px;
-              left: 138px;
-              background-image: url('../static/avatar.jpg');
-              background-size: cover;
-              background-position: center;
-            }
-            .order__detail {
-              padding-left: 42px;
-              padding-right: 20px;
-              width: calc(100% - 164px - 42px - 20px);
-              display: flex;
-              flex-direction: column;
-            }
-            .order__detail-first-line {
-              display: flex;
-              justify-content: space-between;
-              margin-bottom: 16px;
-            }
-            .order__user-name {
-              font-size: 14px;
-              font-weight: bold;
-              line-height: 1;
-              color: #4a4a4a;
-            }
-            .order__detail-second-line {
-              display: flex;
-              justify-content: space-between;
-              height: 32px;
-              border-bottom: solid 1px #979797;
-              margin-bottom: 16px;
-            }
-            .order__detail-third-line {
-              display: flex;
-              margin-bottom: 12px;
-            }
-            .order__order-time {
-              font-size: 12px;
-              line-height: 1;
-              color: #9b9b9b;
-              margin-right: auto;
-            }
-            .order__delivery-time {
-              background-color: #f8f7f7;
-            }
-            .order__checked-icon {
-              margin-left: 16.4px;
-            }
-            .order__delivery-to {
-              font-size: 12px;
-              line-height: 1;
-              color: #9b9b9b;
+
+            .orderItemWrapper {
+              margin-bottom: 20px;
             }
           `}
         </style>
@@ -159,29 +202,13 @@ class OrderPage extends React.Component {
   }
 }
 
-OrderPage.propTypes = {
-  setError$: PropTypes.func.isRequired,
-  error: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    isShowModal: PropTypes.bool.isRequired,
-  }),
-};
 
-OrderPage.defaultProps = {
-  error: {
-    title: '',
-    message: '',
-    isShowModal: false,
-  },
-};
-
-
-const stateSelector = ({ error, global }) => ({ error, global });
+const stateSelector = ({ order, error, global }) => ({ order, error, global });
 
 const actionSubjects = {
   ...errorActions,
   ...globalActions,
+  ...orderActions,
 };
 
 export default connect(stateSelector, actionSubjects)(OrderPage);

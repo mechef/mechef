@@ -11,7 +11,7 @@ import globalActions from '../actions/globalActions';
 import ErrorModal from './ErrorModal';
 import MenuList from './MenuList';
 import MenuEdit from './MenuEdit';
-import MenuDefault from './MenuDefault';
+import DefaultComponent from './DefaultComponent';
 import { MenuObject, MeetupObject } from '../utils/flowTypes';
 
 type Props = {
@@ -97,11 +97,15 @@ export class MenuPage extends React.Component<Props> {
                   console.log('menuId:', menuId);
                 }}
               />
-              : <MenuDefault
+              : <DefaultComponent
                 onClick={() => {
                   setCurrentMenuId$('');
                   toggleBackArrow$('Edit Menu');
                 }}
+                coverPhotoSrc="../static/img/menu_default.jpg"
+                title="Hello there!"
+                description="Fill this place with your signature dishes, build your own menu!"
+                actionText="ADD DISH"
               />
         }
         <style jsx>

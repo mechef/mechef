@@ -2,31 +2,85 @@
 
 import React from 'react';
 
+import { transparent, whiteColor, textColor, textHintColor } from '../utils/styleVariables';
+
+const sampleOrders = [
+  {
+    deliveryTime: 'JUN 22 18:00 - 19:00',
+    buyerName: '@alvinarmstrong',
+    orderName: 'Jasmine Honey Green Tea',
+    quantity: 1,
+  },
+  {
+    deliveryTime: 'JUN 22 17:00 - 18:00',
+    buyerName: '@bibletangg',
+    orderName: '飯糰',
+    quantity: 5,
+  },
+  {
+    deliveryTime: 'JUN 22 14:00 - 13:00',
+    buyerName: '@yuan',
+    orderName: '沙茶牛肉飯',
+    quantity: 1,
+  },
+  {
+    deliveryTime: 'JUN 22 14:00 - 13:00',
+    buyerName: '@tzu',
+    orderName: '番茄炒蛋',
+    quantity: 4,
+  },
+];
+
 const Home = () => (
   <div className="homeContainer">
     <div className="dashboard-content__header" />
-    <p className="sellerId">@MomooKitchen</p>
-    <p className="sellerName">@MomooKitchen</p>
-    <div className="orderTable">
-      <p className="orderTableTitle">
-        <span className="titleText">ORDERS</span>
-        <span className="orderCount">
-          <span className="orderCountNum">
-            14
-          </span>
-        </span>
-      </p>
-      <div className="header">
-        <div className="firstCell">Delivery Time</div>
-        <div className="secondCell">Buyer‘s Name</div>
-        <div className="thirdCell">Order Name</div>
-        <div className="fourthCell">Quantity</div>
+    <div className="topWrapper">
+      <div className="nameWrapper">
+        <p className="sellerId">@MomooKitchen</p>
+        <p className="sellerName">@MomooKitchen</p>
       </div>
+      <button className="myKitchenLink">
+        <span className="kitchenLinkText">My Kitchen’s Link</span>
+      </button>
+    </div>
+    <p className="orderTableTitle">
+      <span className="titleText">ORDERS</span>
+      <span className="orderCount">
+        <span className="orderCountNum">
+          14
+        </span>
+      </span>
+    </p>
+    <div className="orderTable">
+      <div className="tableHeader">
+        <span className="firstCell">Delivery Time</span>
+        <span className="secondCell">Buyer‘s Name</span>
+        <span className="thirdCell">Order Name</span>
+        <span className="fourthCell">Quantity</span>
+      </div>
+      {
+        sampleOrders.map((order, index) => (
+          <div
+            className={`
+              tableBody
+              ${index % 2 === 0 ? 'greyBackground' : 'whiteBackground'}
+              ${index === sampleOrders.length - 1 ? 'borderBottomRadius' : ''}
+            `}
+          >
+            <span className="firstCell greyText">{order.deliveryTime}</span>
+            <span className="secondCell boldText">{order.buyerName}</span>
+            <span className="thirdCell boldText">{order.orderName}</span>
+            <span className="fourthCell boldText">{order.quantity}</span>
+          </div>
+        ))
+      }
     </div>
     <style jsx>
       {`
         .homeContainer {
           background-color: #f8f7f7;
+          height: 100%;
+          min-height: 882px;
         }
         .dashboard-content__header {
           margin-bottom: 25px;
@@ -50,6 +104,37 @@ const Home = () => (
           height: 80px;
           border-radius: 40px;
         }
+
+        .topWrapper {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .nameWrapper {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .myKitchenLink {
+          height: 26px;
+          border-radius: 26px;
+          border: solid 1px #4a4a4a;
+          margin-top: 20px;
+          padding: 5px 16px;
+          display: flex;
+          align-items: center;
+          margin-right: 26px;
+          background-color: ${transparent};
+          cursor: pointer;
+        }
+
+        .kitchenLinkText {
+          font-size: 12px;
+          line-height: 1.33;
+          letter-spacing: 0.3px;
+          color: #4a4a4a;
+        }
+
         .sellerId {
           margin-left: 98px;
           margin-bottom: 11px;
@@ -68,16 +153,77 @@ const Home = () => (
           color: #4a4a4a;
         }
         .orderTable {
-          margin-left: 18px;
+          width: 747px;
+          margin-left: 20px;
         }
+
+        .tableHeader {
+          background-color: ${whiteColor};
+          width: 100%;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          font-size: 12px;
+          color: ${textColor};
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+        }
+
+        .tableBody {
+          display: flex;
+          height: 80px;
+          align-items: center;
+        }
+
+        .greyBackground {
+          background-color: '#f7f6f6';
+        }
+
+        .whiteBackground {
+          background-color: ${whiteColor};
+        }
+
+        .borderBottomRadius {
+          border-bottom-left-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
+
+        .greyText {
+          color: ${textHintColor};
+          font-size: 12px;
+        }
+
+        .boldText {
+          font-weight: 500;
+        }
+
+        .firstCell {
+          flex: 1;
+          padding-left: 28px;
+        }
+
+        .secondCell {
+          flex: 2;
+          padding-left: 28px;
+        }
+
+        .thirdCell {
+          flex: 3;
+          padding-left: 28px;
+        }
+
+        .fourthCell {
+          flex: 1;
+          padding-left: 28px;
+        }
+
         .orderTableTitle {
           display: flex;
           align-items: center;
           margin-bottom: 15px;
+          margin-left: 20px;
         }
         .titleText {
-          width: 61px;
-          height: 20px;
           font-size: 18px;
           line-height: 1.11;
           letter-spacing: 0.5px;
@@ -89,6 +235,7 @@ const Home = () => (
           border-radius: 26px;
           background-color: #3e9f40;
           display: flex;
+          margin-left: 8px;
         }
         .orderCountNum {
           font-size: 16px;
@@ -96,44 +243,6 @@ const Home = () => (
           letter-spacing: 0.4px;
           color: #ffffff;
           margin: auto;
-        }
-        .header {
-          display: flex;
-          padding-top: 20px;
-          padding-bottom: 18px;
-          padding-left: 19.3px;
-          background-color: #ffffff;
-        }
-        .firstCell {
-          width: 83px;
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 1;
-          color: #4a4a4a;
-        }
-        .secondCell {
-          margin-left: 28px;
-          width: 83px;
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 1;
-          color: #4a4a4a;
-        }
-        .thirdCell {
-          margin-left: 94px;
-          width: 83px;
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 1;
-          color: #4a4a4a;
-        }
-        .fourthCell {
-          margin-left: 227px;
-          width: 83px;
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 1;
-          color: #4a4a4a;
         }
       `}
     </style>
