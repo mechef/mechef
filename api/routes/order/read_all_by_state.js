@@ -14,7 +14,7 @@ module.exports = (req, res) => {
       res.status(500).json({ status: constants.fail });
       return;
     }
-    const condition = { email: decoded.email };
+    const condition = { sellerEmail: decoded.email };
     if (req.query.state) condition.state = req.query.state;
 
     const query = Order.find(condition);
