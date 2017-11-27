@@ -14,13 +14,13 @@ module.exports = (req, res) => {
       res.status(500).json({ status: constants.fail });
       return;
     }
-    const condition = { sellerEmail: decoded.email };
+    const condition = { email: decoded.email };
     if (req.query.state) condition.state = req.query.state;
 
     const query = Order.find(condition);
     query.then((orders) => {
       if (orders) {
-        res.json({ status: constants.success, orders });
+        res.json({ status: constants.success, orders: Order.getOrderList(orders) });
       } else {
         res.status(400).json({ status: constants.fail, reason: constants.email_not_found });
       }
