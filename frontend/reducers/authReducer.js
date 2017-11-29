@@ -29,7 +29,6 @@ const authReducer$ = Rx.Observable.of(() => initialState)
         Router.push({
           pathname: '/dashboard',
         });
-        globalActions.showSpinner$.next(false);
         return state => state;
       }).catch((error) => {
         globalActions.showSpinner$.next(false);

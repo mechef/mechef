@@ -13,6 +13,7 @@ import MenuList from './MenuList';
 import MenuEdit from './MenuEdit';
 import DefaultComponent from './DefaultComponent';
 import { MenuObject, MeetupObject } from '../utils/flowTypes';
+import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
 
 type Props = {
   delivery: {
@@ -98,15 +99,22 @@ export class MenuPage extends React.Component<Props> {
                 }}
               />
               : <DefaultComponent
-                onClick={() => {
-                  setCurrentMenuId$('');
-                  toggleBackArrow$('Edit Menu');
-                }}
                 coverPhotoSrc="../static/img/menu_default.jpg"
-                title="Hello there!"
-                description="Fill this place with your signature dishes, build your own menu!"
-                actionText="ADD DISH"
-              />
+              >
+                <div className="textSection">
+                  <h2 className="title">Hello there!</h2>
+                  <p className="description">Fill this place with your signature dishes, build your own menu!</p>
+                </div>
+                <button
+                  className="addDish"
+                  onClick={() => {
+                    setCurrentMenuId$('');
+                    toggleBackArrow$('Edit Menu');
+                  }}
+                >
+                  ADD DISH
+                </button>
+              </DefaultComponent>
         }
         <style jsx>
           {`
@@ -118,6 +126,42 @@ export class MenuPage extends React.Component<Props> {
               min-height: 792px;
               height: 100%;
               background-color: #f8f7f7;
+            }
+
+            .textSection {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding-top: 31px;
+            }
+            .title {
+              font-family: 'Playball', cursive;
+              font-size: 24px;
+              color: ${textColor};
+            }
+
+            .description {
+              width: 315px;
+              display: flex;
+              justify-content: center;
+              line-height: 1.5;
+              font-size: 16px;
+              text-align: center;
+              color: ${textColor};
+            }
+            .addDish {
+              border: 0;
+              padding: 0;
+              margin-top: 70px;
+              background-color: ${whiteColor};
+              color: ${primaryColor};
+              font-size: 16px;
+              margin: auto;
+              cursor: pointer;
+              outline: none;
+            }
+            .addDish:hover {
+              color: ${primaryBtnHoverColor};
             }
           `}
         </style>

@@ -10,6 +10,8 @@ import globalActions from '../actions/globalActions';
 import ErrorModal from './ErrorModal';
 import IngredientList from './IngredientList';
 import IngredientEdit from './IngredientEdit';
+import DefaultComponent from './DefaultComponent';
+import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
 
 type Props = {
   ingredient: {
@@ -95,14 +97,33 @@ export class IngredientPage extends React.Component<Props> {
               goBack={() => toggleBackArrow$('')}
             />
             :
-            <IngredientList
-              memos={memos}
-              onDeleteMemo={memoId => deleteMemo$(memoId)}
-              onEditMemo={(memoId) => {
-                setCurrentMemoId$(memoId);
-                toggleBackArrow$('Edit Ingredient');
-              }}
-            />
+            memos && memos.length ?
+              <IngredientList
+                memos={memos}
+                onDeleteMemo={memoId => deleteMemo$(memoId)}
+                onEditMemo={(memoId) => {
+                  setCurrentMemoId$(memoId);
+                  toggleBackArrow$('Edit Ingredient');
+                }}
+              />
+              : <DefaultComponent
+                coverPhotoSrc="../static/img/ingredients_default.jpg"
+              >
+                <div className="textSection">
+                  <h2 className="title">Hello there!</h2>
+                  <p className="description">This is the place to record your ingredients spendings, and a shopping list!</p>
+                </div>
+                <button
+                  className="addDish"
+                  onClick={() => {
+                    setCurrentMemoId$('');
+                    toggleBackArrow$('Edit Ingredient');
+                  }}
+                >
+                  ADD YOUR INGREDIENTS
+                </button>
+              </DefaultComponent>
+
         }
         <style jsx>
           {`
@@ -114,6 +135,42 @@ export class IngredientPage extends React.Component<Props> {
               min-height: 792px;
               height: 100%;
               background-color: #f8f7f7;
+            }
+
+            .textSection {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding-top: 31px;
+            }
+            .title {
+              font-family: 'Playball', cursive;
+              font-size: 24px;
+              color: ${textColor};
+            }
+
+            .description {
+              width: 315px;
+              display: flex;
+              justify-content: center;
+              line-height: 1.5;
+              font-size: 16px;
+              text-align: center;
+              color: ${textColor};
+            }
+            .addDish {
+              border: 0;
+              padding: 0;
+              margin-top: 70px;
+              background-color: ${whiteColor};
+              color: ${primaryColor};
+              font-size: 16px;
+              margin: auto;
+              cursor: pointer;
+              outline: none;
+            }
+            .addDish:hover {
+              color: ${primaryBtnHoverColor};
             }
           `}
         </style>

@@ -23,6 +23,7 @@ type Props = {
     },
   },
   toggleBackArrow$: string => Rx.Observable,
+  showSpinner$: boolean => Rx.Observable,
 }
 
 type State = {
@@ -36,6 +37,10 @@ class Dashboard extends React.Component<Props, State> {
       page: props.url.query.page || 'home',
     };
     this.navigate = this.navigate.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.showSpinner$(false);
   }
 
   componentWillReceiveProps(nextProps: Props) {
