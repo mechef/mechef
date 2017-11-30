@@ -10,43 +10,14 @@ import globalActions from '../actions/globalActions';
 import ErrorModal from './ErrorModal';
 import AccountDetail from './AccountDetail';
 import AccountEdit from './AccountEdit';
+import { AccountObject } from '../utils/flowTypes';
 
 type Props = {
-  account: {
-    name?: string,
-    kitchenName?: string,
-    kitchenDescription?: string,
-    firstName?: string,
-    lastName?: string,
-    phoneNumber?: string,
-    email?: string,
-    coverPhoto?: string,
-    profileImage?: string,
-    update: {
-      name?: string,
-      kitchenName?: string,
-      kitchenDescription?: string,
-      firstName?: string,
-      lastName?: string,
-      phoneNumber?: string,
-      email?: string,
-      coverPhoto?: File,
-      profileImage?: File,
-    },
-  },
+  account: AccountObject,
   fetchAccountDetail$: any => Rx.Observable,
-  updateAccountDetail$: ({
-    name?: string,
-    kitchenName?: string,
-    kitchenDescription?: string,
-    firstName?: string,
-    lastName?: string,
-    phoneNumber?: string,
-    email?: string,
-    coverPhoto?: File,
-    profileImage?: File,
-  }) => Rx.Observable,
-  setField$: any => Rx.Observable,
+  updateAccountDetail$: ({ account: AccountObject }) => Rx.Observable,
+  createCoverPhoto$: File => Rx.Observable,
+  createProfileImage$: File => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -73,7 +44,8 @@ export class AccountPage extends React.Component<Props> {
       error,
       global: { backArrow },
       updateAccountDetail$,
-      setField$,
+      createCoverPhoto$,
+      createProfileImage$,
       toggleBackArrow$,
     } = this.props;
     return (
@@ -91,7 +63,8 @@ export class AccountPage extends React.Component<Props> {
           backArrow.isShow ?
             <AccountEdit
               account={account}
-              onUpdateField={setField$}
+              onUpdateCoverPhoto={createCoverPhoto$}
+              onUpdateProfileImage={createProfileImage$}
               onSubmit={updateAccountDetail$}
               goback={() => toggleBackArrow$('')}
             />

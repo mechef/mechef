@@ -1,11 +1,12 @@
 import Rx from 'rxjs/Rx';
 import menuActions from '../actions/menuActions';
 import errorActions from '../actions/errorActions';
-import { API_MENU } from '../utils/constants';
+import { API_MENU, API_IMAGE } from '../utils/constants';
 
 const initialState = {
   menuList: [],
   currentMenuId: -1,
+  newlyUploadedImages: [],
 };
 
 const menuReducer$ = Rx.Observable.of(() => initialState)
@@ -32,24 +33,12 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
       ...state,
       currentMenuId: menuId,
     })),
-    menuActions.createMenu$.map((reqbody) => {
-      const formData = new FormData();
-      Object.keys(reqbody).forEach((key) => {
-        if (Array.isArray(reqbody[key])) {
-          for (let i = 0; i < reqbody[key].length; i += 1) {
-            formData.append(key, reqbody[key]);
-          }
-        } else {
-          formData.append(key, reqbody[key]);
-        }
-      });
-      return formData;
-    }).flatMap(formData => (
+    menuActions.createMenu$.flatMap(reqbody => (
       Rx.Observable.ajax({
         crossDomain: true,
         url: API_MENU,
         method: 'POST',
-        body: formData,
+        body: reqbody,
         headers: {
           Authorization: window.localStorage.getItem('jwt'),
         },
@@ -64,24 +53,12 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
         return Rx.Observable.of(state => state);
       })
     )),
-    menuActions.updateMenu$.map((reqbody) => {
-      const formData = new FormData();
-      Object.keys(reqbody).forEach((key) => {
-        if (Array.isArray(reqbody[key])) {
-          for (let i = 0; i < reqbody[key].length; i += 1) {
-            formData.append(key, reqbody[key]);
-          }
-        } else {
-          formData.append(key, reqbody[key]);
-        }
-      });
-      return formData;
-    }).flatMap(formData => (
+    menuActions.updateMenu$.flatMap(reqbody => (
       Rx.Observable.ajax({
         crossDomain: true,
-        url: `${API_MENU}/${formData.get('_id')}`,
+        url: `${API_MENU}/${reqbody._id}`,
         method: 'PATCH',
-        body: formData,
+        body: reqbody,
         headers: {
           Authorization: window.localStorage.getItem('jwt'),
         },
@@ -120,6 +97,26 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
         errorActions.setError$.next({ isShowModal: true, title: 'Delete Menu Error', message: error.message });
         return Rx.Observable.of(state => state);
       })
+    )),
+    menuActions.uploadImage$.map((file) => {
+      const formData = new FormData();
+      formData.append('image', file);
+      return formData;
+    }).flatMap(formData => (
+      Rx.Observable.ajax({
+        crossDomain: true,
+        url: API_IMAGE,
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: window.localStorage.getItem('jwt'),
+        },
+        responseType: 'json',
+      }).map(data => state => ({ ...state, newlyUploadedImages: [data.response.image, ...state.newlyUploadedImages] }))
+        .catch((error) => {
+          errorActions.setError$.next({ isShowModal: true, title: 'Create Menu Image Error', message: error.message });
+          return Rx.Observable.of(state => state);
+        })
     )),
   );
 

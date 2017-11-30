@@ -6,4 +6,5 @@ export default {
   updateMenu$: new Rx.Subject,
   setCurrentMenuId$: new Rx.Subject,
   deleteMenu$: new Rx.Subject,
+  uploadImage$: new Rx.Subject,
 };

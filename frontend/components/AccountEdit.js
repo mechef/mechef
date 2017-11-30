@@ -5,60 +5,52 @@ import Rx from 'rxjs/Rx';
 
 import Button from './Button';
 import TextInput from './TextInput';
+import { IMAGE_URL } from '../utils/constants'
+import { AccountObject } from '../utils/flowTypes';
 
 type Props = {
-  account: {
-    name?: string,
-    kitchenName?: string,
-    kitchenDescription?: string,
-    firstName?: string,
-    lastName?: string,
-    phoneNumber?: string,
-    email?: string,
-    coverPhoto?: string,
-    profileImage?: string,
-    update: {
-      name?: string,
-      kitchenName?: string,
-      kitchenDescription?: string,
-      firstName?: string,
-      lastName?: string,
-      phoneNumber?: string,
-      email?: string,
-      coverPhoto?: File,
-      profileImage?: File,
-    },
-  },
-  onUpdateField: ({
-    name?: string,
-    kitchenName?: string,
-    kitchenDescription?: string,
-    firstName?: string,
-    lastName?: string,
-    phoneNumber?: string,
-    email?: string,
-    coverPhoto?: File,
-    profileImage?: File,
-  }) => Rx.Observable,
-  onSubmit: ({
-    name?: string,
-    kitchenName?: string,
-    kitchenDescription?: string,
-    firstName?: string,
-    lastName?: string,
-    phoneNumber?: string,
-    email?: string,
-    coverPhoto?: File,
-    profileImage?: File,
-  }) => Rx.Observable,
+  account: AccountObject,
+  onUpdateCoverPhoto: File => Rx.Observable,
+  onUpdateProfileImage: File => Rx.Observable,
+  onSubmit: ({ account: AccountObject }) => Rx.Observable,
   goback: any => Rx.Observable,
 }
 
-class AccountEdit extends React.Component<Props> {
+type State = {
+  name: string,
+  kitchenName: string,
+  kitchenDescription: string,
+  firstName: string,
+  lastName: string,
+  phoneNumber: string,
+  email: string,
+  coverPhoto: string,
+  profileImage: string,
+}
+
+class AccountEdit extends React.Component<Props, State> {
+
+  static defaultProps = {
+    account: {
+      name: '',
+      kitchenName: '',
+      kitchenDescription: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: '',
+      coverPhoto: '',
+      profileImage: '',
+    },
+  }
+
   constructor(props: Props) {
     super(props);
     this.handleCoverPhotoUpload = this.handleCoverPhotoUpload.bind(this);
     this.handleProfileImageUpload = this.handleProfileImageUpload.bind(this);
+    this.state = {
+      ...props.account,
+    };
   }
 
   handleCoverPhotoUpload: Function;
@@ -72,8 +64,7 @@ class AccountEdit extends React.Component<Props> {
     const file = event.target.files[0];
     const imgSrc = window.URL.createObjectURL(file);
     if (this.coverPhotoImg && imgSrc) {
-      this.coverPhotoImg.src = imgSrc;
-      this.props.onUpdateField({ coverPhoto: file });
+      this.props.onUpdateCoverPhoto(file);
     }
   }
 
@@ -81,8 +72,7 @@ class AccountEdit extends React.Component<Props> {
     const file = event.target.files[0];
     const imgSrc = window.URL.createObjectURL(file);
     if (this.profileImageThumbnail && imgSrc) {
-      this.profileImageThumbnail.src = imgSrc;
-      this.props.onUpdateField({ profileImage: file });
+      this.props.onUpdateProfileImage(file);
     }
   }
 
@@ -113,7 +103,7 @@ class AccountEdit extends React.Component<Props> {
                 this.coverPhotoImg = input;
               }}
               className="coverPhoto"
-              src={this.props.account.coverPhoto || "../static/pancake.jpg"}
+              src={this.props.account.coverPhoto ? `${IMAGE_URL}/${this.props.account.coverPhoto}` : "../static/pancake.jpg"}
               alt="cover"
             />
             <div className="update-cover-photo__title">
@@ -147,7 +137,7 @@ class AccountEdit extends React.Component<Props> {
                   this.profileImageThumbnail = input;
                 }}
                 className="profileImage"
-                src={this.props.account.profileImage || "../static/avatar.jpg"}
+                src={this.props.account.profileImage ? `${IMAGE_URL}/${this.props.account.profileImage}` : "../static/avatar.jpg"}
                 alt="profile"
               />
               <i className="fa fa-camera update-profile-image__avatar-camera-icon" aria-hidden="true" />
@@ -164,10 +154,12 @@ class AccountEdit extends React.Component<Props> {
               type="text"
               placeholder="Enter Kitchen Name"
               size="large"
-              value={this.props.account.kitchenName || ''}
+              value={this.state.kitchenName|| ''}
               onChange={(event) => {
                 if (event && event.target) {
-                  this.props.onUpdateField({ kitchenName: event.target.value });
+                  this.setState({
+                    kitchenName: event.target.value,
+                  });
                 }
               }}
             />
@@ -178,9 +170,11 @@ class AccountEdit extends React.Component<Props> {
             <textarea
               type="text"
               className="bank-info__text-area"
-              value={this.props.account.kitchenDescription || ''}
+              value={this.state.kitchenDescription || ''}
               onChange={(evt) => {
-                this.props.onUpdateField({ kitchenDescription: evt.target.value });
+                this.setState({
+                  kitchenDescription: evt.target.value,
+                });
               }}
             />
           </div>
@@ -192,10 +186,12 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.props.account.firstName || ''}
+                value={this.state.firstName || ''}
                 onChange={(event) => {
                   if (event && event.target) {
-                    this.props.onUpdateField({ firstName: event.target.value });
+                    this.setState({
+                      firstName: event.target.value,
+                    });
                   }
                 }}
               />
@@ -203,10 +199,12 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.props.account.lastName || ''}
+                value={this.state.lastName || ''}
                 onChange={(event) => {
                   if (event && event.target) {
-                    this.props.onUpdateField({ lastName: event.target.value });
+                    this.setState({
+                      lastName: event.target.value,
+                    });
                   }
                 }}
               />
@@ -220,10 +218,12 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.props.account.phoneNumber || ''}
+                value={this.state.phoneNumber || ''}
                 onChange={(event) => {
                   if (event && event.target) {
-                    this.props.onUpdateField({ phoneNumber: event.target.value });
+                    this.setState({
+                      phoneNumber: event.target.value,
+                    });
                   }
                 }}
               />
@@ -235,10 +235,12 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.props.account.email || ''}
+                value={this.state.email || ''}
                 onChange={(event) => {
                   if (event && event.target) {
-                    this.props.onUpdateField({ email: event.target.value });
+                    this.setState({
+                      email: event.target.value,
+                    });
                   }
                 }}
               />
@@ -260,7 +262,12 @@ class AccountEdit extends React.Component<Props> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                this.props.onSubmit(this.props.account.update);
+                console.log('coverPhoto:::', this.props.account.coverPhoto);
+                this.props.onSubmit({
+                  ...this.state,
+                  coverPhoto: this.props.account.coverPhoto,
+                  profileImage: this.props.account.profileImage,
+                });
               }}
             >
               SAVE

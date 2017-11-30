@@ -30,3 +30,16 @@ export type MenuObject = {
   ingredients?: Array<string>,
   category?: Array<string>,
 };
+
+export type AccountObject = {
+  _id?: string,
+  name?: string,
+  kitchenName?: string,
+  kitchenDescription?: string,
+  firstName?: string,
+  lastName?: string,
+  phoneNumber?: string,
+  email?: string,
+  coverPhoto?: string,
+  profileImage?: string,
+};

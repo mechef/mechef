@@ -22,12 +22,14 @@ type Props = {
   menu: {
     menuList: Array<MenuObject>,
     currentMenuId: string,
+    newlyUploadedImages: Array<string>,
   },
   fetchMenus$: any => Rx.Observable,
   createMenu$: (menu: MenuObject) => Rx.Observable,
   updateMenu$: (menu: MenuObject) => Rx.Observable,
   deleteMenu$: (menuId: string) => Rx.Observable,
   setCurrentMenuId$: (menuId: string) => Rx.Observable,
+  uploadImage$: File => Rx.Observable,
   fetchDelivery$: any => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
@@ -51,13 +53,14 @@ export class MenuPage extends React.Component<Props> {
   render() {
     const {
       delivery: { meetupList },
-      menu: { menuList, currentMenuId },
+      menu: { menuList, currentMenuId, newlyUploadedImages },
       setError$,
       error,
       global: { backArrow },
       createMenu$,
       updateMenu$,
       deleteMenu$,
+      uploadImage$,
       toggleBackArrow$,
       setCurrentMenuId$,
     } = this.props;
@@ -77,10 +80,12 @@ export class MenuPage extends React.Component<Props> {
           backArrow.isShow ?
             <MenuEdit
               menuList={menuList}
+              newlyUploadedImages={newlyUploadedImages}
               currentMenuId={currentMenuId}
               onCreateMenu={createMenu$}
               onUpdateMenu={updateMenu$}
               onDeleteMenu={menuId => deleteMenu$(menuId)}
+              onUploadImage={uploadImage$}
               goBack={() => toggleBackArrow$('')}
               fetchDelivery={this.props.fetchDelivery$}
               deliveryList={meetupList}
