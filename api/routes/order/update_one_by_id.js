@@ -16,12 +16,7 @@ module.exports = (req, res) => {
     }
 
     const updateFields = {};
-    if (req.body.buyerName) updateFields.buyerName = req.body.buyerName;
-    if (req.body.buyerEmail) updateFields.buyerEmail = req.body.buyerEmail;
     if (req.body.state && req.body.state in constants.order_state) updateFields.state = req.body.state;
-    if (req.body.quantity) updateFields.quantity = req.body.quantity;
-    if (req.body.deliveryTime) updateFields.deliveryTime = req.body.deliveryTime;
-    if (req.body.deliveryAddress) updateFields.deliveryAddress = req.body.deliveryAddress;
 
     Order.findOneAndUpdate({ _id: req.params.id, sellerEmail: decoded.email }, { $set: updateFields }, (error, order) => {
     if (error) {
