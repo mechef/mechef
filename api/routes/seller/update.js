@@ -50,13 +50,14 @@ module.exports = (req, res) => {
     if (req.body.firstName) updateFields.firstName = req.body.firstName;
     if (req.body.lastName) updateFields.lastName = req.body.lastName;
     if (req.body.phoneNumber) updateFields.phoneNumber = req.body.phoneNumber;
+    
     const updateFieldsOfImage = [];
-    if (req.files && req.files['coverPhoto']) {
-      updateFields.coverPhoto = req.files['coverPhoto'][0].filename;
+    if (req.body.coverPhoto) {
+      updateFields.coverPhoto = req.body.coverPhoto;
       updateFieldsOfImage.push('coverPhoto');
     }
-    if (req.files && req.files['profileImage']) {
-      updateFields.profileImage = req.files['profileImage'][0].filename;
+    if (req.body.profileImage) {
+      updateFields.profileImage = req.body.profileImage;
       updateFieldsOfImage.push('profileImage');
     }
 
@@ -74,26 +75,6 @@ module.exports = (req, res) => {
         const gfs = new Gridfs(db, mongoDriver);
 
         for (let i = 0; i < updateFieldsOfImage.length; i++) {
-          const writestream = gfs.createWriteStream({
-            filename: req.files[updateFieldsOfImage[i]][0].filename,
-            mode: 'w',
-            content_type: req.files[updateFieldsOfImage[i]][0].mimetype,
-            metadata: {
-              email: decoded.email,
-              type: updateFieldsOfImage[i],
-              path: req.files[updateFieldsOfImage[i]][0].path,
-            },
-          });
-
-          fs.createReadStream(req.files[updateFieldsOfImage[i]][0].path).pipe(writestream);
-          writestream.on('close', (file) => {
-            fs.unlink(file.metadata.path, (erro) => {
-              if (erro) {
-                console.log(erro);
-              }
-            });
-          });
-
           if (seller[updateFieldsOfImage[i]] && seller[updateFieldsOfImage[i]] !== '') {
             gfs.remove({ filename: seller[updateFieldsOfImage[i]] }, (erro) => {
               if (erro) {
