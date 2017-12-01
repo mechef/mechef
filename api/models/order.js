@@ -12,7 +12,7 @@ const OrderSchema = new mongoose.Schema({
   amount: Number,
   orderTime: Date,
   deliveryId: String,
-  deliveryTime: Date,
+  deliveryTime: String,
   deliveryAddress: String,
   deliveryLatitude: Number,
   deliveryLongitude: Number,
@@ -31,7 +31,8 @@ OrderSchema.methods.toOrder = function() {
     deliveryTime: this.deliveryTime,
     deliveryLatitude: this.deliveryLatitude,
     deliveryLongitude: this.deliveryLongitude,
-    messageFromBuyer: this.messageFromBuyer
+    messageFromBuyer: this.messageFromBuyer,
+    state: this.state
   }
 };
 
