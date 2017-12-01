@@ -97,7 +97,6 @@ const Modal = (props: Props) => (
         .alert-title {
           padding-top: 34px;
           font-size: 16px;
-          font-weight: 500;
           letter-spacing: 0.7px;
           text-align: left;
           color: #4a4a4a;
@@ -105,7 +104,6 @@ const Modal = (props: Props) => (
         .alert-message {
           padding-top: 23px;
           font-size: 16px;
-          font-weight: 500;
           letter-spacing: 0.7px;
           text-align: center;
           color: #4a4a4a;

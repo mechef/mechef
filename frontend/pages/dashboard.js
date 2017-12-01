@@ -7,7 +7,7 @@ import Router from 'next/router';
 import { connect } from '../state/RxState';
 import DashboardPageRouter from '../components/DashboardPageRouter';
 import globalActions from '../actions/globalActions';
-import { primaryColor, transparent, btnTextColor, textHintColor } from '../utils/styleVariables';
+import { primaryColor, transparent, btnTextColor, textHintColor, whiteColor } from '../utils/styleVariables';
 
 type Props = {
   url: {
@@ -108,8 +108,10 @@ class Dashboard extends React.Component<Props, State> {
                   </div>
               }
               <div className="dashboard-header__user-profile">
-                <div className="dashboard-header__user-head" />
-                <div className="dashboard-header__user-head" />
+                <div className="dashboard-header__preview">
+                  <img src="../static/svg/preview_icon.svg" />
+                  <span className="preview-text">Preview</span>
+                </div>
                 <div className="dashboard-header__user-head" />
               </div>
             </div>
@@ -204,9 +206,10 @@ class Dashboard extends React.Component<Props, State> {
 
               .dashboard-header__wrapper {
                 padding-left:20px;
-                padding-top: 38px;
                 display: flex;
                 justify-content: space-between;
+                align-items: center;
+                height: 100%;
               }
 
               .dashboard-header__title {
@@ -264,11 +267,27 @@ class Dashboard extends React.Component<Props, State> {
               }
 
               .dashboard-header__user-profile {
-                margin-right: 40.2px;
-                width: 130px;
                 display: flex;
-                justify-content: space-between;
+                margin-right: 50px;
               }
+
+              .dashboard-header__preview {
+                background-color: ${primaryColor};
+                width: 110px;
+                height: 30px;
+                border-radius: 32px;
+                color: ${whiteColor};
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 12px;
+                cursor: pointer;
+              }
+
+              .preview-text {
+                margin-left: 4px;
+              }
+
               @media all and (max-width: 600px) {
                 .dashboard-header__user-profile {
                   display: none;
@@ -279,6 +298,7 @@ class Dashboard extends React.Component<Props, State> {
                 height: 30px;
                 background-color: #d8d8d8;
                 border-radius: 50%;
+                margin-left: 16px;
               }
 
               /* home.css  */
