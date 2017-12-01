@@ -262,7 +262,6 @@ class AccountEdit extends React.Component<Props, State> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                console.log('coverPhoto:::', this.props.account.coverPhoto);
                 this.props.onSubmit({
                   ...this.state,
                   coverPhoto: this.props.account.coverPhoto,

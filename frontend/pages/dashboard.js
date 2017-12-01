@@ -34,7 +34,7 @@ class Dashboard extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      page: props.url.query.page || 'home',
+      page: props.url.query && props.url.query.page ? props.url.query.page : 'home',
     };
     this.navigate = this.navigate.bind(this);
   }
@@ -44,9 +44,11 @@ class Dashboard extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    this.setState({
-      page: nextProps.url.query.page,
-    });
+    if (nextProps.url.query && nextProps.url.query.page) {
+      this.setState({
+        page: nextProps.url.query.page,
+      });
+    }
   }
 
   navigate: Function;
