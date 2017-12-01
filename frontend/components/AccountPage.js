@@ -7,7 +7,7 @@ import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
-import ErrorModal from './ErrorModal';
+import Modal from './Modal';
 import AccountDetail from './AccountDetail';
 import AccountEdit from './AccountEdit';
 import { AccountObject } from '../utils/flowTypes';
@@ -52,7 +52,7 @@ export class AccountPage extends React.Component<Props> {
       <div className="accountContainer">
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}

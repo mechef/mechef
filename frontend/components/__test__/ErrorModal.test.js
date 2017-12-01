@@ -1,13 +1,13 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
 
-import ErrorModal from '../ErrorModal';
+import Modal from '../Modal';
 
 
 describe('Pages With Snapshot Testing', () => {
   it('snapshot DeliveryPage Component', () => {
     const component = renderer.create(
-      <ErrorModal
+      <Modal
         title="Error"
         message="Something Wrong"
         onCancel={() => {}}

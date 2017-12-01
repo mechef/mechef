@@ -7,7 +7,7 @@ import { connect } from '../state/RxState';
 import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
-import ErrorModal from './ErrorModal';
+import Modal from './Modal';
 import { OrderObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 import { primaryColor, textColor, whiteColor, primaryBtnHoverColor } from '../utils/styleVariables';
@@ -83,7 +83,7 @@ class OrderPage extends React.Component<Props> {
       <div className="container">
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}

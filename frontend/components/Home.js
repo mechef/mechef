@@ -6,7 +6,7 @@ import Rx from 'rxjs/Rx';
 import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
 import errorActions from '../actions/errorActions';
-import ErrorModal from './ErrorModal';
+import Modal from './Modal';
 import { transparent, whiteColor, textColor, textHintColor } from '../utils/styleVariables';
 import { AccountObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants'
@@ -67,7 +67,7 @@ export class Home extends React.Component<Props> {
       <div className="homeContainer">
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}

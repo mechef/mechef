@@ -8,7 +8,7 @@ import menuActions from '../actions/menuActions';
 import deliveryActions from '../actions/deliveryActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
-import ErrorModal from './ErrorModal';
+import Modal from './Modal';
 import MenuList from './MenuList';
 import MenuEdit from './MenuEdit';
 import DefaultComponent from './DefaultComponent';
@@ -68,7 +68,7 @@ export class MenuPage extends React.Component<Props> {
       <div className="container">
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}

@@ -7,7 +7,7 @@ import { connect } from '../state/RxState';
 import deliveryActions from '../actions/deliveryActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
-import ErrorModal from './ErrorModal';
+import Modal from './Modal';
 import DeliveryList from './DeliveryList';
 import DeliveryEdit from './DeliveryEdit';
 import DefaultComponent from './DefaultComponent';
@@ -59,7 +59,7 @@ export class DeliveryPage extends React.Component<Props> {
       <div className="container">
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}

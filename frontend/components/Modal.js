@@ -3,18 +3,30 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
+import { successModalColor, warningModalColor, errorModalColor, hintModalColor } from '../utils/styleVariables';
+
 type Props = {
+  type: string,
   title: string,
   message: string,
   onCancel: () => Rx.Observable,
 }
 
-const ErrorModal = (props: Props) => (
+const modalColor = {
+  success: successModalColor,
+  warning: warningModalColor,
+  error: errorModalColor,
+  hint: hintModalColor,
+};
+
+const Modal = (props: Props) => (
   <div className="alert-modal-overlay">
     <div className="alert-modal">
       <header className="alert-modal-header">
-        <img className="alert-modal-logo" src="../static/svg/mechef_logo.svg" alt="logo" />
-        <i className="fa fa-times cancel-btn fa-2x" aria-hidden="true" onClick={props.onCancel} />
+        <img className="alert-modal-logo" src="../static/svg/mechef_logo_white.svg" alt="logo" />
+        <div className="cancelBtnWrapper">
+          <button className="cancel-btn" onClick={props.onCancel}>&times;</button>
+        </div>
       </header>
       <section className="alert-modal-body">
         <p className="alert-title">{props.title}</p>
@@ -42,7 +54,7 @@ const ErrorModal = (props: Props) => (
           width: 305px;
           height: 327px;
           border-radius: 8px;
-          background-color: #3f9f40;
+          background-color: ${modalColor[props.type]};
         }
         .alert-modal-header {
           display: flex;
@@ -54,9 +66,25 @@ const ErrorModal = (props: Props) => (
           width: 55px;
           height: 40px;
         }
+        .cancelBtnWrapper {
+          position: absolute;
+          right: 0;
+          width: 24px;
+          height: 24px;
+        }
         .cancel-btn {
-          padding: 10px;
-          color: rgba(255, 255, 255, 0.6);
+          margin: auto;
+          font-size: 24px;
+          background-color: ${modalColor[props.type]};
+          color: #ffffff;
+          border: 0;
+          padding: 0;
+          margin: 0;
+          outline: none;
+          cursor: pointer;
+        }
+        .cancel-btn:hover {
+          opacity: 0.6;
         }
         .alert-modal-body {
           display: flex;
@@ -90,10 +118,11 @@ const ErrorModal = (props: Props) => (
   </div>
 );
 
-ErrorModal.defaultProps = {
+Modal.defaultProps = {
+  type: 'hint',
   title: '',
   message: '',
   onCancel: () => {},
 };
 
-export default ErrorModal;
+export default Modal;

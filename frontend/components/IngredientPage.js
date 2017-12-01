@@ -7,7 +7,7 @@ import { connect } from '../state/RxState';
 import ingredientActions from '../actions/ingredientActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
-import ErrorModal from './ErrorModal';
+import Modal from './Modal';
 import IngredientList from './IngredientList';
 import IngredientEdit from './IngredientEdit';
 import DefaultComponent from './DefaultComponent';
@@ -79,7 +79,7 @@ export class IngredientPage extends React.Component<Props> {
       <div className="container">
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}

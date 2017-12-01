@@ -9,7 +9,7 @@ import authActions from '../actions/authActions';
 import errorActions from '../actions/errorActions';
 import { API_REGISTER } from '../utils/constants';
 import Header from '../components/Header';
-import ErrorModal from '../components/ErrorModal';
+import Modal from '../components/Modal';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import MapWithAutoComplete from '../components/MapWithAutoComplete';
