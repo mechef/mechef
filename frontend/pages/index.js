@@ -5,6 +5,8 @@ import SelectBox from '../components/SelectBox';
 import MenuItem from '../components/MenuItem';
 import Tag from '../components/Tag';
 import UploadImage from '../components/UploadImage';
+import ErrorComponent from '../components/ErrorComponent';
+import { textColor } from '../utils/styleVariables';
 
 const Index = props => (
   <div>
@@ -57,6 +59,37 @@ const Index = props => (
         ))
       }
     </ul>
+    <ErrorComponent
+      buttonText="GO TO HOME PAGE"
+      onClick={() => { alert('go to home page!'); }}
+    >
+      <div className="textSection">
+        <h2 className="title">Hello there!</h2>
+        <p className="description">This is the place to record your ingredients spendings, and a shopping list!</p>
+      </div>
+    </ErrorComponent>
+    <style jsx>{`
+      .textSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 31px;
+      }
+      .title {
+        font - family: 'Playball';
+        font-size: 24px;
+        color: ${textColor};
+      }
+      .description {
+        width: 315px;
+        display: flex;
+        justify-content: center;
+        line-height: 1.5;
+        font-size: 16px;
+        text-align: center;
+        color: ${textColor};
+      }
+    `}</style>
   </div>
 );
 
