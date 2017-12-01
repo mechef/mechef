@@ -10,7 +10,7 @@ import authActions from '../actions/authActions';
 import errorActions from '../actions/errorActions';
 import { API_REGISTER } from '../utils/constants';
 import Header from '../components/Header';
-import ErrorModal from '../components/ErrorModal';
+import Modal from '../components/Modal';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import Spinner from '../components/Spinner';
@@ -108,7 +108,7 @@ class Login extends React.Component<Props, State> {
       <div>
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}

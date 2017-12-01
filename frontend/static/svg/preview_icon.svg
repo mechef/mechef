@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>preview icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="preview-icon" stroke-width="1.002" stroke="#FFFFFF">
+            <g id="Page-1">
+                <path d="M15.4636,8.3949 L15.4636,6.3309 L16.5636,6.3309 C17.3446,6.3309 17.6166,5.2909 16.9356,4.9079 L9.2846,0.5989 C9.0536,0.4689 8.7716,0.4689 8.5406,0.5989 L0.8896,4.9079 C0.2086,5.2909 0.4806,6.3309 1.2616,6.3309 L2.3616,6.3309 L2.3616,14.9709 C2.3616,15.3019 2.6316,15.5729 2.9636,15.5729 L7.8876,15.5729" id="Stroke-1"></path>
+                <path d="M20.5012,15.4726 C20.5012,16.6656 18.1892,19.0516 15.3372,19.0516 C12.4862,19.0516 10.1742,16.6656 10.1742,15.4726 C10.1742,14.2796 12.4862,11.8936 15.3372,11.8936 C18.1892,11.8936 20.5012,14.2796 20.5012,15.4726 Z" id="Stroke-3"></path>
+                <path d="M17.3234,15.4726 C17.3234,16.5706 16.4344,17.4606 15.3374,17.4606 C14.2404,17.4606 13.3514,16.5706 13.3514,15.4726 C13.3514,14.3746 14.2404,13.4846 15.3374,13.4846 C16.4344,13.4846 17.3234,14.3746 17.3234,15.4726 Z" id="Stroke-5"></path>
+                <path d="M15.4704,10.4003 L15.4704,11.7603" id="Stroke-7"></path>
+                <path d="M17.3234,11.8935 L18.2844,10.9315" id="Stroke-9"></path>
+                <path d="M13.9645,11.8935 L13.0045,10.9315" id="Stroke-11"></path>
+            </g>
+        </g>
+    </g>
+</svg>

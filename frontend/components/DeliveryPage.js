@@ -7,10 +7,12 @@ import { connect } from '../state/RxState';
 import deliveryActions from '../actions/deliveryActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
-import ErrorModal from './ErrorModal';
+import Modal from './Modal';
 import DeliveryList from './DeliveryList';
 import DeliveryEdit from './DeliveryEdit';
+import DefaultComponent from './DefaultComponent';
 import { MeetupObject } from '../utils/flowTypes';
+import { whiteColor, primaryColor, textColor, primaryBtnHoverColor, textSize } from '../utils/styleVariables';
 
 type Props = {
   delivery: {
@@ -57,7 +59,7 @@ export class DeliveryPage extends React.Component<Props> {
       <div className="container">
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
@@ -75,13 +77,32 @@ export class DeliveryPage extends React.Component<Props> {
               goBack={() => toggleBackArrow$('')}
             />
             :
-            <DeliveryList
-              meetupList={meetupList}
-              onEditDelivery={(meetupId) => {
-                setCurrentMeetupId$(meetupId);
-                toggleBackArrow$('Edit Delivery');
-              }}
-            />
+            meetupList && meetupList.length ?
+              <DeliveryList
+                meetupList={meetupList}
+                onEditDelivery={(meetupId) => {
+                  setCurrentMeetupId$(meetupId);
+                  toggleBackArrow$('Edit Delivery');
+                }}
+              />
+              : <DefaultComponent
+                coverPhotoSrc="../static/img/delivery_default.jpg"
+              >
+                <div className="textSection">
+                  <h2 className="title">Hello there!</h2>
+                  <p className="subtitle">MEET UP</p>
+                  <p className="description">Add your first meetup location and available date &amp; time</p>
+                </div>
+                <button
+                  className="addDish"
+                  onClick={() => {
+                    setCurrentMeetupId$('');
+                    toggleBackArrow$('Edit Delivery');
+                  }}
+                >
+                  ADD MEETUP OPTION
+                </button>
+              </DefaultComponent>
         }
         <style jsx>
           {`
@@ -92,6 +113,48 @@ export class DeliveryPage extends React.Component<Props> {
               width: 100%;
               height: 998px;
               background-color: #f8f7f7;
+            }
+
+            .textSection {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding-top: 31px;
+            }
+            .title {
+              font-family: 'Playball', cursive;
+              font-size: 24px;
+              color: ${textColor};
+            }
+
+            .subtitle {
+              font-size: ${textSize};
+              font-weight: 500;
+              color: ${textColor};
+            }
+
+            .description {
+              width: 315px;
+              display: flex;
+              justify-content: center;
+              line-height: 1.5;
+              font-size: 16px;
+              text-align: center;
+              color: ${textColor};
+            }
+            .addDish {
+              border: 0;
+              padding: 0;
+              margin-top: 70px;
+              background-color: ${whiteColor};
+              color: ${primaryColor};
+              font-size: 16px;
+              margin: auto;
+              cursor: pointer;
+              outline: none;
+            }
+            .addDish:hover {
+              color: ${primaryBtnHoverColor};
             }
           `}
         </style>

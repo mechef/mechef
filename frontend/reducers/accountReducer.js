@@ -4,7 +4,7 @@ import Rx from 'rxjs/Rx';
 import accountActions from '../actions/accountActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
-import { API_ACCOUNT } from '../utils/constants';
+import { API_ACCOUNT, API_IMAGE } from '../utils/constants';
 
 const initialState = {
   name: '',
@@ -14,7 +14,6 @@ const initialState = {
   phoneNumber: '',
   coverPhoto: '',
   profileImage: '',
-  update: {},
 };
 
 const accountReducer$ = Rx.Observable.of(() => initialState)
@@ -59,11 +58,46 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
         return Rx.Observable.of(state => state);
       })
     )),
-    accountActions.setField$.map(payload => state => ({
-      ...state,
-      ...payload,
-      update: { ...state.update, ...payload },
-    })),
+    accountActions.createCoverPhoto$.map((file) => {
+      const formData = new FormData();
+      formData.append('image', file);
+      return formData;
+    }).flatMap(formData => (
+      Rx.Observable.ajax({
+        crossDomain: true,
+        url: API_IMAGE,
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: window.localStorage.getItem('jwt'),
+        },
+        responseType: 'json',
+      }).map(data => state => ({ ...state, coverPhoto: data.response.image }))
+        .catch((error) => {
+          errorActions.setError$.next({ isShowModal: true, title: 'Create Cover Image Error', message: error.message });
+          return Rx.Observable.of(state => state);
+        })
+    )),
+    accountActions.createProfileImage$.map((file) => {
+      const formData = new FormData();
+      formData.append('image', file);
+      return formData;
+    }).flatMap(formData => (
+      Rx.Observable.ajax({
+        crossDomain: true,
+        url: API_IMAGE,
+        method: 'POST',
+        body: formData,
+        headers: {
+          Authorization: window.localStorage.getItem('jwt'),
+        },
+        responseType: 'json',
+      }).map(data => state => ({ ...state, profileImage: data.response.image }))
+        .catch((error) => {
+          errorActions.setError$.next({ isShowModal: true, title: 'Create Profile Photo Error', message: error.message });
+          return Rx.Observable.of(state => state);
+        })
+    )),
   );
 
 export default accountReducer$;

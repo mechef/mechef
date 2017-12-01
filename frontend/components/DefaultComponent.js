@@ -6,11 +6,8 @@ import Rx from 'rxjs/Rx';
 import { whiteColor, borderRadius, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
 
 type Props = {
-  onClick: () => Rx.Observable,
   coverPhotoSrc: string,
-  title: string,
-  description: string,
-  actionText: string,
+  children: React.Node,
 }
 
 const DefaultComponent = (props: Props) => (
@@ -19,11 +16,7 @@ const DefaultComponent = (props: Props) => (
     <div className="defaultIcon">
       <img alt="default icon" src="../static/img/default_icon.svg" />
     </div>
-    <div className="textSection">
-      <h2 className="title">{props.title}</h2>
-      <p className="description">{props.description}</p>
-    </div>
-    <button className="addDish" onClick={props.onClick}>{props.actionText}</button>
+    {props.children}
     <style jsx>
       {`
         .wrapper {
@@ -55,41 +48,6 @@ const DefaultComponent = (props: Props) => (
           position: absolute;
           top: 120px;
           left: 185px;
-        }
-        .textSection {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          padding-top: 31px;
-        }
-        .title {
-          font-family: 'Playball', cursive;
-          font-size: 24px;
-          color: ${textColor};
-        }
-
-        .description {
-          width: 315px;
-          display: flex;
-          justify-content: center;
-          line-height: 1.5;
-          font-size: 16px;
-          text-align: center;
-          color: ${textColor};
-        }
-        .addDish {
-          border: 0;
-          padding: 0;
-          margin-top: 70px;
-          background-color: ${whiteColor};
-          color: ${primaryColor};
-          font-size: 16px;
-          margin: auto;
-          cursor: pointer;
-          outline: none;
-        }
-        .addDish:hover {
-          color: ${primaryBtnHoverColor};
         }
       `}
     </style>

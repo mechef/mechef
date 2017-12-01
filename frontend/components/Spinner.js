@@ -23,7 +23,9 @@ const Spinner = () => (
           left: 50%;
           width: 40px;
           height: 40px;
+          border-radius: 4px;
           background-color: #ffffff;
+          background-image: url('../static/svg/loading_02.svg');
           animation: sk-rotateplane 1.2s infinite ease-in-out;
         }
 

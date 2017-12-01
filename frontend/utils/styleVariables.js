@@ -47,3 +47,9 @@ export const twitterBtnHoverColor = '#4194ae';
 // Menu Item
 export const titleFontSize = '16px';
 export const subtitleFontSize = '14px';
+
+// Modal
+export const successModalColor = '#3f9f40';
+export const warningModalColor = '#f0ad4f';
+export const errorModalColor = '#d9524f';
+export const hintModalColor = '#9b9b9b';

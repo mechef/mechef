@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import Rx from 'rxjs/Rx';
 
 import {
   primaryColor,
@@ -9,26 +10,19 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  onImageUpload: ({ image: File }) => mixed,
+  onImageUpload: File => Rx.Observable,
   imgSrc: string,
 };
 
-type State = {
-  imageSrc: string,
-}
-
-class UploadImage extends React.Component<Props, State> {
+class UploadImage extends React.Component<Props> {
   static defaultProps = {
     onImageUpload: () => {},
-    imageSrc: '',
+    imgSrc: '',
   }
 
   constructor(props: Props) {
     super(props);
     this.handleImageUpload = this.handleImageUpload.bind(this);
-    this.state = {
-      imageSrc: props.imgSrc,
-    };
   }
 
   handleImageUpload: Function;
@@ -39,10 +33,7 @@ class UploadImage extends React.Component<Props, State> {
     const file = event.target.files[0];
     const imgSrc = window.URL.createObjectURL(file);
     if (this.imageSrc && imgSrc) {
-      this.imageSrc.src = imgSrc;
-      this.setState({
-        imageSrc: imgSrc,
-      });
+      // this.imageSrc.src = imgSrc;
       this.props.onImageUpload(file);
     }
   }
@@ -91,7 +82,7 @@ class UploadImage extends React.Component<Props, State> {
             }
 
             .addBtn {
-              display: ${this.state.imageSrc ? 'none' : 'flex'};
+              display: ${this.props.imgSrc ? 'none' : 'flex'};
               margin: auto;
               cursor: pointer;
               background-color: ${whiteColor};
@@ -114,7 +105,7 @@ class UploadImage extends React.Component<Props, State> {
             }
 
             .image {
-              display: ${this.state.imageSrc ? 'flex' : 'none'};
+              display: ${this.props.imgSrc ? 'flex' : 'none'};
               height: 160px;
               width: 160px;
               border-radius: ${borderRadius};

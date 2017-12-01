@@ -18,7 +18,9 @@ type Props = {
   onCreateMenu: (menu: MenuObject) => Rx.Observable,
   onUpdateMenu: (menu: MenuObject) => Rx.Observable,
   onDeleteMenu: (menuId: string) => Rx.Observable,
+  onUploadImage: File => Rx.Observable,
   menuList: Array<MenuObject>,
+  newlyUploadedImages: Array<string>,
   deliveryList: Array<MeetupObject>,
   fetchDelivery: () => Rx.Observable,
   currentMenuId: string,
@@ -96,7 +98,8 @@ class MenuEdit extends React.Component<Props, State> {
   }
 
   render() {
-    const { goBack, onCreateMenu, onUpdateMenu, onDeleteMenu, currentMenuId } = this.props;
+    const { goBack, onCreateMenu, onUpdateMenu, onDeleteMenu, onUploadImage, currentMenuId, newlyUploadedImages } = this.props;
+    const displayImages = [...newlyUploadedImages, ...this.state.images];
     return (
       <div className="dashboard-content">
         <p className="mainTitle">Edit Menu</p>
@@ -106,15 +109,17 @@ class MenuEdit extends React.Component<Props, State> {
             <p className="subtitle">Add Images Add Images</p>
             <div className="uploadImageWrapper">
               {
-                [1, 2, 3].map((_, index) => (
+                displayImages.length < 3 ?
+                  <UploadImage imgSrc="" onImageUpload={onUploadImage} />
+                  :
+                  null
+              }
+              {
+                displayImages.map((_, index) => (
                   <div className="imageWrapper">
                     <UploadImage
-                      imgSrc={this.state.images[index] ? `${IMAGE_URL}/${this.state.images[index]}` : ''}
-                      onImageUpload={(file) => {
-                        this.setState({
-                          images: [...this.state.images, file],
-                        });
-                      }}
+                      imgSrc={`${IMAGE_URL}/${displayImages[index]}`}
+                      onImageUpload={onUploadImage}
                     />
                   </div>
                 ))
@@ -373,11 +378,15 @@ class MenuEdit extends React.Component<Props, State> {
               size="small"
               onClick={() => {
                 const { ingredientInput, categoryInput, deliveryList, ...menuObject } = this.state;
+                const menuWithNewlyUploadedImages = {
+                  ...menuObject,
+                  images: [...newlyUploadedImages, ...menuObject.images],
+                };
                 if (this.state._id) {
                   // TODO: Modify to only provide updated data
-                  onUpdateMenu(menuObject);
+                  onUpdateMenu(menuWithNewlyUploadedImages);
                 } else {
-                  onCreateMenu(menuObject);
+                  onCreateMenu(menuWithNewlyUploadedImages);
                 }
                 goBack();
               }}

@@ -8,11 +8,12 @@ import menuActions from '../actions/menuActions';
 import deliveryActions from '../actions/deliveryActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
-import ErrorModal from './ErrorModal';
+import Modal from './Modal';
 import MenuList from './MenuList';
 import MenuEdit from './MenuEdit';
 import DefaultComponent from './DefaultComponent';
 import { MenuObject, MeetupObject } from '../utils/flowTypes';
+import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
 
 type Props = {
   delivery: {
@@ -21,12 +22,14 @@ type Props = {
   menu: {
     menuList: Array<MenuObject>,
     currentMenuId: string,
+    newlyUploadedImages: Array<string>,
   },
   fetchMenus$: any => Rx.Observable,
   createMenu$: (menu: MenuObject) => Rx.Observable,
   updateMenu$: (menu: MenuObject) => Rx.Observable,
   deleteMenu$: (menuId: string) => Rx.Observable,
   setCurrentMenuId$: (menuId: string) => Rx.Observable,
+  uploadImage$: File => Rx.Observable,
   fetchDelivery$: any => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
@@ -50,13 +53,14 @@ export class MenuPage extends React.Component<Props> {
   render() {
     const {
       delivery: { meetupList },
-      menu: { menuList, currentMenuId },
+      menu: { menuList, currentMenuId, newlyUploadedImages },
       setError$,
       error,
       global: { backArrow },
       createMenu$,
       updateMenu$,
       deleteMenu$,
+      uploadImage$,
       toggleBackArrow$,
       setCurrentMenuId$,
     } = this.props;
@@ -64,7 +68,7 @@ export class MenuPage extends React.Component<Props> {
       <div className="container">
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
@@ -76,10 +80,12 @@ export class MenuPage extends React.Component<Props> {
           backArrow.isShow ?
             <MenuEdit
               menuList={menuList}
+              newlyUploadedImages={newlyUploadedImages}
               currentMenuId={currentMenuId}
               onCreateMenu={createMenu$}
               onUpdateMenu={updateMenu$}
               onDeleteMenu={menuId => deleteMenu$(menuId)}
+              onUploadImage={uploadImage$}
               goBack={() => toggleBackArrow$('')}
               fetchDelivery={this.props.fetchDelivery$}
               deliveryList={meetupList}
@@ -98,15 +104,22 @@ export class MenuPage extends React.Component<Props> {
                 }}
               />
               : <DefaultComponent
-                onClick={() => {
-                  setCurrentMenuId$('');
-                  toggleBackArrow$('Edit Menu');
-                }}
                 coverPhotoSrc="../static/img/menu_default.jpg"
-                title="Hello there!"
-                description="Fill this place with your signature dishes, build your own menu!"
-                actionText="ADD DISH"
-              />
+              >
+                <div className="textSection">
+                  <h2 className="title">Hello there!</h2>
+                  <p className="description">Fill this place with your signature dishes, build your own menu!</p>
+                </div>
+                <button
+                  className="addDish"
+                  onClick={() => {
+                    setCurrentMenuId$('');
+                    toggleBackArrow$('Edit Menu');
+                  }}
+                >
+                  ADD DISH
+                </button>
+              </DefaultComponent>
         }
         <style jsx>
           {`
@@ -118,6 +131,42 @@ export class MenuPage extends React.Component<Props> {
               min-height: 792px;
               height: 100%;
               background-color: #f8f7f7;
+            }
+
+            .textSection {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding-top: 31px;
+            }
+            .title {
+              font-family: 'Playball', cursive;
+              font-size: 24px;
+              color: ${textColor};
+            }
+
+            .description {
+              width: 315px;
+              display: flex;
+              justify-content: center;
+              line-height: 1.5;
+              font-size: 16px;
+              text-align: center;
+              color: ${textColor};
+            }
+            .addDish {
+              border: 0;
+              padding: 0;
+              margin-top: 70px;
+              background-color: ${whiteColor};
+              color: ${primaryColor};
+              font-size: 16px;
+              margin: auto;
+              cursor: pointer;
+              outline: none;
+            }
+            .addDish:hover {
+              color: ${primaryBtnHoverColor};
             }
           `}
         </style>

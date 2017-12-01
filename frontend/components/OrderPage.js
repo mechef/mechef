@@ -7,10 +7,10 @@ import { connect } from '../state/RxState';
 import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
-import ErrorModal from './ErrorModal';
+import Modal from './Modal';
 import { OrderObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
-import { primaryColor, textColor, whiteColor } from '../utils/styleVariables';
+import { primaryColor, textColor, whiteColor, primaryBtnHoverColor } from '../utils/styleVariables';
 import DefaultComponent from './DefaultComponent';
 import OrderItem from './OrderItem';
 
@@ -83,7 +83,7 @@ class OrderPage extends React.Component<Props> {
       <div className="container">
         {
           error.isShowModal ?
-            <ErrorModal
+            <Modal
               title={error.title}
               message={error.message}
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
@@ -128,14 +128,13 @@ class OrderPage extends React.Component<Props> {
               }
             </div>
             :
-            <DefaultComponent
-              onClick={() => {
-              }}
-              coverPhotoSrc="../static/img/orders_default.jpg"
-              title="Hello there!"
-              description="Share your menu to get your first order!"
-              actionText="MY STORE'S LINK"
-            />
+            <DefaultComponent coverPhotoSrc="../static/img/orders_default.jpg">
+              <div className="textSection">
+                <h2 className="title">Hello there!</h2>
+                <p className="description">Share your menu to get your first order!</p>
+              </div>
+              <button className="addDish" onClick={() => {}}>MY STORE'S LINK</button>
+            </DefaultComponent>
         }
         <style jsx>
           {`
@@ -194,6 +193,42 @@ class OrderPage extends React.Component<Props> {
 
             .orderItemWrapper {
               margin-bottom: 20px;
+            }
+
+            .textSection {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding-top: 31px;
+            }
+            .title {
+              font-family: 'Playball', cursive;
+              font-size: 24px;
+              color: ${textColor};
+            }
+
+            .description {
+              width: 315px;
+              display: flex;
+              justify-content: center;
+              line-height: 1.5;
+              font-size: 16px;
+              text-align: center;
+              color: ${textColor};
+            }
+            .addDish {
+              border: 0;
+              padding: 0;
+              margin-top: 70px;
+              background-color: ${whiteColor};
+              color: ${primaryColor};
+              font-size: 16px;
+              margin: auto;
+              cursor: pointer;
+              outline: none;
+            }
+            .addDish:hover {
+              color: ${primaryBtnHoverColor};
             }
           `}
         </style>
