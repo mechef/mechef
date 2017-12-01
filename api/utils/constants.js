@@ -7,9 +7,9 @@ module.exports = {
   id_not_found: 'id not found',
   email_not_found: 'email not found',
   order_state: {
-    cancel: 'cancel',
-    waiting: 'waiting',
-    finished: 'finished',
+    pending: 'pending',
+    contacting: 'contacting',
+    delivered: 'delivered',
   },
   delivery_type: {
     meetup: 'meetup',

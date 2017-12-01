@@ -18,7 +18,7 @@ module.exports = (req, res) => {
       return;
     }
 
-    req.file.filename = uuidv4() + req.file.filename;
+    req.file.filename = uuidv4();
 
 
     const db = mongoose.connection.db;
@@ -42,7 +42,7 @@ module.exports = (req, res) => {
         if (erro) {
           console.log(erro);
         }
-        res.json({ status: constants.success, image: req.file.filename });
+        res.json({ status: constants.success, file: req.file });
       });
     });
   });

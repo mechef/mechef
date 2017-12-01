@@ -11,12 +11,14 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
+      console.log(err);
       res.status(500).json({ status: constants.fail });
       return;
     }
 
     Delivery.find({ email: decoded.email }, (err, deliveryList) => {
       if (err) {
+        console.log(err);
         res.status(500).json({ status: constants.fail });
         return;
       }

@@ -136,7 +136,7 @@ module.exports = (req, res) => {
         return;
       }
 
-      res.json({ status: constants.success, delivery });
+      res.json({ status: constants.success, delivery: delivery.toObject() });
     });
   });
 };

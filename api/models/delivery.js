@@ -23,6 +23,16 @@ const DeliverySchema = new mongoose.Schema({
   note: String,
 }, { versionKey: false, });
 
+DeliverySchema.methods.toObject = function() {
+  if (this.type == constants.delivery_type.meetup) {
+    return this.toMeetup();
+  } else if (this.type == constants.delivery_type.shipping) {
+    return this.toShipping();
+  } else {
+    return {};
+  }
+}
+
 DeliverySchema.methods.toMeetup = function() {
   return {
     _id: this._id,
@@ -84,7 +94,7 @@ DeliverySchema.statics.toDeliveryDetail = function toDeliveryDetail (deliveryLis
       list.push(deliveryMap[deliveryId]);
     });
   }
-  
+
   return list;
 }
 

@@ -7,9 +7,9 @@ const mailer = require('../../utils/mailer');
 module.exports = (req, res) => {
   const order = new Order();
   order.buyerName = req.body.buyerName;
-  order.buyerEmail = req.body.email;
+  order.buyerEmail = req.body.buyerEmail;
   order.menuId = req.body.menuId;
-  order.state = constants.order_state.pending;
+  order.status = constants.order_state.pending;
   order.orderTime = Date.now();
   order.messageFromBuyer = req.body.messageFromBuyer;
   order.deliveryTime = req.body.deliveryTime;
@@ -39,6 +39,7 @@ module.exports = (req, res) => {
 
       Menu.findOneAndUpdate({ _id: menu._id }, { $inc: { quantity: -order.quantity } }, { new: true }, (error, newMenu) => {
       if (error) {
+        console.log(error);
         res.status(500).json({ status: constants.fail });
         return;
       }
@@ -54,6 +55,7 @@ module.exports = (req, res) => {
 
         mailer.sendMail(mailOptions, (erro) => {
           if (erro) {
+            console.log(erro);
             res.status(500).json({ status: constants.fail });
             return;
           }
@@ -71,7 +73,8 @@ module.exports = (req, res) => {
       order.amount = order.quantity * menu.unitPrice;
 
       order.save((error, savedOrder) => {
-        if (erro) {
+        if (error) {
+          console.log(error);
           res.status(500).json({ status: constants.fail });
           return;
         }
@@ -85,10 +88,11 @@ module.exports = (req, res) => {
 
         mailer.sendMail(mailOptions, (erro) => {
           if (erro) {
+            console.log(erro);
             res.status(500).json({ status: constants.fail });
             return;
           }
-          res.json({ status: constants.success });
+          res.json({ status: constants.success, order: order.toOrder() });
           });
         });
       });
