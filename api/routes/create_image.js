@@ -42,7 +42,7 @@ module.exports = (req, res) => {
         if (erro) {
           console.log(erro);
         }
-        res.json({ status: constants.success, file: req.file });
+        res.json({ status: constants.success, image: req.file.filename });
       });
     });
   });
