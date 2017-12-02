@@ -50,7 +50,7 @@ module.exports = (req, res) => {
     if (req.body.firstName) updateFields.firstName = req.body.firstName;
     if (req.body.lastName) updateFields.lastName = req.body.lastName;
     if (req.body.phoneNumber) updateFields.phoneNumber = req.body.phoneNumber;
-    
+
     const updateFieldsOfImage = [];
     if (req.body.coverPhoto) {
       updateFields.coverPhoto = req.body.coverPhoto;
