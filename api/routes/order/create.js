@@ -9,7 +9,7 @@ module.exports = (req, res) => {
   order.buyerName = req.body.buyerName;
   order.buyerEmail = req.body.buyerEmail;
   order.menuId = req.body.menuId;
-  order.status = constants.order_state.pending;
+  order.state = constants.order_state.pending;
   order.orderTime = Date.now();
   order.messageFromBuyer = req.body.messageFromBuyer;
   order.deliveryTime = req.body.deliveryTime;
@@ -28,6 +28,7 @@ module.exports = (req, res) => {
 
     Menu.findOne({ _id: order.menuId }, (err, menu) => {
       if (err) {
+        console.log(err)
         res.status(404).json({ status: constants.fail, reason: constants.id_not_found });
         return;
       }
@@ -71,6 +72,12 @@ module.exports = (req, res) => {
 
       order.sellerEmail = menu.email;
       order.amount = order.quantity * menu.unitPrice;
+      order.dishName = menu.dishName;
+      if (menu.images.length > 0) {
+        order.image = menu.images[0];
+      } else {
+        order.image = '';
+      }
 
       order.save((error, savedOrder) => {
         if (error) {
