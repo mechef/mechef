@@ -43,20 +43,26 @@ module.exports = (req, res) => {
     }
 
     if (updateFields.images) {
-      const deleteSet = {};
+      const deleteSet = [];
 
       for (let i = 0; i < menu.images.length; i++) {
-        deleteSet[menu.images[i]] = true;
-      }
+        let isDelete = true;
+        for (let j = 0; j < updateFields.images.length; j++) {
+          if (updateFields.images[i] == menu.images[j]) {
+            isDelete = false;
+            break;
+          }
+        }
 
-      for (let i = 0; i < updateFields.images.length; i++) {
-        delete deleteSet[updateFields.images[i]];
+        if (isDelete) {
+          deleteSet.push(menu.images[i]);
+        }
       }
 
       const db = mongoose.connection.db;
       const mongoDriver = mongoose.mongo;
       const gfs = new Gridfs(db, mongoDriver);
-      
+
       for (let filename in deleteSet) {
         gfs.remove({ filename }, (erro) => {
           if (erro) {

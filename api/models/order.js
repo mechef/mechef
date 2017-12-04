@@ -6,6 +6,8 @@ const OrderSchema = new mongoose.Schema({
   buyerName: String,
   buyerEmail: String,
   menuId: String,
+  dishName: String,
+  image: String,
   sellerEmail: String,
   state: String,
   quantity: Number,
@@ -32,7 +34,9 @@ OrderSchema.methods.toOrder = function() {
     deliveryLatitude: this.deliveryLatitude,
     deliveryLongitude: this.deliveryLongitude,
     messageFromBuyer: this.messageFromBuyer,
-    state: this.state
+    state: this.state,
+    dishName: this.dishName,
+    image: this.image
   }
 };
 
