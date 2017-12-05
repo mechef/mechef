@@ -80,7 +80,7 @@ button {
 }
 
 .product-splash__content__name {
-	overflow: none;
+	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	color: #4a4a4a;
@@ -90,7 +90,7 @@ button {
 }
 
 .product-splash__content__description {
-	overflow: none;
+	overflow: hidden;
 	margin-top: 9px;
 	margin-right: 26px;
 	line-height: 18px;

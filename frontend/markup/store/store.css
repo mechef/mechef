@@ -84,6 +84,9 @@ button {
   width: 100%;
   padding: 0px 110px;
   margin-bottom: 144px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .store-content__product {
