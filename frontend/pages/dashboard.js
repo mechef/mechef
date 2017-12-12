@@ -76,7 +76,6 @@ class Dashboard extends React.Component<Props, State> {
                 <li className={this.state.page === 'ingredient' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('ingredient')}>INGREDIENTS</li>
                 <li className={this.state.page === 'shipping' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('shipping')}>SHIPPING</li>
                 <li className={this.state.page === 'account' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('account')}>ACCOUNT</li>
-                <li className={this.state.page === 'settings' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('setting')}>SETTINGS</li>
               </ul>
               <ul className="dashboard-sidebar__footer">
                 <li>Service Agreement</li>

@@ -10,6 +10,8 @@ import globalActions from '../actions/globalActions';
 import Modal from './Modal';
 import AccountDetail from './AccountDetail';
 import AccountEdit from './AccountEdit';
+import UpdateBankAccount from './UpdateBankAccount';
+import UpdatePassword from './UpdatePassword';
 import { AccountObject } from '../utils/flowTypes';
 
 type Props = {
@@ -33,7 +35,23 @@ type Props = {
   toggleBackArrow$: string => Rx.Observable,
 }
 
-export class AccountPage extends React.Component<Props> {
+type State = {
+  pageStatus: string,
+}
+
+export const pageStatus = {
+  UPDATE_ACCOUNT: 'EDIT ACCOUNT',
+  UPDATE_PASSWORD: 'UPDATE PASSWORD',
+  UPDATE_BANK_ACCOUNT: 'UPDATE BANK ACCOUNT',
+};
+
+export class AccountPage extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      pageStatus: '',
+    };
+  }
   componentDidMount() {
     this.props.fetchAccountDetail$();
   }
@@ -60,21 +78,38 @@ export class AccountPage extends React.Component<Props> {
             : null
         }
         {
+          /* eslint-disable no-nested-ternary */
           backArrow.isShow ?
-            <AccountEdit
+            this.state.pageStatus === pageStatus.UPDATE_ACCOUNT ?
+              <AccountEdit
+                account={account}
+                onUpdateCoverPhoto={createCoverPhoto$}
+                onUpdateProfileImage={createProfileImage$}
+                onSubmit={updateAccountDetail$}
+                goback={() => toggleBackArrow$('')}
+              />
+              : this.state.pageStatus === pageStatus.UPDATE_BANK_ACCOUNT ?
+                <UpdateBankAccount
+                  account={account}
+                  goback={() => toggleBackArrow$('')}
+                  onSubmit={updateAccountDetail$}
+                />
+                :
+                <UpdatePassword
+                  account={account}
+                  goback={() => toggleBackArrow$('')}
+                  onSubmit={updateAccountDetail$}
+                />
+            : <AccountDetail
               account={account}
-              onUpdateCoverPhoto={createCoverPhoto$}
-              onUpdateProfileImage={createProfileImage$}
-              onSubmit={updateAccountDetail$}
-              goback={() => toggleBackArrow$('')}
-            />
-            :
-            <AccountDetail
-              account={account}
-              onUpdateAccount={() => {
-                toggleBackArrow$('EDIT ACCOUNT');
+              onUpdate={(status) => {
+                toggleBackArrow$(pageStatus[status]);
+                this.setState({
+                  pageStatus: status,
+                });
               }}
             />
+          /* eslint-enable no-nested-ternary */
         }
         <style jsx>
           {`

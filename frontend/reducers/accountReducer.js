@@ -34,18 +34,12 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
           return Rx.Observable.of(state => state);
         })
     )),
-    accountActions.updateAccountDetail$.map((reqbody) => {
-      const formData = new FormData();
-      Object.keys(reqbody).forEach((key) => {
-        formData.append(key, reqbody[key]);
-      });
-      return formData;
-    }).flatMap(formData => (
+    accountActions.updateAccountDetail$.flatMap(reqbody => (
       Rx.Observable.ajax({
         crossDomain: true,
         url: API_ACCOUNT,
         method: 'PATCH',
-        body: formData,
+        body: reqbody,
         headers: {
           Authorization: window.localStorage.getItem('jwt'),
         },

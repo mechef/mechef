@@ -6,6 +6,7 @@ import MenuItem from '../components/MenuItem';
 import Tag from '../components/Tag';
 import UploadImage from '../components/UploadImage';
 import ErrorComponent from '../components/ErrorComponent';
+import OrderModal from '../components/OrderModal';
 import { textColor } from '../utils/styleVariables';
 
 const Index = props => (
@@ -68,6 +69,7 @@ const Index = props => (
         <p className="description">This is the place to record your ingredients spendings, and a shopping list!</p>
       </div>
     </ErrorComponent>
+    <OrderModal />
     <style jsx>{`
       .textSection {
         display: flex;

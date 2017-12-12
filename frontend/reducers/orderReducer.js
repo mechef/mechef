@@ -21,7 +21,7 @@ const orderReducer$ = Rx.Observable.of(() => initialState)
         responseType: 'json',
       }).map(data => state => ({
         ...state,
-        orderList: data.response.orderList,
+        orderList: data.response.orders,
       })).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Get Menu List Error', message: error.message });
         return Rx.Observable.of(state => state);

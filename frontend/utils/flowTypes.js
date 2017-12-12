@@ -43,3 +43,16 @@ export type AccountObject = {
   coverPhoto?: string,
   profileImage?: string,
 };
+
+export type OrderObject = {
+  _id: string,
+  buyerName: string,
+  buyerEmail: string,
+  quantity: number,
+  amount: number,
+  orderTime: string,
+  deliveryAddress: string,
+  deliveryTime: string,
+  deliveryLatitude: number,
+  messageFromBuyer: string,
+};

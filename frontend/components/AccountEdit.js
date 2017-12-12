@@ -154,7 +154,7 @@ class AccountEdit extends React.Component<Props, State> {
               type="text"
               placeholder="Enter Kitchen Name"
               size="large"
-              value={this.state.kitchenName|| ''}
+              value={this.state.kitchenName || ''}
               onChange={(event) => {
                 if (event && event.target) {
                   this.setState({

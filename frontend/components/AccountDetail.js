@@ -5,6 +5,7 @@ import Rx from 'rxjs/Rx';
 
 import Button from './Button';
 import { IMAGE_URL } from '../utils/constants';
+import { pageStatus } from './AccountPage';
 
 type Props = {
   account: {
@@ -29,7 +30,7 @@ type Props = {
       profileImage?: File,
     },
   },
-  onUpdateAccount: () => Rx.Observable,
+  onUpdate: (status: string) => Rx.Observable,
 }
 
 const AccountDetail = (props: Props) => (
@@ -66,7 +67,9 @@ const AccountDetail = (props: Props) => (
         <Button
           buttonStyle="primary"
           size="small"
-          onClick={props.onUpdateAccount}
+          onClick={() => {
+            props.onUpdate(pageStatus.UPDATE_ACCOUNT);
+          }}
         >
           UPDATE
         </Button>
@@ -82,7 +85,9 @@ const AccountDetail = (props: Props) => (
           <Button
             buttonStyle="primary"
             size="small"
-            onClick={() => {}}
+            onClick={() => {
+              props.onUpdate(pageStatus.UPDATE_BANK_ACCOUNT);
+            }}
           >
             EDIT
           </Button>
@@ -99,7 +104,9 @@ const AccountDetail = (props: Props) => (
           <Button
             buttonStyle="primary"
             size="small"
-            onClick={() => {}}
+            onClick={() => {
+              props.onUpdate(pageStatus.UPDATE_PASSWORD);
+            }}
           >
             UPDATE
           </Button>

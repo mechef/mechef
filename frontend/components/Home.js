@@ -6,9 +6,10 @@ import Rx from 'rxjs/Rx';
 import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
 import errorActions from '../actions/errorActions';
+import orderActions from '../actions/orderActions';
 import Modal from './Modal';
 import { transparent, whiteColor, textColor, textHintColor } from '../utils/styleVariables';
-import { AccountObject } from '../utils/flowTypes';
+import { AccountObject, OrderObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants'
 
 const sampleOrders = [
@@ -44,7 +45,11 @@ const sampleOrders = [
 
 type Props = {
   account: AccountObject,
+  order: {
+    orderList: Array<OrderObject>,
+  },
   fetchAccountDetail$: any => Rx.Observable,
+  fetchOrders$: any => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -56,10 +61,12 @@ type Props = {
 export class Home extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchAccountDetail$();
+    this.props.fetchOrders$();
   }
   render() {
     const {
       account,
+      order: { orderList },
       setError$,
       error,
     } = this.props;
@@ -100,19 +107,19 @@ export class Home extends React.Component<Props> {
             <span className="fourthCell">Quantity</span>
           </div>
           {
-            sampleOrders.map((order, index) => (
+            orderList && orderList.length && orderList.map((orderItem, index) => (
               <div
-                key={order._id}
+                key={orderItem._id}
                 className={`
                   tableBody
                   ${index % 2 === 0 ? 'greyBackground' : 'whiteBackground'}
                   ${index === sampleOrders.length - 1 ? 'borderBottomRadius' : ''}
                 `}
               >
-                <span className="firstCell greyText">{order.deliveryTime}</span>
-                <span className="secondCell boldText">{order.buyerName}</span>
-                <span className="thirdCell boldText">{order.orderName}</span>
-                <span className="fourthCell boldText">{order.quantity}</span>
+                <span className="firstCell greyText">{orderItem.deliveryTime}</span>
+                <span className="secondCell boldText">{orderItem.buyerName}</span>
+                <span className="thirdCell boldText">{orderItem.orderName}</span>
+                <span className="fourthCell boldText">{orderItem.quantity}</span>
               </div>
             ))
           }
@@ -293,11 +300,12 @@ export class Home extends React.Component<Props> {
   }
 }
 
-const stateSelector = ({ account, error }) => ({ account, error });
+const stateSelector = ({ account, error, order }) => ({ account, error, order });
 
 const actionSubjects = {
   ...errorActions,
   ...accountActions,
+  ...orderActions,
 };
 
 export default connect(stateSelector, actionSubjects)(Home);

@@ -69,7 +69,7 @@ const sampleOrderList = [
 
 class OrderPage extends React.Component<Props> {
   componentDidMount() {
-    // this.props.fetchOrders$();
+    this.props.fetchOrders$();
   }
   render() {
     const {
@@ -91,8 +91,7 @@ class OrderPage extends React.Component<Props> {
             : null
         }
         {
-          // orderList && orderList.length ?
-          sampleOrderList && sampleOrderList.length ?
+          orderList && orderList.length ?
             <div className="orderWrapper">
               <div className="header">
                 <div className="titleWithNotification">
@@ -109,17 +108,17 @@ class OrderPage extends React.Component<Props> {
                 </div>
               </div>
               {
-                sampleOrderList.map(order => (
+                orderList.map(order => (
                   <div className="orderItemWrapper">
                     <OrderItem
-                      sellerId={order.sellerId}
-                      menuTitle={order.menuTitle}
+                      sellerId={order.buyerName}
+                      menuTitle={order.bueryName}
                       quantity={order.quantity}
                       orderTime={order.orderTime}
-                      deliveryTo={order.deliveryTo}
+                      deliveryTo={order.deliveryAddress}
                       deliveryTime={order.deliveryTime}
-                      totalPrice={order.totalPrice}
-                      status={order.status}
+                      totalPrice={order.amount}
+                      status={'WAITING'}
                       profileImageUrl={`${IMAGE_URL}/${order.profileImage}`}
                       menuImageUrl={`${IMAGE_URL}/${order.menuImage}`}
                     />
