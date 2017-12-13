@@ -79,6 +79,7 @@ class CheckBox extends React.Component<Props, State> {
             .uncheckedIcon {
               width: 20px;
               height: 20px;
+              background-image: url(../static/svg/checkbox_grey.svg);
             }
 
             .checkboxLabel {

@@ -10,7 +10,7 @@ import orderActions from '../actions/orderActions';
 import Modal from './Modal';
 import { transparent, whiteColor, textColor, textHintColor } from '../utils/styleVariables';
 import { AccountObject, OrderObject } from '../utils/flowTypes';
-import { IMAGE_URL } from '../utils/constants'
+import { IMAGE_URL } from '../utils/constants';
 
 const sampleOrders = [
   {

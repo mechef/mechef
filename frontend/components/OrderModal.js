@@ -34,7 +34,7 @@ const OrderModal = (props: Props) => (
         </p>
         <p className="thirdRow">
           <span className="quantity">{props.order.quantity}</span>
-          <span className="totalPrice">{props.order.amount}</span>
+          <span className="totalPrice">$ {props.order.amount}</span>
         </p>
         <p className="divider" />
         <p className="infoWrapper">
@@ -49,6 +49,31 @@ const OrderModal = (props: Props) => (
           <p className="infoTitle">Delivery Time : </p>
           <span className="infoContent">{props.order.deliveryTime}</span>
         </p>
+        <div className="messageWrapper">
+          <p className="messageTitle">Message from buyer : </p>
+          <span className="messageContent">{props.order.messageFromBuyer}</span>
+        </div>
+        <p className="divider" />
+        <div className="stateWrapper">
+          <div className="stateButtonWrapper">
+            <button className="stateBtn" onClick={props.onStateCancel}>
+              <div className="icon cancelledIcon" />
+              <p className="stateActionText">CANCEL</p>
+            </button>
+          </div>
+          <div className="stateButtonWrapper">
+            <button className="stateBtn" onClick={props.onStateCancel}>
+              <div className="icon waitingIcon" />
+              <p className="stateActionText">WAITING</p>
+            </button>
+          </div>
+          <div className="stateButtonWrapper">
+            <button className="stateBtn" onClick={props.onStateCancel}>
+              <div className="icon finishedIcon" />
+              <p className="stateActionText">FINISHED</p>
+            </button>
+          </div>
+        </div>
       </section>
     </div>
     <style jsx>
@@ -137,11 +162,13 @@ const OrderModal = (props: Props) => (
           display: flex;
           justify-content: space-between;
           align-items: center;
+          margin: 0;
+          padding-top: 5px;
         }
 
         .secondRow {
           font-size: ${fontSize};
-          margin-bottom: 12px;
+          margin-top: 0;
         }
 
         .thirdRow {
@@ -149,14 +176,15 @@ const OrderModal = (props: Props) => (
           justify-content: space-between;
           color: ${textColor};
           font-weight: 500;
-          margin-bottom: 12px;
+          margin: 0;
         }
 
         .divider {
           height: 1px;
           width: 100%;
-          background-color: ${connectErrorColor};
+          background-color: #979797;
           margin-bottom: 12px;
+          opacity: 0.3;
         }
 
         .quantity {
@@ -169,7 +197,8 @@ const OrderModal = (props: Props) => (
 
         .infoWrapper {
           display: flex;
-          margin-bottom: 12px;
+          align-items: center;
+          margin: 0;
         }
 
         .infoTitle {
@@ -179,6 +208,16 @@ const OrderModal = (props: Props) => (
         }
 
         .infoContent {
+          font-size: 12px;
+          color: ${textColor};
+        }
+
+        .messageTitle {
+          font-size: 12px;
+          color: ${connectErrorColor};
+        }
+
+        .messageContent {
           font-size: 12px;
           color: ${textColor};
         }
@@ -219,6 +258,63 @@ const OrderModal = (props: Props) => (
           background-image: url('../static/svg/order_mail_hover.svg');
         }
 
+        .stateWrapper {
+          display: flex;
+          justify-content: center;
+          padding-top: 25px;
+        }
+
+        .stateButtonWrapper {
+          display: flex;
+          justify-content: center;
+          width: 100px;
+        }
+
+        .stateButtonWrapper:nth-child(2) {
+          margin-left: 30px;
+          margin-right: 30px;
+        }
+
+        .stateBtn {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          cursor: pointer;
+          background-color: ${transparent};
+          border: 0;
+          padding: 0;
+          outline: none;
+        }
+
+        .stateActionText {
+          font-size: 14px;
+          line-height: 1.14;
+          color: ${textColor};
+        }
+
+        .cancelledIcon {
+          background-image: url('../static/svg/order_cancel.svg');
+        }
+
+        .stateButtonWrapper:hover .cancelledIcon {
+          background-image: url('../static/svg/order_cancel_hover.svg');
+        }
+
+        .waitingIcon {
+          background-image: url('../static/svg/order_waiting.svg');
+        }
+
+        .stateButtonWrapper:hover .waitingIcon {
+          background-image: url('../static/svg/order_waiting_hover.svg');
+        }
+
+        .finishedIcon {
+          background-image: url('../static/svg/order_finished.svg');
+        }
+
+        .stateButtonWrapper:hover .finishedIcon {
+          background-image: url('../static/svg/order_finished_hover.svg');
+        }
       `}
     </style>
   </div>
