@@ -36,6 +36,7 @@ DeliverySchema.methods.toObject = function() {
 DeliverySchema.methods.toMeetup = function() {
   return {
     _id: this._id,
+    email: this.email,
     type: this.type,
     meetupAddress: this.meetupAddress,
     meetupLatitude: this.meetupLatitude,
@@ -56,6 +57,7 @@ DeliverySchema.methods.toMeetup = function() {
 DeliverySchema.methods.toShipping = function() {
   return {
     _id: this._id,
+    email: this.email,
     type: this.type,
     shippingAreas: this.shippingAreas,
     shippingCost: this.shippingCost,

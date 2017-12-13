@@ -14,7 +14,6 @@ module.exports = (req, res) => {
       res.status(500).json({ status: constants.fail });
       return;
     }
-
     // email: String,
     // type: String,
     // meetupAddress: String,
@@ -130,7 +129,7 @@ module.exports = (req, res) => {
       delivery.note = '';
     }
 
-    delivery.save((error) => {
+    delivery.save((error, delivery) => {
       if (error) {
         res.status(500).json({ status: constants.fail });
         return;
