@@ -22,7 +22,6 @@ module.exports = (req, res) => {
         res.status(500).json({ status: constants.fail });
         return;
       }
-
       const processedDeliveryList = Delivery.getDeliveryList(deliveryList);
 
       res.json({ status: constants.success, deliveryList: processedDeliveryList });

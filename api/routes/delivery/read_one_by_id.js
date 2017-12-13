@@ -16,10 +16,11 @@ module.exports = (req, res) => {
     }
 
     Delivery.findOne({ _id: req.params.id, email: decoded.email }, (err, delivery) => {
-      if (err) {
+      if (err || !delivery) {
         res.status(500).json({ status: constants.fail });
         return;
       }
+
       if (delivery.type == constants.delivery_type.meetup) {
         delivery = delivery.toMeetup();
       } else if (delivery.type == constants.delivery_type.shipping) {

@@ -96,8 +96,7 @@ module.exports = (req, res) => {
         mailer.sendMail(mailOptions, (erro) => {
           if (erro) {
             console.log(erro);
-            res.status(500).json({ status: constants.fail });
-            return;
+            // TODO write log file
           }
           res.json({ status: constants.success, order: order.toOrder() });
           });
