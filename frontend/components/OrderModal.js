@@ -3,12 +3,12 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
-import { whiteColor, transparent } from '../utils/styleVariables';
+import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor, transparent, fontSize, connectErrorColor } from '../utils/styleVariables';
+import { OrderObject } from '../utils/flowTypes';
 
 type Props = {
-  type: string,
-  title: string,
-  message: string,
+  order: OrderObject,
+  onEmail: () => Rx.Observable,
   onCancel: () => Rx.Observable,
 }
 
@@ -20,10 +20,35 @@ const OrderModal = (props: Props) => (
           <button className="cancel-btn" onClick={props.onCancel}>&times;</button>
         </div>
       </header>
-      <section className="alert-modal-body">
-        <p className="alert-title">{props.title}</p>
-        <p className="alert-message">{props.message}</p>
-        <p className="alert-bottom-style" />
+      <section className="modalBody">
+        <p className="firstRow">
+          <span className="buyerName">{props.order.buyerName}</span>
+          <div className="iconWrapper">
+            <button className="btn" onClick={props.onEmail}>
+              <div className="icon mailIcon" />
+            </button>
+          </div>
+        </p>
+        <p className="secondRow">
+          <span className="dishName">{props.order.dishName}</span>
+        </p>
+        <p className="thirdRow">
+          <span className="quantity">{props.order.quantity}</span>
+          <span className="totalPrice">{props.order.amount}</span>
+        </p>
+        <p className="divider" />
+        <p className="infoWrapper">
+          <p className="infoTitle">Order Time : </p>
+          <span className="infoContent">{props.order.orderTime}</span>
+        </p>
+        <p className="infoWrapper">
+          <p className="infoTitle">Delivery To : </p>
+          <span className="infoContent">{props.order.deliveryAddress}</span>
+        </p>
+        <p className="infoWrapper">
+          <p className="infoTitle">Delivery Time : </p>
+          <span className="infoContent">{props.order.deliveryTime}</span>
+        </p>
       </section>
     </div>
     <style jsx>
@@ -44,7 +69,7 @@ const OrderModal = (props: Props) => (
           left: 50%;
           transform: translate(-50%, -50%);
           width: 488px;
-          height: 685px;
+          height: 500px;
           border-radius: 4px;
           background-color: ${whiteColor};
         }
@@ -101,40 +126,105 @@ const OrderModal = (props: Props) => (
         .cancel-btn:hover {
           opacity: 0.6;
         }
-        .alert-modal-body {
+
+        .modalBody {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          width: 305px;
-          height: 231px;
-          background-color: #ffffff;
+          padding: 10px;
         }
-        .alert-title {
-          padding-top: 34px;
-          font-size: 16px;
-          letter-spacing: 0.7px;
-          text-align: left;
-          color: #4a4a4a;
-        }
-        .alert-message {
-          padding-top: 23px;
-          font-size: 16px;
-          letter-spacing: 0.7px;
-          text-align: center;
-          color: #4a4a4a;
-        }
-        .alert-bottom-style {
 
+        .firstRow {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
         }
+
+        .secondRow {
+          font-size: ${fontSize};
+          margin-bottom: 12px;
+        }
+
+        .thirdRow {
+          display: flex;
+          justify-content: space-between;
+          color: ${textColor};
+          font-weight: 500;
+          margin-bottom: 12px;
+        }
+
+        .divider {
+          height: 1px;
+          width: 100%;
+          background-color: ${connectErrorColor};
+          margin-bottom: 12px;
+        }
+
+        .quantity {
+          font-size: ${fontSize};
+        }
+
+        .totalPrice {
+          font-size: 18px;
+        }
+
+        .infoWrapper {
+          display: flex;
+          margin-bottom: 12px;
+        }
+
+        .infoTitle {
+          width: 105px;
+          font-size: 12px;
+          color: ${connectErrorColor};
+        }
+
+        .infoContent {
+          font-size: 12px;
+          color: ${textColor};
+        }
+
+        .buyerName {
+          font-size: 14px;
+          font-weight: 500;
+          color: ${textColor};
+        }
+
+        .iconWrapper {
+          margin-right: 21px;
+        }
+
+        .btn {
+          cursor: pointer;
+          background-color: ${transparent};
+          border: 0;
+          padding: 0;
+          outline: none;
+          margin-left: 30px;
+        }
+
+        .icon {
+          background-size: contain;
+          background-position: center;
+          background-repeat:no-repeat;
+          width: 25px;
+          height: 25px;
+          outline: none;
+        }
+
+        .mailIcon {
+          background-image: url('../static/svg/order_mail.svg');
+        }
+
+        .btn:hover .mailIcon {
+          background-image: url('../static/svg/order_mail_hover.svg');
+        }
+
       `}
     </style>
   </div>
 );
 
 OrderModal.defaultProps = {
-  type: 'hint',
-  title: '',
-  message: '',
   onCancel: () => { },
 };
 

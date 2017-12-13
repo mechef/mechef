@@ -41,6 +41,7 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
         method: 'PATCH',
         body: reqbody,
         headers: {
+          'Content-Type': 'application/json; charset=utf-8',
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',

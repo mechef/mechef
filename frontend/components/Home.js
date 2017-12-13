@@ -93,11 +93,15 @@ export class Home extends React.Component<Props> {
         </div>
         <p className="orderTableTitle">
           <span className="titleText">ORDERS</span>
-          <span className="orderCount">
-            <span className="orderCountNum">
-              14
-            </span>
-          </span>
+          {
+            orderList && orderList.length ?
+              <span className="orderCount">
+                <span className="orderCountNum">
+                  {orderList.length}
+                </span>
+              </span>
+              : null
+          }
         </p>
         <div className="orderTable">
           <div className="tableHeader">
@@ -118,7 +122,7 @@ export class Home extends React.Component<Props> {
               >
                 <span className="firstCell greyText">{orderItem.deliveryTime}</span>
                 <span className="secondCell boldText">{orderItem.buyerName}</span>
-                <span className="thirdCell boldText">{orderItem.orderName}</span>
+                <span className="thirdCell boldText">{orderItem.dishName}</span>
                 <span className="fourthCell boldText">{orderItem.quantity}</span>
               </div>
             ))

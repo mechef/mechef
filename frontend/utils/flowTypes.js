@@ -54,5 +54,9 @@ export type OrderObject = {
   deliveryAddress: string,
   deliveryTime: string,
   deliveryLatitude: number,
+  deliveryLongtitude: number,
   messageFromBuyer: string,
+  state: string,
+  dishName: string,
+  image: string,
 };

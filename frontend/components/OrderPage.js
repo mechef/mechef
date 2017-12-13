@@ -8,6 +8,7 @@ import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
 import globalActions from '../actions/globalActions';
 import Modal from './Modal';
+import OrderModal from './OrderModal';
 import { OrderObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 import { primaryColor, textColor, whiteColor, primaryBtnHoverColor } from '../utils/styleVariables';
@@ -26,6 +27,12 @@ type Props = {
     message: string,
     isShowModal: bool,
   },
+}
+
+type State = {
+  isShowOrderModal: bool,
+  currentOrder: OrderObject,
+  filter: string,
 }
 
 const sampleOrderList = [
@@ -67,7 +74,15 @@ const sampleOrderList = [
   },
 ];
 
-class OrderPage extends React.Component<Props> {
+class OrderPage extends React.Component<Props, State> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShowOrderModal: false,
+      currentOrder: {},
+      filter: 'all',
+    };
+  }
   componentDidMount() {
     this.props.fetchOrders$();
   }
@@ -91,25 +106,73 @@ class OrderPage extends React.Component<Props> {
             : null
         }
         {
+          this.state.isShowOrderModal ?
+            <OrderModal
+              order={this.state.currentOrder}
+              onEmail={() => {}}
+              onCancel={() => {
+                this.setState({
+                  isShowOrderModal: false,
+                  currentOrder: {},
+                });
+              }}
+            />
+            : null
+        }
+        {
           orderList && orderList.length ?
             <div className="orderWrapper">
               <div className="header">
                 <div className="titleWithNotification">
                   <span className="orderTitle">Orders</span>
-                  <button className="notification selected">14</button>
+                  <button
+                    className={`
+                      notification
+                      ${this.state.filter === 'all' ? 'selected' : ''}
+                    `}
+                    onClick={() => { this.setState({ filter: 'all' }); }}
+                  >
+                    {orderList.length}
+                  </button>
                 </div>
                 <div className="titleWithNotification">
                   <span className="orderTitle">Pending Orders</span>
-                  <button className="notification">14</button>
+                  <button
+                    className={`
+                      notification
+                      ${this.state.filter === 'pending' ? 'selected' : ''}
+                    `}
+                    onClick={() => { this.setState({ filter: 'pending' }); }}
+                  >
+                    {orderList.filter(order => order.state === 'pending').length}
+                  </button>
                 </div>
                 <div className="titleWithNotification">
                   <span className="orderTitle">Cancelled Orders</span>
-                  <button className="notification">14</button>
+                  <button
+                    className={`
+                      notification
+                      ${this.state.filter === 'cancelled' ? 'selected' : ''}
+                    `}
+                    onClick={() => { this.setState({ filter: 'cancelled' }); }}
+                  >
+                    {orderList.filter(order => order.state === 'cancelled').length}
+                  </button>
                 </div>
               </div>
               {
-                orderList.map(order => (
-                  <div className="orderItemWrapper">
+                orderList
+                  .filter(order => order.state === this.state.filter || this.state.filter === 'all')
+                  .map(order => (
+                  <div
+                    className="orderItemWrapper"
+                    onClick={() => {
+                      this.setState({
+                        isShowOrderModal: true,
+                        currentOrder: order,
+                      });
+                    }}
+                  >
                     <OrderItem
                       sellerId={order.buyerName}
                       menuTitle={order.bueryName}
@@ -192,6 +255,7 @@ class OrderPage extends React.Component<Props> {
 
             .orderItemWrapper {
               margin-bottom: 20px;
+              cursor: pointer;
             }
 
             .textSection {
