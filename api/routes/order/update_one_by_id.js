@@ -18,7 +18,8 @@ module.exports = (req, res) => {
     const updateFields = {};
     if (req.body.state && req.body.state in constants.order_state) updateFields.state = req.body.state;
 
-    Order.findOneAndUpdate({ _id: req.params.id, sellerEmail: decoded.email }, { $set: updateFields }, (error, order) => {
+    Order.findOneAndUpdate({ _id: req.params.id, sellerEmail: decoded.email }, { $set: updateFields },
+      { new: true, upsert: true }, (error, order) => {
     if (error) {
       res.status(500).json({ status: constants.fail });
       return;
