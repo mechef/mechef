@@ -90,6 +90,7 @@ export type ProductObject = {
   description?: string,
   price?: number,
   image?: string,
+  maxServing?: number,
 };
 
 export type StoreObject = {

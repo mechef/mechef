@@ -31,6 +31,7 @@ class Store extends React.Component<Props, State> {
           description: 'Traditional Spanish and Portugese fried dough pastry.',
           url: '/static/churros.jpeg',
           route: 'churros',
+          maxServing: 5,
           price: 9,
         },
         {
@@ -39,6 +40,7 @@ class Store extends React.Component<Props, State> {
           description: 'Grilled ham and cheese sandwich with fried egg on top.',
           url: '/static/sandwich.jpeg',
           route: 'croque-madame',
+          maxServing: 2,
           price: 25,
         },
         {
@@ -47,6 +49,7 @@ class Store extends React.Component<Props, State> {
           description: 'Yogurt topped with crispy granola and blueberry compote.',
           url: '/static/yogurt.jpeg',
           route: 'blueberry-yogurt',
+          maxServing: 3,
           price: 19,
         },
       ],
@@ -54,6 +57,7 @@ class Store extends React.Component<Props, State> {
 
     this.onProductSelected = this.onProductSelected.bind(this);
     this.showProductModal = this.showProductModal.bind(this);
+    this.closeProductModal = this.closeProductModal.bind(this);
   }
 
   onProductSelected: Function;
@@ -70,6 +74,13 @@ class Store extends React.Component<Props, State> {
   showProductModal(productId: string) {
     const found = this.state.products.find((product) => product.id == productId);
     this.setState({ displayedProduct: found });
+  }
+
+  closeProductModal: Function;
+
+  closeProductModal() {
+    console.log('onClose')
+    this.setState({ displayedProduct: undefined });
   }
 
   render() {
@@ -94,7 +105,7 @@ class Store extends React.Component<Props, State> {
           }
           {
             this.state.displayedProduct ?
-              <ProductModal {...this.state.displayedProduct} /> :
+              <ProductModal {...this.state.displayedProduct} onClose={this.closeProductModal} /> :
               ''
           }
         </div>
