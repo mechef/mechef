@@ -9,7 +9,7 @@ module.exports = (req, res) => {
   order.buyerName = req.body.buyerName;
   order.buyerEmail = req.body.buyerEmail;
   order.menuId = req.body.menuId;
-  order.state = constants.order_state.pending;
+  order.state = constants.order_state.waiting;
   order.orderTime = Date.now();
   order.messageFromBuyer = req.body.messageFromBuyer;
   order.deliveryTime = req.body.deliveryTime;
