@@ -5,12 +5,15 @@ import Rx from 'rxjs/Rx';
 
 import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor, transparent, fontSize, connectErrorColor } from '../utils/styleVariables';
 import { OrderObject } from '../utils/flowTypes';
+import { ORDER_STATE } from '../utils/constants';
 
 type Props = {
   order: OrderObject,
   onEmail: () => Rx.Observable,
   onCancel: () => Rx.Observable,
+  onUpdateState: (state: string) => Rx.Observable,
 }
+
 
 const OrderModal = (props: Props) => (
   <div className="alert-modal-overlay">
@@ -56,19 +59,34 @@ const OrderModal = (props: Props) => (
         <p className="divider" />
         <div className="stateWrapper">
           <div className="stateButtonWrapper">
-            <button className="stateBtn" onClick={props.onStateCancel}>
+            <button
+              className="stateBtn"
+              onClick={() => {
+                props.onUpdateState(ORDER_STATE.cancelled);
+              }}
+            >
               <div className="icon cancelledIcon" />
               <p className="stateActionText">CANCEL</p>
             </button>
           </div>
           <div className="stateButtonWrapper">
-            <button className="stateBtn" onClick={props.onStateCancel}>
+            <button
+              className="stateBtn"
+              onClick={() => {
+                props.onUpdateState(ORDER_STATE.waiting);
+              }}
+            >
               <div className="icon waitingIcon" />
               <p className="stateActionText">WAITING</p>
             </button>
           </div>
           <div className="stateButtonWrapper">
-            <button className="stateBtn" onClick={props.onStateCancel}>
+            <button
+              className="stateBtn"
+              onClick={() => {
+                props.onUpdateState(ORDER_STATE.finished);
+              }}
+            >
               <div className="icon finishedIcon" />
               <p className="stateActionText">FINISHED</p>
             </button>

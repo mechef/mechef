@@ -13,3 +13,10 @@ export const API_IMAGE = `${BASE_URL}/image`;
 // Default Map Config
 export const DEFAULT_LATITUDE = 35.652832;
 export const DEFAULT_LONGITUDE = 139.839478;
+
+// Order State
+export const ORDER_STATE = {
+  cancelled: 'cancelled',
+  waiting: 'waiting',
+  finished: 'finished',
+};

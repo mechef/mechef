@@ -27,12 +27,12 @@ const orderReducer$ = Rx.Observable.of(() => initialState)
         return Rx.Observable.of(state => state);
       })
     )),
-    orderActions.updateOrderStatus$.flatMap(reqbody => (
-      Rx.Observable.ajax({
+    orderActions.updateOrderState$.flatMap(reqbody => {
+      return Rx.Observable.ajax({
         crossDomain: true,
-        url: `${API_ORDER}/${reqbody._id}`,
+        url: `${API_ORDER}/${reqbody.id}`,
         method: 'PATCH',
-        body: reqbody,
+        body: { state: reqbody.state },
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           Authorization: window.localStorage.getItem('jwt'),
@@ -42,8 +42,8 @@ const orderReducer$ = Rx.Observable.of(() => initialState)
         state => ({
           ...state,
           orderList: state.orderList.map((order) => {
-            if (order._id === reqbody._id) {
-              return { ...order, ...reqbody };
+            if (order._id === reqbody.id) {
+              return { ...order, state: reqbody.state };
             }
             return order;
           }),
@@ -52,7 +52,7 @@ const orderReducer$ = Rx.Observable.of(() => initialState)
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
         return Rx.Observable.of(state => state);
       })
-    )),
+    }),
   );
 
 export default orderReducer$;

@@ -20,7 +20,7 @@ type Props = {
     orderList: Array<OrderObject>,
   },
   fetchOrders$: any => Rx.Observable,
-  updateOrderStatus$: () => Rx.Observable,
+  updateOrderState$: (orderId: string, state: string) => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -91,7 +91,7 @@ class OrderPage extends React.Component<Props, State> {
       order: { orderList },
       setError$,
       error,
-      updateOrderStatus$,
+      updateOrderState$,
     } = this.props;
 
     return (
@@ -109,6 +109,12 @@ class OrderPage extends React.Component<Props, State> {
           this.state.isShowOrderModal ?
             <OrderModal
               order={this.state.currentOrder}
+              onUpdateState={(orderState) => {
+                updateOrderState$({
+                  id: this.state.currentOrder._id,
+                  state: orderState
+                });
+              }}
               onEmail={() => {}}
               onCancel={() => {
                 this.setState({
