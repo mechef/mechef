@@ -22,7 +22,6 @@ class Store extends React.Component<Props, State> {
       kitchenName: 'momokitchen',
       description: 'Welcome to momokitchen!',
       chefProfileImage: '/static/avatar.jpg',
-      coverPhoto: '/static/main-background.jpg',
       displayedProduct: undefined,
       products: [
         {
@@ -113,6 +112,7 @@ class Store extends React.Component<Props, State> {
           {`
             .storeDisplay {
               width: 100%;
+              margin-top: 70px;
               margin-bottom: 144px;
               display: flex;
               justify-content: center;

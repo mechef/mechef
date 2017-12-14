@@ -3,14 +3,13 @@ import React from 'react';
 
 type Props = {
   name: string,
-  description: string,
-  chefProfileImage: string,
-  coverPhoto: string,
+  description?: string,
+  chefProfileImage?: string,
+  noDescription?: boolean,
 }
 
-const StoreHeader = ({ name, description, chefProfileImage, coverPhoto }: Props) => (
+const StoreHeader = ({ name, description, chefProfileImage, noDescription }: Props) => (
   <div className="storeHeader">
-    <div className="storeCover" style={{ backgroundImage: `url(${coverPhoto})` }} />
     <div className="storeDetail">
       <div className="storeName">
         <img className="storeAvatar" src={chefProfileImage} alt={name} />
@@ -50,7 +49,7 @@ const StoreHeader = ({ name, description, chefProfileImage, coverPhoto }: Props)
           display: flex;
           justify-content: center;
           flex-direction: column;
-          padding: 0px 270px 70px 208px;
+          padding: 0 270px 0 208px;
           color: #525252;
         }
         .storeName {

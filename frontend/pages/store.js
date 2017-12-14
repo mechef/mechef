@@ -22,6 +22,7 @@ type Props = {
 type State = {
   kitchen: string,
   product?: string,
+  coverPhoto: string,
 }
 
 class StorePage extends React.Component<Props, State> {
@@ -31,6 +32,7 @@ class StorePage extends React.Component<Props, State> {
     this.state = {
       kitchen: props.url.query && props.url.query.kitchen ? props.url.query.kitchen : 'momokitchen',
       product: undefined,
+      coverPhoto: '/static/main-background.jpg',
     };
   }
 
@@ -60,7 +62,19 @@ class StorePage extends React.Component<Props, State> {
     return (
       <div>
         <BuyerHeader />
+        <div className="storeCover" style={{ backgroundImage: `url(${this.state.coverPhoto})` }} />
         <StorePageRouter kitchen={this.state.kitchen} product={this.state.product} />
+        <style jsx>
+          {`
+            .storeCover {
+              display: block;
+              height: 250px;
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: top -240px center;
+            }
+          `}
+        </style>
       </div>
     );
   }
