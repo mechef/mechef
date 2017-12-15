@@ -38,7 +38,7 @@ class MapWithAutoComplete extends React.Component<Props> {
         lat: this.props.initialLat,
         lng: this.props.initialLong,
       },
-      zoom: 8,
+      zoom: 15,
       panControl: false,
       mapTypeControl: false,
       streetViewControl: false,
@@ -53,12 +53,12 @@ class MapWithAutoComplete extends React.Component<Props> {
     if (this.map) {
       const latlng = new google.maps.LatLng(this.props.initialLat, this.props.initialLong);
       this.map.setCenter(latlng);
-      const marker = new google.maps.Marker({
-        position: latlng,
-        title: this.props.initialValue,
-        visible: true,
-      });
-      marker.setMap(this.map);
+      // const marker = new google.maps.Marker({
+      //   position: latlng,
+      //   title: this.props.initialValue,
+      //   visible: true,
+      // });
+      // marker.setMap(this.map);
     }
   }
 

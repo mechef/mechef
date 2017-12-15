@@ -114,7 +114,7 @@ class DeliveryEdit extends React.Component<Props, State> {
                   meetupAddress: suggest.address,
                   meetupLongitude: suggest.longitude,
                   meetupLatitude: suggest.latitude,
-                })
+                });
               }}
             />
           </div>
