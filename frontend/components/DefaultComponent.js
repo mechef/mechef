@@ -12,7 +12,12 @@ type Props = {
 
 const DefaultComponent = (props: Props) => (
   <div className="wrapper">
-    <div className="cover" />
+    {
+      props.coverPhotoSrc ?
+        <div className="cover" />
+        :
+        null
+    }
     <div className="defaultIcon">
       <img alt="default icon" src="../static/img/default_icon.svg" />
     </div>
@@ -54,5 +59,9 @@ const DefaultComponent = (props: Props) => (
   </div>
 );
 
+DefaultComponent.defaultProps = {
+  coverPhotoSrc: '',
+  children: <div />,
+};
 
 export default DefaultComponent;

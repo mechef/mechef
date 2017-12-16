@@ -8,9 +8,10 @@ import accountActions from '../actions/accountActions';
 import errorActions from '../actions/errorActions';
 import orderActions from '../actions/orderActions';
 import Modal from './Modal';
-import { transparent, whiteColor, textColor, textHintColor } from '../utils/styleVariables';
+import { transparent, whiteColor, textColor, textHintColor, textSize } from '../utils/styleVariables';
 import { AccountObject, OrderObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
+import DefaultComponent from './DefaultComponent';
 
 const sampleOrders = [
   {
@@ -103,31 +104,43 @@ export class Home extends React.Component<Props> {
               : null
           }
         </p>
-        <div className="orderTable">
-          <div className="tableHeader">
-            <span className="firstCell">Delivery Time</span>
-            <span className="secondCell">Buyer‘s Name</span>
-            <span className="thirdCell">Order Name</span>
-            <span className="fourthCell">Quantity</span>
-          </div>
-          {
-            orderList && orderList.length && orderList.map((orderItem, index) => (
-              <div
-                key={orderItem._id}
-                className={`
+        {
+          orderList && orderList.length ?
+            <div className="orderTable">
+              <div className="tableHeader">
+                <span className="firstCell">Delivery Time</span>
+                <span className="secondCell">Buyer‘s Name</span>
+                <span className="thirdCell">Order Name</span>
+                <span className="fourthCell">Quantity</span>
+              </div>
+              {
+                orderList.map((orderItem, index) => (
+                  <div
+                    key={orderItem._id}
+                    className={`
                   tableBody
                   ${index % 2 === 0 ? 'greyBackground' : 'whiteBackground'}
                   ${index === sampleOrders.length - 1 ? 'borderBottomRadius' : ''}
                 `}
-              >
-                <span className="firstCell greyText">{orderItem.deliveryTime}</span>
-                <span className="secondCell boldText">{orderItem.buyerName}</span>
-                <span className="thirdCell boldText">{orderItem.dishName}</span>
-                <span className="fourthCell boldText">{orderItem.quantity}</span>
-              </div>
-            ))
-          }
-        </div>
+                  >
+                    <span className="firstCell greyText">{orderItem.deliveryTime}</span>
+                    <span className="secondCell boldText">{orderItem.buyerName}</span>
+                    <span className="thirdCell boldText">{orderItem.dishName}</span>
+                    <span className="fourthCell boldText">{orderItem.quantity}</span>
+                  </div>
+                ))
+              }
+            </div>
+            :
+            <div className="defaultComponentWrapper">
+              <DefaultComponent>
+                <div className="textSection">
+                  <h2 className="title">Hello there!</h2>
+                  <p className="description">Your upcoming orders will be displayed here!</p>
+                </div>
+              </DefaultComponent>
+            </div>
+        }
         <style jsx>
           {`
             .homeContainer {
@@ -296,6 +309,38 @@ export class Home extends React.Component<Props> {
               letter-spacing: 0.4px;
               color: #ffffff;
               margin: auto;
+            }
+            .textSection {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              padding-top: 31px;
+              margin-top: 150px;
+            }
+            .title {
+              font-family: 'Playball', cursive;
+              font-size: 24px;
+              color: ${textColor};
+            }
+
+            .subtitle {
+              font-size: ${textSize};
+              font-weight: 500;
+              color: ${textColor};
+            }
+
+            .description {
+              width: 315px;
+              display: flex;
+              justify-content: center;
+              line-height: 1.5;
+              font-size: 16px;
+              text-align: center;
+              color: ${textColor};
+            }
+
+            .defaultComponentWrapper {
+              margin-left: 20px;
             }
           `}
         </style>
