@@ -4,6 +4,7 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
+import TextAreaInput from './TextAreaInput';
 import TextInput from './TextInput';
 import { IMAGE_URL } from '../utils/constants'
 import { AccountObject } from '../utils/flowTypes';
@@ -122,9 +123,7 @@ class AccountEdit extends React.Component<Props, State> {
               className="hidden"
               onChange={this.handleProfileImageUpload}
             />
-            <div
-              role="button"
-              tabIndex="-1"
+            <button
               className="update-profile-image__avatar"
               onClick={() => {
                 if (this.profileImage) {
@@ -141,7 +140,7 @@ class AccountEdit extends React.Component<Props, State> {
                 alt="profile"
               />
               <i className="fa fa-camera update-profile-image__avatar-camera-icon" aria-hidden="true" />
-            </div>
+            </button>
             <div className="update-profile-image__description">
               <span className="update-profile-image__description-title">Profile Image</span>
               <span className="update-profile-image__description-subtitle">Add Image Add Image Add Image</span>
@@ -167,14 +166,15 @@ class AccountEdit extends React.Component<Props, State> {
           <div className="bank-info">
             <p className="bank-info__title">Kitchen Description*</p>
             <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
-            <textarea
-              type="text"
-              className="bank-info__text-area"
+            <TextAreaInput
+              placeholder="Write some description about your kitchen...."
               value={this.state.kitchenDescription || ''}
               onChange={(evt) => {
-                this.setState({
-                  kitchenDescription: evt.target.value,
-                });
+                if (evt && evt.target) {
+                  this.setState({
+                    kitchenDescription: evt.target.value,
+                  });
+                }
               }}
             />
           </div>
@@ -296,6 +296,7 @@ class AccountEdit extends React.Component<Props, State> {
               position: relative;
               display: flex;
               cursor: pointer;
+              outline: none;
             }
 
             .coverPhoto {
@@ -344,6 +345,10 @@ class AccountEdit extends React.Component<Props, State> {
               width: 80px;
               height: 80px;
               border-radius: 40px;
+              outline: none;
+              padding: 0;
+              border: 0;
+              cursor: pointer;
             }
 
             .profileImage {
@@ -352,6 +357,8 @@ class AccountEdit extends React.Component<Props, State> {
               width: 80px;
               height: 80px;
               border-radius: 40px;
+              top: 0;
+              left: 0;
             }
 
             .update-profile-image__avatar:after {
@@ -360,6 +367,8 @@ class AccountEdit extends React.Component<Props, State> {
               content: '';
               width: 80px;
               height: 80px;
+              top: 0;
+              left: 0;
               opacity: 0.7;
               background-color: rgba(0, 0, 0, .600);
               border-radius: 40px;
