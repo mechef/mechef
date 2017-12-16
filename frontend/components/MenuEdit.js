@@ -97,6 +97,44 @@ class MenuEdit extends React.Component<Props, State> {
     }
   }
 
+  componentDidUpdate() {
+    this.state.deliveryList.forEach((delivery) => {
+      // $FlowFixMe
+      const map = new google.maps.Map(document.getElementById(delivery._id), {
+        center: {
+          lat: delivery.meetupLatitude,
+          lng: delivery.meetupLongitude,
+        },
+        zoom: 15,
+        panControl: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        zoomControl: true,
+        fullscreenControl: false,
+      });
+      const latlng = new google.maps.LatLng(delivery.meetupLatitude, delivery.meetupLongitude);
+      const marker = new google.maps.Marker({
+        position: latlng,
+        title: delivery.meetupAddress,
+        visible: true,
+      });
+      marker.setMap(map);
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getAvailableDays(meetup: MeetupObject) {
+    const result = [];
+    if (meetup.meetupSunday) result.push('Sunday');
+    if (meetup.meetupMonday) result.push('Monday');
+    if (meetup.meetupTuesday) result.push('Tuesday');
+    if (meetup.meetupWednesday) result.push('Wednesday');
+    if (meetup.meetupThursday) result.push('Thursday');
+    if (meetup.meetupFriday) result.push('Friday');
+    if (meetup.meetupSaturday) result.push('Saturday');
+    return result.join(' / ');
+  }
+
   render() {
     const { goBack, onCreateMenu, onUpdateMenu, onDeleteMenu, onUploadImage, currentMenuId, newlyUploadedImages } = this.props;
     const displayImages = [...newlyUploadedImages, ...this.state.images];
@@ -341,7 +379,12 @@ class MenuEdit extends React.Component<Props, State> {
                         <span className="descriptionText">Meet up at</span>
                         <div className="delivery-content">
                           <span className="text">{meetup.meetupAddress}</span>
+                          <span className="text">{this.getAvailableDays(meetup)}</span>
                           <span className="text">{meetup.meetupStartTime} - {meetup.meetupEndTime}</span>
+                        </div>
+                        <span className="descriptionText">Note to buyer</span>
+                        <div className="delivery-content">
+                          <span className="text">{meetup.note}</span>
                         </div>
                       </div>
                     </div>
@@ -520,7 +563,7 @@ class MenuEdit extends React.Component<Props, State> {
 
             .deliveryItem {
               width: 512px;
-              height: 226px;
+              height: 291px;
               border: 0;
               border-radius: ${borderRadius};
               box-shadow: 0 5px 7px 0 rgba(201, 201, 201, 0.5);
@@ -531,7 +574,6 @@ class MenuEdit extends React.Component<Props, State> {
               padding: 0;
               border-radius: 4px;
               background-color: #ffffff;
-              cursor: pointer;
               outline: none;
               transition: all .2s ease-in-out;
             }
