@@ -3,6 +3,7 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
+import ServingModifier from './ServingModifier';
 import { ProductObject } from '../utils/flowTypes';
 
 type Props = {
@@ -32,8 +33,7 @@ class ProductModal extends React.Component<Props, State> {
     };
 
     this.onNoteChange = this.onNoteChange.bind(this);
-    this.onQuantityDecreased = this.onQuantityDecreased.bind(this);
-    this.onQuantityIncreased = this.onQuantityIncreased.bind(this);
+    this.recalculateSubTotal = this.recalculateSubTotal.bind(this);
   }
 
   onNoteChange: Function;
@@ -46,24 +46,11 @@ class ProductModal extends React.Component<Props, State> {
     return `${price}.00`;
   }
 
-  onQuantityDecreased: Function;
-  onQuantityDecreased() {
-    const newQuantity = this.state.quantity <= 1 ? 1 : this.state.quantity - 1;
-    const subTotal = this.props.price * newQuantity;
+  recalculateSubTotal: Function;
+  recalculateSubTotal(quantity: number) {
+    const subTotal = this.props.price * quantity;
     this.setState({
-      quantity: newQuantity,
-      subTotal: this.formatPrice(subTotal),
-    });
-  }
-
-  onQuantityIncreased: Function;
-  onQuantityIncreased() {
-    const newQuantity = this.state.quantity >= this.props.maxServing ?
-      this.props.maxServing :
-      this.state.quantity + 1;
-    const subTotal = this.props.price * newQuantity;
-    this.setState({
-      quantity: newQuantity,
+      quantity: quantity,
       subTotal: this.formatPrice(subTotal),
     });
   }
@@ -88,10 +75,11 @@ class ProductModal extends React.Component<Props, State> {
               ></textarea>
               <div className="productDetailQuantity">
                 <span>Quantity</span>
-                <div className="productDetailQuantityWrapper">
-                  <div className="productDetailQuantityControl--minus" onClick={this.onQuantityDecreased}></div>
-                  <div className="productDetailQuantityDisplay">{this.state.quantity}</div>
-                  <div className="productDetailQuantityControl--plus" onClick={this.onQuantityIncreased}></div>
+                <div className="productDetailQuantityControl">
+                  <ServingModifier
+                    maxServing={this.props.maxServing}
+                    onQuantityChanged={this.recalculateSubTotal}
+                  />
                 </div>
               </div>
               <div className="productDetailSubTotal">
@@ -195,47 +183,18 @@ class ProductModal extends React.Component<Props, State> {
               border: solid 1px #979797;
               outline: 0;
             }
-
             .productDetailQuantity {
-              color: #909090;
               display: flex;
               justify-content: space-between;
               align-items: center;
+              color: #909090;
               margin-top: 31px;
               margin-right: 20px;
               font-size: 14px;
             }
-
-            .productDetailQuantityWrapper > div {
+            .productDetailQuantityControl {
               display: inline-block;
             }
-
-            .productDetailQuantityWrapper > div:not(:last-child) {
-              margin-right: 8px;
-            }
-
-            .productDetailQuantityControl--minus {
-              display: inline-block;
-              height: 16px;
-              width: 16px;
-              cursor: pointer;
-              background-image: url('/static/svg/ic-minus.svg');
-            }
-
-            .productDetailQuantityControl--plus {
-              display: inline-block;
-              height: 16px;
-              width: 16px;
-              cursor: pointer;
-              background-image: url('/static/svg/ic-plus.svg');
-            }
-
-            .productDetailQuantityDisplay {
-              line-height: 16px;
-              min-width: 30px;
-              text-align: center;
-            }
-
             .productDetailSubTotal {
               color: #909090;
               display: flex;
