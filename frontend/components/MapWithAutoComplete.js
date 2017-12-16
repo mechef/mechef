@@ -53,12 +53,13 @@ class MapWithAutoComplete extends React.Component<Props> {
     if (this.map) {
       const latlng = new google.maps.LatLng(this.props.initialLat, this.props.initialLong);
       this.map.setCenter(latlng);
-      // const marker = new google.maps.Marker({
-      //   position: latlng,
-      //   title: this.props.initialValue,
-      //   visible: true,
-      // });
-      // marker.setMap(this.map);
+      const marker = new google.maps.Marker({
+        position: latlng,
+        title: this.props.initialValue,
+        visible: true,
+      });
+      marker.setMap(this.map);
+      this.marker = marker;
     }
   }
 
@@ -86,7 +87,7 @@ class MapWithAutoComplete extends React.Component<Props> {
               address: suggest.label,
               latitude: suggest.location.lat,
               longitude: suggest.location.lng,
-            })
+            });
           }}
           onChange={this.props.onChange}
         />

@@ -36,7 +36,7 @@ class DeliveryList extends React.Component<Props> {
           lat: meetup.meetupLatitude,
           lng: meetup.meetupLongitude,
         },
-        zoom: 10,
+        zoom: 15,
         panControl: false,
         mapTypeControl: false,
         streetViewControl: false,
