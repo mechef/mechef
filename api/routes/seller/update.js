@@ -50,8 +50,6 @@ module.exports = (req, res) => {
     if (req.body.firstName) updateFields.firstName = req.body.firstName;
     if (req.body.lastName) updateFields.lastName = req.body.lastName;
     if (req.body.phoneNumber) updateFields.phoneNumber = req.body.phoneNumber;
-    console.log('liyuan');
-    console.log(req.body);
     const updateFieldsOfImage = [];
     if (req.body.coverPhoto) {
       updateFields.coverPhoto = req.body.coverPhoto;
@@ -94,7 +92,6 @@ module.exports = (req, res) => {
             res.json({ status: constants.fail });
             return;
           }
-
           res.json({ status: constants.success, seller: updatedSeller});
           });
     });
