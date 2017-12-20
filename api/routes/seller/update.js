@@ -50,7 +50,6 @@ module.exports = (req, res) => {
     if (req.body.firstName) updateFields.firstName = req.body.firstName;
     if (req.body.lastName) updateFields.lastName = req.body.lastName;
     if (req.body.phoneNumber) updateFields.phoneNumber = req.body.phoneNumber;
-
     const updateFieldsOfImage = [];
     if (req.body.coverPhoto) {
       updateFields.coverPhoto = req.body.coverPhoto;
@@ -75,7 +74,9 @@ module.exports = (req, res) => {
         const gfs = new Gridfs(db, mongoDriver);
 
         for (let i = 0; i < updateFieldsOfImage.length; i++) {
-          if (seller[updateFieldsOfImage[i]] && seller[updateFieldsOfImage[i]] !== '') {
+          if (seller[updateFieldsOfImage[i]]
+            && seller[updateFieldsOfImage[i]] !== ''
+            && seller[updateFieldsOfImage[i]] !== req.body[updateFieldsOfImage[i]]) {
             gfs.remove({ filename: seller[updateFieldsOfImage[i]] }, (erro) => {
               if (erro) {
                 console.log(erro);
@@ -91,7 +92,6 @@ module.exports = (req, res) => {
             res.json({ status: constants.fail });
             return;
           }
-
           res.json({ status: constants.success, seller: updatedSeller});
           });
     });
