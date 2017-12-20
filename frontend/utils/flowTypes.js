@@ -29,6 +29,7 @@ export type MenuObject = {
   images?: Array<string>,
   ingredients?: Array<string>,
   category?: Array<string>,
+  publish?: bool,
 };
 
 export type AccountObject = {
@@ -42,6 +43,17 @@ export type AccountObject = {
   email?: string,
   coverPhoto?: string,
   profileImage?: string,
+  update?: {
+    name?: string,
+    kitchenName?: string,
+    kitchenDescription?: string,
+    firstName?: string,
+    lastName?: string,
+    phoneNumber?: string,
+    email?: string,
+    coverPhoto?: string,
+    profileImage?: string,
+  },
 };
 
 export type OrderObject = {

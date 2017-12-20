@@ -148,9 +148,9 @@ class OrderPage extends React.Component<Props, State> {
                       notification
                       ${this.state.filter === 'pending' ? 'selected' : ''}
                     `}
-                    onClick={() => { this.setState({ filter: 'pending' }); }}
+                    onClick={() => { this.setState({ filter: 'waiting' }); }}
                   >
-                    {orderList.filter(order => order.state === 'pending').length}
+                    {orderList.filter(order => order.state === 'waiting').length}
                   </button>
                 </div>
                 <div className="titleWithNotification">

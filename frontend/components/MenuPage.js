@@ -99,8 +99,11 @@ export class MenuPage extends React.Component<Props> {
                   toggleBackArrow$('Edit Menu');
                 }}
                 onDeleteMenu={menuId => deleteMenu$(menuId)}
-                onTogglePublish={(menuId) => {
-                  console.log('menuId:', menuId);
+                onTogglePublish={(menuId, publish) => {
+                  updateMenu$({
+                    _id: menuId,
+                    publish,
+                  });
                 }}
               />
               : <DefaultComponent

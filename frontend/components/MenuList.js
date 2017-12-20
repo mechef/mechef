@@ -11,7 +11,7 @@ import { IMAGE_URL } from '../utils/constants';
 type Props = {
   menuList: Array<MenuObject>,
   // eslint-disable-next-line react/no-unused-prop-types
-  onTogglePublish: (menuId: string) => Rx.Observable,
+  onTogglePublish: (menuId: string, publish: bool) => Rx.Observable,
   onEditMenu: (menuId: string) => Rx.Observable,
   onDeleteMenu: (menuId: string) => Rx.Observable,
 }
@@ -31,8 +31,8 @@ const MenuList = (props: Props) => (
             dishName={menu.dishName}
             description={menu.description}
             thumbnailUrl={menu.images.length ? `${IMAGE_URL}/${menu.images[0]}` : ''}
-            isPublish={menu.isPublish}
-            onTogglePublish={() => props.onTogglePublish(menu._id)}
+            isPublish={menu.publish}
+            onTogglePublish={() => props.onTogglePublish(menu._id, !menu.publish)}
             onEdit={() => props.onEditMenu(menu._id)}
             onDelete={() => props.onDeleteMenu(menu._id)}
           />

@@ -8,12 +8,15 @@ import { API_ACCOUNT, API_IMAGE } from '../utils/constants';
 
 const initialState = {
   name: '',
+  kitchenName: '',
   kitchenDescription: '',
   firstName: '',
   lastName: '',
   phoneNumber: '',
+  email: '',
   coverPhoto: '',
   profileImage: '',
+  update: {},
 };
 
 const accountReducer$ = Rx.Observable.of(() => initialState)
@@ -53,6 +56,14 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
         return Rx.Observable.of(state => state);
       })
     )),
+    accountActions.setFields$.map(payload => state => ({
+      ...state,
+      ...payload,
+      update: {
+        ...state.update,
+        ...payload,
+      },
+    })),
     accountActions.createCoverPhoto$.map((file) => {
       const formData = new FormData();
       formData.append('image', file);
@@ -67,7 +78,7 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(data => state => ({ ...state, coverPhoto: data.response.image }))
+      }).map(data => state => ({ ...state, coverPhoto: data.response.image, update: { ...state.update, coverPhoto: data.response.image } }))
         .catch((error) => {
           errorActions.setError$.next({ isShowModal: true, title: 'Create Cover Image Error', message: error.message });
           return Rx.Observable.of(state => state);
@@ -87,7 +98,7 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(data => state => ({ ...state, profileImage: data.response.image }))
+      }).map(data => state => ({ ...state, profileImage: data.response.image, update: { ...state.update, profileImage: data.response.image } }))
         .catch((error) => {
           errorActions.setError$.next({ isShowModal: true, title: 'Create Profile Photo Error', message: error.message });
           return Rx.Observable.of(state => state);

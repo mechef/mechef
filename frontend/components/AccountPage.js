@@ -18,6 +18,15 @@ type Props = {
   account: AccountObject,
   fetchAccountDetail$: any => Rx.Observable,
   updateAccountDetail$: ({ account: AccountObject }) => Rx.Observable,
+  setFields$: ({
+    name?: string,
+    kitchenName?: string,
+    kitchenDescription?: string,
+    firstName?: string,
+    lastName?: string,
+    phoneNumber?: string,
+    email?: string,
+  }) => Rx.Observable,
   createCoverPhoto$: File => Rx.Observable,
   createProfileImage$: File => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
@@ -62,6 +71,7 @@ export class AccountPage extends React.Component<Props, State> {
       error,
       global: { backArrow },
       updateAccountDetail$,
+      setFields$,
       createCoverPhoto$,
       createProfileImage$,
       toggleBackArrow$,
@@ -86,6 +96,7 @@ export class AccountPage extends React.Component<Props, State> {
                 onUpdateCoverPhoto={createCoverPhoto$}
                 onUpdateProfileImage={createProfileImage$}
                 onSubmit={updateAccountDetail$}
+                onUpdateField={setFields$}
                 goback={() => toggleBackArrow$('')}
               />
               : this.state.pageStatus === pageStatus.UPDATE_BANK_ACCOUNT ?

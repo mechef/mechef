@@ -14,23 +14,19 @@ type Props = {
   onUpdateCoverPhoto: File => Rx.Observable,
   onUpdateProfileImage: File => Rx.Observable,
   onSubmit: ({ account: AccountObject }) => Rx.Observable,
+  onUpdateField: ({
+    name?: string,
+    kitchenName?: string,
+    kitchenDescription?: string,
+    firstName?: string,
+    lastName?: string,
+    phoneNumber?: string,
+    email?: string,
+  }) => Rx.Observable,
   goback: any => Rx.Observable,
 }
 
-type State = {
-  name: string,
-  kitchenName: string,
-  kitchenDescription: string,
-  firstName: string,
-  lastName: string,
-  phoneNumber: string,
-  email: string,
-  coverPhoto: string,
-  profileImage: string,
-}
-
-class AccountEdit extends React.Component<Props, State> {
-
+class AccountEdit extends React.Component<Props> {
   static defaultProps = {
     account: {
       name: '',
@@ -49,9 +45,6 @@ class AccountEdit extends React.Component<Props, State> {
     super(props);
     this.handleCoverPhotoUpload = this.handleCoverPhotoUpload.bind(this);
     this.handleProfileImageUpload = this.handleProfileImageUpload.bind(this);
-    this.state = {
-      ...props.account,
-    };
   }
 
   handleCoverPhotoUpload: Function;
@@ -153,10 +146,10 @@ class AccountEdit extends React.Component<Props, State> {
               type="text"
               placeholder="Enter Kitchen Name"
               size="large"
-              value={this.state.kitchenName || ''}
+              value={this.props.account.kitchenName || ''}
               onChange={(event) => {
                 if (event && event.target) {
-                  this.setState({
+                  this.props.onUpdateField({
                     kitchenName: event.target.value,
                   });
                 }
@@ -168,10 +161,10 @@ class AccountEdit extends React.Component<Props, State> {
             <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
             <TextAreaInput
               placeholder="Write some description about your kitchen...."
-              value={this.state.kitchenDescription || ''}
+              value={this.props.account.kitchenDescription || ''}
               onChange={(evt) => {
                 if (evt && evt.target) {
-                  this.setState({
+                  this.props.onUpdateField({
                     kitchenDescription: evt.target.value,
                   });
                 }
@@ -186,10 +179,10 @@ class AccountEdit extends React.Component<Props, State> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.state.firstName || ''}
+                value={this.props.account.firstName || ''}
                 onChange={(event) => {
                   if (event && event.target) {
-                    this.setState({
+                    this.props.onUpdateField({
                       firstName: event.target.value,
                     });
                   }
@@ -199,10 +192,10 @@ class AccountEdit extends React.Component<Props, State> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.state.lastName || ''}
+                value={this.props.account.lastName || ''}
                 onChange={(event) => {
                   if (event && event.target) {
-                    this.setState({
+                    this.props.onUpdateField({
                       lastName: event.target.value,
                     });
                   }
@@ -218,10 +211,10 @@ class AccountEdit extends React.Component<Props, State> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.state.phoneNumber || ''}
+                value={this.props.account.phoneNumber || ''}
                 onChange={(event) => {
                   if (event && event.target) {
-                    this.setState({
+                    this.props.onUpdateField({
                       phoneNumber: event.target.value,
                     });
                   }
@@ -235,10 +228,10 @@ class AccountEdit extends React.Component<Props, State> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.state.email || ''}
+                value={this.props.account.email || ''}
                 onChange={(event) => {
                   if (event && event.target) {
-                    this.setState({
+                    this.props.onUpdateField({
                       email: event.target.value,
                     });
                   }
@@ -263,9 +256,7 @@ class AccountEdit extends React.Component<Props, State> {
               size="small"
               onClick={() => {
                 this.props.onSubmit({
-                  ...this.state,
-                  coverPhoto: this.props.account.coverPhoto,
-                  profileImage: this.props.account.profileImage,
+                  ...this.props.account.update,
                 });
               }}
             >
