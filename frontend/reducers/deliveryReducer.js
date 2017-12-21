@@ -5,6 +5,7 @@ import { API_GET_DELIVERY_LIST } from '../utils/constants';
 
 const initialState = {
   meetupList: [],
+  updatedMeetup: {},
   shippingList: [],
   currentMeetupId: -1,
 };
@@ -34,6 +35,13 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState)
       ...state,
       currentMeetupId: meetupId,
     })),
+    deliveryActions.setMeetupFields$.map(payload => state => ({
+      ...state,
+      updatedMeetup: {
+        ...state.updatedMeetup,
+        ...payload,
+      }
+    })),
     deliveryActions.createMeetup$.flatMap(reqbody => (
       Rx.Observable.ajax({
         crossDomain: true,
@@ -48,6 +56,7 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState)
       }).map(data => (
         state => ({
           ...state,
+          updatedMeetup: {},
           meetupList: [...state.meetupList, data.response.delivery]
         })
       )).catch((error) => {
@@ -74,6 +83,7 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState)
             }
             return meetup;
           }),
+          updatedMeetup: {},
         })
       )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });

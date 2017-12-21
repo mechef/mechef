@@ -5,5 +5,6 @@ export default {
   createMeetup$: new Rx.Subject,
   updateMeetup$: new Rx.Subject,
   setCurrentMeetupId$: new Rx.Subject,
+  setMeetupFields$: new Rx.Subject,
   deleteMeetup$: new Rx.Subject,
 };

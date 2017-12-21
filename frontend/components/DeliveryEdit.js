@@ -15,12 +15,11 @@ type Props = {
   onCreateMeetup: (meetup: MeetupObject) => Rx.Observable,
   onUpdateMeetup: (meetup: MeetupObject) => Rx.Observable,
   onDeleteMeetup: (meetupId: string) => Rx.Observable,
-  meetupList: Array<MeetupObject>,
-  currentMeetupId: string,
+  onChangeMeetupField: (meetupField: MeetupObject) => Rx.Observable,
+  currentMeetup: MeetupObject,
+  updatedMeetup: MeetupObject,
   goBack: () => Rx.Observable,
 }
-
-type State = MeetupObject
 
 const availableTime = [
   { text: '1:00', value: '1:00' },
@@ -61,36 +60,8 @@ const days = [
 ];
 
 class DeliveryEdit extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    const currentMeetup = props.meetupList.find(
-      delivery => delivery._id === props.currentMeetupId) || {
-        _id: '',
-        note: '',
-        meetupEndTime: '',
-        meetupStartTime: '',
-        meetupSaturday: false,
-        meetupFriday: false,
-        meetupThursday: false,
-        meetupWednesday: false,
-        meetupTuesday: false,
-        meetupMonday: false,
-        meetupSunday: false,
-        meetupLatitude: DEFAULT_LATITUDE,
-        meetupLongitude: DEFAULT_LONGITUDE,
-        meetupAddress: '',
-        type: 'meetup',
-      };
-    this.state = {
-      // XXX Yuan:
-      // 1. Add type to the response
-      // 2. meetupLoatitude, meetupLongitude naming
-      ...currentMeetup,
-      type: 'meetup',
-    };
-  }
   render() {
-    const { goBack, onCreateMeetup, onUpdateMeetup, onDeleteMeetup, currentMeetupId } = this.props;
+    const { goBack, onCreateMeetup, onUpdateMeetup, onDeleteMeetup, currentMeetup, updatedMeetup, onChangeMeetupField } = this.props;
     return (
       <div className="dashboard-content">
         <p className="dashboard-content__title">Edit Delivery</p>
@@ -99,18 +70,16 @@ class DeliveryEdit extends React.Component<Props, State> {
             <h3 className="title">Meet up location</h3>
             <p className="subtitle">Location and Time</p>
             <MapWithAutoComplete
-              initialValue={this.state.meetupAddress}
-              initialLat={this.state.meetupLatitude}
-              initialLong={this.state.meetupLongitude}
+              initialValue={currentMeetup.meetupAddress || ''}
+              initialLat={currentMeetup.meetupLatitude || DEFAULT_LATITUDE}
+              initialLong={currentMeetup.meetupLongitude || DEFAULT_LONGITUDE}
               onChange={(input) => {
-                this.setState({
+                onChangeMeetupField({
                   meetupAddress: input,
-                  meetupLongitude: -1,
-                  meetupLatitude: -1,
                 });
               }}
               onSuggestSelect={(suggest) => {
-                this.setState({
+                onChangeMeetupField({
                   meetupAddress: suggest.address,
                   meetupLongitude: suggest.longitude,
                   meetupLatitude: suggest.latitude,
@@ -126,10 +95,10 @@ class DeliveryEdit extends React.Component<Props, State> {
                 days.map(day => (
                   <span key={day.key} className="checkbox">
                     <CheckBox
-                      checked={this.state[day.key]}
+                      checked={updatedMeetup[day.key] || currentMeetup[day.key]}
                       onChange={() => {
-                        this.setState({
-                          [day.key]: !this.state[day.key],
+                        onChangeMeetupField({
+                          [day.key]: updatedMeetup[day.key] ? !updatedMeetup[day.key] : !currentMeetup[day.key],
                         });
                       }}
                     >
@@ -146,10 +115,10 @@ class DeliveryEdit extends React.Component<Props, State> {
               <span className="subtitle">From</span>
               <SelectBox
                 options={availableTime}
-                selectedValue={this.state.meetupStartTime}
+                selectedValue={updatedMeetup.meetupStartTime || currentMeetup.meetupStartTime}
                 defaultText="24:00"
                 onChange={(selectedValue) => {
-                  this.setState({
+                  onChangeMeetupField({
                     meetupStartTime: selectedValue,
                   });
                 }}
@@ -159,10 +128,10 @@ class DeliveryEdit extends React.Component<Props, State> {
               <span className="subtitle">To</span>
               <SelectBox
                 options={availableTime}
-                selectedValue={this.state.meetupEndTime}
+                selectedValue={updatedMeetup.meetupEndTime || currentMeetup.meetupEndTime}
                 defaultText="24:00"
                 onChange={(selectedValue) => {
-                  this.setState({
+                  onChangeMeetupField({
                     meetupEndTime: selectedValue,
                   });
                 }}
@@ -175,10 +144,10 @@ class DeliveryEdit extends React.Component<Props, State> {
             type="text"
             placeholder="Write something......"
             size="large"
-            value={this.state.note}
+            value={updatedMeetup.note || currentMeetup.note}
             onChange={(event) => {
               if (event && event.target) {
-                this.setState({ note: event.target.value });
+                onChangeMeetupField({ note: event.target.value });
               }
             }}
           />
@@ -189,7 +158,7 @@ class DeliveryEdit extends React.Component<Props, State> {
               buttonStyle="greenBorderOnly"
               size="small"
               onClick={() => {
-                onDeleteMeetup(currentMeetupId);
+                onDeleteMeetup(currentMeetup._id);
                 goBack();
               }}
             >
@@ -210,11 +179,16 @@ class DeliveryEdit extends React.Component<Props, State> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                if (this.state._id) {
-                  // TODO: Modify to only provide updated data
-                  onUpdateMeetup(this.state);
+                if (currentMeetup._id) {
+                  onUpdateMeetup({
+                    _id: currentMeetup._id,
+                    ...updatedMeetup,
+                  });
                 } else {
-                  onCreateMeetup(this.state);
+                  onCreateMeetup({
+                    ...updatedMeetup,
+                    type: 'meetup',
+                  });
                 }
                 goBack();
               }}

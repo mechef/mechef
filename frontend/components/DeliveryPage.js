@@ -17,6 +17,7 @@ import { whiteColor, primaryColor, textColor, primaryBtnHoverColor, textSize } f
 type Props = {
   delivery: {
     meetupList: Array<MeetupObject>,
+    updatedMeetup: MeetupObject,
     currentMeetupId: string,
     currentShippingId: string,
   },
@@ -25,6 +26,7 @@ type Props = {
   updateMeetup$: (meetup: MeetupObject) => Rx.Observable,
   deleteMeetup$: (meetupId: string) => Rx.Observable,
   setCurrentMeetupId$: (meetupId: string) => Rx.Observable,
+  setMeetupFields$: (updatedField: MeetupObject) => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -46,7 +48,7 @@ export class DeliveryPage extends React.Component<Props> {
   }
   render() {
     const {
-      delivery: { meetupList, currentMeetupId },
+      delivery: { meetupList, currentMeetupId, updatedMeetup },
       setError$, error,
       global: { backArrow },
       toggleBackArrow$,
@@ -54,7 +56,12 @@ export class DeliveryPage extends React.Component<Props> {
       updateMeetup$,
       deleteMeetup$,
       setCurrentMeetupId$,
+      setMeetupFields$,
     } = this.props;
+
+    const currentMeetup = meetupList.find(
+      delivery => delivery._id === currentMeetupId) || {};
+
     return (
       <div className="container">
         {
@@ -70,7 +77,9 @@ export class DeliveryPage extends React.Component<Props> {
           backArrow.isShow ?
             <DeliveryEdit
               meetupList={meetupList}
-              currentMeetupId={currentMeetupId}
+              updatedMeetup={updatedMeetup}
+              currentMeetup={currentMeetup}
+              onChangeMeetupField={setMeetupFields$}
               onCreateMeetup={createMeetup$}
               onUpdateMeetup={updateMeetup$}
               onDeleteMeetup={deleteMeetup$}
