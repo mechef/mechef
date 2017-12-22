@@ -16,6 +16,16 @@ export type MeetupObject = {
   meetupEndTime?: string,
 };
 
+export type MemoObject = {
+  _id?: string,
+  sum?: number,
+  name?: string,
+  ingredients?: Array<{
+    name: string,
+    amount: number,
+  }>,
+};
+
 export type MenuObject = {
   _id?: string,
   serving?: string,

@@ -8,6 +8,7 @@ import { API_MEMO } from '../utils/constants';
 const initialState = {
   memos: [],
   currentMemoId: -1,
+  updatedMemo: {},
   ingredientName: '',
   ingredientAmount: 0,
 };
@@ -24,7 +25,7 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(data => state => ({ ...state, memos: data.response.memos }))
+    }).map(data => state => ({ ...state, memos: data.response.memos, updatedMemo: {}, }))
         .catch((error) => {
           errorActions.setError$.next({ isShowModal: true, title: 'Login Error', message: error.message });
           return Rx.Observable.of(state => state);
@@ -33,6 +34,13 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
     ingredientActions.setCurrentMemoId$.map(memoId => state => ({
       ...state,
       currentMemoId: memoId,
+    })),
+    ingredientActions.setFields$.map(payload => state => ({
+      ...state,
+      updatedMemo: {
+        ...state.updatedMemo,
+        ...payload,
+      }
     })),
     ingredientActions.createMemo$.flatMap(reqbody => (
       Rx.Observable.ajax({
@@ -48,7 +56,8 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
       }).map(data => (
         state => ({
           ...state,
-          memos: [...state.memos, data.response.memo]
+          memos: [...state.memos, data.response.memo],
+          updatedMemo: {},
         })
       )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
@@ -74,6 +83,7 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
             }
             return memo;
           }),
+          updatedMemo: {},
         })
       )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });

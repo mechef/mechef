@@ -24,6 +24,7 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState)
         responseType: 'json',
       }).map(data => state => ({
         ...state,
+        updatedMeetup: {},
         meetupList: data.response.deliveryList.meetupList,
         shippingList: data.response.deliveryList.shippingList,
       })).catch((error) => {

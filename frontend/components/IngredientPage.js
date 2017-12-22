@@ -12,18 +12,12 @@ import IngredientList from './IngredientList';
 import IngredientEdit from './IngredientEdit';
 import DefaultComponent from './DefaultComponent';
 import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
+import { MemoObject } from '../utils/flowTypes';
 
 type Props = {
   ingredient: {
-    memos: Array<{
-      _id: string,
-      sum: number,
-      name: string,
-      ingredients: Array<{
-        name: string,
-        amount: number,
-      }>,
-    }>,
+    memos: Array<MemoObject>,
+    updatedMemo: MemoObject,
     currentMemoId: string,
   },
   fetchMemos$: any => Rx.Observable,
@@ -44,6 +38,7 @@ type Props = {
   }) => Rx.Observable,
   deleteMemo$: (memoId: string) => Rx.Observable,
   setCurrentMemoId$: (memoId: string) => Rx.Observable,
+  setFields$: (updatedField: MemoObject) => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -65,16 +60,18 @@ export class IngredientPage extends React.Component<Props> {
   }
   render() {
     const {
-      ingredient: { memos, currentMemoId },
+      ingredient: { memos, currentMemoId, updatedMemo },
       setError$,
       error,
       global: { backArrow },
       createMemo$,
       updateMemo$,
       deleteMemo$,
+      setFields$,
       toggleBackArrow$,
       setCurrentMemoId$,
     } = this.props;
+    const currentMemo = this.props.ingredient.memos.find(memo => memo._id === currentMemoId) || {};
     return (
       <div className="container">
         {
@@ -90,10 +87,12 @@ export class IngredientPage extends React.Component<Props> {
           backArrow.isShow ?
             <IngredientEdit
               memos={memos}
-              currentMemoId={currentMemoId}
+              currentMemo={currentMemo}
+              updatedMemo={updatedMemo}
               onCreateMemo={createMemo$}
               onUpdateMemo={updateMemo$}
               onDeleteMemo={memoId => deleteMemo$(memoId)}
+              onChangeField={setFields$}
               goBack={() => toggleBackArrow$('')}
             />
             :

@@ -6,69 +6,36 @@ import Rx from 'rxjs/Rx';
 import { transparent, whiteColor } from '../utils/styleVariables';
 import Button from './Button';
 import TextInput from './TextInput';
+import { MemoObject } from '../utils/flowTypes';
 
 type Props = {
-  onCreateMemo: ({
-    name: string,
-    ingredients: Array<{
-      name: string,
-      amount: number,
-    }>
-  }) => Rx.Observable,
-  onUpdateMemo: ({
-    _id: string,
-    name: string,
-    ingredients: Array<{
-      name: string,
-      amount: number,
-    }>
-  }) => Rx.Observable,
+  currentMemo: MemoObject,
+  updatedMemo: MemoObject,
+  onCreateMemo: (memo: MemoObject) => Rx.Observable,
+  onUpdateMemo: (updatedMemo: MemoObject) => Rx.Observable,
   onDeleteMemo: (memoId: string) => Rx.Observable,
-  memos: Array<{
-    _id: string,
-    sum: number,
-    name: string,
-    ingredients: Array<{
-      name: string,
-      amount: number,
-    }>,
-  }>,
-  currentMemoId: string,
+  onChangeField: (updatedField: MemoObject) => Rx.Observable,
+  memos: Array<MemoObject>,
   goBack: () => Rx.Observable,
 }
 
 type State = {
-  id?: string,
-  memoName: string,
-  total: number,
   inputIngredientName: string,
   inputIngredientAmount: number,
-  ingredients: Array<{
-    name: string,
-    amount: number,
-  }>,
 }
 
 class IngredientEdit extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const currentMemo = props.memos.find(memo => memo._id === props.currentMemoId) || {
-      _id: '',
-      sum: 0,
-      name: '',
-      ingredients: [],
-    };
     this.state = {
-      id: currentMemo._id,
-      memoName: currentMemo.name,
-      total: parseInt(currentMemo.sum, 10),
-      ingredients: currentMemo.ingredients,
       inputIngredientName: '',
       inputIngredientAmount: 0,
     };
   }
   render() {
-    const { onCreateMemo, onUpdateMemo, onDeleteMemo, goBack } = this.props;
+    const { currentMemo, updatedMemo, onCreateMemo, onUpdateMemo, onDeleteMemo, onChangeField, goBack } = this.props;
+    const currentIngredients = updatedMemo.ingredients || currentMemo.ingredients || [];
+    const currentSum = updatedMemo.sum || currentMemo.sum || 0;
     return (
       <div className="dashboard-content">
         <p className="dashboard-content__title">Edit Ingredients</p>
@@ -80,10 +47,10 @@ class IngredientEdit extends React.Component<Props, State> {
               type="text"
               placeholder="Input memo name"
               size="large"
-              value={this.state.memoName}
+              value={updatedMemo.name || currentMemo.name || ''}
               onChange={(event) => {
                 if (event && event.target) {
-                  this.setState({ memoName: event.target.value });
+                  onChangeField({ name: event.target.value });
                 }
               }}
             />
@@ -94,7 +61,7 @@ class IngredientEdit extends React.Component<Props, State> {
               <span className="subtitle">Choose Ingredients.</span>
               <div>
                 <span className="totalText">Total:</span>
-                <span className="costText">$ {this.state.total}</span>
+                <span className="costText">$ {updatedMemo.sum || currentMemo.sum || 0}</span>
               </div>
             </p>
             <p className="edit-ingredient__input">
@@ -124,16 +91,17 @@ class IngredientEdit extends React.Component<Props, State> {
                   }}
                   hasAddBtn
                   onAdd={() => {
-                    this.setState({
+                    onChangeField({
                       ingredients: [
-                        ...this.state.ingredients,
+                        ...currentIngredients,
                         {
                           name: this.state.inputIngredientName,
                           amount: this.state.inputIngredientAmount,
                         },
                       ],
-                      total: this.state.total +
-                        this.state.inputIngredientAmount,
+                      sum: currentSum + this.state.inputIngredientAmount,
+                    })
+                    this.setState({
                       inputIngredientName: '',
                       inputIngredientAmount: 0,
                     });
@@ -142,7 +110,7 @@ class IngredientEdit extends React.Component<Props, State> {
               </div>
             </p>
             {
-              this.state.ingredients.map((ingredient, index) => (
+              currentIngredients && currentIngredients.map((ingredient, index) => (
                 /* eslint-disable */
                 <div key={index} className="ingredients">
                 {/* eslint-enable */}
@@ -151,9 +119,9 @@ class IngredientEdit extends React.Component<Props, State> {
                   <button
                     className="removeWrapper"
                     onClick={() => {
-                      this.setState({
-                        ingredients: this.state.ingredients.filter((element, i) => i !== index),
-                        total: parseInt(this.state.total, 10) - parseInt(ingredient.amount, 10),
+                      onChangeField({
+                        ingredients: currentIngredients.filter((element, i) => i !== index),
+                        sum: parseInt(currentSum, 10) - parseInt(ingredient.amount, 10),
                       });
                     }}
                   >
@@ -170,7 +138,7 @@ class IngredientEdit extends React.Component<Props, State> {
               size="small"
               buttonStyle="greenBorderOnly"
               onClick={() => {
-                onDeleteMemo(this.props.currentMemoId);
+                onDeleteMemo(currentMemo._id);
                 goBack();
               }}
             >
@@ -191,19 +159,13 @@ class IngredientEdit extends React.Component<Props, State> {
               size="small"
               buttonStyle="primary"
               onClick={() => {
-                if (this.state.id) {
-                  // TODO: Modify to only provide updated data
+                if (currentMemo._id) {
                   onUpdateMemo({
-                    _id: this.state.id,
-                    name: this.state.memoName,
-                    sum: this.state.total,
-                    ingredients: this.state.ingredients,
+                    _id: currentMemo._id,
+                    ...updatedMemo,
                   });
                 } else {
-                  onCreateMemo({
-                    name: this.state.memoName,
-                    ingredients: this.state.ingredients,
-                  });
+                  onCreateMemo(updatedMemo);
                 }
                 goBack();
               }}

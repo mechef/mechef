@@ -63,6 +63,7 @@ const IngredientList = (props: Props): React.Element<'div'> => (
           box-sizing: border-box;
           background-color: ${whiteColor};
           border-radius: ${borderRadius};
+          margin-bottom: 10px;
         }
         .header {
           display: flex;
