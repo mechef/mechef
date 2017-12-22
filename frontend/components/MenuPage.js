@@ -22,13 +22,13 @@ type Props = {
   menu: {
     menuList: Array<MenuObject>,
     currentMenuId: string,
-    newlyUploadedImages: Array<string>,
   },
   fetchMenus$: any => Rx.Observable,
   createMenu$: (menu: MenuObject) => Rx.Observable,
   updateMenu$: (menu: MenuObject) => Rx.Observable,
   deleteMenu$: (menuId: string) => Rx.Observable,
   setCurrentMenuId$: (menuId: string) => Rx.Observable,
+  setFields$: (menu: MenuObject) => Rx.Observable,
   uploadImage$: File => Rx.Observable,
   fetchDelivery$: any => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
@@ -53,17 +53,20 @@ export class MenuPage extends React.Component<Props> {
   render() {
     const {
       delivery: { meetupList },
-      menu: { menuList, currentMenuId, newlyUploadedImages },
+      menu: { menuList, currentMenuId, updatedMenu },
       setError$,
       error,
       global: { backArrow },
       createMenu$,
       updateMenu$,
       deleteMenu$,
+      setFields$,
       uploadImage$,
       toggleBackArrow$,
       setCurrentMenuId$,
     } = this.props;
+    const currentMenu = menuList && menuList.find(menu => menu._id === currentMenuId) || {};
+    console.log('menupage dishname:::', currentMenu.dishName);
     return (
       <div className="container">
         {
@@ -80,8 +83,9 @@ export class MenuPage extends React.Component<Props> {
           backArrow.isShow ?
             <MenuEdit
               menuList={menuList}
-              newlyUploadedImages={newlyUploadedImages}
-              currentMenuId={currentMenuId}
+              updatedMenu={updatedMenu}
+              currentMenu={currentMenu}
+              onChangeField={setFields$}
               onCreateMenu={createMenu$}
               onUpdateMenu={updateMenu$}
               onDeleteMenu={menuId => deleteMenu$(menuId)}

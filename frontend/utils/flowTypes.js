@@ -36,6 +36,7 @@ export type MenuObject = {
   dishName?: string,
   email?: string,
   deliveryList?: Array<MeetupObject>,
+  deliveryIdList?: Array<string>,
   images?: Array<string>,
   ingredients?: Array<string>,
   category?: Array<string>,

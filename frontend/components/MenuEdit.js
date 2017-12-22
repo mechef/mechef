@@ -18,12 +18,13 @@ type Props = {
   onCreateMenu: (menu: MenuObject) => Rx.Observable,
   onUpdateMenu: (menu: MenuObject) => Rx.Observable,
   onDeleteMenu: (menuId: string) => Rx.Observable,
+  onChangeField: (updatedField: MenuObject) => Rx.Observable,
   onUploadImage: File => Rx.Observable,
   menuList: Array<MenuObject>,
-  newlyUploadedImages: Array<string>,
+  currentMenu: MenuObject,
+  updatedMenu: MenuObject,
   deliveryList: Array<MeetupObject>,
   fetchDelivery: () => Rx.Observable,
-  currentMenuId: string,
   goBack: () => Rx.Observable,
 }
 
@@ -62,24 +63,7 @@ const serving = [
 class MenuEdit extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const currentMenu = props.menuList.find(
-      menu => menu._id === props.currentMenuId) || {
-        _id: '',
-        serving: '',
-        cookingBuffer: '',
-        description: '',
-        quantity: 0,
-        unitPrice: '',
-        dishName: '',
-        email: '',
-        deliveryIdList: [],
-        images: [],
-        ingredients: [],
-        category: [],
-      };
     this.state = {
-      ...currentMenu,
-      deliveryList: [],
       ingredientInput: '',
       categoryInput: '',
     };
@@ -89,16 +73,8 @@ class MenuEdit extends React.Component<Props, State> {
     this.props.fetchDelivery();
   }
 
-  componentWillReceiveProps(newProps: Props) {
-    if (newProps.deliveryList.length) {
-      this.setState({
-        deliveryList: newProps.deliveryList,
-      });
-    }
-  }
-
   componentDidUpdate() {
-    this.state.deliveryList.forEach((delivery) => {
+    this.props.deliveryList.forEach((delivery) => {
       // $FlowFixMe
       const map = new google.maps.Map(document.getElementById(delivery._id), {
         center: {
@@ -136,8 +112,11 @@ class MenuEdit extends React.Component<Props, State> {
   }
 
   render() {
-    const { goBack, onCreateMenu, onUpdateMenu, onDeleteMenu, onUploadImage, currentMenuId, newlyUploadedImages } = this.props;
-    const displayImages = [...newlyUploadedImages, ...this.state.images];
+    const { goBack, onCreateMenu, onUpdateMenu, onDeleteMenu, onUploadImage, onChangeField, currentMenu, updatedMenu, deliveryList } = this.props;
+    const currentCategories = updatedMenu.category || currentMenu.category || [];
+    const currentIngredients = updatedMenu.ingredients || currentMenu.ingredients || [];
+    const displayImages = updatedMenu.images || currentMenu.images || [];
+    console.log('dishName::', currentMenu.dishName);
     return (
       <div className="dashboard-content">
         <p className="mainTitle">Edit Menu</p>
@@ -171,10 +150,10 @@ class MenuEdit extends React.Component<Props, State> {
               type="text"
               placeholder="Enter Dish Name"
               size="large"
-              value={this.state.dishName}
+              value={updatedMenu.dishName || currentMenu.dishName || ''}
               onChange={(event) => {
                 if (event && event.target) {
-                  this.setState({ dishName: event.target.value });
+                  onChangeField({ dishName: event.target.value });
                 }
               }}
             />
@@ -187,10 +166,10 @@ class MenuEdit extends React.Component<Props, State> {
                 type="text"
                 placeholder="$"
                 size="small"
-                value={this.state.unitPrice}
+                value={updatedMenu.unitPrice || currentMenu.unitPrice || ''}
                 onChange={(event) => {
                   if (event && event.target) {
-                    this.setState({ unitPrice: event.target.value });
+                    onChangeField({ unitPrice: event.target.value });
                   }
                 }}
               />
@@ -200,10 +179,10 @@ class MenuEdit extends React.Component<Props, State> {
               <span className="subtitle">Choose quantity</span>
               <SelectBox
                 options={quantity}
-                selectedValue={this.state.quantity}
+                selectedValue={updatedMenu.quantity || currentMenu.quantity || 0}
                 defaultText="0"
                 onChange={(selectedValue) => {
-                  this.setState({
+                  onChangeField({
                     quantity: selectedValue,
                   });
                 }}
@@ -228,14 +207,16 @@ class MenuEdit extends React.Component<Props, State> {
                   onAdd={() => {
                     this.setState({
                       categoryInput: '',
-                      category: [...this.state.category, this.state.categoryInput],
+                    });
+                    onChangeField({
+                      category: currentMenu.category ? [...currentMenu.category, this.state.categoryInput] : [this.state.categoryIniput],
                     });
                   }}
                   hasAddBtn
                 />
                 <div className="tagsWrapper">
                   {
-                    this.state.category.map((tag, index) => (
+                    currentCategories.map((tag, index) => (
                       <div className="tagStyle">
                         <Tag
                           key={
@@ -244,8 +225,8 @@ class MenuEdit extends React.Component<Props, State> {
                           }
                           title={tag}
                           onRemove={() => {
-                            this.setState({
-                              category: this.state.category
+                            onChangeField({
+                              category: currentMenu.category
                                 .filter(categoryTag => categoryTag !== tag),
                             });
                           }}
@@ -272,16 +253,18 @@ class MenuEdit extends React.Component<Props, State> {
                   }
                 }}
                 onAdd={() => {
+                  onChangeField({
+                    ingredients: currentMenu.ingredients ? [...currentMenu.ingredients, this.state.ingredientInput] : [this.state.ingredientInput],
+                  });
                   this.setState({
                     ingredientInput: '',
-                    ingredients: [...this.state.ingredients, this.state.ingredientInput],
                   });
                 }}
                 hasAddBtn
               />
               <div className="tagsWrapper">
                 {
-                  this.state.ingredients.map((tag, index) => (
+                  currentIngredients.map((tag, index) => (
                     <div className="tagStyle">
                       <Tag
                         key={
@@ -290,8 +273,8 @@ class MenuEdit extends React.Component<Props, State> {
                         }
                         title={tag}
                         onRemove={() => {
-                          this.setState({
-                            ingredients: this.state.ingredients
+                          onChangeField({
+                            ingredients: currentMenu.ingredients
                               .filter(ingredient => ingredient !== tag),
                           });
                         }}
@@ -307,10 +290,10 @@ class MenuEdit extends React.Component<Props, State> {
             <p className="subtitle">Description</p>
             <TextAreaInput
               placeholder="Write some description about your menu...."
-              value={this.state.description}
+              value={updatedMenu.description || currentMenu.description || ''}
               onChange={(event) => {
                 if (event && event.target) {
-                  this.setState({ description: event.target.value });
+                  onChangeField({ description: event.target.value });
                 }
               }}
             />
@@ -321,10 +304,10 @@ class MenuEdit extends React.Component<Props, State> {
               <p className="subtitle">Choose cooking buffer</p>
               <SelectBox
                 options={cookingBuffer}
-                selectedValue={this.state.cookingBuffer}
+                selectedValue={updatedMenu.cookingBuffer || currentMenu.cookingBuffer || ''}
                 defaultText="Choose cooking buffer"
                 onChange={(selectedValue) => {
-                  this.setState({
+                  onChangeField({
                     cookingBuffer: selectedValue,
                   });
                 }}
@@ -335,10 +318,10 @@ class MenuEdit extends React.Component<Props, State> {
               <p className="subtitle">Choose serving</p>
               <SelectBox
                 options={serving}
-                selectedValue={this.state.serving}
+                selectedValue={updatedMenu.serving || currentMenu.serving || ''}
                 defaultText="For 1~2 people"
                 onChange={(selectedValue) => {
-                  this.setState({
+                  onChangeField({
                     serving: selectedValue,
                   });
                 }}
@@ -353,21 +336,22 @@ class MenuEdit extends React.Component<Props, State> {
             <p className="subtitle">Location &amp; Time</p>
             <div className="meetupWrapper">
               {
-                this.state.deliveryList
+                deliveryList
                   .filter(delivery => delivery.type === 'meetup')
                   .map(meetup => (
                     <div className="meetupItem">
                       <span className="checkbox">
                         <CheckBox
-                          checked={this.state.deliveryIdList.includes(meetup._id)}
+                          checked={updatedMenu.deliveryIdList ? updatedMenu.deliveryIdList.includes(meetup._id) : currentMenu.deliveryIdList.includes(meetup._id)}
                           onChange={(isChecked) => {
+                            const currentDeliveryIdList = updatedMenu.deliveryIdList || currentMenu.deliveryIdList || [];
                             if (isChecked) {
-                              this.setState({
-                                deliveryIdList: [...this.state.deliveryIdList, meetup._id],
+                              onChangeField({
+                                deliveryIdList: [...currentDeliveryIdList, meetup._id],
                               });
                             } else {
-                              this.setState({
-                                deliveryIdList: this.state.deliveryIdList
+                              onChangeField({
+                                deliveryIdList: currentDeliveryIdList
                                   .filter(deliveryId => deliveryId !== meetup._id),
                               });
                             }
@@ -399,7 +383,7 @@ class MenuEdit extends React.Component<Props, State> {
               buttonStyle="greenBorderOnly"
               size="small"
               onClick={() => {
-                onDeleteMenu(currentMenuId);
+                onDeleteMenu(currentMenu._id);
                 goBack();
               }}
             >
@@ -420,16 +404,14 @@ class MenuEdit extends React.Component<Props, State> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                const { ingredientInput, categoryInput, deliveryList, ...menuObject } = this.state;
-                const menuWithNewlyUploadedImages = {
-                  ...menuObject,
-                  images: [...newlyUploadedImages, ...menuObject.images],
-                };
-                if (this.state._id) {
+                if (currentMenu._id) {
                   // TODO: Modify to only provide updated data
-                  onUpdateMenu(menuWithNewlyUploadedImages);
+                  onUpdateMenu({
+                    _id: currentMenu._id,
+                    ...updatedMenu,
+                  });
                 } else {
-                  onCreateMenu(menuWithNewlyUploadedImages);
+                  onCreateMenu(updatedMenu);
                 }
                 goBack();
               }}

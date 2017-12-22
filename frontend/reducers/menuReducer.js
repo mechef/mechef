@@ -5,8 +5,8 @@ import { API_MENU, API_IMAGE } from '../utils/constants';
 
 const initialState = {
   menuList: [],
+  updatedMenu: {},
   currentMenuId: -1,
-  newlyUploadedImages: [],
 };
 
 const menuReducer$ = Rx.Observable.of(() => initialState)
@@ -24,6 +24,7 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
       }).map(data => state => ({
         ...state,
         menuList: data.response.menuList,
+        updatedMenu: {},
       })).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Get Menu List Error', message: error.message });
         return Rx.Observable.of(state => state);
@@ -32,6 +33,13 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
     menuActions.setCurrentMenuId$.map(menuId => state => ({
       ...state,
       currentMenuId: menuId,
+    })),
+    menuActions.setFields$.map(payload => state => ({
+      ...state,
+      updatedMenu: {
+        ...state.updatedMenu,
+        ...payload,
+      }
     })),
     menuActions.createMenu$.flatMap(reqbody => (
       Rx.Observable.ajax({
@@ -48,6 +56,7 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
         state => ({
           ...state,
           menuList: [...state.menuList, data.response.menu],
+          updatedMenu: {},
         })
       )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Menu Error', message: error.message });
@@ -73,6 +82,7 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
             }
             return menu;
           }),
+          updatedMenu: {},
         })
       )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Menu Error', message: error.message });
@@ -114,7 +124,13 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(data => state => ({ ...state, newlyUploadedImages: [data.response.image, ...state.newlyUploadedImages] }))
+      }).map(data => state => ({
+          ...state,
+          updatedMenu: {
+            ...state.updatedMenu,
+            images: state.updatedMenu.images ? [data.response.image, ...state.updatedMenu.images] : [data.response.image],
+          }
+        }))
         .catch((error) => {
           errorActions.setError$.next({ isShowModal: true, title: 'Create Menu Image Error', message: error.message });
           return Rx.Observable.of(state => state);

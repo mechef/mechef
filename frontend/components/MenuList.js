@@ -30,7 +30,7 @@ const MenuList = (props: Props) => (
           <MenuItem
             dishName={menu.dishName}
             description={menu.description}
-            thumbnailUrl={menu.images.length ? `${IMAGE_URL}/${menu.images[0]}` : ''}
+            thumbnailUrl={menu.images && menu.images.length ? `${IMAGE_URL}/${menu.images[0]}` : ''}
             isPublish={menu.publish}
             onTogglePublish={() => props.onTogglePublish(menu._id, !menu.publish)}
             onEdit={() => props.onEditMenu(menu._id)}
