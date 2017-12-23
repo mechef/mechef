@@ -3,8 +3,8 @@ import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
 type Props = {
-  productId: string,
-  onAddToCartClick: (productId: string) => Rx.Observable,
+  dishId: string,
+  onAddToCartClick: (dishId: string) => Rx.Observable,
 }
 
 class AddToCartButton extends React.Component<Props> {
@@ -17,7 +17,7 @@ class AddToCartButton extends React.Component<Props> {
   addProductToCart: Function;
 
   addProductToCart() {
-    this.props.onAddToCartClick(this.props.productId);
+    this.props.onAddToCartClick(this.props.dishId);
   }
 
   render() {

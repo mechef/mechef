@@ -17,14 +17,14 @@ app.prepare()
     });
 
     server.get('/kitchen/:kitchen', (req, res) => {
-      const actualPage = '/store';
+      const actualPage = '/kitchen';
       const queryParams = {kitchen: req.params.kitchen};
       app.render(req, res, actualPage);
     });
 
-    server.get('/kitchen/:kitchen/:product', (req, res) => {
-      const actualPage = '/store';
-      const queryParams = {kitchen: req.params.kitchen, product: req.params.product};
+    server.get('/kitchen/:kitchen/:dish', (req, res) => {
+      const actualPage = '/kitchen';
+      const queryParams = {kitchen: req.params.kitchen, dish: req.params.dish};
       app.render(req, res, actualPage, queryParams);
     });
 

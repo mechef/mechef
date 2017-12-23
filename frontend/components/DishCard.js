@@ -10,22 +10,22 @@ type Props = {
   price: number,
   url: string,
   description: string,
-  onProductSelected: (id: string) => Rx.Observable,
+  onDishSelected: (id: string) => Rx.Observable,
   onAddToCartClick: (id: string) => Rx.Observable,
-}
+};
 
-const ProductCard = ({ id, name, price, url, description, onProductSelected, onAddToCartClick }: Props) => (
-  <div className="productCard">
-    <div className="productDetailContainer">
-      <img className="productImage" src={url} alt={name} onClick={() => onProductSelected(id)} />
-      <div className="productName" onClick={() => onProductSelected(id)}>{name}</div>
-      <div className="productDescription">{description}</div>
-      <div className="productPrice">{price}</div>
+const DishCard = ({ id, name, price, url, description, onDishSelected, onAddToCartClick }: Props) => (
+  <div className="dish-card">
+    <div className="dish-card__content">
+      <img className="dish-card__image" src={url} alt={name} onClick={() => onDishSelected(id)} />
+      <div className="dish-card__name" onClick={() => onDishSelected(id)}>{name}</div>
+      <div className="dish-card__description">{description}</div>
+      <div className="dish-card__price">{price}</div>
     </div>
-    <AddToCartButton productId={id} onAddToCartClick={onAddToCartClick} />
+    <AddToCartButton dishId={id} onAddToCartClick={onAddToCartClick} />
     <style jsx>
       {`
-        .productCard {
+        .dish-card {
           width: 260px;
           height: 380px;
           border-radius: 4px;
@@ -35,18 +35,18 @@ const ProductCard = ({ id, name, price, url, description, onProductSelected, onA
           margin-right: 7px;
           margin-bottom: 12px;
         }
-        .productDetailContainer {
+        .dish-card__content {
           flex: 0 0 277px;
           overflow: hidden;
         }
-        .productImage {
+        .dish-card__image {
           width: 260px;
           height: 173px;
           cursor: pointer;
           border-top-left-radius: 4px;
           border-top-right-radius: 4px;
         }
-        .productName {
+        .dish-card__name {
           font-size: 16px;
           line-height: 16px;
           color: #4a4a4a;
@@ -56,7 +56,7 @@ const ProductCard = ({ id, name, price, url, description, onProductSelected, onA
           white-space: nowrap;
           cursor: pointer;
         }
-        .productDescription {
+        .dish-card__description {
           font-size: 14px;
           line-height: 18px;
           color: #9b9b9b;
@@ -64,7 +64,7 @@ const ProductCard = ({ id, name, price, url, description, onProductSelected, onA
           overflow: hidden;
           max-height: 36px;
         }
-        .productPrice {
+        .dish-card__price {
           max-height: 18px;
           line-height: 18px;
           padding: 15px 16px 16px;
@@ -76,4 +76,4 @@ const ProductCard = ({ id, name, price, url, description, onProductSelected, onA
   </div>
 );
 
-export default ProductCard;
+export default DishCard;

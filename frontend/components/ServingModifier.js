@@ -30,7 +30,7 @@ class ServingModifier extends React.Component<Props, State> {
 
   updateHandlerDisabledState: Function;
   updateHandlerDisabledState(quantity: number) {
-    const isPlusDisabled = quantity >= this.props.maxServing;
+    const isPlusDisabled = quantity >= (this.props.maxServing || 99);
     const isMinusDisabled = quantity <= 1;
     this.setState({
       isMinusDisabled,

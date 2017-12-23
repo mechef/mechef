@@ -6,13 +6,15 @@ import Rx from 'rxjs/Rx';
 import { connect } from '../state/RxState';
 import globalActions from '../actions/globalActions';
 import BuyerHeader from '../components/BuyerHeader';
-import StorePageRouter from '../components/StorePageRouter';
+import KitchenPageRouter from '../components/KitchenPageRouter';
+
+import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
   url: {
     query: {
       kitchen: string,
-      product?: string,
+      dish?: string,
     },
     pathname: string,
   },
@@ -21,18 +23,18 @@ type Props = {
 
 type State = {
   kitchen: string,
-  product?: string,
-  coverPhoto: string,
+  dish?: string,
+  coverPhoto?: string,
 }
 
-class StorePage extends React.Component<Props, State> {
+class KitchenPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
       kitchen: props.url.query && props.url.query.kitchen ? props.url.query.kitchen : 'momokitchen',
-      product: undefined,
-      coverPhoto: '/static/main-background.jpg',
+      dish: undefined,
+      coverPhoto: undefined,
     };
   }
 
@@ -47,13 +49,13 @@ class StorePage extends React.Component<Props, State> {
       });
     }
 
-    if (nextProps.url.query && nextProps.url.query.product) {
+    if (nextProps.url.query && nextProps.url.query.dish) {
       this.setState({
-        product: nextProps.url.query.product,
+        dish: nextProps.url.query.dish,
       });
     } else {
       this.setState({
-        product: undefined,
+        dish: undefined,
       });
     }
   }
@@ -62,16 +64,22 @@ class StorePage extends React.Component<Props, State> {
     return (
       <div>
         <BuyerHeader />
-        <div className="storeCover" style={{ backgroundImage: `url(${this.state.coverPhoto})` }} />
-        <StorePageRouter kitchen={this.state.kitchen} product={this.state.product} />
+        <div className="kitchen-cover" />
+        <KitchenPageRouter kitchen={this.state.kitchen} dish={this.state.dish} />
         <style jsx>
           {`
-            .storeCover {
+            body {
+                margin: 0px;
+                font-family: Ubuntu;
+            }
+            .kitchen-cover {
               display: block;
               height: 250px;
               background-repeat: no-repeat;
               background-size: cover;
-              background-position: top -240px center;
+              background-position: center;
+              background-image: url('${this.state.coverPhoto ? `${IMAGE_URL}/${this.state.coverPhoto}` : '/static/pancake.jpg'}'), url('/static/pancake.jpg');
+
             }
           `}
         </style>
@@ -80,6 +88,6 @@ class StorePage extends React.Component<Props, State> {
   }
 }
 
-const StoreWrapper = connect(({ global }) => ({ global }), { ...globalActions })(StorePage);
+const KitchenWrapper = connect(({ global }) => ({ global }), { ...globalActions })(KitchenPage);
 
-export default StoreWrapper;
+export default KitchenWrapper;

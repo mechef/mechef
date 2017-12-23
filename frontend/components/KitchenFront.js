@@ -3,9 +3,9 @@
 import * as React from 'react';
 import Router from 'next/router';
 
-import StoreHeader from '../components/StoreHeader';
-import ProductCard from '../components/ProductCard';
-import ProductModal from '../components/ProductModal';
+import KitchenHeader from '../components/KitchenHeader';
+import DishCard from '../components/DishCard';
+import DishModal from '../components/DishModal';
 import { StoreObject } from '../utils/flowTypes';
 
 type Props = {
@@ -21,14 +21,14 @@ class Store extends React.Component<Props, State> {
     this.state = {
       kitchenName: 'momokitchen',
       description: 'Welcome to momokitchen!',
-      chefProfileImage: '/static/avatar.jpg',
+      profileImage: undefined,
       displayedProduct: undefined,
-      products: [
+      dishes: [
         {
           id: '1',
           name: 'Churros',
           description: 'Traditional Spanish and Portugese fried dough pastry.',
-          url: '/static/churros.jpeg',
+          url: '/static/img/churros.jpeg',
           route: 'churros',
           maxServing: 5,
           price: 9,
@@ -37,7 +37,7 @@ class Store extends React.Component<Props, State> {
           id: '2',
           name: 'Croque-Madame',
           description: 'Grilled ham and cheese sandwich with fried egg on top.',
-          url: '/static/sandwich.jpeg',
+          url: '/static/img/sandwich.jpeg',
           route: 'croque-madame',
           maxServing: 2,
           price: 25,
@@ -46,7 +46,7 @@ class Store extends React.Component<Props, State> {
           id: '3',
           name: 'Blueberry granola yogurt',
           description: 'Yogurt topped with crispy granola and blueberry compote.',
-          url: '/static/yogurt.jpeg',
+          url: '/static/img/yogurt.jpeg',
           route: 'blueberry-yogurt',
           maxServing: 3,
           price: 19,
@@ -54,68 +54,70 @@ class Store extends React.Component<Props, State> {
       ],
     };
 
-    this.onProductSelected = this.onProductSelected.bind(this);
-    this.showProductModal = this.showProductModal.bind(this);
-    this.closeProductModal = this.closeProductModal.bind(this);
+    this.onDishSelected = this.onDishSelected.bind(this);
+    this.showDishModal = this.showDishModal.bind(this);
+    this.closeDishModal = this.closeDishModal.bind(this);
   }
 
-  onProductSelected: Function;
+  onDishSelected: Function;
 
-  onProductSelected(productId: string) {
-    Router.push(`/kitchen/${this.props.kitchen}/${productId}`);
+  onDishSelected(dishId: string) {
+    Router.push(`/kitchen/${this.props.kitchen}/${dishId}`);
     // if (this.props.global.backArrow.isShow) {
     //   this.props.toggleBackArrow$('');
     // }
   }
 
-  showProductModal: Function;
+  showDishModal: Function;
 
-  showProductModal(productId: string) {
-    const found = this.state.products.find((product) => product.id == productId);
+  showDishModal(dishId: string) {
+    const found = this.state.dishes.find((dish) => dish.id == dishId);
     this.setState({ displayedProduct: found });
   }
 
-  closeProductModal: Function;
+  closeDishModal: Function;
 
-  closeProductModal() {
+  closeDishModal() {
     console.log('onClose')
     this.setState({ displayedProduct: undefined });
   }
 
   render() {
     return (
-      <div>
-        <StoreHeader
+      <div className="kitchen-main">
+        <KitchenHeader
           name={this.state.kitchenName}
           description={this.state.description}
-          chefProfileImage={this.state.chefProfileImage}
+          profileImage={this.state.profileImage}
           coverPhoto={this.state.coverPhoto}
         />
-        <div className="storeDisplay">
+        <div className="kitchen-display">
           {
-            this.state.products.map(product => (
-                <ProductCard
-                  {...product}
-                  key={product.id}
-                  onProductSelected={this.onProductSelected}
-                  onAddToCartClick={() => this.showProductModal(product.id)}
+            this.state.dishes.map(dish => (
+                <DishCard
+                  {...dish}
+                  key={dish.id}
+                  onDishSelected={this.onDishSelected}
+                  onAddToCartClick={() => this.showDishModal(dish.id)}
                 />
               ))
           }
           {
             this.state.displayedProduct ?
-              <ProductModal {...this.state.displayedProduct} onClose={this.closeProductModal} /> :
+              <DishModal {...this.state.displayedProduct} onClose={this.closeDishModal} /> :
               ''
           }
         </div>
         <style jsx>
           {`
-            .storeDisplay {
+            .kitchen-main {
+              padding-right: 140px;
+              padding-left: 140px
+            }
+            .kitchen-display {
               width: 100%;
-              margin-top: 70px;
-              margin-bottom: 144px;
+              margin: 70px auto 144px;
               display: flex;
-              justify-content: center;
               flex-wrap: wrap;
             }
           `}

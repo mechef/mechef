@@ -84,7 +84,7 @@ export type OrderObject = {
   image: string,
 };
 
-export type ProductObject = {
+export type DishObject = {
   _id?: string,
   name?: string,
   description?: string,
@@ -93,11 +93,11 @@ export type ProductObject = {
   maxServing?: number,
 };
 
-export type StoreObject = {
+export type KitchenObject = {
   _id?: string,
   kitchenName?: string,
   description?: string,
   coverPhoto?: string,
-  chefProfileImage?: string,
-  products?: Array<ProductObject>,
+  profileImage?: string,
+  dishes?: Array<DishObject>,
 };

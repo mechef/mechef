@@ -4,14 +4,14 @@ import React from 'react';
 import CartButton from './CartButton';
 
 const BuyerHeader = () => (
-  <div className="buyerHeader">
+  <div className="buyer-header">
     <img className="logo" src="/static/food.png" alt="mechef" />
     <div className="buyerContainer">
       <CartButton itemCount={100} onCartClicked={() => console.log('cart is clicked')} />
     </div>
     <style jsx>
       {`
-        .buyerHeader {
+        .buyer-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
