@@ -1,19 +1,23 @@
 // @flow
 
 import React from 'react';
+import Rx from 'rxjs/Rx';
 
 import ServingModifier from './ServingModifier';
 
 type Props = {
   price: number,
   maxServing: number,
+  onOrderChange?: (DishOrderType) => Rx.Observable,
 };
 
-type State = {
-  quantity: number,
-  subTotal: number,
+export type DishOrderType = {
+  quantity?: number,
+  subTotal?: number,
   note?: string,
 };
+
+type State = DishOrderType;
 
 class DishOrder extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -29,9 +33,17 @@ class DishOrder extends React.Component<Props, State> {
     this.recalculateSubTotal = this.recalculateSubTotal.bind(this);
   }
 
+  invokeOrderChange: Function;
+  invokeOrderChange() {
+    if (typeof this.props.onOrderChange === 'function') {
+      this.props.onOrderChange({ ...this.state });
+    }
+  }
+
   onNoteChange: Function;
   onNoteChange(event: any) {
     this.setState({ note: event.target.value });
+    this.invokeOrderChange();
   }
 
   formatPrice: Function;
@@ -46,6 +58,7 @@ class DishOrder extends React.Component<Props, State> {
       quantity: quantity,
       subTotal: this.formatPrice(subTotal),
     });
+    this.invokeOrderChange();
   }
 
   render() {
@@ -82,6 +95,8 @@ class DishOrder extends React.Component<Props, State> {
             }
             .dish-order__note {
               padding-bottom: 12px;
+              font-size: 14px;
+              line-height: 1;
             }
             .dish-order__note-input {
               max-width: 250px;
@@ -103,12 +118,16 @@ class DishOrder extends React.Component<Props, State> {
             }
             .dish-order__field-name {
               color: #4a4a4a;
+              font-size: 14px;
+              line-height: 1;
             }
             .dish-order__quanity {
               display: inline-block;
             }
             .dish-order__subtotal {
               font-size: 14px;
+              font-weight: 500px;
+              line-height: 1;
             }
           `}
         </style>

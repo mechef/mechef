@@ -4,6 +4,7 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 
 import DishOrder from './DishOrder';
+import type { DishOrderType } from './DishOrder';
 import { DishObject } from '../utils/flowTypes';
 
 type Props = {
@@ -16,7 +17,23 @@ type Props = {
   onClose: () => Rx.Observable,
 };
 
-class DishModal extends React.Component<Props> {
+type State = DishOrderType;
+
+class DishModal extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      quantity: 1,
+      subTotal: props.price,
+    };
+  }
+
+  onOrderChanged: Function;
+  onOrderChanged(order: DishOrderType) {
+    this.setState(order);
+  }
+
   render() {
     return (
       <div className="dish-modal-overlay">
@@ -28,7 +45,10 @@ class DishModal extends React.Component<Props> {
             <div className="dish-modal__content-wrapper">
               <div className="dish-modal__name">{this.props.name}</div>
               <div className="dish-modal__description">{this.props.description}</div>
-              <DishOrder price={this.props.price} maxServing={this.props.maxServing} />
+              <DishOrder
+                price={this.props.price}
+                maxServing={this.props.maxServing}
+                onOrderChange={this.onOrderChanged} />
             </div>
             <div className="dish-modal__content__button-container">
                <button className="dish-modal__content__button">ADD TO CART</button>
