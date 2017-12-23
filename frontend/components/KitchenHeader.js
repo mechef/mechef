@@ -29,10 +29,11 @@ const KitchenHeader = ({ name, description, profileImage, noDescription }: Props
           padding-left: 100px;
         }
         .kitchen-header__name {
-          font-weight: 500%;
+          font-weight: 500;
           margin-top: 16px;
           margin-bottom: 16px;
-          line-height: 16px;
+          line-height: 18px;
+          font-size: 18px;
           position: relative;
         }
         .kitchen-header__name:before {
@@ -49,7 +50,9 @@ const KitchenHeader = ({ name, description, profileImage, noDescription }: Props
           background-position: center;
         }
         .kitchen-header__description {
-          line-height: 24px;
+          line-height: 1.5;
+          font-size: 16px;
+          color: #525252;
         }
       `}
     </style>

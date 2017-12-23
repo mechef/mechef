@@ -76,6 +76,10 @@ class ServingModifier extends React.Component<Props, State> {
           />
         <style jsx>
           {`
+            .ServingModifier {
+              display: flex;
+              align-items: center;
+            }
             .ServingModifier > div:not(:last-child) {
               margin-right: 8px;
               display: inline-block;
@@ -103,7 +107,8 @@ class ServingModifier extends React.Component<Props, State> {
               pointer-events: none;
             }
             .ServingModifierDisplay {
-              line-height: 16px;
+              font-size: 14px;
+              line-height: 1;
               min-width: 30px;
               text-align: center;
             }

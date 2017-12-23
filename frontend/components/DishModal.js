@@ -97,16 +97,21 @@ class DishModal extends React.Component<Props> {
               white-space: nowrap;
               color: #4a4a4a;
               width: 228px;
-              line-height: 18px;
+              font-size: 14px;
+              line-height: 1.2;
               margin-top: 20px;
             }
             .dish-modal__description {
               overflow: hidden;
-              margin-top: 9px;
-              margin-right: 26px;
-              line-height: 18px;
+              margin: 10px 20px 20px 0;
+              font-size: 12px;
+              line-height: 1.5;
               max-height: 36px;
               color: #9b9b9b;
+            }
+            .dish-modal .dish-order__subtotal {
+              font-size: 20px;
+              line-height: 1.2;
             }
             .dish-modal__content__button-container {
               margin-right: 20px;

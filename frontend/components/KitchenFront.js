@@ -111,8 +111,8 @@ class Store extends React.Component<Props, State> {
         <style jsx>
           {`
             .kitchen-main {
-              padding-right: 140px;
-              padding-left: 140px
+              padding-right: 110px;
+              padding-left: 110px
             }
             .kitchen-display {
               width: 100%;
