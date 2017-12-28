@@ -7,6 +7,7 @@ import Tag from '../components/Tag';
 import UploadImage from '../components/UploadImage';
 import ErrorComponent from '../components/ErrorComponent';
 import OrderModal from '../components/OrderModal';
+import Pagination from '../components/Pagination';
 import { textColor } from '../utils/styleVariables';
 
 const Index = props => (
@@ -60,7 +61,7 @@ const Index = props => (
         ))
       }
     </ul>
-    <ErrorComponent
+    {/* <ErrorComponent
       buttonText="GO TO HOME PAGE"
       onClick={() => { alert('go to home page!'); }}
     >
@@ -68,8 +69,15 @@ const Index = props => (
         <h2 className="title">Hello there!</h2>
         <p className="description">This is the place to record your ingredients spendings, and a shopping list!</p>
       </div>
-    </ErrorComponent>
-    <OrderModal />
+    </ErrorComponent> */}
+    <Pagination
+      totalPageCount={3}
+      onPageClick={(pageNumber) => {
+        console.log('pageNumber:', pageNumber);
+      }}
+      currentPageIndex={1}
+    />
+    {/* <OrderModal /> */}
     <style jsx>{`
       .textSection {
         display: flex;
