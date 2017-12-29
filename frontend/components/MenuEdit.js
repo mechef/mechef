@@ -116,7 +116,6 @@ class MenuEdit extends React.Component<Props, State> {
     const currentCategories = updatedMenu.category || currentMenu.category || [];
     const currentIngredients = updatedMenu.ingredients || currentMenu.ingredients || [];
     const displayImages = updatedMenu.images || currentMenu.images || [];
-    console.log('dishName::', currentMenu.dishName);
     return (
       <div className="dashboard-content">
         <p className="mainTitle">Edit Menu</p>
@@ -209,7 +208,7 @@ class MenuEdit extends React.Component<Props, State> {
                       categoryInput: '',
                     });
                     onChangeField({
-                      category: currentMenu.category ? [...currentMenu.category, this.state.categoryInput] : [this.state.categoryIniput],
+                      category: [...currentCategories, this.state.categoryInput],
                     });
                   }}
                   hasAddBtn
@@ -226,7 +225,7 @@ class MenuEdit extends React.Component<Props, State> {
                           title={tag}
                           onRemove={() => {
                             onChangeField({
-                              category: currentMenu.category
+                              category: currentCategories
                                 .filter(categoryTag => categoryTag !== tag),
                             });
                           }}
@@ -254,7 +253,7 @@ class MenuEdit extends React.Component<Props, State> {
                 }}
                 onAdd={() => {
                   onChangeField({
-                    ingredients: currentMenu.ingredients ? [...currentMenu.ingredients, this.state.ingredientInput] : [this.state.ingredientInput],
+                    ingredients: [...currentIngredients, this.state.ingredientInput],
                   });
                   this.setState({
                     ingredientInput: '',
@@ -274,7 +273,7 @@ class MenuEdit extends React.Component<Props, State> {
                         title={tag}
                         onRemove={() => {
                           onChangeField({
-                            ingredients: currentMenu.ingredients
+                            ingredients: currentIngredients
                               .filter(ingredient => ingredient !== tag),
                           });
                         }}
@@ -342,7 +341,7 @@ class MenuEdit extends React.Component<Props, State> {
                     <div className="meetupItem">
                       <span className="checkbox">
                         <CheckBox
-                          checked={updatedMenu.deliveryIdList ? updatedMenu.deliveryIdList.includes(meetup._id) : currentMenu.deliveryIdList.includes(meetup._id)}
+                          checked={updatedMenu.deliveryIdList ? updatedMenu.deliveryIdList.includes(meetup._id) : currentMenu.deliveryIdList ? currentMenu.deliveryIdList.includes(meetup._id) : false}
                           onChange={(isChecked) => {
                             const currentDeliveryIdList = updatedMenu.deliveryIdList || currentMenu.deliveryIdList || [];
                             if (isChecked) {
@@ -532,6 +531,7 @@ class MenuEdit extends React.Component<Props, State> {
               background-color: ${whiteColor};
               padding: 24px 20px;
               border-radius: ${borderRadius};
+              overflow: scroll;
             }
 
             .meetupItem {

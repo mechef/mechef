@@ -148,6 +148,7 @@ export class IngredientPage extends React.Component<Props> {
               min-height: 792px;
               height: 100%;
               background-color: #f8f7f7;
+              overflow: scroll;
             }
 
             .textSection {

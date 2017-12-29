@@ -147,6 +147,7 @@ export class Home extends React.Component<Props> {
               background-color: #f8f7f7;
               height: 100%;
               min-height: 882px;
+              overflow: scroll;
             }
             .dashboard-content__header {
               margin-bottom: 25px;

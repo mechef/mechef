@@ -230,6 +230,7 @@ class OrderPage extends React.Component<Props, State> {
               min-height: 792px;
               height: 100%;
               background-color: #f8f7f7;
+              overflow: scroll;
             }
 
             .orderWrapper {

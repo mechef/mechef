@@ -136,6 +136,7 @@ export class DeliveryPage extends React.Component<Props> {
               width: 100%;
               height: 998px;
               background-color: #f8f7f7;
+              overflow: scroll;
             }
 
             .textSection {
