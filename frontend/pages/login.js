@@ -76,6 +76,10 @@ class Login extends React.Component<Props, State> {
 
   onSubmitSignup: Function;
 
+  componentWillMount() {
+    document.addEvent
+  }
+
   async onSubmitSignup() {
     const formValues = urlencoder({
       name: `${this.state.signup.firstName} ${this.state.signup.lastName}`,
@@ -162,6 +166,9 @@ class Login extends React.Component<Props, State> {
                         setLoginField$({ email: evt.target.value });
                       }
                     }}
+                    onKeyPress={() => {
+                      login$({ email, password });
+                    }}
                   />
                 </div>
                 <div className="passwd">
@@ -174,6 +181,9 @@ class Login extends React.Component<Props, State> {
                       if (evt && evt.target) {
                         setLoginField$({ password: evt.target.value });
                       }
+                    }}
+                    onKeyPress={() => {
+                      login$({ email, password });
                     }}
                   />
                 </div>

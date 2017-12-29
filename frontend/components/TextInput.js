@@ -23,6 +23,7 @@ type Props = {
   placeholder: string,
   value: string | number,
   onChange: () => mixed,
+  onKeyPress: () => void,
   hasAddBtn: boolean,
   onAdd: () => mixed,
 };
@@ -38,6 +39,7 @@ const TextInput = (props: Props) => (
       placeholder={props.placeholder}
       value={props.value}
       onChange={props.onChange}
+      onKeyPress={props.onKeyPress}
     />
     {
       props.hasAddBtn ?
@@ -124,6 +126,7 @@ TextInput.defaultProps = {
   size: 'small',
   value: '',
   onChange: () => {},
+  onKeyPress: () => {},
   placeholder: '',
   hasAddBtn: false,
   onAdd: () => {},
