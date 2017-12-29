@@ -3,6 +3,7 @@
 import Rx from 'rxjs/Rx';
 import ingredientActions from '../actions/ingredientActions';
 import errorActions from '../actions/errorActions';
+import globalActions from '../actions/globalActions';
 import { API_MEMO } from '../utils/constants';
 
 const initialState = {
@@ -25,11 +26,14 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-    }).map(data => state => ({ ...state, memos: data.response.memos, updatedMemo: {}, }))
-        .catch((error) => {
-          errorActions.setError$.next({ isShowModal: true, title: 'Login Error', message: error.message });
-          return Rx.Observable.of(state => state);
-        })
+    }).map(data => {
+      globalActions.showSpinner$.next(false);
+      return state => ({ ...state, memos: data.response.memos, updatedMemo: {}, });
+    }).catch((error) => {
+        globalActions.showSpinner$.next(false);
+        errorActions.setError$.next({ isShowModal: true, title: 'Login Error', message: error.message });
+        return Rx.Observable.of(state => state);
+      })
     )),
     ingredientActions.setCurrentMemoId$.map(memoId => state => ({
       ...state,

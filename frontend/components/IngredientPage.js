@@ -13,6 +13,7 @@ import IngredientEdit from './IngredientEdit';
 import DefaultComponent from './DefaultComponent';
 import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
 import { MemoObject } from '../utils/flowTypes';
+import Spinner from '../components/Spinner';
 
 type Props = {
   ingredient: {
@@ -50,11 +51,16 @@ type Props = {
       isShow: boolean,
       title: string,
     },
+    isShowSpinner: boolean,
   },
   toggleBackArrow$: string => Rx.Observable,
+  showSpinner$: boolean => Rx.Observable,
 }
 
 export class IngredientPage extends React.Component<Props> {
+  componentWillMount() {
+    this.props.showSpinner$(true);
+  }
   componentDidMount() {
     this.props.fetchMemos$();
   }
@@ -63,7 +69,7 @@ export class IngredientPage extends React.Component<Props> {
       ingredient: { memos, currentMemoId, updatedMemo },
       setError$,
       error,
-      global: { backArrow },
+      global: { backArrow, isShowSpinner },
       createMemo$,
       updateMemo$,
       deleteMemo$,
@@ -82,6 +88,12 @@ export class IngredientPage extends React.Component<Props> {
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
             />
             : null
+        }
+        {
+          isShowSpinner ?
+            <Spinner />
+            :
+            null
         }
         {
           backArrow.isShow ?
@@ -105,23 +117,25 @@ export class IngredientPage extends React.Component<Props> {
                   toggleBackArrow$('Edit Ingredient');
                 }}
               />
-              : <DefaultComponent
-                coverPhotoSrc="../static/img/ingredients_default.jpg"
-              >
-                <div className="textSection">
-                  <h2 className="title">Hello there!</h2>
-                  <p className="description">This is the place to record your ingredients spendings, and a shopping list!</p>
-                </div>
-                <button
-                  className="addDish"
-                  onClick={() => {
-                    setCurrentMemoId$('');
-                    toggleBackArrow$('Edit Ingredient');
-                  }}
+              : !isShowSpinner ?
+                <DefaultComponent
+                  coverPhotoSrc="../static/img/ingredients_default.jpg"
                 >
-                  ADD YOUR INGREDIENTS
-                </button>
-              </DefaultComponent>
+                  <div className="textSection">
+                    <h2 className="title">Hello there!</h2>
+                    <p className="description">This is the place to record your ingredients spendings, and a shopping list!</p>
+                  </div>
+                  <button
+                    className="addDish"
+                    onClick={() => {
+                      setCurrentMemoId$('');
+                      toggleBackArrow$('Edit Ingredient');
+                    }}
+                  >
+                    ADD YOUR INGREDIENTS
+                  </button>
+                </DefaultComponent>
+                : null
 
         }
         <style jsx>

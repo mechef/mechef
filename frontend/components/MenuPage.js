@@ -14,6 +14,7 @@ import MenuEdit from './MenuEdit';
 import DefaultComponent from './DefaultComponent';
 import { MenuObject, MeetupObject } from '../utils/flowTypes';
 import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
+import Spinner from '../components/Spinner';
 
 type Props = {
   delivery: {
@@ -42,11 +43,16 @@ type Props = {
       isShow: boolean,
       title: string,
     },
+    isShowSpinner: boolean,
   },
   toggleBackArrow$: string => Rx.Observable,
+  showSpinner$: boolean => Rx.Observable,
 }
 
 export class MenuPage extends React.Component<Props> {
+  componentWillMount() {
+    this.props.showSpinner$(true);
+  }
   componentDidMount() {
     this.props.fetchMenus$();
   }
@@ -56,7 +62,7 @@ export class MenuPage extends React.Component<Props> {
       menu: { menuList, currentMenuId, updatedMenu },
       setError$,
       error,
-      global: { backArrow },
+      global: { backArrow, isShowSpinner },
       createMenu$,
       updateMenu$,
       deleteMenu$,
@@ -66,7 +72,7 @@ export class MenuPage extends React.Component<Props> {
       setCurrentMenuId$,
     } = this.props;
     const currentMenu = menuList && menuList.find(menu => menu._id === currentMenuId) || {};
-    console.log('menupage dishname:::', currentMenu.dishName);
+
     return (
       <div className="container">
         {
@@ -77,6 +83,12 @@ export class MenuPage extends React.Component<Props> {
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
             />
             : null
+        }
+        {
+          isShowSpinner ?
+            <Spinner />
+            :
+            null
         }
         {
           // eslint-disable-next-line no-nested-ternary
@@ -110,23 +122,25 @@ export class MenuPage extends React.Component<Props> {
                   });
                 }}
               />
-              : <DefaultComponent
-                coverPhotoSrc="../static/img/menu_default.jpg"
-              >
-                <div className="textSection">
-                  <h2 className="title">Hello there!</h2>
-                  <p className="description">Fill this place with your signature dishes, build your own menu!</p>
-                </div>
-                <button
-                  className="addDish"
-                  onClick={() => {
-                    setCurrentMenuId$('');
-                    toggleBackArrow$('Edit Menu');
-                  }}
+              : !isShowSpinner ?
+                <DefaultComponent
+                  coverPhotoSrc="../static/img/menu_default.jpg"
                 >
-                  ADD DISH
-                </button>
-              </DefaultComponent>
+                  <div className="textSection">
+                    <h2 className="title">Hello there!</h2>
+                    <p className="description">Fill this place with your signature dishes, build your own menu!</p>
+                  </div>
+                  <button
+                    className="addDish"
+                    onClick={() => {
+                      setCurrentMenuId$('');
+                      toggleBackArrow$('Edit Menu');
+                    }}
+                  >
+                    ADD DISH
+                  </button>
+                </DefaultComponent>
+                : null
         }
         <style jsx>
           {`

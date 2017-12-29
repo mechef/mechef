@@ -14,6 +14,7 @@ import { IMAGE_URL } from '../utils/constants';
 import { primaryColor, textColor, whiteColor, primaryBtnHoverColor } from '../utils/styleVariables';
 import DefaultComponent from './DefaultComponent';
 import OrderItem from './OrderItem';
+import Spinner from '../components/Spinner';
 
 type Props = {
   order: {
@@ -27,6 +28,10 @@ type Props = {
     message: string,
     isShowModal: bool,
   },
+  global: {
+    isShowSpinner: boolean,
+  },
+  showSpinner$: boolean => Rx.Observable,
 }
 
 type State = {
@@ -83,6 +88,9 @@ class OrderPage extends React.Component<Props, State> {
       filter: 'all',
     };
   }
+  componentWillMount() {
+    this.props.showSpinner$(true);
+  }
   componentDidMount() {
     this.props.fetchOrders$();
   }
@@ -92,6 +100,7 @@ class OrderPage extends React.Component<Props, State> {
       setError$,
       error,
       updateOrderState$,
+      global: { isShowSpinner },
     } = this.props;
 
     return (
@@ -104,6 +113,12 @@ class OrderPage extends React.Component<Props, State> {
               onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
             />
             : null
+        }
+        {
+          isShowSpinner ?
+            <Spinner />
+            :
+            null
         }
         {
           this.state.isShowOrderModal ?
@@ -195,14 +210,15 @@ class OrderPage extends React.Component<Props, State> {
                 ))
               }
             </div>
-            :
-            <DefaultComponent coverPhotoSrc="../static/img/orders_default.jpg">
-              <div className="textSection">
-                <h2 className="title">Hello there!</h2>
-                <p className="description">Share your menu to get your first order!</p>
-              </div>
-              <button className="addDish" onClick={() => {}}>MY STORE'S LINK</button>
-            </DefaultComponent>
+            : !isShowSpinner ?
+              <DefaultComponent coverPhotoSrc="../static/img/orders_default.jpg">
+                <div className="textSection">
+                  <h2 className="title">Hello there!</h2>
+                  <p className="description">Share your menu to get your first order!</p>
+                </div>
+                <button className="addDish" onClick={() => {}}>MY STORE'S LINK</button>
+              </DefaultComponent>
+              : null
         }
         <style jsx>
           {`

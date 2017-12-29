@@ -13,6 +13,7 @@ import DeliveryEdit from './DeliveryEdit';
 import DefaultComponent from './DefaultComponent';
 import { MeetupObject } from '../utils/flowTypes';
 import { whiteColor, primaryColor, textColor, primaryBtnHoverColor, textSize } from '../utils/styleVariables';
+import Spinner from '../components/Spinner';
 
 type Props = {
   delivery: {
@@ -38,11 +39,16 @@ type Props = {
       isShow: boolean,
       title: string,
     },
+    isShowSpinner: boolean,
   },
   toggleBackArrow$: string => Rx.Observable,
+  showSpinner$: boolean => Rx.Observable,
 }
 
 export class DeliveryPage extends React.Component<Props> {
+  componentWillMount() {
+    this.props.showSpinner$(true);
+  }
   componentDidMount() {
     this.props.fetchDelivery$();
   }
@@ -50,7 +56,7 @@ export class DeliveryPage extends React.Component<Props> {
     const {
       delivery: { meetupList, currentMeetupId, updatedMeetup },
       setError$, error,
-      global: { backArrow },
+      global: { backArrow, isShowSpinner },
       toggleBackArrow$,
       createMeetup$,
       updateMeetup$,
@@ -74,6 +80,12 @@ export class DeliveryPage extends React.Component<Props> {
             : null
         }
         {
+          isShowSpinner ?
+            <Spinner />
+            :
+            null
+        }
+        {
           backArrow.isShow ?
             <DeliveryEdit
               meetupList={meetupList}
@@ -94,24 +106,26 @@ export class DeliveryPage extends React.Component<Props> {
                   toggleBackArrow$('Edit Delivery');
                 }}
               />
-              : <DefaultComponent
-                coverPhotoSrc="../static/img/delivery_default.jpg"
-              >
-                <div className="textSection">
-                  <h2 className="title">Hello there!</h2>
-                  <p className="subtitle">MEET UP</p>
-                  <p className="description">Add your first meetup location and available date &amp; time</p>
-                </div>
-                <button
-                  className="addDish"
-                  onClick={() => {
-                    setCurrentMeetupId$('');
-                    toggleBackArrow$('Edit Delivery');
-                  }}
+              : !isShowSpinner ?
+                <DefaultComponent
+                  coverPhotoSrc="../static/img/delivery_default.jpg"
                 >
-                  ADD MEETUP OPTION
-                </button>
-              </DefaultComponent>
+                  <div className="textSection">
+                    <h2 className="title">Hello there!</h2>
+                    <p className="subtitle">MEET UP</p>
+                    <p className="description">Add your first meetup location and available date &amp; time</p>
+                  </div>
+                  <button
+                    className="addDish"
+                    onClick={() => {
+                      setCurrentMeetupId$('');
+                      toggleBackArrow$('Edit Delivery');
+                    }}
+                  >
+                    ADD MEETUP OPTION
+                  </button>
+                </DefaultComponent>
+                : null
         }
         <style jsx>
           {`

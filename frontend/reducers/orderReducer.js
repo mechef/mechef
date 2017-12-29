@@ -1,6 +1,7 @@
 import Rx from 'rxjs/Rx';
 import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
+import globalActions from '../actions/globalActions';
 import { API_ORDER } from '../utils/constants';
 
 const initialState = {
@@ -19,10 +20,14 @@ const orderReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(data => state => ({
-        ...state,
-        orderList: data.response.orders,
-      })).catch((error) => {
+      }).map(data => {
+        globalActions.showSpinner$.next(false);
+        return state => ({
+          ...state,
+          orderList: data.response.orders,
+        });
+      }).catch((error) => {
+        globalActions.showSpinner$.next(false);
         errorActions.setError$.next({ isShowModal: true, title: 'Get Menu List Error', message: error.message });
         return Rx.Observable.of(state => state);
       })
