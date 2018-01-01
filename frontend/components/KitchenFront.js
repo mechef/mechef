@@ -62,7 +62,15 @@ class Store extends React.Component<Props, State> {
   onDishSelected: Function;
 
   onDishSelected(dishId: string) {
-    Router.push(`/kitchen/${this.props.kitchen}/${dishId}`);
+    Router.push({
+        pathname: '/kitchen',
+        query: {
+          kitchen: this.props.kitchen,
+          dish: dishId,
+        },
+      },
+      `/kitchen/${this.props.kitchen}/${dishId}`
+    );
     // if (this.props.global.backArrow.isShow) {
     //   this.props.toggleBackArrow$('');
     // }
@@ -111,7 +119,6 @@ class Store extends React.Component<Props, State> {
         <style jsx>
           {`
             .kitchen-main {
-              padding-right: 110px;
               padding-left: 110px
             }
             .kitchen-display {

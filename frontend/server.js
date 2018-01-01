@@ -19,7 +19,7 @@ app.prepare()
     server.get('/kitchen/:kitchen', (req, res) => {
       const actualPage = '/kitchen';
       const queryParams = {kitchen: req.params.kitchen};
-      app.render(req, res, actualPage);
+      app.render(req, res, actualPage, queryParams);
     });
 
     server.get('/kitchen/:kitchen/:dish', (req, res) => {
