@@ -48,7 +48,8 @@ const DishCard = ({ id, name, price, url, description, onDishSelected, onAddToCa
         }
         .dish-card__name {
           font-size: 16px;
-          line-height: 16px;
+          line-height: 1;
+          letter-spacing: 0.7px;
           font-weight: 500;
           color: #4a4a4a;
           padding: 28px 16px 0px;
@@ -58,9 +59,8 @@ const DishCard = ({ id, name, price, url, description, onDishSelected, onAddToCa
           cursor: pointer;
         }
         .dish-card__description {
-          font-size: 14px;
           font-weight: 500;
-          font-family: AvenirNext:
+          font-family: AvenirNext;
           line-height: 1.2;
           color: #9b9b9b;
           padding: 10px 16px 0px;

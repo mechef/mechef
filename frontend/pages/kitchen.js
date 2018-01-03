@@ -71,9 +71,8 @@ class KitchenPage extends React.Component<Props, State> {
         <style jsx>
           {`
             body {
-                margin: 0px;
-                font-family: Ubuntu;
-                font-size: 14px;
+              font-size: 14px;
+              letter-spacing: 0.6px;
             }
             .kitchen-cover {
               display: block;

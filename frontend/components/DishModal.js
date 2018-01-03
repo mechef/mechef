@@ -5,6 +5,7 @@ import Rx from 'rxjs/Rx';
 
 import DishOrder from './DishOrder';
 import type { DishOrderType } from './DishOrder';
+import AddToCartButton from './AddToCartButton';
 import { DishObject } from '../utils/flowTypes';
 
 type Props = {
@@ -51,7 +52,7 @@ class DishModal extends React.Component<Props, State> {
                 onOrderChange={this.onOrderChanged} />
             </div>
             <div className="dish-modal__content__button-container">
-               <button className="dish-modal__content__button">ADD TO CART</button>
+              <AddToCartButton dishId={this.props.id} onAddToCartClick={this.props.onClose} />
             </div>
           </div>
           <div className="dish-modal__close-button" onClick={this.props.onClose}></div>
@@ -107,7 +108,6 @@ class DishModal extends React.Component<Props, State> {
               background-image: url('/static/svg/cancel-grey.svg');
             }
             .dish-modal__content-wrapper {
-              box-sizing: border-box;
               width: 100%;
               padding: 0 20px;
             }
@@ -136,14 +136,6 @@ class DishModal extends React.Component<Props, State> {
             .dish-modal__content__button-container {
               margin-right: 20px;
               margin-bottom: 32px;
-            }
-            .dish-modal__content__button {
-              width: 228px;
-              height: 49px;
-              border-radius: 4px;
-              background-color: #3e9f40;
-              color: #ffffff;
-              box-shadow: 0 11px 19px 0 rgba(0, 0, 0, 0.18);
             }
           `}
         </style>

@@ -6,7 +6,7 @@ import CartButton from './CartButton';
 const BuyerHeader = () => (
   <div className="buyer-header">
     <div className="buyer-header--left">
-      <img className="buyer-header__logo" src="/static/food.png" alt="mechef" />
+      <img className="buyer-header__logo" src="/static/img/food.png" alt="mechef" />
     </div>
     <div className="buyer-header--right">
       <span className="buyer-header__link">FAQ</span>
