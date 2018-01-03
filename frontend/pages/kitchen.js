@@ -35,7 +35,7 @@ class KitchenPage extends React.Component<Props, State> {
     this.state = {
       kitchen: props.url.query && props.url.query.kitchen ? props.url.query.kitchen : 'momokitchen',
       dish: undefined,
-      coverPhoto: undefined,
+      coverPhoto: '/static/pancake.jpg',
     };
   }
 
@@ -81,7 +81,6 @@ class KitchenPage extends React.Component<Props, State> {
               background-size: cover;
               background-position: center;
               background-image: url('${this.state.coverPhoto ? `${IMAGE_URL}/${this.state.coverPhoto}` : '/static/pancake.jpg'}'), url('/static/pancake.jpg');
-
             }
           `}
         </style>

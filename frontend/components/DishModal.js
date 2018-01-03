@@ -3,6 +3,7 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
+import ImageSlider from './ImageSlider';
 import DishOrder from './DishOrder';
 import type { DishOrderType } from './DishOrder';
 import AddToCartButton from './AddToCartButton';
@@ -10,11 +11,11 @@ import { DishObject } from '../utils/flowTypes';
 
 type Props = {
   id: string,
-  name: string,
+  dishName: string,
   description: string,
-  url: string,
-  price: number,
-  maxServing: number,
+  images: Array<string>,
+  unitPrice: number,
+  quantity: number,
   onClose: () => Rx.Observable,
 };
 
@@ -26,7 +27,7 @@ class DishModal extends React.Component<Props, State> {
 
     this.state = {
       quantity: 1,
-      subTotal: props.price,
+      subTotal: props.unitPrice,
     };
   }
 
@@ -39,16 +40,14 @@ class DishModal extends React.Component<Props, State> {
     return (
       <div className="dish-modal-overlay">
         <div className="dish-modal">
-          <div className="productGallery">
-            <img src={this.props.url} className="productGalleryImage" />
-          </div>
+          <ImageSlider images={this.props.images} />
           <div className="dish-modal__content">
             <div className="dish-modal__content-wrapper">
-              <div className="dish-modal__name">{this.props.name}</div>
+              <div className="dish-modal__name">{this.props.dishName}</div>
               <div className="dish-modal__description">{this.props.description}</div>
               <DishOrder
-                price={this.props.price}
-                maxServing={this.props.maxServing}
+                price={this.props.unitPrice}
+                maxServing={this.props.quantity}
                 onOrderChange={this.onOrderChanged} />
             </div>
             <div className="dish-modal__content__button-container">
@@ -71,23 +70,25 @@ class DishModal extends React.Component<Props, State> {
             }
             .dish-modal {
               position: relative;
-              width: 715px;
+              min-width: 715px;
               height: 456px;
               border-radius: 4px;
               background-color: #ffffff;
               box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.3);
             }
-            .productGallery {
-              overflow: hidden;
-              display: inline-flex;
-              justify-content: center;
-              align-items: center;
-              flex-direction: column;
+            .dish-modal :global(.image-slider) {
+              display: inline-block;
               width: 290px;
               height: 100%;
+              border-radius: 4px 0 0 4px;
             }
-            .productGalleryImage {
-              flex: 1 0 auto;
+            .dish-modal :global(.image-slider__legend) {
+              position: absolute;
+              bottom: 0;
+              padding-bottom: 24px;
+            }
+            .dish-modal :global(.image-slider__legend-circle) {
+              border: 0;
             }
             .dish-modal__content {
               display: inline-flex;
@@ -110,6 +111,7 @@ class DishModal extends React.Component<Props, State> {
             .dish-modal__content-wrapper {
               width: 100%;
               padding: 0 20px;
+              box-sizing: border-box;
             }
             .dish-modal__name {
               overflow: hidden;

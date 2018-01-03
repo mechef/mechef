@@ -4,23 +4,29 @@ import Rx from 'rxjs/Rx';
 
 import AddToCartButton from './AddToCartButton';
 
+import { IMAGE_URL } from '../utils/constants';
+
 type Props = {
   id: string,
-  name: string,
-  price: number,
-  url: string,
+  dishName: string,
+  unitPrice: number,
+  images: Array<string>,
   description: string,
   onDishSelected: (id: string) => Rx.Observable,
   onAddToCartClick: (id: string) => Rx.Observable,
 };
 
-const DishCard = ({ id, name, price, url, description, onDishSelected, onAddToCartClick }: Props) => (
+const DishCard = ({ id, dishName, unitPrice, images, description, onDishSelected, onAddToCartClick }: Props) => (
   <div className="dish-card">
     <div className="dish-card__content">
-      <img className="dish-card__image" src={url} alt={name} onClick={() => onDishSelected(id)} />
-      <div className="dish-card__name" onClick={() => onDishSelected(id)}>{name}</div>
+      <div className="dish-card__image-container" onClick={() => onDishSelected(id)}>
+        {
+          images && images.length > 0 ? <div className="dish-card__image" /> : ''
+        }
+      </div>
+      <div className="dish-card__name" onClick={() => onDishSelected(id)}>{dishName}</div>
       <div className="dish-card__description">{description}</div>
-      <div className="dish-card__price">{price}</div>
+      <div className="dish-card__price">{unitPrice}</div>
     </div>
     <AddToCartButton dishId={id} onAddToCartClick={onAddToCartClick} />
     <style jsx>
@@ -39,12 +45,27 @@ const DishCard = ({ id, name, price, url, description, onDishSelected, onAddToCa
           flex: 0 0 277px;
           overflow: hidden;
         }
-        .dish-card__image {
+        .dish-card__image-container {
+          border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
           width: 260px;
           height: 173px;
           cursor: pointer;
-          border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
+          overflow: hidden;
+          background-image: url('/static/svg/mechef_logo_white.svg');
+          background-color: #d8d8d8;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 90px 80px;
+        }
+        .dish-card__image {
+          background-image: url('${images.length > 0 ? `${IMAGE_URL}/${images[0]}` : '/static/svg/mechef_logo_white.svg'}'), url('/static/svg/mechef_logo_white.svg');
+          background-color: #d8d8d8;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          width: 100%;
+          height: 100%;
         }
         .dish-card__name {
           font-size: 16px;

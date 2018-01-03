@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import KitchenHeader from './KitchenHeader';
+import ImageSlider from './ImageSlider';
 import DishOrder from './DishOrder';
 import AddToCartButton from './AddToCartButton';
 import type { DishOrderType } from './DishOrder';
@@ -20,8 +21,10 @@ type State = {
   quantity: number,
   subTotal: number,
   dish: {
-    maxServing: number,
-    price: number,
+    dishName: string,
+    quantity: number,
+    unitPrice: number,
+    images: Array<string>,
     deliveryList: Array<MeetupObject>,
   },
   order: DishOrderType,
@@ -36,8 +39,10 @@ class DishPage extends React.Component<Props, State> {
       profileImage: '/static/avatar.jpg',
       quantity: 1,
       dish: {
-        price: 9,
-        maxServing: 10,
+        dishName: 'Food. Very good food in fact. You have to try this!',
+        unitPrice: 9,
+        quantity: 10,
+        images: ['dummy', 'dummy2'],
         deliveryList: [
           {
             type: 'Meet Up',
@@ -65,8 +70,8 @@ class DishPage extends React.Component<Props, State> {
     };
 
     this.setState({
-      subTotal: this.state.dish.price,
-      order: { subTotal: this.state.dish.price },
+      subTotal: this.state.dish.unitPrice,
+      order: { subTotal: this.state.dish.unitPrice },
     });
 
     this.onOrderChanged = this.onOrderChanged.bind(this);
@@ -96,8 +101,41 @@ class DishPage extends React.Component<Props, State> {
               name={this.state.kitchenName}
               profileImage={this.state.profileImage}
             />
-            <div></div>
-            <hr className="dish-page__left__section-divider" />
+            <div className="dish-page__left__header">
+              <div>
+                <div className="dish-page__left__header--left">
+                  <ImageSlider images={this.state.dish.images} />
+                </div>
+                <div className="dish-page__left__header--right">
+                  <div className="dish-page__left__field-title dish-page__left__dish-name">
+                    { this.state.dish.dishName }
+                  </div>
+                  <div>
+                    {
+                      this.state.dish.deliveryList.reduce((all, deliveryOption) => {
+                        if (!all.includes(deliveryOption.type)) {
+                          all.push(deliveryOption.type);
+                        }
+                        return all;
+                      }, []).map((deliveryOption) => (
+                        <span className="dish-page__left__delivery-option-badge">{deliveryOption}</span>
+                      ))
+                    }
+                  </div>
+                </div>
+              </div>
+              <div className="dish-page__left__header--bottom">
+                <div>
+                  <span className="dish-page__left__header__title">Remaining Quantity</span>
+                  <span className="dish-page__left__header__field">{this.state.dish.quantity}</span>
+                </div>
+                <div>
+                  <span className="dish-page__left__header__title">Unit Price</span>
+                  <span className="dish-page__left__header__field">{this.state.dish.unitPrice}</span>
+                </div>
+              </div>
+            </div>
+            <hr className="dish-page__left__header-divider" />
             <div className="dish-page__left__section">
               <div className="dish-page__left__field-title">
                 Description
@@ -191,8 +229,8 @@ class DishPage extends React.Component<Props, State> {
             <hr />
             <div className="dish-page__right__order-detail">
               <DishOrder
-                price={this.state.dish.price}
-                maxServing={this.state.dish.maxServing}
+                price={this.state.dish.unitPrice}
+                maxServing={this.state.dish.quantity}
                 onOrderChange={this.onOrderChanged}
               />
             </div>
@@ -236,6 +274,10 @@ class DishPage extends React.Component<Props, State> {
               color: #9b9b9b;
               font-size: 12px;
             }
+            .dish-page__left__header-divider {
+              width: 100%;
+              margin: 20px auto 40px;
+            }
             .dish-page__left__section-divider {
               width: 100%;
               margin: 50px auto;
@@ -277,6 +319,60 @@ class DishPage extends React.Component<Props, State> {
             }
             .dish-page__left__field-content__label:not(:last-child) {
               margin-right: 10px;
+            }
+            .dish-page__left__header {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+            }
+            .dish-page__left__header--left {
+              display: inline-block;
+              width: 200px;
+              vertical-align: top;
+            }
+            .dish-page__left__header--left :global(.image-slider__images-container) {
+              width: 200px;
+              height: 200px;
+            }
+            .dish-page__left__header--right {
+              display: inline-block;
+              width: calc(100% - 200px);
+              vertical-align: top;
+              padding-left: 16px;
+            }
+            .dish-page__left__header--bottom {
+              font-size: 14px;
+              line-height: 1;
+              width: 100%;
+              margin-top: 30px;
+            }
+            .dish-page__left__header--bottom > div {
+              display: inline-block;
+              width: 100%;
+            }
+            .dish-page__left__header--bottom > div + div {
+              margin-top: 20px;
+            }
+            .dish-page__left__header__title {
+              color: #909090;
+              float: left;
+            }
+            .dish-page__left__header__field {
+              float: right;
+              color: #4a4a4a;
+            }
+            .dish-page__left__dish-name {
+              line-height: 1.5;
+            }
+            .dish-page__left__delivery-option-badge {
+              border: solid 1px #3f9f40;
+              border-radius: 100px;
+              padding: 5px 12px;
+              color: #3f9f40;
+              font-size: 10px;
+              letter-spacing: 0.4px;
+              line-height: 1.4;
+              text-transform: uppercase;
             }
             .dish-page__left__category,
             .dish-page__left__ingredients {

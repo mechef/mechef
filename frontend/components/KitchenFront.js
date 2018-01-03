@@ -3,9 +3,10 @@
 import * as React from 'react';
 import Router from 'next/router';
 
-import KitchenHeader from '../components/KitchenHeader';
-import DishCard from '../components/DishCard';
-import DishModal from '../components/DishModal';
+import KitchenHeader from './KitchenHeader';
+import KitchenClosedComponent from './KitchenClosedComponent'
+import DishCard from './DishCard';
+import DishModal from './DishModal';
 import { StoreObject } from '../utils/flowTypes';
 
 type Props = {
@@ -20,36 +21,36 @@ class Store extends React.Component<Props, State> {
 
     this.state = {
       kitchenName: 'momokitchen',
-      description: 'Welcome to momokitchen!',
+      kitchenDescription: 'Welcome to momokitchen!',
       profileImage: undefined,
       displayedProduct: undefined,
       dishes: [
         {
           id: '1',
-          name: 'Churros',
+          dishName: 'Churros',
           description: 'Traditional Spanish and Portugese fried dough pastry.',
-          url: '/static/img/churros.jpeg',
+          images: ['/static/img/churros.jpeg', '/static/img/sandwich.jpeg'],
           route: 'churros',
-          maxServing: 5,
-          price: 9,
+          quantity: 5,
+          unitPrice: 9,
         },
         {
           id: '2',
-          name: 'Croque-Madame',
+          dishName: 'Croque-Madame',
           description: 'Grilled ham and cheese sandwich with fried egg on top.',
-          url: '/static/img/sandwich.jpeg',
+          images: ['/static/img/sandwich.jpeg'],
           route: 'croque-madame',
-          maxServing: 2,
-          price: 25,
+          quantity: 2,
+          unitPrice: 25,
         },
         {
           id: '3',
-          name: 'Blueberry granola yogurt',
+          dishName: 'Blueberry granola yogurt',
           description: 'Yogurt topped with crispy granola and blueberry compote.',
-          url: '/static/img/yogurt.jpeg',
+          images: [],
           route: 'blueberry-yogurt',
-          maxServing: 3,
-          price: 19,
+          quantity: 3,
+          unitPrice: 19,
         },
       ],
     };
@@ -77,38 +78,42 @@ class Store extends React.Component<Props, State> {
   }
 
   showDishModal: Function;
-
   showDishModal(dishId: string) {
     const found = this.state.dishes.find((dish) => dish.id == dishId);
     this.setState({ displayedProduct: found });
   }
 
   closeDishModal: Function;
-
   closeDishModal() {
     console.log('onClose')
     this.setState({ displayedProduct: undefined });
   }
+
+  renderDishes: Function;
+  renderDishes = () => {
+    return this.state.dishes.map(dish => (
+      <DishCard
+        {...dish}
+        key={dish.id}
+        onDishSelected={this.onDishSelected}
+        onAddToCartClick={() => this.showDishModal(dish.id)}
+      />
+    ));
+  };
 
   render() {
     return (
       <div className="kitchen-main">
         <KitchenHeader
           name={this.state.kitchenName}
-          description={this.state.description}
+          description={this.state.kitchenDescription}
           profileImage={this.state.profileImage}
-          coverPhoto={this.state.coverPhoto}
         />
         <div className="kitchen-display">
           {
-            this.state.dishes.map(dish => (
-                <DishCard
-                  {...dish}
-                  key={dish.id}
-                  onDishSelected={this.onDishSelected}
-                  onAddToCartClick={() => this.showDishModal(dish.id)}
-                />
-              ))
+            this.state.dishes.length === 0 ?
+            <KitchenClosedComponent /> :
+            this.renderDishes()
           }
           {
             this.state.displayedProduct ?

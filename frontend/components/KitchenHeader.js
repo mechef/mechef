@@ -52,7 +52,7 @@ const KitchenHeader = ({ name, description, profileImage, noDescription }: Props
         .kitchen-header__description {
           line-height: 1.5;
           font-size: 16px;
-          color: #525252;
+          color: #9b9b9b;
         }
       `}
     </style>
