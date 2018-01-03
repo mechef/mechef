@@ -6,6 +6,7 @@ import Rx from 'rxjs/Rx';
 import { connect } from '../state/RxState';
 import globalActions from '../actions/globalActions';
 import BuyerHeader from '../components/BuyerHeader';
+import BuyerFooter from '../components/BuyerFooter';
 import KitchenPageRouter from '../components/KitchenPageRouter';
 
 import { IMAGE_URL } from '../utils/constants';
@@ -66,6 +67,7 @@ class KitchenPage extends React.Component<Props, State> {
         <BuyerHeader />
         <div className="kitchen-cover" />
         <KitchenPageRouter kitchen={this.state.kitchen} dish={this.state.dish} />
+        <BuyerFooter />
         <style jsx>
           {`
             body {
