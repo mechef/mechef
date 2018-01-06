@@ -102,7 +102,7 @@ class OrderPage extends React.Component<Props, State> {
             <div className="orderWrapper">
               <div className="header">
                 <div className="titleWithNotification">
-                  <span className="orderTitle">Orders</span>
+                  <span className="orderTitle">All Orders</span>
                   <button
                     className={`
                       notification
@@ -135,6 +135,18 @@ class OrderPage extends React.Component<Props, State> {
                     onClick={() => { this.setState({ filter: 'cancelled' }); }}
                   >
                     {orderList.filter(order => order.state === 'cancelled').length}
+                  </button>
+                </div>
+                <div className="titleWithNotification">
+                  <span className="orderTitle">Finished Orders</span>
+                  <button
+                    className={`
+                      notification
+                      ${this.state.filter === 'finished' ? 'selected' : ''}
+                    `}
+                    onClick={() => { this.setState({ filter: 'finished' }); }}
+                  >
+                    {orderList.filter(order => order.state === 'finished').length}
                   </button>
                 </div>
               </div>
@@ -197,19 +209,20 @@ class OrderPage extends React.Component<Props, State> {
 
             .header {
               display: flex;
-              width: 619px;
+              width: 744px;
               justify-content: space-around;
               margin-bottom: 27px;
             }
 
             .titleWithNotification {
               display: flex;
+              align-items: center;
             }
 
             .orderTitle {
-              font-size: 18px;
+              font-size: 14px;
               line-height: 1.11;
-              letter-spacing: 0.5px;
+              letter-spacing: 0.2px;
               color: ${textColor};
             }
 
@@ -217,15 +230,14 @@ class OrderPage extends React.Component<Props, State> {
               display: flex;
               justify-content: center;
               align-items: center;
-              width: 40px;
-              height: 26px;
+              width: 30px;
+              height: 20px;
               margin-left: 15px;
               background-color: #b9b9b9;
               border-radius: 26px;
               color: ${whiteColor};
               border: 0;
               outline: none;
-              font-size: 16px;
               cursor: pointer;
             }
 
