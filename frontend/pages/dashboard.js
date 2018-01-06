@@ -68,7 +68,19 @@ class Dashboard extends React.Component<Props, State> {
         <div className="dashboard__left">
           <div className="dashboard-sidebar">
             <div className="dashboard-sidebar__inner">
-              <img src="../static/svg/mechef_logo_white.svg" alt="logo" />
+              <div
+                role="button"
+                onClick={() => {
+                  this.navigate('home');
+                }}
+                onKeyPress={() => { }}
+                tabIndex="0"
+              >
+                <img
+                  src="../static/svg/mechef_logo_white.svg"
+                  alt="logo"
+                />
+              </div>
               <ul className="dashboard-sidebar__menu">
                 <li className={this.state.page === 'home' ? 'active' : ''} role="menuitem" onClick={() => this.navigate('home')}>HOME</li>
                 <li className={this.state.page === 'menu' ? 'active' : ''} role="menuitem" onClick={() => this.navigate('menu')}>MENU</li>
@@ -153,10 +165,12 @@ class Dashboard extends React.Component<Props, State> {
                 padding-bottom: 28px;
               }
 
-              .dashboard-sidebar__inner > img {
-                padding-left: 45px;
-                padding-bottom: 50px;
-                width: 30%;
+              .dashboard-sidebar__inner div {
+                width: 75px;
+                margin-left: 45px;
+                margin-bottom: 50px;
+                cursor: pointer;
+                outline: none;
               }
 
               .dashboard-sidebar__menu {
