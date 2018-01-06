@@ -162,8 +162,10 @@ class Login extends React.Component<Props, State> {
                         setLoginField$({ email: evt.target.value });
                       }
                     }}
-                    onKeyPress={() => {
-                      login$({ email, password });
+                    onKeyPress={(evt) => {
+                      if (evt && evt.key === 'Enter') {
+                        login$({ email, password });
+                      }
                     }}
                   />
                 </div>
@@ -178,8 +180,10 @@ class Login extends React.Component<Props, State> {
                         setLoginField$({ password: evt.target.value });
                       }
                     }}
-                    onKeyPress={() => {
-                      login$({ email, password });
+                    onKeyPress={(evt) => {
+                      if (evt && evt.key === 'Enter') {
+                        login$({ email, password });
+                      }
                     }}
                   />
                 </div>
