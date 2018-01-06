@@ -6,7 +6,6 @@ import Rx from 'rxjs/Rx';
 import { connect } from '../state/RxState';
 import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
-import globalActions from '../actions/globalActions';
 import Modal from './Modal';
 import OrderModal from './OrderModal';
 import { OrderObject } from '../utils/flowTypes';
@@ -19,8 +18,10 @@ import Spinner from '../components/Spinner';
 type Props = {
   order: {
     orderList: Array<OrderObject>,
+    isLoading: boolean,
   },
   fetchOrders$: any => Rx.Observable,
+  setLoading$: boolean => Rx.Observable,
   updateOrderState$: (orderId: string, state: string) => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
@@ -28,10 +29,6 @@ type Props = {
     message: string,
     isShowModal: bool,
   },
-  global: {
-    isShowSpinner: boolean,
-  },
-  showSpinner$: boolean => Rx.Observable,
 }
 
 type State = {
@@ -39,45 +36,6 @@ type State = {
   currentOrder: OrderObject,
   filter: string,
 }
-
-const sampleOrderList = [
-  {
-    sellerId: '@bibletang',
-    menuTitle: 'Lemon Tea',
-    quantity: 1,
-    orderTime: 'JUN 20 18:12:34',
-    deliveryTo: 'Rakuten Crimson House',
-    deliveryTime: 'JUN 21 18:30:00',
-    totalPrice: '100.00',
-    status: 'finished',
-    profileImage: '8f4221976dbd9c7c513d51b76b1e704b',
-    menuImage: '909769ed91bdfaef92411e91826159ee',
-  },
-  {
-    sellerId: '@yuan',
-    menuTitle: '沙茶牛肉',
-    quantity: 14,
-    orderTime: 'JUN 20 18:12:34',
-    deliveryTo: 'Rakuten Crimson House',
-    deliveryTime: 'JUN 21 18:30:00',
-    totalPrice: '100.00',
-    status: 'cancelled',
-    profileImage: '8f4221976dbd9c7c513d51b76b1e704b',
-    menuImage: '909769ed91bdfaef92411e91826159ee',
-  },
-  {
-    sellerId: '@tzu',
-    menuTitle: 'Hamburger',
-    quantity: 2,
-    orderTime: 'JUN 20 18:12:34',
-    deliveryTo: 'Rakuten Crimson House',
-    deliveryTime: 'JUN 21 18:30:00',
-    totalPrice: '100.00',
-    status: 'waiting',
-    profileImage: '8f4221976dbd9c7c513d51b76b1e704b',
-    menuImage: '909769ed91bdfaef92411e91826159ee',
-  },
-];
 
 class OrderPage extends React.Component<Props, State> {
   constructor(props) {
@@ -89,18 +47,17 @@ class OrderPage extends React.Component<Props, State> {
     };
   }
   componentWillMount() {
-    this.props.showSpinner$(true);
+    this.props.setLoading$(true);
   }
   componentDidMount() {
     this.props.fetchOrders$();
   }
   render() {
     const {
-      order: { orderList },
+      order: { orderList, isLoading },
       setError$,
       error,
       updateOrderState$,
-      global: { isShowSpinner },
     } = this.props;
 
     return (
@@ -115,7 +72,7 @@ class OrderPage extends React.Component<Props, State> {
             : null
         }
         {
-          isShowSpinner ?
+          isLoading ?
             <Spinner />
             :
             null
@@ -210,7 +167,7 @@ class OrderPage extends React.Component<Props, State> {
                 ))
               }
             </div>
-            : !isShowSpinner ?
+            : !isLoading ?
               <DefaultComponent coverPhotoSrc="../static/img/orders_default.jpg">
                 <div className="textSection">
                   <h2 className="title">Hello there!</h2>
@@ -324,11 +281,10 @@ class OrderPage extends React.Component<Props, State> {
 }
 
 
-const stateSelector = ({ order, error, global }) => ({ order, error, global });
+const stateSelector = ({ order, error }) => ({ order, error });
 
 const actionSubjects = {
   ...errorActions,
-  ...globalActions,
   ...orderActions,
 };
 

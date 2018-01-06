@@ -21,6 +21,7 @@ type Props = {
     updatedMeetup: MeetupObject,
     currentMeetupId: string,
     currentShippingId: string,
+    isLoading: boolean,
   },
   fetchDelivery$: any => Rx.Observable,
   createMeetup$: (meetup: MeetupObject) => Rx.Observable,
@@ -39,24 +40,23 @@ type Props = {
       isShow: boolean,
       title: string,
     },
-    isShowSpinner: boolean,
   },
   toggleBackArrow$: string => Rx.Observable,
-  showSpinner$: boolean => Rx.Observable,
+  setLoading$: boolean => Rx.Observable,
 }
 
 export class DeliveryPage extends React.Component<Props> {
   componentWillMount() {
-    this.props.showSpinner$(true);
+    this.props.setLoading$(true);
   }
   componentDidMount() {
     this.props.fetchDelivery$();
   }
   render() {
     const {
-      delivery: { meetupList, currentMeetupId, updatedMeetup },
+      delivery: { meetupList, currentMeetupId, updatedMeetup, isLoading },
       setError$, error,
-      global: { backArrow, isShowSpinner },
+      global: { backArrow },
       toggleBackArrow$,
       createMeetup$,
       updateMeetup$,
@@ -80,7 +80,7 @@ export class DeliveryPage extends React.Component<Props> {
             : null
         }
         {
-          isShowSpinner ?
+          isLoading ?
             <Spinner />
             :
             null
@@ -106,7 +106,7 @@ export class DeliveryPage extends React.Component<Props> {
                   toggleBackArrow$('Edit Delivery');
                 }}
               />
-              : !isShowSpinner ?
+              : !isLoading ?
                 <DefaultComponent
                   coverPhotoSrc="../static/img/delivery_default.jpg"
                 >

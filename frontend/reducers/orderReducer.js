@@ -1,15 +1,19 @@
 import Rx from 'rxjs/Rx';
 import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
-import globalActions from '../actions/globalActions';
 import { API_ORDER } from '../utils/constants';
 
 const initialState = {
   orderList: [],
+  isLoading: false,
 };
 
 const orderReducer$ = Rx.Observable.of(() => initialState)
   .merge(
+    orderActions.setLoading$.map(isLoading => state => ({
+      ...state,
+      isLoading,
+    })),
     orderActions.fetchOrders$.flatMap(() => (
       Rx.Observable.ajax({
         crossDomain: true,
@@ -20,20 +24,17 @@ const orderReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(data => {
-        globalActions.showSpinner$.next(false);
-        return state => ({
-          ...state,
-          orderList: data.response.orders,
-        });
-      }).catch((error) => {
-        globalActions.showSpinner$.next(false);
+      }).map(data => state => ({
+        ...state,
+        orderList: data.response.orders,
+        isLoading: false,
+      })).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Get Menu List Error', message: error.message });
         return Rx.Observable.of(state => state);
       })
     )),
-    orderActions.updateOrderState$.flatMap(reqbody => {
-      return Rx.Observable.ajax({
+    orderActions.updateOrderState$.flatMap(reqbody => (
+      Rx.Observable.ajax({
         crossDomain: true,
         url: `${API_ORDER}/${reqbody.id}`,
         method: 'PATCH',
@@ -57,7 +58,7 @@ const orderReducer$ = Rx.Observable.of(() => initialState)
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
         return Rx.Observable.of(state => state);
       })
-    }),
+    )),
   );
 
 export default orderReducer$;

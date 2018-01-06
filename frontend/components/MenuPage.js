@@ -23,8 +23,10 @@ type Props = {
   menu: {
     menuList: Array<MenuObject>,
     currentMenuId: string,
+    isLoading: boolean,
   },
   fetchMenus$: any => Rx.Observable,
+  setLoading$: boolean => Rx.Observable,
   createMenu$: (menu: MenuObject) => Rx.Observable,
   updateMenu$: (menu: MenuObject) => Rx.Observable,
   deleteMenu$: (menuId: string) => Rx.Observable,
@@ -43,15 +45,13 @@ type Props = {
       isShow: boolean,
       title: string,
     },
-    isShowSpinner: boolean,
   },
   toggleBackArrow$: string => Rx.Observable,
-  showSpinner$: boolean => Rx.Observable,
 }
 
 export class MenuPage extends React.Component<Props> {
   componentWillMount() {
-    this.props.showSpinner$(true);
+    this.props.setLoading$(true);
   }
   componentDidMount() {
     this.props.fetchMenus$();
@@ -59,10 +59,10 @@ export class MenuPage extends React.Component<Props> {
   render() {
     const {
       delivery: { meetupList },
-      menu: { menuList, currentMenuId, updatedMenu },
+      menu: { menuList, currentMenuId, updatedMenu, isLoading },
       setError$,
       error,
-      global: { backArrow, isShowSpinner },
+      global: { backArrow },
       createMenu$,
       updateMenu$,
       deleteMenu$,
@@ -85,7 +85,7 @@ export class MenuPage extends React.Component<Props> {
             : null
         }
         {
-          isShowSpinner ?
+          isLoading ?
             <Spinner />
             :
             null
@@ -122,7 +122,7 @@ export class MenuPage extends React.Component<Props> {
                   });
                 }}
               />
-              : !isShowSpinner ?
+              : !isLoading ?
                 <DefaultComponent
                   coverPhotoSrc="../static/img/menu_default.jpg"
                 >

@@ -20,6 +20,7 @@ type Props = {
     memos: Array<MemoObject>,
     updatedMemo: MemoObject,
     currentMemoId: string,
+    isLoading: boolean,
   },
   fetchMemos$: any => Rx.Observable,
   createMemo$: ({
@@ -51,25 +52,24 @@ type Props = {
       isShow: boolean,
       title: string,
     },
-    isShowSpinner: boolean,
   },
   toggleBackArrow$: string => Rx.Observable,
-  showSpinner$: boolean => Rx.Observable,
+  setLoading$: boolean => Rx.Observable,
 }
 
 export class IngredientPage extends React.Component<Props> {
   componentWillMount() {
-    this.props.showSpinner$(true);
+    this.props.setLoading$(true);
   }
   componentDidMount() {
     this.props.fetchMemos$();
   }
   render() {
     const {
-      ingredient: { memos, currentMemoId, updatedMemo },
+      ingredient: { memos, currentMemoId, updatedMemo, isLoading },
       setError$,
       error,
-      global: { backArrow, isShowSpinner },
+      global: { backArrow },
       createMemo$,
       updateMemo$,
       deleteMemo$,
@@ -90,7 +90,7 @@ export class IngredientPage extends React.Component<Props> {
             : null
         }
         {
-          isShowSpinner ?
+          isLoading ?
             <Spinner />
             :
             null
@@ -117,7 +117,7 @@ export class IngredientPage extends React.Component<Props> {
                   toggleBackArrow$('Edit Ingredient');
                 }}
               />
-              : !isShowSpinner ?
+              : !isLoading ?
                 <DefaultComponent
                   coverPhotoSrc="../static/img/ingredients_default.jpg"
                 >

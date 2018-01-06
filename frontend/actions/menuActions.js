@@ -8,4 +8,5 @@ export default {
   setFields$: new Rx.Subject,
   deleteMenu$: new Rx.Subject,
   uploadImage$: new Rx.Subject,
+  setLoading$: new Rx.Subject,
 };

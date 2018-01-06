@@ -8,4 +8,5 @@ export default {
   setFields$: new Rx.Subject,
   setCurrentMemoId$: new Rx.Subject,
   deleteMemo$: new Rx.Subject,
+  setLoading$: new Rx.Subject,
 };

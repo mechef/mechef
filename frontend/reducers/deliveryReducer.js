@@ -1,7 +1,6 @@
 import Rx from 'rxjs/Rx';
 import deliveryActions from '../actions/deliveryActions';
 import errorActions from '../actions/errorActions';
-import globalActions from '../actions/globalActions';
 import { API_GET_DELIVERY_LIST } from '../utils/constants';
 
 const initialState = {
@@ -9,10 +8,15 @@ const initialState = {
   updatedMeetup: {},
   shippingList: [],
   currentMeetupId: -1,
+  isLoading: false,
 };
 
 const deliveryReducer$ = Rx.Observable.of(() => initialState)
   .merge(
+    deliveryActions.setLoading$.map(isLoading => state => ({
+      ...state,
+      isLoading,
+    })),
     deliveryActions.fetchDelivery$.flatMap(() => (
       Rx.Observable.ajax({
         crossDomain: true,
@@ -23,16 +27,13 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(data => {
-        globalActions.showSpinner$.next(false);
-        return state => ({
-          ...state,
-          updatedMeetup: {},
-          meetupList: data.response.deliveryList.meetupList,
-          shippingList: data.response.deliveryList.shippingList,
-        });
-      }).catch((error) => {
-        globalActions.showSpinner$.next(false);
+      }).map(data => state => ({
+        ...state,
+        updatedMeetup: {},
+        meetupList: data.response.deliveryList.meetupList,
+        shippingList: data.response.deliveryList.shippingList,
+        isLoading: false,
+      })).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Get Delivery List Error', message: error.message });
         return Rx.Observable.of(state => state);
       })

@@ -7,4 +7,5 @@ export default {
   setCurrentMeetupId$: new Rx.Subject,
   setMeetupFields$: new Rx.Subject,
   deleteMeetup$: new Rx.Subject,
+  setLoading$: new Rx.Subject,
 };

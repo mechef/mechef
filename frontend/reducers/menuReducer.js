@@ -1,17 +1,21 @@
 import Rx from 'rxjs/Rx';
 import menuActions from '../actions/menuActions';
 import errorActions from '../actions/errorActions';
-import globalActions from '../actions/globalActions';
 import { API_MENU, API_IMAGE } from '../utils/constants';
 
 const initialState = {
   menuList: [],
   updatedMenu: {},
   currentMenuId: -1,
+  isLoading: false,
 };
 
 const menuReducer$ = Rx.Observable.of(() => initialState)
   .merge(
+    menuActions.setLoading$.map(isLoading => state => ({
+      ...state,
+      isLoading,
+    })),
     menuActions.fetchMenus$.flatMap(() => (
       Rx.Observable.ajax({
         crossDomain: true,
@@ -22,15 +26,12 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(data => {
-        globalActions.showSpinner$.next(false);
-        return state => ({
-          ...state,
-          menuList: data.response.menuList,
-          updatedMenu: {},
-        });
-      }).catch((error) => {
-        globalActions.showSpinner$.next(false);
+      }).map(data => state => ({
+        ...state,
+        menuList: data.response.menuList,
+        updatedMenu: {},
+        isLoading: false,
+      })).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Get Menu List Error', message: error.message });
         return Rx.Observable.of(state => state);
       })
