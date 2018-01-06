@@ -76,10 +76,6 @@ class Login extends React.Component<Props, State> {
 
   onSubmitSignup: Function;
 
-  componentWillMount() {
-    document.addEvent
-  }
-
   async onSubmitSignup() {
     const formValues = urlencoder({
       name: `${this.state.signup.firstName} ${this.state.signup.lastName}`,
