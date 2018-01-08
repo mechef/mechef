@@ -18,8 +18,8 @@ export default class MyDocument extends Document {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link href="//fonts.googleapis.com/css?family=Ubuntu:400,500|Playball" rel="stylesheet" />
           <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-          <link rel="stylesheet" href="../static/css/normalize.css" />
-          <link rel="stylesheet" href="../static/css/global.css" />
+          <link rel="stylesheet" href="/static/css/normalize.css" />
+          <link rel="stylesheet" href="/static/css/global.css" />
           <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCrgd8aRUu0AczX8jVy5jpYzZOnjhgUpXw&libraries=places" />
         </Head>
         <body>

@@ -53,3 +53,14 @@ export const successModalColor = '#3f9f40';
 export const warningModalColor = '#f0ad4f';
 export const errorModalColor = '#d9524f';
 export const hintModalColor = '#9b9b9b';
+
+// Cart Button
+export const badgeBackgroundColor = '#8cc63f';
+
+// Dish Page
+export const dishPageImageSize = '250px';
+export const dishPageRightHorizontalMargin = '45px';
+export const dishPageRightWidth = '340px';
+export const dishPageRightBackground = '#f8f8f8';
+export const dishPageHeaderColor = '#4a4a4a';
+export const dishPageTextColor = '#9b9b9b';
