@@ -1,15 +1,10 @@
 // @flow
 
 import * as React from 'react';
-import Rx from 'rxjs/Rx';
 
-import { connect } from '../state/RxState';
-import globalActions from '../actions/globalActions';
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
 import KitchenPageRouter from '../components/KitchenPageRouter';
-
-import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
   url: {
@@ -17,39 +12,25 @@ type Props = {
       kitchen: string,
       dish?: string,
     },
-    pathname: string,
   },
-  showSpinner$: boolean => Rx.Observable,
 }
 
 type State = {
   kitchen: string,
   dish?: string,
-  coverPhoto?: string,
-}
+};
 
-class KitchenPage extends React.Component<Props, State> {
+class Kitchen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      kitchen: props.url.query && props.url.query.kitchen ? props.url.query.kitchen : 'momokitchen',
+      kitchen: props.url.query && props.url.query.kitchen ? props.url.query.kitchen : 'demo',
       dish: undefined,
-      coverPhoto: '/static/pancake.jpg',
     };
   }
 
-  componentDidMount() {
-    this.props.showSpinner$(false);
-  }
-
   componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.url.query && nextProps.url.query.kitchen) {
-      this.setState({
-        kitchen: nextProps.url.query.kitchen,
-      });
-    }
-
     if (nextProps.url.query && nextProps.url.query.dish) {
       this.setState({
         dish: nextProps.url.query.dish,
@@ -61,26 +42,23 @@ class KitchenPage extends React.Component<Props, State> {
     }
   }
 
+  componentDidMount() {
+    this.setState({
+      ...this.props.url.query
+    });
+  }
+
   render() {
     return (
       <div>
         <BuyerHeader />
-        <div className="kitchen-cover" />
-        <KitchenPageRouter kitchen={this.state.kitchen} dish={this.state.dish} />
+        <KitchenPageRouter query={this.state} />
         <BuyerFooter />
         <style jsx>
           {`
             body {
               font-size: 14px;
               letter-spacing: 0.6px;
-            }
-            .kitchen-cover {
-              display: block;
-              height: 250px;
-              background-repeat: no-repeat;
-              background-size: cover;
-              background-position: center;
-              background-image: url('${this.state.coverPhoto ? `${IMAGE_URL}/${this.state.coverPhoto}` : '/static/pancake.jpg'}'), url('/static/pancake.jpg');
             }
           `}
         </style>
@@ -89,6 +67,4 @@ class KitchenPage extends React.Component<Props, State> {
   }
 }
 
-const KitchenWrapper = connect(({ global }) => ({ global }), { ...globalActions })(KitchenPage);
-
-export default KitchenWrapper;
+export default Kitchen;

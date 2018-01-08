@@ -7,28 +7,28 @@ import AddToCartButton from './AddToCartButton';
 import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
-  id: string,
+  _id: string,
   dishName: string,
   unitPrice: number,
   images: Array<string>,
   description: string,
-  onDishSelected: (id: string) => Rx.Observable,
+  onDishSelected: Function,
   onAddToCartClick: (id: string) => Rx.Observable,
 };
 
-const DishCard = ({ id, dishName, unitPrice, images, description, onDishSelected, onAddToCartClick }: Props) => (
+const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelected, onAddToCartClick }: Props) => (
   <div className="dish-card">
     <div className="dish-card__content">
-      <div className="dish-card__image-container" onClick={() => onDishSelected(id)}>
+      <div className="dish-card__image-container" onClick={() => onDishSelected(_id)}>
         {
           images && images.length > 0 ? <div className="dish-card__image" /> : ''
         }
       </div>
-      <div className="dish-card__name" onClick={() => onDishSelected(id)}>{dishName}</div>
+      <div className="dish-card__name" onClick={() => onDishSelected(_id)}>{dishName}</div>
       <div className="dish-card__description">{description}</div>
       <div className="dish-card__price">{unitPrice}</div>
     </div>
-    <AddToCartButton dishId={id} onAddToCartClick={onAddToCartClick} />
+    <AddToCartButton dishId={_id} onAddToCartClick={onAddToCartClick} />
     <style jsx>
       {`
         .dish-card {

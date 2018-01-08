@@ -1,32 +1,21 @@
 // @flow
 
 import * as React from 'react';
-import KitchenHeader from './KitchenHeader';
+import Rx from 'rxjs/Rx';
+
 import ImageSlider from './ImageSlider';
 import DishOrder from './DishOrder';
 import AddToCartButton from './AddToCartButton';
 import type { DishOrderType } from './DishOrder';
 
-import { MeetupObject } from '../utils/flowTypes';
+import { MenuObject } from '../utils/flowTypes';
+import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
-  kitchen: string,
-  id: string,
-  //fetchDish$: any => Rx.Observable,
+  dish: MenuObject
 };
 
 type State = {
-  kitchenName: string,
-  profileImage?: string,
-  quantity: number,
-  subTotal: number,
-  dish: {
-    dishName: string,
-    quantity: number,
-    unitPrice: number,
-    images: Array<string>,
-    deliveryList: Array<MeetupObject>,
-  },
   order: DishOrderType,
 };
 
@@ -35,51 +24,14 @@ class DishPage extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      kitchenName: 'momokitchen',
-      profileImage: '/static/avatar.jpg',
-      quantity: 1,
-      dish: {
-        dishName: 'Food. Very good food in fact. You have to try this!',
-        unitPrice: 9,
-        quantity: 10,
-        images: ['dummy', 'dummy2'],
-        deliveryList: [
-          {
-            type: 'Meet Up',
-            note: '9F cafeteria',
-            meetupAddress: 'Rakuten Crimson House, Nikotama, Tokyo',
-            meetupMonday: true,
-            meetupStartTime: '8:00',
-            meetupEndTime: '9:00',
-          },
-          {
-            type: 'Meet Up',
-            note: '9F cafeteria',
-            meetupAddress: 'Rakuten Crimson House, Nikotama, Tokyo',
-            meetupFriday: true,
-            meetupStartTime: '17:00',
-            meetupEndTime: '18:00',
-          },
-        ]
-      },
-      subTotal: 0,
       order: {
         quantity: 1,
         subTotal: 0,
       },
     };
 
-    this.setState({
-      subTotal: this.state.dish.unitPrice,
-      order: { subTotal: this.state.dish.unitPrice },
-    });
-
     this.onOrderChanged = this.onOrderChanged.bind(this);
     this.addToCartClick = this.addToCartClick.bind(this);
-  }
-
-  componentDidMount() {
-    // this.props.fetchDish();
   }
 
   onOrderChanged: Function;
@@ -93,32 +45,32 @@ class DishPage extends React.Component<Props, State> {
   }
 
   render() {
+    const { dish } = this.props;
     return (
       <div className="dish-page">
         <div className="dish-page__main">
           <div className="dish-page__left">
-            <KitchenHeader
-              name={this.state.kitchenName}
-              profileImage={this.state.profileImage}
-            />
             <div className="dish-page__left__header">
               <div>
                 <div className="dish-page__left__header--left">
-                  <ImageSlider images={this.state.dish.images} />
+                  <ImageSlider images={dish.images} />
                 </div>
                 <div className="dish-page__left__header--right">
                   <div className="dish-page__left__field-title dish-page__left__dish-name">
-                    { this.state.dish.dishName }
+                    { dish.dishName }
                   </div>
                   <div>
                     {
-                      this.state.dish.deliveryList.reduce((all, deliveryOption) => {
+                      dish.deliveryList.reduce((all, deliveryOption) => {
                         if (!all.includes(deliveryOption.type)) {
                           all.push(deliveryOption.type);
                         }
                         return all;
                       }, []).map((deliveryOption) => (
-                        <span className="dish-page__left__delivery-option-badge">{deliveryOption}</span>
+                        <span
+                          key={deliveryOption}
+                          className="dish-page__left__delivery-option-badge"
+                        >{deliveryOption}</span>
                       ))
                     }
                   </div>
@@ -127,11 +79,11 @@ class DishPage extends React.Component<Props, State> {
               <div className="dish-page__left__header--bottom">
                 <div>
                   <span className="dish-page__left__header__title">Remaining Quantity</span>
-                  <span className="dish-page__left__header__field">{this.state.dish.quantity}</span>
+                  <span className="dish-page__left__header__field">{dish.quantity}</span>
                 </div>
                 <div>
                   <span className="dish-page__left__header__title">Unit Price</span>
-                  <span className="dish-page__left__header__field">{this.state.dish.unitPrice}</span>
+                  <span className="dish-page__left__header__field">{dish.unitPrice}</span>
                 </div>
               </div>
             </div>
@@ -150,7 +102,11 @@ class DishPage extends React.Component<Props, State> {
                   Serving
                 </div>
                 <div className="dish-page__left__field-content">
-                  3 ~ 4 People
+                  {
+                    dish.serving ?
+                      `${dish.serving} People` :
+                      '-'
+                  }
                 </div>
               </div>
               <div className="dish-page__left__section__cell">
@@ -158,7 +114,11 @@ class DishPage extends React.Component<Props, State> {
                   Preparation Time
                 </div>
                 <div className="dish-page__left__field-content">
-                  3 Days
+                  {
+                    dish.cookingBuffer ?
+                      `${dish.cookingBuffer} Days` :
+                      '-'
+                  }
                 </div>
               </div>
             </div>
@@ -167,15 +127,16 @@ class DishPage extends React.Component<Props, State> {
                 Category
               </div>
               <div className="dish-page__left__field-content">
-                <div className="dish-page__left__field-content__label">
-                  Food
-                </div>
-                <div className="dish-page__left__field-content__label">
-                  Vegetarian
-                </div>
-                <div className="dish-page__left__field-content__label">
-                  Brunch
-                </div>
+                {
+                  dish.category.map(categoryText => (
+                    <div
+                      className="dish-page__left__field-content__label"
+                      key={categoryText}
+                    >
+                      {categoryText}
+                    </div>
+                  ))
+                }
               </div>
             </div>
             <div className="dish-page__left__section">
@@ -183,15 +144,16 @@ class DishPage extends React.Component<Props, State> {
                 Ingredients
               </div>
               <div className="dish-page__left__field-content">
-                <div className="dish-page__left__field-content__label">
-                  Flour and shit and shit and shit and carcinogen and gmo and shit and shit
-                </div>
-                <div className="dish-page__left__field-content__label">
-                  Egg
-                </div>
-                <div className="dish-page__left__field-content__label">
-                  Milk
-                </div>
+                {
+                  dish.ingredients.map(ingredient => (
+                    <div
+                      className="dish-page__left__field-content__label"
+                      key={ingredient}
+                    >
+                      {ingredient}
+                    </div>
+                  ))
+                }
               </div>
             </div>
             <hr className="dish-page__left__section-divider" />
@@ -201,7 +163,7 @@ class DishPage extends React.Component<Props, State> {
               </div>
               <div className="dish-page__left__field-content">
                 {
-                  this.state.dish.deliveryList.map((deliveryOption) => (
+                  dish.deliveryList.map((deliveryOption) => (
                     <div
                       className="dish-page__left__delivery-option"
                       key={`${deliveryOption.type}-${deliveryOption.meetupAddress}-${deliveryOption.meetupStartTime}-${deliveryOption.meetupEndTime}`}>
@@ -229,8 +191,8 @@ class DishPage extends React.Component<Props, State> {
             <hr />
             <div className="dish-page__right__order-detail">
               <DishOrder
-                price={this.state.dish.unitPrice}
-                maxServing={this.state.dish.quantity}
+                price={dish.unitPrice}
+                maxServing={dish.quantity}
                 onOrderChange={this.onOrderChanged}
               />
             </div>
@@ -270,6 +232,7 @@ class DishPage extends React.Component<Props, State> {
               flex-grow: 1;
               padding-left: 100px;
               padding-right: 27px;
+              padding-top: 34px;
               padding-bottom: 100px;
               color: #9b9b9b;
               font-size: 12px;
