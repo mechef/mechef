@@ -6,6 +6,7 @@ import Rx from 'rxjs/Rx';
 import ImageSlider from './ImageSlider';
 import DishOrder from './DishOrder';
 import AddToCartButton from './AddToCartButton';
+import DishDeliveryOption from './DishDeliveryOption';
 import type { DishOrderType } from './DishOrder';
 
 import { MenuObject } from '../utils/flowTypes';
@@ -177,23 +178,9 @@ class DishPage extends React.Component<Props, State> {
               <div className="dish-page__left__field-content">
                 {
                   dish.deliveryList.map((deliveryOption) => (
-                    <div
-                      className="dish-page__left__delivery-option"
-                      key={`${deliveryOption.type}-${deliveryOption.meetupAddress}-${deliveryOption.meetupStartTime}-${deliveryOption.meetupEndTime}`}>
-                      <div className="dish-page__left__delivery-type">{deliveryOption.type}</div>
-                      <div>{deliveryOption.meetupAddress}</div>
-                      <div>
-                        <span></span>
-                        <span>{deliveryOption.meetupStartTime} - {deliveryOption.meetupEndTime}</span>
-                      </div>
-                      {
-                        deliveryOption.note ?
-                          <div className="dish-page__left__delivery-note">
-                            {deliveryOption.note}
-                          </div> :
-                          ''
-                      }
-                    </div>
+                    <DishDeliveryOption
+                      {...deliveryOption}
+                      key={deliveryOption._id} />
                   ))
                 }
               </div>
@@ -357,24 +344,8 @@ class DishPage extends React.Component<Props, State> {
             .dish-page__left__ingredients {
               padding-bottom: 5px;
             }
-            .dish-page__left__delivery-option {
-              border-left: 2px solid ${primaryColor};
-              padding-left: 20px;
-              line-height: 1;
-              font-size: 14px;
-              color: ${dishPageHeaderColor};
-            }
-            .dish-page__left__delivery-option > div + div {
-              margin-top: 12px;
-            }
-            .dish-page__left__delivery-option:not(:last-child) {
+            .dish-page__left__field-content :global(.dish-delivery-option):not(:last-child) {
               margin-bottom: 25px;
-            }
-            .dish-page__left__delivery-type {
-              color: ${dishPageTextColor};
-            }
-            .dish-page__left__delivery-note {
-              font-size: 12px;
             }
             .dish-page__right {
               flex-basis: ${dishPageRightWidth};
