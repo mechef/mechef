@@ -37,7 +37,7 @@ class KitchenPageRouter extends React.Component<Props> {
     const dish = kitchen.dishes.find(dish => dish._id === query.dish);
 
     return (
-      <div>
+      <div className="kitchen">
         <div className="kitchen-cover" />
         {
           dish ?
@@ -48,6 +48,9 @@ class KitchenPageRouter extends React.Component<Props> {
         }
         <style jsx>
           {`
+            .kitchen {
+              min-width: 1024px;
+            }
             .kitchen-cover {
               display: block;
               height: 250px;

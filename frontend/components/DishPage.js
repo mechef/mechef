@@ -10,6 +10,16 @@ import type { DishOrderType } from './DishOrder';
 
 import { MenuObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
+import {
+  primaryColor,
+  borderRadius,
+  dishPageImageSize,
+  dishPageRightHorizontalMargin,
+  dishPageRightWidth,
+  dishPageRightBackground,
+  dishPageHeaderColor,
+  dishPageTextColor,
+} from '../utils/styleVariables';
 
 type Props = {
   dish: MenuObject
@@ -46,44 +56,47 @@ class DishPage extends React.Component<Props, State> {
 
   render() {
     const { dish } = this.props;
+
+    const renderDeliveryOptions = (deliveryList) => (
+      deliveryList.reduce((all, deliveryOption) => {
+        if (!all.includes(deliveryOption.type)) {
+          all.push(deliveryOption.type);
+        }
+        return all;
+      }, []).map((deliveryOption) => (
+        <span
+          key={deliveryOption}
+          className="dish-page__left__delivery-option-badge"
+        >{deliveryOption}</span>
+      ))
+    );
+
     return (
       <div className="dish-page">
         <div className="dish-page__main">
           <div className="dish-page__left">
             <div className="dish-page__left__header">
-              <div>
-                <div className="dish-page__left__header--left">
-                  <ImageSlider images={dish.images} />
-                </div>
-                <div className="dish-page__left__header--right">
-                  <div className="dish-page__left__field-title dish-page__left__dish-name">
+              <div className="dish-page__left__header--left">
+                <ImageSlider images={dish.images} />
+              </div>
+              <div className="dish-page__left__header--right">
+                <div className="dish-page__left__header__row">
+                  <div className="dish-page__left__dish-name">
                     { dish.dishName }
                   </div>
-                  <div>
+                  <div className="dish-page__left__dish-delivery">
                     {
-                      dish.deliveryList.reduce((all, deliveryOption) => {
-                        if (!all.includes(deliveryOption.type)) {
-                          all.push(deliveryOption.type);
-                        }
-                        return all;
-                      }, []).map((deliveryOption) => (
-                        <span
-                          key={deliveryOption}
-                          className="dish-page__left__delivery-option-badge"
-                        >{deliveryOption}</span>
-                      ))
+                      renderDeliveryOptions(dish.deliveryList)
                     }
                   </div>
                 </div>
-              </div>
-              <div className="dish-page__left__header--bottom">
-                <div>
-                  <span className="dish-page__left__header__title">Remaining Quantity</span>
-                  <span className="dish-page__left__header__field">{dish.quantity}</span>
+                <div className="dish-page__left__header__row">
+                  <div className="dish-page__left__header__title">Remaining Quantity</div>
+                  <div className="dish-page__left__header__field">{dish.quantity}</div>
                 </div>
-                <div>
-                  <span className="dish-page__left__header__title">Unit Price</span>
-                  <span className="dish-page__left__header__field">{dish.unitPrice}</span>
+                <div className="dish-page__left__header__row">
+                  <div className="dish-page__left__header__title">Unit Price</div>
+                  <div className="dish-page__left__header__field">{dish.unitPrice}</div>
                 </div>
               </div>
             </div>
@@ -212,7 +225,7 @@ class DishPage extends React.Component<Props, State> {
         <style jsx>
           {`
             div {
-              box-sizing: border-box;
+              box-sizing: border-box;primaryColor
             }
             hr {
               height: 1px;
@@ -227,19 +240,19 @@ class DishPage extends React.Component<Props, State> {
               flex-direction: row;
             }
             .dish-page__left {
-              max-width: calc(100% - 340px);
+              max-width: calc(100% - ${dishPageRightWidth});
               flex-basis: auto;
               flex-grow: 1;
               padding-left: 100px;
               padding-right: 27px;
               padding-top: 34px;
               padding-bottom: 100px;
-              color: #9b9b9b;
+              color: ${dishPageTextColor};
               font-size: 12px;
             }
             .dish-page__left__header-divider {
               width: 100%;
-              margin: 20px auto 40px;
+              margin: 50px auto 40px;
             }
             .dish-page__left__section-divider {
               width: 100%;
@@ -255,22 +268,22 @@ class DishPage extends React.Component<Props, State> {
             .dish-page__left__field-title {
               font-size: 16px;
               line-height: 1;
-              color: #4a4a4a;
+              color: ${dishPageHeaderColor};
               font-weight: 500;
               padding-bottom: 15px;
             }
             .dish-page__left__field-content {
               font-size: 12px;
               line-height: 1.5;
-              color: #9b9b9b;
+              color: ${dishPageTextColor};
             }
             .dish-page__left__field-content__label {
               display: inline-block;
               max-width: 100%;
-              border: 1px solid #3f9f40;
-              border-radius: 4px;
+              border: 1px solid ${primaryColor};
+              border-radius: ${borderRadius};
               height: 50px;
-              color: #3f9f40;
+              color: ${primaryColor};
               font-size: 14px;
               font-weight: 1;
               margin-top: 10px;
@@ -283,55 +296,58 @@ class DishPage extends React.Component<Props, State> {
             .dish-page__left__field-content__label:not(:last-child) {
               margin-right: 10px;
             }
-            .dish-page__left__header {
-              display: flex;
-              flex-direction: column;
-              align-items: flex-start;
-            }
             .dish-page__left__header--left {
               display: inline-block;
-              width: 200px;
+              width: ${dishPageImageSize};
               vertical-align: top;
             }
             .dish-page__left__header--left :global(.image-slider__images-container) {
-              width: 200px;
-              height: 200px;
+              width: ${dishPageImageSize};
+              height: ${dishPageImageSize};
             }
             .dish-page__left__header--right {
-              display: inline-block;
-              width: calc(100% - 200px);
-              vertical-align: top;
-              padding-left: 16px;
+              display: inline-flex;
+              flex-direction: column;
+              height: ${dishPageImageSize};
+              width: calc(100% - ${dishPageImageSize});
+              padding-left: 30px;
             }
-            .dish-page__left__header--bottom {
+            .dish-page__left__header__row {
+              display: flex;
+              width: 100%;
+              flex-direction: row;
               font-size: 14px;
               line-height: 1;
-              width: 100%;
-              margin-top: 30px;
+              letter-spacing: 0.6px;
             }
-            .dish-page__left__header--bottom > div {
-              display: inline-block;
-              width: 100%;
-            }
-            .dish-page__left__header--bottom > div + div {
+            .dish-page__left__header__row + .dish-page__left__header__row {
               margin-top: 20px;
+            }
+            .dish-page__left__header__row:first-child {
+              flex-direction: column;
+              flex-basis: auto;
+              flex-grow: 1;
             }
             .dish-page__left__header__title {
               color: #909090;
-              float: left;
+              flex-grow: 1;
             }
             .dish-page__left__header__field {
-              float: right;
-              color: #4a4a4a;
+              color: ${dishPageHeaderColor};
             }
             .dish-page__left__dish-name {
+              color: ${dishPageHeaderColor};
+              font-size: 16px;
+              font-weight: 500;
+              letter-spacing: 0.7px;
               line-height: 1.5;
+              margin-bottom: 20px;
             }
-            .dish-page__left__delivery-option-badge {
-              border: solid 1px #3f9f40;
+            .dish-page__left__dish-delivery :global(span) {
+              border: solid 1px ${primaryColor};
               border-radius: 100px;
               padding: 5px 12px;
-              color: #3f9f40;
+              color: ${primaryColor};
               font-size: 10px;
               letter-spacing: 0.4px;
               line-height: 1.4;
@@ -342,11 +358,11 @@ class DishPage extends React.Component<Props, State> {
               padding-bottom: 5px;
             }
             .dish-page__left__delivery-option {
-              border-left: 2px solid #3f9f40;
+              border-left: 2px solid ${primaryColor};
               padding-left: 20px;
               line-height: 1;
               font-size: 14px;
-              color: #4a4a4a;
+              color: ${dishPageHeaderColor};
             }
             .dish-page__left__delivery-option > div + div {
               margin-top: 12px;
@@ -355,33 +371,36 @@ class DishPage extends React.Component<Props, State> {
               margin-bottom: 25px;
             }
             .dish-page__left__delivery-type {
-              color: #9b9b9b;
+              color: ${dishPageTextColor};
             }
             .dish-page__left__delivery-note {
               font-size: 12px;
             }
             .dish-page__right {
-              flex-basis: 340px;
+              flex-basis: ${dishPageRightWidth};
               flex-grow: 0;
               flex-shrink: 0;
-              background-color: #f8f8f8;
+              background-color: ${dishPageRightBackground};
+            }
+            .dish-page__right :global(.dish-order__note-input) {
+              background-color: ${dishPageRightBackground};
             }
             .dish-page__right__header {
               text-align: center;
               display: block;
-              width: 250px;
+              width: ${dishPageRightWidth};
               line-height: 1.5;
               font-size: 16px;
-              color: #4a4a4a;
+              color: ${dishPageHeaderColor};
               margin: 0 auto;
               padding-top: 38px;
               padding-bottom: 38px;
             }
             .dish-page__right hr {
-              width: 250px;
+              width: calc(100% - (${dishPageRightHorizontalMargin} * 2));
             }
             .dish-page__right__order-detail {
-              padding: 47px 45px 30px;
+              padding: 47px ${dishPageRightHorizontalMargin} 30px;
             }
             .dish-page__right__order-detail .dish-order__note-input {
               background-color: #f8f8f8;
@@ -405,7 +424,7 @@ class DishPage extends React.Component<Props, State> {
               position: absolute;
               top: -30px;
               left: calc(50% - 30px);
-              background-color: #3f9f40;
+              background-color: ${primaryColor};
             }
             .dish-page__footer__image:after {
               content: '';
@@ -421,14 +440,14 @@ class DishPage extends React.Component<Props, State> {
               font-family: Playball;
               font-size: 20px;
               text-align: center;
-              color: #4a4a4a;
+              color: ${dishPageHeaderColor};
             }
             .dish-page__footer__contact {
               padding-top: 30px;
               font-family: Ubuntu;
               font-size: 16px;
               text-align: center;
-              color: #3f9f40;
+              color: ${primaryColor};
               padding-bottom: 50px;
             }
           `}

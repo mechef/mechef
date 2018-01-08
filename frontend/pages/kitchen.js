@@ -6,6 +6,8 @@ import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
 import KitchenPageRouter from '../components/KitchenPageRouter';
 
+import { fontSize } from '../utils/styleVariables';
+
 type Props = {
   url: {
     query: {
@@ -57,7 +59,7 @@ class Kitchen extends React.Component<Props, State> {
         <style jsx>
           {`
             body {
-              font-size: 14px;
+              font-size: ${fontSize};
               letter-spacing: 0.6px;
             }
           `}

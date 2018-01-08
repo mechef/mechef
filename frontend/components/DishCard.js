@@ -5,6 +5,11 @@ import Rx from 'rxjs/Rx';
 import AddToCartButton from './AddToCartButton';
 
 import { IMAGE_URL } from '../utils/constants';
+import {
+  whiteColor,
+  textColor,
+  borderRadius,
+} from '../utils/styleVariables';
 
 type Props = {
   _id: string,
@@ -34,8 +39,8 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
         .dish-card {
           width: 260px;
           height: 380px;
-          border-radius: 4px;
-          background-color: #ffffff;
+          border-radius: ${borderRadius};
+          background-color: ${whiteColor};
           box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.24);
           display: inline-block;
           margin-right: 7px;
@@ -46,8 +51,8 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
           overflow: hidden;
         }
         .dish-card__image-container {
-          border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
+          border-top-left-radius: ${borderRadius};
+          border-top-right-radius: ${borderRadius};
           width: 260px;
           height: 173px;
           cursor: pointer;
@@ -72,7 +77,7 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
           line-height: 1;
           letter-spacing: 0.7px;
           font-weight: 500;
-          color: #4a4a4a;
+          color: ${textColor};
           padding: 28px 16px 0px;
           overflow: hidden;
           text-overflow: ellipsis;

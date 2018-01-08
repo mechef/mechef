@@ -8,6 +8,11 @@ import DishOrder from './DishOrder';
 import type { DishOrderType } from './DishOrder';
 import AddToCartButton from './AddToCartButton';
 import { DishObject } from '../utils/flowTypes';
+import {
+  borderRadius,
+  whiteColor,
+  textColor,
+} from '../utils/styleVariables';
 
 type Props = {
   id: string,
@@ -72,15 +77,15 @@ class DishModal extends React.Component<Props, State> {
               position: relative;
               min-width: 715px;
               height: 456px;
-              border-radius: 4px;
-              background-color: #ffffff;
+              border-radius: ${borderRadius};
+              background-color: ${whiteColor};
               box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.3);
             }
             .dish-modal :global(.image-slider) {
               display: inline-block;
               width: 290px;
               height: 100%;
-              border-radius: 4px 0 0 4px;
+              border-radius: ${borderRadius} 0 0 ${borderRadius};
             }
             .dish-modal :global(.image-slider__legend) {
               position: absolute;
@@ -113,11 +118,23 @@ class DishModal extends React.Component<Props, State> {
               padding: 0 20px;
               box-sizing: border-box;
             }
+            .dish-modal__content-wrapper :global(.dish-order__field-name) {
+              color: #909090;
+            }
+            .dish-modal__content-wrapper :global(.dish-order__note-input) {
+              max-height: 80px;
+              max-width: 380px;
+            }
+            .dish-modal__content-wrapper :global(.dish-order__subtotal) {
+              font-size: 20px;
+              line-height: 1.2;
+              letter-spacing: 0.8px;
+            }
             .dish-modal__name {
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
-              color: #4a4a4a;
+              color: ${textColor};
               width: 228px;
               font-size: 14px;
               line-height: 1.2;

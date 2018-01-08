@@ -5,6 +5,10 @@ import Rx from 'rxjs/Rx';
 
 import ServingModifier from './ServingModifier';
 
+import {
+  fontSize,
+} from '../utils/styleVariables';
+
 type Props = {
   price: number,
   maxServing: number,
@@ -90,18 +94,18 @@ class DishOrder extends React.Component<Props, State> {
           {`
             .dish-order {
               color: #4a4a4a;
-              line-height: 14px;
+              font-size: ${fontSize};
               letter-spacing: 0.6;
             }
             .dish-order__note {
               padding-bottom: 12px;
-              font-size: 14px;
+              font-size: ${fontSize};
               line-height: 1;
             }
             .dish-order__note-input {
               max-width: 250px;
               max-height: 120px;
-              width: 250px;
+              width: 100%;
               height: 120px;
               border-radius: 4px;
               border: solid 1px #979797;
@@ -116,18 +120,20 @@ class DishOrder extends React.Component<Props, State> {
               margin-top: -2px;
               padding-top: 40px;
             }
-            .dish-order__field-name {
+            .dish-order__field-name,
+            .dish-order__subtotal,
+            .dish-order__quanity {
               color: #4a4a4a;
-              font-size: 14px;
+              font-size: ${fontSize};
               line-height: 1;
+              letter-spacing: 0.6px;
             }
             .dish-order__quanity {
               display: inline-block;
             }
-            .dish-order__subtotal {
-              font-size: 14px;
-              font-weight: 500px;
-              line-height: 1;
+            .dish-order__subtotal,
+            .dish-order__quanity {
+              font-weight: 500;
             }
           `}
         </style>
