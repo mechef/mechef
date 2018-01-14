@@ -250,6 +250,8 @@ class OrderPage extends React.Component<Props, State> {
             }
 
             .orderItemWrapper {
+              width: 744px;
+              height: 195px;
               margin-bottom: 20px;
               cursor: pointer;
             }

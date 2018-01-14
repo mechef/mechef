@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
+import moment from 'moment';
 
 import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
@@ -9,7 +10,7 @@ import errorActions from '../actions/errorActions';
 import orderActions from '../actions/orderActions';
 import Modal from './Modal';
 import { transparent, whiteColor, textColor, textHintColor, textSize } from '../utils/styleVariables';
-import { AccountObject, OrderObject } from '../utils/flowTypes';
+import type { AccountObject, OrderObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 import DefaultComponent from './DefaultComponent';
 
@@ -92,7 +93,7 @@ export class Home extends React.Component<Props> {
                   ${index === orderList.length - 1 ? 'borderBottomRadius' : ''}
                 `}
                   >
-                    <span className="firstCell greyText">{orderItem.deliveryTime}</span>
+                    <span className="firstCell greyText">{moment(orderItem.deliveryTime).format('MMM DD hh:mm')}</span>
                     <span className="secondCell boldText">{orderItem.buyerName}</span>
                     <span className="thirdCell boldText">{orderItem.dishName}</span>
                     <span className="fourthCell boldText">{orderItem.quantity}</span>

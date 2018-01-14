@@ -81,7 +81,7 @@ export type OrderObject = {
   deliveryAddress: string,
   deliveryTime: string,
   deliveryLatitude: number,
-  deliveryLongtitude: number,
+  deliveryLongitude: number,
   messageFromBuyer: string,
   state: OrderState,
   dishName: string,

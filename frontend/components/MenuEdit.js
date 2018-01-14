@@ -10,7 +10,7 @@ import SelectBox from './SelectBox';
 import UploadImage from './UploadImage';
 import CheckBox from './CheckBox';
 import Tag from './Tag';
-import { MenuObject, MeetupObject } from '../utils/flowTypes';
+import type { MenuObject, MeetupObject } from '../utils/flowTypes';
 import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
 
@@ -28,7 +28,10 @@ type Props = {
   goBack: () => Rx.Observable,
 }
 
-type State = MenuObject
+type State = {
+  ingredientInput: string,
+  categoryInput: string,
+}
 
 const quantity = [
   { text: '1', value: '1' },
@@ -180,9 +183,9 @@ class MenuEdit extends React.Component<Props, State> {
                 options={quantity}
                 selectedValue={updatedMenu.quantity || currentMenu.quantity || 0}
                 defaultText="0"
-                onChange={(selectedValue) => {
+                onChange={(selectedValue: string | number) => {
                   onChangeField({
-                    quantity: selectedValue,
+                    quantity: parseInt(selectedValue),
                   });
                 }}
               />
@@ -305,9 +308,9 @@ class MenuEdit extends React.Component<Props, State> {
                 options={cookingBuffer}
                 selectedValue={updatedMenu.cookingBuffer || currentMenu.cookingBuffer || ''}
                 defaultText="Choose cooking buffer"
-                onChange={(selectedValue) => {
+                onChange={(selectedValue: string | number) => {
                   onChangeField({
-                    cookingBuffer: selectedValue,
+                    cookingBuffer: selectedValue.toString(),
                   });
                 }}
               />
@@ -321,7 +324,7 @@ class MenuEdit extends React.Component<Props, State> {
                 defaultText="For 1~2 people"
                 onChange={(selectedValue) => {
                   onChangeField({
-                    serving: selectedValue,
+                    serving: selectedValue.toString(),
                   });
                 }}
               />
@@ -382,7 +385,9 @@ class MenuEdit extends React.Component<Props, State> {
               buttonStyle="greenBorderOnly"
               size="small"
               onClick={() => {
-                onDeleteMenu(currentMenu._id);
+                if (currentMenu._id) {
+                  onDeleteMenu(currentMenu._id);
+                }
                 goBack();
               }}
             >

@@ -5,25 +5,10 @@ import Rx from 'rxjs/Rx';
 
 import Button from './Button';
 import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
+import type { MeetupObject } from '../utils/flowTypes';
 
 type Props = {
-  meetupList: Array<{
-    _id: string,
-    note: string,
-    meetupEndTime: string,
-    meetupStartTime: string,
-    meetupSaturday: boolean,
-    meetupFriday: boolean,
-    meetupThursday: boolean,
-    meetupWednesday: boolean,
-    meetupTuesday: boolean,
-    meetupMonday: boolean,
-    meetupSunday: boolean,
-    meetupLongitude: number,
-    meetupLatitude: number,
-    meetupAddress: string,
-    type: string,
-  }>,
+  meetupList: Array<MeetupObject>,
   onEditDelivery: (meetupId: string) => Rx.Observable,
 }
 

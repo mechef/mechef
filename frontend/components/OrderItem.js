@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
+import moment from 'moment';
 
 import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor, transparent, fontSize, connectErrorColor } from '../utils/styleVariables';
 
@@ -19,7 +20,7 @@ type Props = {
   onEmail: () => Rx.Observable,
 }
 
-class OrderItem extends React.Component<Props, State> {
+class OrderItem extends React.Component<Props> {
 
   static defaultProps = {
     description: '',
@@ -49,7 +50,7 @@ class OrderItem extends React.Component<Props, State> {
           <div className="divider" />
           <div className="infoWrapper">
             <div className="infoTitle">Order Time : </div>
-            <span className="infoContent">{this.props.orderTime}</span>
+            <span className="infoContent">{moment(this.props.orderTime).format('MMM DD hh:mm')}</span>
           </div>
           <div className="infoWrapper">
             <div className="infoTitle">Delivery To : </div>
@@ -57,15 +58,13 @@ class OrderItem extends React.Component<Props, State> {
           </div>
           <div className="infoWrapper">
             <div className="infoTitle">Delivery Time : </div>
-            <span className="infoContent">{this.props.deliveryTime}</span>
+            <span className="infoContent">{moment(this.props.deliveryTime).format('MMM DD hh:mm')}</span>
           </div>
         </div>
         <style jsx>
           {`
             .orderContainer {
               display: flex;
-              width: 744px;
-              height: 195px;
               border-radius: ${borderRadius};
               background-color: ${whiteColor};
             }

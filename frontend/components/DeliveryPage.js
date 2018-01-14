@@ -11,7 +11,7 @@ import Modal from './Modal';
 import DeliveryList from './DeliveryList';
 import DeliveryEdit from './DeliveryEdit';
 import DefaultComponent from './DefaultComponent';
-import { MeetupObject } from '../utils/flowTypes';
+import type { MeetupObject } from '../utils/flowTypes';
 import { whiteColor, primaryColor, textColor, primaryBtnHoverColor, textSize } from '../utils/styleVariables';
 import Spinner from '../components/Spinner';
 
