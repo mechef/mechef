@@ -6,12 +6,13 @@ import Rx from 'rxjs/Rx';
 import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor, transparent, fontSize, connectErrorColor } from '../utils/styleVariables';
 import { OrderObject } from '../utils/flowTypes';
 import { ORDER_STATE } from '../utils/constants';
+import type { OrderState } from '../utils/constants';
 
 type Props = {
   order: OrderObject,
   onEmail: () => Rx.Observable,
   onCancel: () => Rx.Observable,
-  onUpdateState: (state: string) => Rx.Observable,
+  onUpdateState: (state: OrderState) => Rx.Observable,
 }
 
 

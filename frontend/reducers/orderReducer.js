@@ -53,10 +53,14 @@ const orderReducer$ = Rx.Observable.of(() => initialState)
             }
             return order;
           }),
+          isLoading: false,
         })
       )).catch((error) => {
         errorActions.setError$.next({ isShowModal: true, title: 'Create Memo Error', message: error.message });
-        return Rx.Observable.of(state => state);
+        return Rx.Observable.of(state => ({
+          ...state,
+          isLoading: false,
+        }));
       })
     )),
   );

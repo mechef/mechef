@@ -8,7 +8,7 @@ import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
 import Modal from './Modal';
 import OrderModal from './OrderModal';
-import { OrderObject } from '../utils/flowTypes';
+import type { OrderObject, OrderState } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 import { primaryColor, textColor, whiteColor, primaryBtnHoverColor } from '../utils/styleVariables';
 import DefaultComponent from './DefaultComponent';
@@ -22,7 +22,7 @@ type Props = {
   },
   fetchOrders$: any => Rx.Observable,
   setLoading$: boolean => Rx.Observable,
-  updateOrderState$: (orderId: string, state: string) => Rx.Observable,
+  updateOrderState$: ({ id: string, state: OrderState }) => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
@@ -38,7 +38,7 @@ type State = {
 }
 
 class OrderPage extends React.Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       isShowOrderModal: false,
@@ -81,10 +81,14 @@ class OrderPage extends React.Component<Props, State> {
           this.state.isShowOrderModal ?
             <OrderModal
               order={this.state.currentOrder}
-              onUpdateState={(orderState) => {
+              onUpdateState={(orderState: OrderState) => {
+                this.props.setLoading$(true);
                 updateOrderState$({
                   id: this.state.currentOrder._id,
-                  state: orderState
+                  state: orderState,
+                });
+                this.setState({
+                  isShowOrderModal: false,
                 });
               }}
               onEmail={() => {}}
@@ -122,7 +126,7 @@ class OrderPage extends React.Component<Props, State> {
                     `}
                     onClick={() => { this.setState({ filter: 'waiting' }); }}
                   >
-                    {orderList.filter(order => order.state === 'waiting').length}
+                    {orderList.filter((order: OrderObject) => order.state === 'waiting').length}
                   </button>
                 </div>
                 <div className="titleWithNotification">
@@ -134,7 +138,7 @@ class OrderPage extends React.Component<Props, State> {
                     `}
                     onClick={() => { this.setState({ filter: 'cancelled' }); }}
                   >
-                    {orderList.filter(order => order.state === 'cancelled').length}
+                    {orderList.filter((order: OrderObject) => order.state === 'cancelled').length}
                   </button>
                 </div>
                 <div className="titleWithNotification">
