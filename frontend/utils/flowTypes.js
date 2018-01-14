@@ -83,3 +83,12 @@ export type OrderObject = {
   dishName: string,
   image: string,
 };
+
+export type KitchenObject = {
+  _id?: string,
+  kitchenName?: string,
+  kitchenDescription?: string,
+  coverPhoto?: string,
+  profileImage?: string,
+  dishes?: Array<MenuObject>,
+};
