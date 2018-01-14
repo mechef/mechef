@@ -26,7 +26,7 @@ type Props = {
     isLoading: boolean,
   },
   fetchMenus$: any => Rx.Observable,
-  setLoading$: boolean => Rx.Observable,
+  setMenuLoading$: boolean => Rx.Observable,
   createMenu$: (menu: MenuObject) => Rx.Observable,
   updateMenu$: (menu: MenuObject) => Rx.Observable,
   deleteMenu$: (menuId: string) => Rx.Observable,
@@ -51,7 +51,7 @@ type Props = {
 
 export class MenuPage extends React.Component<Props> {
   componentWillMount() {
-    this.props.setLoading$(true);
+    this.props.setMenuLoading$(true);
   }
   componentDidMount() {
     this.props.fetchMenus$();
@@ -91,7 +91,6 @@ export class MenuPage extends React.Component<Props> {
             null
         }
         {
-          // eslint-disable-next-line no-nested-ternary
           backArrow.isShow ?
             <MenuEdit
               menuList={menuList}

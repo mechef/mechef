@@ -12,10 +12,12 @@ const initialState = {
 
 const menuReducer$ = Rx.Observable.of(() => initialState)
   .merge(
-    menuActions.setLoading$.map(isLoading => state => ({
-      ...state,
-      isLoading,
-    })),
+    menuActions.setMenuLoading$.map(isLoading => (state) => {
+      return {
+        ...state,
+        isLoading,
+      };
+    }),
     menuActions.fetchMenus$.flatMap(() => (
       Rx.Observable.ajax({
         crossDomain: true,
