@@ -1,3 +1,5 @@
+// @flow
+
 export type MeetupObject = {
   _id?: string,
   type?: string,
@@ -67,6 +69,8 @@ export type AccountObject = {
   },
 };
 
+export type OrderState = 'cancelled' | 'waiting' | 'finished';
+
 export type OrderObject = {
   _id: string,
   buyerName: string,
@@ -79,7 +83,7 @@ export type OrderObject = {
   deliveryLatitude: number,
   deliveryLongtitude: number,
   messageFromBuyer: string,
-  state: string,
+  state: OrderState,
   dishName: string,
   image: string,
 };

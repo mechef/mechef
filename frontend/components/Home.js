@@ -13,37 +13,6 @@ import { AccountObject, OrderObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 import DefaultComponent from './DefaultComponent';
 
-const sampleOrders = [
-  {
-    _id: 1,
-    deliveryTime: 'JUN 22 18:00 - 19:00',
-    buyerName: '@alvinarmstrong',
-    orderName: 'Jasmine Honey Green Tea',
-    quantity: 1,
-  },
-  {
-    _id: 2,
-    deliveryTime: 'JUN 22 17:00 - 18:00',
-    buyerName: '@bibletangg',
-    orderName: '飯糰',
-    quantity: 5,
-  },
-  {
-    _id: 3,
-    deliveryTime: 'JUN 22 14:00 - 13:00',
-    buyerName: '@yuan',
-    orderName: '沙茶牛肉飯',
-    quantity: 1,
-  },
-  {
-    _id: 4,
-    deliveryTime: 'JUN 22 14:00 - 13:00',
-    buyerName: '@tzu',
-    orderName: '番茄炒蛋',
-    quantity: 4,
-  },
-];
-
 type Props = {
   account: AccountObject,
   order: {
@@ -120,7 +89,7 @@ export class Home extends React.Component<Props> {
                     className={`
                   tableBody
                   ${index % 2 === 0 ? 'greyBackground' : 'whiteBackground'}
-                  ${index === sampleOrders.length - 1 ? 'borderBottomRadius' : ''}
+                  ${index === orderList.length - 1 ? 'borderBottomRadius' : ''}
                 `}
                   >
                     <span className="firstCell greyText">{orderItem.deliveryTime}</span>
