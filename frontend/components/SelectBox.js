@@ -15,14 +15,14 @@ type Props = {
     text: string,
     value: string,
   }>,
-  selectedValue: string,
+  selectedValue: string | number,
   defaultText: string,
-  onChange: (selectedValue: string) => mixed,
+  onChange: (selectedValue: string | number) => mixed,
 };
 
 type State = {
   isOpenOptions: boolean,
-  selectedValue: string,
+  selectedValue: string | number,
 }
 
 class SelectBox extends React.Component<Props, State> {

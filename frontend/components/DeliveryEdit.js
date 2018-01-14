@@ -8,7 +8,7 @@ import TextInput from './TextInput';
 import SelectBox from './SelectBox';
 import CheckBox from './CheckBox';
 import MapWithAutoComplete from './MapWithAutoComplete';
-import { MeetupObject } from '../utils/flowTypes';
+import type { MeetupObject } from '../utils/flowTypes';
 import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../utils/constants';
 
 type Props = {
@@ -59,7 +59,7 @@ const days = [
   { key: 'meetupSunday', text: 'Sunday' },
 ];
 
-class DeliveryEdit extends React.Component<Props, State> {
+class DeliveryEdit extends React.Component<Props> {
   render() {
     const { goBack, onCreateMeetup, onUpdateMeetup, onDeleteMeetup, currentMeetup, updatedMeetup, onChangeMeetupField } = this.props;
     return (
@@ -117,9 +117,9 @@ class DeliveryEdit extends React.Component<Props, State> {
                 options={availableTime}
                 selectedValue={updatedMeetup.meetupStartTime || currentMeetup.meetupStartTime}
                 defaultText="24:00"
-                onChange={(selectedValue) => {
+                onChange={(selectedValue: string | number) => {
                   onChangeMeetupField({
-                    meetupStartTime: selectedValue,
+                    meetupStartTime: selectedValue.toString(),
                   });
                 }}
               />
@@ -130,9 +130,9 @@ class DeliveryEdit extends React.Component<Props, State> {
                 options={availableTime}
                 selectedValue={updatedMeetup.meetupEndTime || currentMeetup.meetupEndTime}
                 defaultText="24:00"
-                onChange={(selectedValue) => {
+                onChange={(selectedValue: string | number) => {
                   onChangeMeetupField({
-                    meetupEndTime: selectedValue,
+                    meetupEndTime: selectedValue.toString(),
                   });
                 }}
               />
@@ -158,7 +158,9 @@ class DeliveryEdit extends React.Component<Props, State> {
               buttonStyle="greenBorderOnly"
               size="small"
               onClick={() => {
-                onDeleteMeetup(currentMeetup._id);
+                if (currentMeetup._id) {
+                  onDeleteMeetup(currentMeetup._id);
+                }
                 goBack();
               }}
             >
