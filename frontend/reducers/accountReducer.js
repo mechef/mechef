@@ -65,9 +65,13 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
       },
     })),
     accountActions.createCoverPhoto$.map((file) => {
-      const formData = new FormData();
-      formData.append('image', file);
-      return formData;
+      if (file.size > 1000000) {
+        errorActions.setError$.next({ isShowModal: true, title: 'Create Cover Image Error', message: 'File size can‘t be over 1 MB !' });
+      } else {
+        const formData = new FormData();
+        formData.append('image', file);
+        return formData;
+      }
     }).flatMap(formData => (
       Rx.Observable.ajax({
         crossDomain: true,
@@ -80,14 +84,18 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
         responseType: 'json',
       }).map(data => state => ({ ...state, coverPhoto: data.response.image, update: { ...state.update, coverPhoto: data.response.image } }))
         .catch((error) => {
-          errorActions.setError$.next({ isShowModal: true, title: 'Create Cover Image Error', message: error.message });
+          errorActions.setError$.next({ isShowModal: true, title: 'Create Cover Image Error', message: 'File size can‘t be over 1 MB !' });
           return Rx.Observable.of(state => state);
         })
     )),
     accountActions.createProfileImage$.map((file) => {
-      const formData = new FormData();
-      formData.append('image', file);
-      return formData;
+      if (file.size > 1000000) {
+        errorActions.setError$.next({ isShowModal: true, title: 'Create Profile Image Error', message: 'File size can‘t be over 1 MB !' });
+      } else {
+        const formData = new FormData();
+        formData.append('image', file);
+        return formData;
+      }
     }).flatMap(formData => (
       Rx.Observable.ajax({
         crossDomain: true,

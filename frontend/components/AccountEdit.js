@@ -7,7 +7,7 @@ import Button from './Button';
 import TextAreaInput from './TextAreaInput';
 import TextInput from './TextInput';
 import { IMAGE_URL } from '../utils/constants'
-import { AccountObject } from '../utils/flowTypes';
+import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
   account: AccountObject,

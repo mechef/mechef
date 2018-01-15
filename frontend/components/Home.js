@@ -11,7 +11,7 @@ import orderActions from '../actions/orderActions';
 import Modal from './Modal';
 import { transparent, whiteColor, textColor, textHintColor, textSize } from '../utils/styleVariables';
 import type { AccountObject, OrderObject } from '../utils/flowTypes';
-import { IMAGE_URL } from '../utils/constants';
+import { IMAGE_URL, ORDER_STATE } from '../utils/constants';
 import DefaultComponent from './DefaultComponent';
 
 type Props = {
@@ -84,7 +84,7 @@ export class Home extends React.Component<Props> {
                 <span className="fourthCell">Quantity</span>
               </div>
               {
-                orderList.map((orderItem, index) => (
+                orderList.filter(order => order.state === ORDER_STATE.waiting).map((orderItem, index) => (
                   <div
                     key={orderItem._id}
                     className={`

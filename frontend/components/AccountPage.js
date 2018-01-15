@@ -12,7 +12,7 @@ import AccountDetail from './AccountDetail';
 import AccountEdit from './AccountEdit';
 import UpdateBankAccount from './UpdateBankAccount';
 import UpdatePassword from './UpdatePassword';
-import { AccountObject } from '../utils/flowTypes';
+import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
   account: AccountObject,
