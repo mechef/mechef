@@ -4,7 +4,9 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 import fetch from 'isomorphic-unfetch';
 import urlencoder from 'form-urlencoded';
+import { translate } from 'react-i18next';
 
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import authActions from '../actions/authActions';
 import errorActions from '../actions/errorActions';
@@ -14,6 +16,7 @@ import Modal from '../components/Modal';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import Spinner from '../components/Spinner';
+
 
 type Props = {
   setLoginField$: (any) => Rx.Observable,
@@ -145,7 +148,7 @@ class Login extends React.Component<Props, State> {
                   this.setState({ isWrapperMove: true });
                 }}
               >
-                JOIN NOW
+                {this.props.t('joinNow')}
               </Button>
             </div>
             <div className={`wrapper ${this.state.isWrapperMove ? 'move' : ''}`}>
@@ -447,4 +450,13 @@ const actionSubjects = {
   ...authActions,
 };
 
-export default connect(stateSelector, actionSubjects)(Login);
+const Extended = translate(['common'], { i18n, wait: process.browser })(Login);
+
+// Passing down initial translations
+// use req.i18n instance on serverside to avoid overlapping requests set the language wrong
+Extended.getInitialProps = async ({ req }) => {
+  if (req && !process.browser) return i18n.getInitialProps(req, ['common']);
+  return {};
+};
+
+export default connect(stateSelector, actionSubjects)(Extended);
