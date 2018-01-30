@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const OrderSchema = new mongoose.Schema({
   buyerName: String,
   buyerEmail: String,
-  menuId: String,
+  menuList: [String],
   dishName: String,
   image: String,
   sellerEmail: String,

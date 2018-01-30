@@ -8,7 +8,7 @@ module.exports = (req, res) => {
   const order = new Order();
   order.buyerName = req.body.buyerName;
   order.buyerEmail = req.body.buyerEmail;
-  order.menuId = req.body.menuId;
+  order.menuList = req.body.menuList;
   order.state = constants.order_state.waiting;
   order.orderTime = Date.now();
   order.messageFromBuyer = req.body.messageFromBuyer;
