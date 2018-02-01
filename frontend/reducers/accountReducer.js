@@ -87,10 +87,14 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
           errorActions.setError$.next({ isShowModal: true, title: 'Create Cover Image Error', message: 'File size can‘t be over 1 MB !' });
           return Rx.Observable.of(state => state);
         })
-    )),
+    )).catch((error, source$) => {
+      errorActions.setError$.next({ isShowModal: true, title: 'Create Profile Photo Error', message: error.message });
+      return source$;
+    }),
     accountActions.createProfileImage$.map((file) => {
       if (file.size > 1000000) {
-        errorActions.setError$.next({ isShowModal: true, title: 'Create Profile Image Error', message: 'File size can‘t be over 1 MB !' });
+        throw new Error('File size can‘t be over 1 MB !');
+        // errorActions.setError$.next({ isShowModal: true, title: 'Create Profile Image Error', message: 'File size can‘t be over 1 MB !' });
       } else {
         const formData = new FormData();
         formData.append('image', file);
@@ -111,7 +115,10 @@ const accountReducer$ = Rx.Observable.of(() => initialState)
           errorActions.setError$.next({ isShowModal: true, title: 'Create Profile Photo Error', message: error.message });
           return Rx.Observable.of(state => state);
         })
-    )),
+    )).catch((error, source$) => {
+      errorActions.setError$.next({ isShowModal: true, title: 'Create Profile Photo Error', message: error.message });
+      return source$;
+    }),
   );
 
 export default accountReducer$;

@@ -294,6 +294,7 @@ class AccountEdit extends React.Component<Props> {
               height: 230px;
               width: 100%;
               position: absolute;
+              object-fit: cover;
             }
 
             .update-cover-photo:before {
@@ -350,6 +351,7 @@ class AccountEdit extends React.Component<Props> {
               border-radius: 40px;
               top: 0;
               left: 0;
+              object-fit: cover;
             }
 
             .update-profile-image__avatar:after {
