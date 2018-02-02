@@ -4,11 +4,24 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 import moment from 'moment';
 
-import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor, transparent, fontSize, connectErrorColor } from '../utils/styleVariables';
+import {
+  borderRadius,
+  whiteColor,
+  primaryColor,
+  lineHeight,
+  titleFontSize,
+  subtitleFontSize,
+  textColor,
+  textHintColor,
+  transparent,
+  fontSize,
+  connectErrorColor,
+} from '../utils/styleVariables';
 
 type Props = {
   sellerId: string,
   menuTitle: string,
+  buyerEmail: string,
   quantity: number,
   orderTime: string,
   deliveryTo: string,
@@ -17,17 +30,14 @@ type Props = {
   status: string,
   profileImageUrl: string,
   menuImageUrl: string,
-  onEmail: () => Rx.Observable,
-}
+};
 
 class OrderItem extends React.Component<Props> {
-
   static defaultProps = {
     description: '',
     profileImageUrl: '',
     menuImageUrl: '',
-    onEmail: () => {},
-  }
+  };
 
   render() {
     return (
@@ -37,9 +47,15 @@ class OrderItem extends React.Component<Props> {
           <div className="firstRow">
             <span className="sellerId">{this.props.sellerId}</span>
             <div className="iconWrapper">
-              <button className="btn" onClick={this.props.onEmail}>
+              <a
+                className="email"
+                href={`mailto:${this.props.buyerEmail}`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
                 <div className="icon mailIcon" />
-              </button>
+              </a>
             </div>
           </div>
           <div className="secondRow">{this.props.menuTitle}</div>
@@ -50,7 +66,9 @@ class OrderItem extends React.Component<Props> {
           <div className="divider" />
           <div className="infoWrapper">
             <div className="infoTitle">Order Time : </div>
-            <span className="infoContent">{moment(this.props.orderTime).format('MMM DD hh:mm')}</span>
+            <span className="infoContent">
+              {moment(this.props.orderTime).format('MMM DD hh:mm')}
+            </span>
           </div>
           <div className="infoWrapper">
             <div className="infoTitle">Delivery To : </div>
@@ -58,7 +76,9 @@ class OrderItem extends React.Component<Props> {
           </div>
           <div className="infoWrapper">
             <div className="infoTitle">Delivery Time : </div>
-            <span className="infoContent">{moment(this.props.deliveryTime).format('MMM DD hh:mm')}</span>
+            <span className="infoContent">
+              {moment(this.props.deliveryTime).format('MMM DD hh:mm')}
+            </span>
           </div>
         </div>
         <style jsx>
@@ -162,12 +182,7 @@ class OrderItem extends React.Component<Props> {
               margin-right: 21px;
             }
 
-            .btn {
-              cursor: pointer;
-              background-color: ${transparent};
-              border: 0;
-              padding: 0;
-              outline: none;
+            .email {
               margin-left: 30px;
             }
 
@@ -184,7 +199,7 @@ class OrderItem extends React.Component<Props> {
               background-image: url('../static/svg/order_mail.svg');
             }
 
-            .btn:hover .mailIcon {
+            .email:hover .mailIcon {
               background-image: url('../static/svg/order_mail_hover.svg');
             }
           `}
@@ -193,6 +208,5 @@ class OrderItem extends React.Component<Props> {
     );
   }
 }
-
 
 export default OrderItem;

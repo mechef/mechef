@@ -5,7 +5,19 @@ import Rx from 'rxjs/Rx';
 import moment from 'moment';
 
 import MapWithAutoComplete from './MapWithAutoComplete';
-import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor, transparent, fontSize, connectErrorColor } from '../utils/styleVariables';
+import {
+  borderRadius,
+  whiteColor,
+  primaryColor,
+  lineHeight,
+  titleFontSize,
+  subtitleFontSize,
+  textColor,
+  textHintColor,
+  transparent,
+  fontSize,
+  connectErrorColor,
+} from '../utils/styleVariables';
 import type { OrderObject, OrderState } from '../utils/flowTypes';
 import { ORDER_STATE } from '../utils/constants';
 
@@ -14,7 +26,7 @@ type Props = {
   onEmail: () => Rx.Observable,
   onCancel: () => Rx.Observable,
   onUpdateState: (state: OrderState) => Rx.Observable,
-}
+};
 
 class OrderModal extends React.Component<Props> {
   componentWillMount() {
@@ -43,7 +55,10 @@ class OrderModal extends React.Component<Props> {
 
   setInitialMarker = () => {
     if (this.map) {
-      const latlng = new google.maps.LatLng(this.props.order.deliveryLatitude, this.props.order.deliveryLongitude);
+      const latlng = new google.maps.LatLng(
+        this.props.order.deliveryLatitude,
+        this.props.order.deliveryLongitude,
+      );
       this.map.setCenter(latlng);
       const marker = new google.maps.Marker({
         position: latlng,
@@ -53,7 +68,7 @@ class OrderModal extends React.Component<Props> {
       marker.setMap(this.map);
       this.marker = marker;
     }
-  }
+  };
 
   render() {
     return (
@@ -61,16 +76,22 @@ class OrderModal extends React.Component<Props> {
         <div className="alert-modal">
           <header className="alert-modal-header">
             <div className="cancelBtnWrapper">
-              <button className="cancel-btn" onClick={this.props.onCancel}>&times;</button>
+              <button className="cancel-btn" onClick={this.props.onCancel}>
+                &times;
+              </button>
             </div>
           </header>
           <section className="modalBody">
             <p className="firstRow">
               <span className="buyerName">{this.props.order.buyerName}</span>
               <div className="iconWrapper">
-                <button className="btn" onClick={this.props.onEmail}>
+                <a
+                  className="email"
+                  href={`mailto: ${this.props.order.buyerEmail}`}
+                  onClick={event => event.stopPropagation()}
+                >
                   <div className="icon mailIcon" />
-                </button>
+                </a>
               </div>
             </p>
             <p className="secondRow">
@@ -83,7 +104,9 @@ class OrderModal extends React.Component<Props> {
             <p className="divider" />
             <p className="infoWrapper">
               <p className="infoTitle">Order Time : </p>
-              <span className="infoContent">{moment(this.props.order.orderTime).format('MMM DD hh:mm')}</span>
+              <span className="infoContent">
+                {moment(this.props.order.orderTime).format('MMM DD hh:mm')}
+              </span>
             </p>
             <p className="infoWrapper">
               <p className="infoTitle">Delivery To : </p>
@@ -91,7 +114,9 @@ class OrderModal extends React.Component<Props> {
             </p>
             <p className="infoWrapper">
               <p className="infoTitle">Delivery Time : </p>
-              <span className="infoContent">{moment(this.props.order.deliveryTime).format('MMM DD hh:mm')}</span>
+              <span className="infoContent">
+                {moment(this.props.order.deliveryTime).format('MMM DD hh:mm')}
+              </span>
             </p>
             <div className="mapWrapper" id="map" />
             <div className="messageWrapper">
@@ -188,7 +213,7 @@ class OrderModal extends React.Component<Props> {
               content: '';
               height: 100%;
               width: 100%;
-              background-color: rgba(0, 0, 0, .400);
+              background-color: rgba(0, 0, 0, 0.4);
               position: absolute;
               z-index: 1;
             }
@@ -308,19 +333,14 @@ class OrderModal extends React.Component<Props> {
               margin-right: 21px;
             }
 
-            .btn {
-              cursor: pointer;
-              background-color: ${transparent};
-              border: 0;
-              padding: 0;
-              outline: none;
+            .email {
               margin-left: 30px;
             }
 
             .icon {
               background-size: contain;
               background-position: center;
-              background-repeat:no-repeat;
+              background-repeat: no-repeat;
               width: 20px;
               height: 20px;
               outline: none;
@@ -331,7 +351,7 @@ class OrderModal extends React.Component<Props> {
               background-image: url('../static/svg/order_mail.svg');
             }
 
-            .btn:hover .mailIcon {
+            .email:hover .mailIcon {
               background-image: url('../static/svg/order_mail_hover.svg');
             }
 
@@ -414,7 +434,7 @@ class OrderModal extends React.Component<Props> {
 }
 
 OrderModal.defaultProps = {
-  onCancel: () => { },
+  onCancel: () => {},
 };
 
 export default OrderModal;

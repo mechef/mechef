@@ -27,15 +27,15 @@ type Props = {
   error: {
     title: string,
     message: string,
-    isShowModal: bool,
+    isShowModal: boolean,
   },
-}
+};
 
 type State = {
-  isShowOrderModal: bool,
+  isShowOrderModal: boolean,
   currentOrder: OrderObject,
   filter: string,
-}
+};
 
 class OrderPage extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -53,146 +53,138 @@ class OrderPage extends React.Component<Props, State> {
     this.props.fetchOrders$();
   }
   render() {
-    const {
-      order: { orderList, isLoading },
-      setError$,
-      error,
-      updateOrderState$,
-    } = this.props;
+    const { order: { orderList, isLoading }, setError$, error, updateOrderState$ } = this.props;
 
     return (
       <div className="container">
-        {
-          error.isShowModal ?
-            <Modal
-              title={error.title}
-              message={error.message}
-              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
-            />
-            : null
-        }
-        {
-          isLoading ?
-            <Spinner />
-            :
-            null
-        }
-        {
-          this.state.isShowOrderModal ?
-            <OrderModal
-              order={this.state.currentOrder}
-              onUpdateState={(orderState: OrderState) => {
-                this.props.setLoading$(true);
-                updateOrderState$({
-                  id: this.state.currentOrder._id,
-                  state: orderState,
-                });
-                this.setState({
-                  isShowOrderModal: false,
-                });
-              }}
-              onEmail={() => {}}
-              onCancel={() => {
-                this.setState({
-                  isShowOrderModal: false,
-                  currentOrder: {},
-                });
-              }}
-            />
-            : null
-        }
-        {
-          orderList && orderList.length ?
-            <div className="orderWrapper">
-              <div className="header">
-                <div className="titleWithNotification">
-                  <span className="orderTitle">All Orders</span>
-                  <button
-                    className={`
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+          />
+        ) : null}
+        {isLoading ? <Spinner /> : null}
+        {this.state.isShowOrderModal ? (
+          <OrderModal
+            order={this.state.currentOrder}
+            onUpdateState={(orderState: OrderState) => {
+              this.props.setLoading$(true);
+              updateOrderState$({
+                id: this.state.currentOrder._id,
+                state: orderState,
+              });
+              this.setState({
+                isShowOrderModal: false,
+              });
+            }}
+            onCancel={() => {
+              this.setState({
+                isShowOrderModal: false,
+                currentOrder: {},
+              });
+            }}
+          />
+        ) : null}
+        {orderList && orderList.length ? (
+          <div className="orderWrapper">
+            <div className="header">
+              <div className="titleWithNotification">
+                <span className="orderTitle">All Orders</span>
+                <button
+                  className={`
                       notification
                       ${this.state.filter === 'all' ? 'selected' : ''}
                     `}
-                    onClick={() => { this.setState({ filter: 'all' }); }}
-                  >
-                    {orderList.length}
-                  </button>
-                </div>
-                <div className="titleWithNotification">
-                  <span className="orderTitle">Pending Orders</span>
-                  <button
-                    className={`
+                  onClick={() => {
+                    this.setState({ filter: 'all' });
+                  }}
+                >
+                  {orderList.length}
+                </button>
+              </div>
+              <div className="titleWithNotification">
+                <span className="orderTitle">Pending Orders</span>
+                <button
+                  className={`
                       notification
                       ${this.state.filter === 'pending' ? 'selected' : ''}
                     `}
-                    onClick={() => { this.setState({ filter: 'waiting' }); }}
-                  >
-                    {orderList.filter((order: OrderObject) => order.state === 'waiting').length}
-                  </button>
-                </div>
-                <div className="titleWithNotification">
-                  <span className="orderTitle">Cancelled Orders</span>
-                  <button
-                    className={`
+                  onClick={() => {
+                    this.setState({ filter: 'waiting' });
+                  }}
+                >
+                  {orderList.filter((order: OrderObject) => order.state === 'waiting').length}
+                </button>
+              </div>
+              <div className="titleWithNotification">
+                <span className="orderTitle">Cancelled Orders</span>
+                <button
+                  className={`
                       notification
                       ${this.state.filter === 'cancelled' ? 'selected' : ''}
                     `}
-                    onClick={() => { this.setState({ filter: 'cancelled' }); }}
-                  >
-                    {orderList.filter((order: OrderObject) => order.state === 'cancelled').length}
-                  </button>
-                </div>
-                <div className="titleWithNotification">
-                  <span className="orderTitle">Finished Orders</span>
-                  <button
-                    className={`
+                  onClick={() => {
+                    this.setState({ filter: 'cancelled' });
+                  }}
+                >
+                  {orderList.filter((order: OrderObject) => order.state === 'cancelled').length}
+                </button>
+              </div>
+              <div className="titleWithNotification">
+                <span className="orderTitle">Finished Orders</span>
+                <button
+                  className={`
                       notification
                       ${this.state.filter === 'finished' ? 'selected' : ''}
                     `}
-                    onClick={() => { this.setState({ filter: 'finished' }); }}
-                  >
-                    {orderList.filter(order => order.state === 'finished').length}
-                  </button>
-                </div>
+                  onClick={() => {
+                    this.setState({ filter: 'finished' });
+                  }}
+                >
+                  {orderList.filter(order => order.state === 'finished').length}
+                </button>
               </div>
-              {
-                orderList
-                  .filter(order => order.state === this.state.filter || this.state.filter === 'all')
-                  .map(order => (
-                  <div
-                    className="orderItemWrapper"
-                    onClick={() => {
-                      this.setState({
-                        isShowOrderModal: true,
-                        currentOrder: order,
-                      });
-                    }}
-                  >
-                    <OrderItem
-                      sellerId={order.buyerName}
-                      menuTitle={order.bueryName}
-                      quantity={order.quantity}
-                      orderTime={order.orderTime}
-                      deliveryTo={order.deliveryAddress}
-                      deliveryTime={order.deliveryTime}
-                      totalPrice={order.amount}
-                      status={'WAITING'}
-                      profileImageUrl={`${IMAGE_URL}/${order.profileImage}`}
-                      menuImageUrl={`${IMAGE_URL}/${order.menuImage}`}
-                    />
-                  </div>
-                ))
-              }
             </div>
-            : !isLoading ?
-              <DefaultComponent coverPhotoSrc="../static/img/orders_default.jpg">
-                <div className="textSection">
-                  <h2 className="title">Hello there!</h2>
-                  <p className="description">Share your menu to get your first order!</p>
+            {orderList
+              .filter(order => order.state === this.state.filter || this.state.filter === 'all')
+              .map(order => (
+                <div
+                  className="orderItemWrapper"
+                  onClick={() => {
+                    this.setState({
+                      isShowOrderModal: true,
+                      currentOrder: order,
+                    });
+                  }}
+                >
+                  <OrderItem
+                    sellerId={order.buyerName}
+                    menuTitle={order.buyerName}
+                    buyerEmail={order.buyerEmail}
+                    quantity={order.quantity}
+                    orderTime={order.orderTime}
+                    deliveryTo={order.deliveryAddress}
+                    deliveryTime={order.deliveryTime}
+                    totalPrice={order.amount}
+                    status={'WAITING'}
+                    profileImageUrl={`${IMAGE_URL}/${order.profileImage}`}
+                    menuImageUrl={`${IMAGE_URL}/${order.menuImage}`}
+                  />
                 </div>
-                <button className="addDish" onClick={() => {}}>MY STORE'S LINK</button>
-              </DefaultComponent>
-              : null
-        }
+              ))}
+          </div>
+        ) : !isLoading ? (
+          <DefaultComponent coverPhotoSrc="../static/img/orders_default.jpg">
+            <div className="textSection">
+              <h2 className="title">Hello there!</h2>
+              <p className="description">Share your menu to get your first order!</p>
+            </div>
+            <button className="addDish" onClick={() => {}}>
+              MY STORE'S LINK
+            </button>
+          </DefaultComponent>
+        ) : null}
         <style jsx>
           {`
             .container {
@@ -297,7 +289,6 @@ class OrderPage extends React.Component<Props, State> {
     );
   }
 }
-
 
 const stateSelector = ({ order, error }) => ({ order, error });
 
