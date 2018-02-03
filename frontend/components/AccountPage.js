@@ -15,25 +15,18 @@ import UpdatePassword from './UpdatePassword';
 import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
-  account: AccountObject,
+  currentAccount: AccountObject,
+  updatedFields: AccountObject,
   fetchAccountDetail$: any => Rx.Observable,
-  updateAccountDetail$: ({ account: AccountObject }) => Rx.Observable,
-  setFields$: ({
-    name?: string,
-    kitchenName?: string,
-    kitchenDescription?: string,
-    firstName?: string,
-    lastName?: string,
-    phoneNumber?: string,
-    email?: string,
-  }) => Rx.Observable,
+  updateAccountDetail$: (account: AccountObject) => Rx.Observable,
+  setFields$: (account: AccountObject) => Rx.Observable,
   createCoverPhoto$: File => Rx.Observable,
   createProfileImage$: File => Rx.Observable,
   setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
   error: {
     title: string,
     message: string,
-    isShowModal: bool,
+    isShowModal: boolean,
   },
   global: {
     backArrow: {
@@ -42,11 +35,11 @@ type Props = {
     },
   },
   toggleBackArrow$: string => Rx.Observable,
-}
+};
 
 type State = {
   pageStatus: string,
-}
+};
 
 export const pageStatus = {
   UPDATE_ACCOUNT: 'EDIT ACCOUNT',
@@ -66,7 +59,8 @@ export class AccountPage extends React.Component<Props, State> {
   }
   render() {
     const {
-      account,
+      currentAccount,
+      updatedFields,
       setError$,
       error,
       global: { backArrow },
@@ -76,42 +70,42 @@ export class AccountPage extends React.Component<Props, State> {
       createProfileImage$,
       toggleBackArrow$,
     } = this.props;
+    const account = { ...currentAccount, ...updatedFields };
     return (
       <div className="accountContainer">
-        {
-          error.isShowModal ?
-            <Modal
-              title={error.title}
-              message={error.message}
-              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
-            />
-            : null
-        }
-        {
-          /* eslint-disable no-nested-ternary */
-          backArrow.isShow ?
-            this.state.pageStatus === pageStatus.UPDATE_ACCOUNT ?
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+          />
+        ) : null}
+        {/* eslint-disable no-nested-ternary */
+          backArrow.isShow ? (
+            this.state.pageStatus === pageStatus.UPDATE_ACCOUNT ? (
               <AccountEdit
                 account={account}
                 onUpdateCoverPhoto={createCoverPhoto$}
                 onUpdateProfileImage={createProfileImage$}
-                onSubmit={updateAccountDetail$}
+                onSubmit={() => updateAccountDetail$(updatedFields)}
                 onUpdateField={setFields$}
                 goback={() => toggleBackArrow$('')}
               />
-              : this.state.pageStatus === pageStatus.UPDATE_BANK_ACCOUNT ?
-                <UpdateBankAccount
-                  account={account}
-                  goback={() => toggleBackArrow$('')}
-                  onSubmit={updateAccountDetail$}
-                />
-                :
-                <UpdatePassword
-                  account={account}
-                  goback={() => toggleBackArrow$('')}
-                  onSubmit={updateAccountDetail$}
-                />
-            : <AccountDetail
+            ) : this.state.pageStatus === pageStatus.UPDATE_BANK_ACCOUNT ? (
+              <UpdateBankAccount
+                account={account}
+                goback={() => toggleBackArrow$('')}
+                onSubmit={updateAccountDetail$}
+              />
+            ) : (
+              <UpdatePassword
+                account={account}
+                goback={() => toggleBackArrow$('')}
+                onSubmit={updateAccountDetail$}
+              />
+            )
+          ) : (
+            <AccountDetail
               account={account}
               onUpdate={(status) => {
                 toggleBackArrow$(pageStatus[status]);
@@ -120,7 +114,8 @@ export class AccountPage extends React.Component<Props, State> {
                 });
               }}
             />
-          /* eslint-enable no-nested-ternary */
+          )
+        /* eslint-enable no-nested-ternary */
         }
         <style jsx>
           {`
@@ -134,8 +129,12 @@ export class AccountPage extends React.Component<Props, State> {
   }
 }
 
-
-const stateSelector = ({ account, error, global }) => ({ account, error, global });
+const stateSelector = ({ account, error, global }) => ({
+  currentAccount: account.currentAccount,
+  updatedFields: account.updatedFields,
+  error,
+  global,
+});
 
 const actionSubjects = {
   ...errorActions,

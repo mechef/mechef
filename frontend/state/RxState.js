@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import reducer$ from '../reducers';
 
-const debuggerOn = process.env.debug;
+const debuggerOn = true;
 Observable.prototype.debug = function (message: string): Observable {
   return this.do(
     (next) => {
@@ -33,8 +33,9 @@ export function createState(
 ): Observable {
   return initialState$
     .merge(reducerStream)
-    .debug('reducerStrean')
+    .debug('Emit signal:')
     .scan((state, [scope, reducer]) => ({ ...state, [scope]: reducer(state[scope]) }))
+    .debug('After state:')
     .publishReplay(1)
     .refCount();
 }
@@ -43,14 +44,16 @@ const globalState = createState(reducer$);
 export function connect(
   selector?: any => any = state => state,
   actionSubjects: { [key: string]: Rx.Subject },
-): React.ComponentType<any> => React.ComponentType<any> {
-  const actions = Object.keys(actionSubjects)
-    .reduce((acc, key) => ({
+): (React.ComponentType<any>) => React.ComponentType<any> {
+  const actions = Object.keys(actionSubjects).reduce(
+    (acc, key) => ({
       ...acc,
       [key]: (value) => {
         actionSubjects[key].next(value);
       },
-    }), {});
+    }),
+    {},
+  );
   return function wrapWithConnect(
     WrappedComponent: React.ComponentType<any>,
   ): React.ComponentType<any> {
@@ -71,9 +74,7 @@ export function connect(
       }
 
       render() {
-        return (
-          <WrappedComponent {...this.state} {...this.props} {...actions} />
-        );
+        return <WrappedComponent {...this.state} {...this.props} {...actions} />;
       }
     };
   };

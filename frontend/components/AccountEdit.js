@@ -6,41 +6,19 @@ import Rx from 'rxjs/Rx';
 import Button from './Button';
 import TextAreaInput from './TextAreaInput';
 import TextInput from './TextInput';
-import { IMAGE_URL } from '../utils/constants'
+import { IMAGE_URL } from '../utils/constants';
 import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
   account: AccountObject,
   onUpdateCoverPhoto: File => Rx.Observable,
   onUpdateProfileImage: File => Rx.Observable,
-  onSubmit: ({ account: AccountObject }) => Rx.Observable,
-  onUpdateField: ({
-    name?: string,
-    kitchenName?: string,
-    kitchenDescription?: string,
-    firstName?: string,
-    lastName?: string,
-    phoneNumber?: string,
-    email?: string,
-  }) => Rx.Observable,
+  onSubmit: () => Rx.Observable,
+  onUpdateField: (account: AccountObject) => Rx.Observable,
   goback: any => Rx.Observable,
-}
+};
 
 class AccountEdit extends React.Component<Props> {
-  static defaultProps = {
-    account: {
-      name: '',
-      kitchenName: '',
-      kitchenDescription: '',
-      firstName: '',
-      lastName: '',
-      phoneNumber: '',
-      email: '',
-      coverPhoto: '',
-      profileImage: '',
-    },
-  }
-
   constructor(props: Props) {
     super(props);
     this.handleCoverPhotoUpload = this.handleCoverPhotoUpload.bind(this);
@@ -97,14 +75,16 @@ class AccountEdit extends React.Component<Props> {
                 this.coverPhotoImg = input;
               }}
               className="coverPhoto"
-              src={this.props.account.coverPhoto ? `${IMAGE_URL}/${this.props.account.coverPhoto}` : "../static/pancake.jpg"}
+              src={
+                this.props.account.coverPhoto
+                  ? `${IMAGE_URL}/${this.props.account.coverPhoto}`
+                  : '../static/pancake.jpg'
+              }
               alt="cover"
             />
             <div className="update-cover-photo__title">
               <i className="fa fa-camera update-cover-photo__icon" aria-hidden="true" />
-              <span>
-                Update your cover photo
-              </span>
+              <span>Update your cover photo</span>
             </div>
           </div>
           <div className="update-profile-image">
@@ -129,14 +109,23 @@ class AccountEdit extends React.Component<Props> {
                   this.profileImageThumbnail = input;
                 }}
                 className="profileImage"
-                src={this.props.account.profileImage ? `${IMAGE_URL}/${this.props.account.profileImage}` : "../static/avatar.jpg"}
+                src={
+                  this.props.account.profileImage
+                    ? `${IMAGE_URL}/${this.props.account.profileImage}`
+                    : '../static/avatar.jpg'
+                }
                 alt="profile"
               />
-              <i className="fa fa-camera update-profile-image__avatar-camera-icon" aria-hidden="true" />
+              <i
+                className="fa fa-camera update-profile-image__avatar-camera-icon"
+                aria-hidden="true"
+              />
             </button>
             <div className="update-profile-image__description">
               <span className="update-profile-image__description-title">Profile Image</span>
-              <span className="update-profile-image__description-subtitle">Add Image Add Image Add Image</span>
+              <span className="update-profile-image__description-subtitle">
+                Add Image Add Image Add Image
+              </span>
             </div>
           </div>
           <div className="bank-info">
@@ -146,7 +135,7 @@ class AccountEdit extends React.Component<Props> {
               type="text"
               placeholder="Enter Kitchen Name"
               size="large"
-              value={this.props.account.kitchenName || ''}
+              value={this.props.account.kitchenName}
               onChange={(event) => {
                 if (event && event.target) {
                   this.props.onUpdateField({
@@ -161,7 +150,7 @@ class AccountEdit extends React.Component<Props> {
             <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
             <TextAreaInput
               placeholder="Write some description about your kitchen...."
-              value={this.props.account.kitchenDescription || ''}
+              value={this.props.account.kitchenDescription}
               onChange={(evt) => {
                 if (evt && evt.target) {
                   this.props.onUpdateField({
@@ -179,7 +168,7 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.props.account.firstName || ''}
+                value={this.props.account.firstName}
                 onChange={(event) => {
                   if (event && event.target) {
                     this.props.onUpdateField({
@@ -192,7 +181,7 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.props.account.lastName || ''}
+                value={this.props.account.lastName}
                 onChange={(event) => {
                   if (event && event.target) {
                     this.props.onUpdateField({
@@ -211,7 +200,7 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.props.account.phoneNumber || ''}
+                value={this.props.account.phoneNumber}
                 onChange={(event) => {
                   if (event && event.target) {
                     this.props.onUpdateField({
@@ -228,7 +217,7 @@ class AccountEdit extends React.Component<Props> {
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
-                value={this.props.account.email || ''}
+                value={this.props.account.email}
                 onChange={(event) => {
                   if (event && event.target) {
                     this.props.onUpdateField({
@@ -242,24 +231,12 @@ class AccountEdit extends React.Component<Props> {
         </div>
         <div className="buttonGroup">
           <div>
-            <Button
-              buttonStyle="greenBorderOnly"
-              size="small"
-              onClick={this.props.goback}
-            >
+            <Button buttonStyle="greenBorderOnly" size="small" onClick={this.props.goback}>
               CANCEL
             </Button>
           </div>
           <div>
-            <Button
-              buttonStyle="primary"
-              size="small"
-              onClick={() => {
-                this.props.onSubmit({
-                  ...this.props.account.update,
-                });
-              }}
-            >
+            <Button buttonStyle="primary" size="small" onClick={this.props.onSubmit}>
               SAVE
             </Button>
           </div>
@@ -268,7 +245,7 @@ class AccountEdit extends React.Component<Props> {
           {`
             .dashboard-content {
               height: 100%;
-              padding-top:20px;
+              padding-top: 20px;
               padding-left: 21px;
             }
             .dashboard-content__form {
@@ -301,7 +278,7 @@ class AccountEdit extends React.Component<Props> {
               content: '';
               height: 230px;
               width: 100%;
-              background-color: rgba(0, 0, 0, .400);
+              background-color: rgba(0, 0, 0, 0.4);
               position: absolute;
               z-index: 1;
             }
@@ -363,7 +340,7 @@ class AccountEdit extends React.Component<Props> {
               top: 0;
               left: 0;
               opacity: 0.7;
-              background-color: rgba(0, 0, 0, .600);
+              background-color: rgba(0, 0, 0, 0.6);
               border-radius: 40px;
             }
 

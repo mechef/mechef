@@ -5,13 +5,13 @@ import Rx from 'rxjs/Rx';
 
 import Button from './Button';
 import TextInput from './TextInput';
-import { AccountObject } from '../utils/flowTypes';
+import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
   account: AccountObject,
-  onSubmit: ({ account: AccountObject }) => Rx.Observable,
+  onSubmit: (account: AccountObject) => Rx.Observable,
   goback: any => Rx.Observable,
-}
+};
 
 type State = {
   name: string,
@@ -23,10 +23,9 @@ type State = {
   email: string,
   coverPhoto: string,
   profileImage: string,
-}
-
+};
+// TODO: Implement the detail of this component
 class UpdateBankAccount extends React.Component<Props, State> {
-
   static defaultProps = {
     account: {
       name: '',
@@ -39,7 +38,7 @@ class UpdateBankAccount extends React.Component<Props, State> {
       coverPhoto: '',
       profileImage: '',
     },
-  }
+  };
 
   constructor(props: Props) {
     super(props);
@@ -48,17 +47,12 @@ class UpdateBankAccount extends React.Component<Props, State> {
     };
   }
 
-
   render() {
     return (
       <div className="dashboard-content">
         <div className="buttonGroup">
           <div>
-            <Button
-              buttonStyle="greenBorderOnly"
-              size="small"
-              onClick={this.props.goback}
-            >
+            <Button buttonStyle="greenBorderOnly" size="small" onClick={this.props.goback}>
               CANCEL
             </Button>
           </div>
@@ -80,7 +74,7 @@ class UpdateBankAccount extends React.Component<Props, State> {
           {`
             .dashboard-content {
               height: 100%;
-              padding-top:20px;
+              padding-top: 20px;
               padding-left: 21px;
             }
             .dashboard-content__form {
