@@ -12,13 +12,19 @@ import DeliveryList from './DeliveryList';
 import DeliveryEdit from './DeliveryEdit';
 import DefaultComponent from './DefaultComponent';
 import type { MeetupObject } from '../utils/flowTypes';
-import { whiteColor, primaryColor, textColor, primaryBtnHoverColor, textSize } from '../utils/styleVariables';
+import {
+  whiteColor,
+  primaryColor,
+  textColor,
+  primaryBtnHoverColor,
+  textSize,
+} from '../utils/styleVariables';
 import Spinner from '../components/Spinner';
 
 type Props = {
   delivery: {
     meetupList: Array<MeetupObject>,
-    updatedMeetup: MeetupObject,
+    updatedMeetupFields: MeetupObject,
     currentMeetupId: string,
     currentShippingId: string,
     isLoading: boolean,
@@ -33,7 +39,7 @@ type Props = {
   error: {
     title: string,
     message: string,
-    isShowModal: bool,
+    isShowModal: boolean,
   },
   global: {
     backArrow: {
@@ -43,7 +49,7 @@ type Props = {
   },
   toggleBackArrow$: string => Rx.Observable,
   setLoading$: boolean => Rx.Observable,
-}
+};
 
 export class DeliveryPage extends React.Component<Props> {
   componentWillMount() {
@@ -54,8 +60,9 @@ export class DeliveryPage extends React.Component<Props> {
   }
   render() {
     const {
-      delivery: { meetupList, currentMeetupId, updatedMeetup, isLoading },
-      setError$, error,
+      delivery: { meetupList, currentMeetupId, updatedMeetupFields, isLoading },
+      setError$,
+      error,
       global: { backArrow },
       toggleBackArrow$,
       createMeetup$,
@@ -65,68 +72,68 @@ export class DeliveryPage extends React.Component<Props> {
       setMeetupFields$,
     } = this.props;
 
-    const currentMeetup = meetupList.find(
-      delivery => delivery._id === currentMeetupId) || {};
+    const currentMeetup = meetupList.find(delivery => delivery._id === currentMeetupId) || {};
+
+    const displayMeetup = { ...currentMeetup, ...updatedMeetupFields };
 
     return (
       <div className="container">
-        {
-          error.isShowModal ?
-            <Modal
-              title={error.title}
-              message={error.message}
-              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
-            />
-            : null
-        }
-        {
-          isLoading ?
-            <Spinner />
-            :
-            null
-        }
-        {
-          backArrow.isShow ?
-            <DeliveryEdit
-              meetupList={meetupList}
-              updatedMeetup={updatedMeetup}
-              currentMeetup={currentMeetup}
-              onChangeMeetupField={setMeetupFields$}
-              onCreateMeetup={createMeetup$}
-              onUpdateMeetup={updateMeetup$}
-              onDeleteMeetup={deleteMeetup$}
-              goBack={() => toggleBackArrow$('')}
-            />
-            :
-            meetupList && meetupList.length ?
-              <DeliveryList
-                meetupList={meetupList}
-                onEditDelivery={(meetupId) => {
-                  setCurrentMeetupId$(meetupId);
-                  toggleBackArrow$('Edit Delivery');
-                }}
-              />
-              : !isLoading ?
-                <DefaultComponent
-                  coverPhotoSrc="../static/img/delivery_default.jpg"
-                >
-                  <div className="textSection">
-                    <h2 className="title">Hello there!</h2>
-                    <p className="subtitle">MEET UP</p>
-                    <p className="description">Add your first meetup location and available date &amp; time</p>
-                  </div>
-                  <button
-                    className="addDish"
-                    onClick={() => {
-                      setCurrentMeetupId$('');
-                      toggleBackArrow$('Edit Delivery');
-                    }}
-                  >
-                    ADD MEETUP OPTION
-                  </button>
-                </DefaultComponent>
-                : null
-        }
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+          />
+        ) : null}
+        {isLoading ? <Spinner /> : null}
+        {backArrow.isShow ? (
+          <DeliveryEdit
+            meetupList={meetupList}
+            displayMeetup={displayMeetup}
+            onChangeMeetupField={setMeetupFields$}
+            onCreateMeetup={() => {
+              createMeetup$({
+                ...updatedMeetupFields,
+                type: 'meetup',
+              });
+            }}
+            onUpdateMeetup={() => {
+              updateMeetup$({
+                _id: currentMeetup._id,
+                ...updatedMeetupFields,
+              });
+            }}
+            onDeleteMeetup={deleteMeetup$}
+            goBack={() => toggleBackArrow$('')}
+          />
+        ) : meetupList && meetupList.length ? (
+          <DeliveryList
+            meetupList={meetupList}
+            onEditDelivery={(meetupId) => {
+              setCurrentMeetupId$(meetupId);
+              toggleBackArrow$('Edit Delivery');
+            }}
+          />
+        ) : !isLoading ? (
+          <DefaultComponent coverPhotoSrc="../static/img/delivery_default.jpg">
+            <div className="textSection">
+              <h2 className="title">Hello there!</h2>
+              <p className="subtitle">MEET UP</p>
+              <p className="description">
+                Add your first meetup location and available date &amp; time
+              </p>
+            </div>
+            <button
+              className="addDish"
+              onClick={() => {
+                setCurrentMeetupId$('');
+                toggleBackArrow$('Edit Delivery');
+              }}
+            >
+              ADD MEETUP OPTION
+            </button>
+          </DefaultComponent>
+        ) : null}
         <style jsx>
           {`
             .container {
@@ -186,7 +193,6 @@ export class DeliveryPage extends React.Component<Props> {
     );
   }
 }
-
 
 const stateSelector = ({ delivery, error, global }) => ({ delivery, error, global });
 
