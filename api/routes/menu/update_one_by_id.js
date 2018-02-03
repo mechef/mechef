@@ -73,13 +73,13 @@ module.exports = (req, res) => {
     }
 
     Menu.findOne({ _id: req.params.id, email: decoded.email },
-      { __v: false }, (er, updatedMenu) => {
+      { __v: false }, (er, updatedMenuFields) => {
         if (er) {
           res.json({ status: constants.fail });
           return;
         }
 
-        res.json({ status: constants.success, menu: updatedMenu });
+        res.json({ status: constants.success, menu: updatedMenuFields });
         });
     });
   });
