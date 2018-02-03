@@ -11,27 +11,33 @@ import UploadImage from './UploadImage';
 import CheckBox from './CheckBox';
 import Tag from './Tag';
 import type { MenuObject, MeetupObject } from '../utils/flowTypes';
-import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
+import {
+  whiteColor,
+  borderRadius,
+  fontSize,
+  lineHeight,
+  placeholderTextColor,
+  textColor,
+} from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
-  onCreateMenu: (menu: MenuObject) => Rx.Observable,
-  onUpdateMenu: (menu: MenuObject) => Rx.Observable,
+  onCreateMenu: () => Rx.Observable,
+  onUpdateMenu: () => Rx.Observable,
   onDeleteMenu: (menuId: string) => Rx.Observable,
   onChangeField: (updatedField: MenuObject) => Rx.Observable,
   onUploadImage: File => Rx.Observable,
   menuList: Array<MenuObject>,
-  currentMenu: MenuObject,
-  updatedMenu: MenuObject,
+  displayMenu: MenuObject,
   deliveryList: Array<MeetupObject>,
   fetchDelivery: () => Rx.Observable,
   goBack: () => Rx.Observable,
-}
+};
 
 type State = {
   ingredientInput: string,
   categoryInput: string,
-}
+};
 
 const quantity = [
   { text: '1', value: '1' },
@@ -115,10 +121,19 @@ class MenuEdit extends React.Component<Props, State> {
   }
 
   render() {
-    const { goBack, onCreateMenu, onUpdateMenu, onDeleteMenu, onUploadImage, onChangeField, currentMenu, updatedMenu, deliveryList } = this.props;
-    const currentCategories = updatedMenu.category || currentMenu.category || [];
-    const currentIngredients = updatedMenu.ingredients || currentMenu.ingredients || [];
-    const displayImages = updatedMenu.images || currentMenu.images || [];
+    const {
+      goBack,
+      onCreateMenu,
+      onUpdateMenu,
+      onDeleteMenu,
+      onUploadImage,
+      onChangeField,
+      displayMenu,
+      deliveryList,
+    } = this.props;
+    const currentCategories = displayMenu.category || [];
+    const currentIngredients = displayMenu.ingredients || [];
+    const displayImages = displayMenu.images || [];
     return (
       <div className="dashboard-content">
         <p className="mainTitle">Edit Menu</p>
@@ -127,22 +142,25 @@ class MenuEdit extends React.Component<Props, State> {
             <h3 className="title">Add Images*</h3>
             <p className="subtitle">Add Images Add Images</p>
             <div className="uploadImageWrapper">
-              {
-                displayImages.length < 3 ?
-                  <UploadImage imgSrc="" onImageUpload={onUploadImage} />
-                  :
-                  null
-              }
-              {
-                displayImages.map((_, index) => (
-                  <div className="imageWrapper">
-                    <UploadImage
-                      imgSrc={`${IMAGE_URL}/${displayImages[index]}`}
-                      onImageUpload={onUploadImage}
-                    />
-                  </div>
-                ))
-              }
+              {displayImages.length < 3 ? (
+                <UploadImage imgSrc="" onImageUpload={onUploadImage} />
+              ) : null}
+              {displayImages.map((_, index) => (
+                <div className="imageWrapper">
+                  <UploadImage
+                    imgSrc={`${IMAGE_URL}/${displayImages[index]}`}
+                    onImageUpload={onUploadImage}
+                    onRemoveImage={() => {
+                      const updatedImages = displayImages.filter(
+                        (image, imageIndex) => imageIndex !== index,
+                      );
+                      onChangeField({
+                        images: updatedImages,
+                      });
+                    }}
+                  />
+                </div>
+              ))}
             </div>
           </div>
           <div className="dishName">
@@ -152,7 +170,7 @@ class MenuEdit extends React.Component<Props, State> {
               type="text"
               placeholder="Enter Dish Name"
               size="large"
-              value={updatedMenu.dishName || currentMenu.dishName || ''}
+              value={displayMenu.dishName || ''}
               onChange={(event) => {
                 if (event && event.target) {
                   onChangeField({ dishName: event.target.value });
@@ -168,7 +186,7 @@ class MenuEdit extends React.Component<Props, State> {
                 type="text"
                 placeholder="$"
                 size="small"
-                value={updatedMenu.unitPrice || currentMenu.unitPrice || ''}
+                value={displayMenu.unitPrice || ''}
                 onChange={(event) => {
                   if (event && event.target) {
                     onChangeField({ unitPrice: event.target.value });
@@ -181,7 +199,7 @@ class MenuEdit extends React.Component<Props, State> {
               <span className="subtitle">Choose quantity</span>
               <SelectBox
                 options={quantity}
-                selectedValue={updatedMenu.quantity || currentMenu.quantity || 0}
+                selectedValue={displayMenu.quantity || 0}
                 defaultText="0"
                 onChange={(selectedValue: string | number) => {
                   onChangeField({
@@ -217,25 +235,22 @@ class MenuEdit extends React.Component<Props, State> {
                   hasAddBtn
                 />
                 <div className="tagsWrapper">
-                  {
-                    currentCategories.map((tag, index) => (
-                      <div className="tagStyle">
-                        <Tag
-                          key={
-                            // eslint-disable-next-line react/no-array-index-key
-                            index
-                          }
-                          title={tag}
-                          onRemove={() => {
-                            onChangeField({
-                              category: currentCategories
-                                .filter(categoryTag => categoryTag !== tag),
-                            });
-                          }}
-                        />
-                      </div>
-                    ))
-                  }
+                  {currentCategories.map((tag, index) => (
+                    <div className="tagStyle">
+                      <Tag
+                        key={
+                          // eslint-disable-next-line react/no-array-index-key
+                          index
+                        }
+                        title={tag}
+                        onRemove={() => {
+                          onChangeField({
+                            category: currentCategories.filter(categoryTag => categoryTag !== tag),
+                          });
+                        }}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -265,25 +280,22 @@ class MenuEdit extends React.Component<Props, State> {
                 hasAddBtn
               />
               <div className="tagsWrapper">
-                {
-                  currentIngredients.map((tag, index) => (
-                    <div className="tagStyle">
-                      <Tag
-                        key={
-                          // eslint-disable-next-line react/no-array-index-key
-                          index
-                        }
-                        title={tag}
-                        onRemove={() => {
-                          onChangeField({
-                            ingredients: currentIngredients
-                              .filter(ingredient => ingredient !== tag),
-                          });
-                        }}
-                      />
-                    </div>
-                  ))
-                }
+                {currentIngredients.map((tag, index) => (
+                  <div className="tagStyle">
+                    <Tag
+                      key={
+                        // eslint-disable-next-line react/no-array-index-key
+                        index
+                      }
+                      title={tag}
+                      onRemove={() => {
+                        onChangeField({
+                          ingredients: currentIngredients.filter(ingredient => ingredient !== tag),
+                        });
+                      }}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -292,7 +304,7 @@ class MenuEdit extends React.Component<Props, State> {
             <p className="subtitle">Description</p>
             <TextAreaInput
               placeholder="Write some description about your menu...."
-              value={updatedMenu.description || currentMenu.description || ''}
+              value={displayMenu.description || ''}
               onChange={(event) => {
                 if (event && event.target) {
                   onChangeField({ description: event.target.value });
@@ -306,7 +318,7 @@ class MenuEdit extends React.Component<Props, State> {
               <p className="subtitle">Choose cooking buffer</p>
               <SelectBox
                 options={cookingBuffer}
-                selectedValue={updatedMenu.cookingBuffer || currentMenu.cookingBuffer || ''}
+                selectedValue={displayMenu.cookingBuffer || ''}
                 defaultText="Choose cooking buffer"
                 onChange={(selectedValue: string | number) => {
                   onChangeField({
@@ -320,7 +332,7 @@ class MenuEdit extends React.Component<Props, State> {
               <p className="subtitle">Choose serving</p>
               <SelectBox
                 options={serving}
-                selectedValue={updatedMenu.serving || currentMenu.serving || ''}
+                selectedValue={displayMenu.serving || ''}
                 defaultText="For 1~2 people"
                 onChange={(selectedValue) => {
                   onChangeField({
@@ -337,45 +349,48 @@ class MenuEdit extends React.Component<Props, State> {
             <h3 className="title">MEET UP</h3>
             <p className="subtitle">Location &amp; Time</p>
             <div className="meetupWrapper">
-              {
-                deliveryList
-                  .filter(delivery => delivery.type === 'meetup')
-                  .map(meetup => (
-                    <div className="meetupItem">
-                      <span className="checkbox">
-                        <CheckBox
-                          checked={updatedMenu.deliveryIdList ? updatedMenu.deliveryIdList.includes(meetup._id) : currentMenu.deliveryIdList ? currentMenu.deliveryIdList.includes(meetup._id) : false}
-                          onChange={(isChecked) => {
-                            const currentDeliveryIdList = updatedMenu.deliveryIdList || currentMenu.deliveryIdList || [];
-                            if (isChecked) {
-                              onChangeField({
-                                deliveryIdList: [...currentDeliveryIdList, meetup._id],
-                              });
-                            } else {
-                              onChangeField({
-                                deliveryIdList: currentDeliveryIdList
-                                  .filter(deliveryId => deliveryId !== meetup._id),
-                              });
-                            }
-                          }}
-                        />
+              {deliveryList.filter(delivery => delivery.type === 'meetup').map(meetup => (
+                <div className="meetupItem">
+                  <span className="checkbox">
+                    <CheckBox
+                      checked={
+                        displayMenu.deliveryIdList
+                          ? displayMenu.deliveryIdList.includes(meetup._id)
+                          : false
+                      }
+                      onChange={(isChecked) => {
+                        const currentDeliveryIdList = displayMenu.deliveryIdList || [];
+                        if (isChecked && meetup._id) {
+                          onChangeField({
+                            deliveryIdList: [...currentDeliveryIdList, meetup._id],
+                          });
+                        } else {
+                          onChangeField({
+                            deliveryIdList: currentDeliveryIdList.filter(
+                              deliveryId => deliveryId !== meetup._id,
+                            ),
+                          });
+                        }
+                      }}
+                    />
+                  </span>
+                  <div key={meetup._id} className="deliveryItem">
+                    <div className="mapWrapper" id={meetup._id} />
+                    <span className="descriptionText">Meet up at</span>
+                    <div className="delivery-content">
+                      <span className="text">{meetup.meetupAddress}</span>
+                      <span className="text">{this.getAvailableDays(meetup)}</span>
+                      <span className="text">
+                        {meetup.meetupStartTime} - {meetup.meetupEndTime}
                       </span>
-                      <div key={meetup._id} className="deliveryItem">
-                        <div className="mapWrapper" id={meetup._id} />
-                        <span className="descriptionText">Meet up at</span>
-                        <div className="delivery-content">
-                          <span className="text">{meetup.meetupAddress}</span>
-                          <span className="text">{this.getAvailableDays(meetup)}</span>
-                          <span className="text">{meetup.meetupStartTime} - {meetup.meetupEndTime}</span>
-                        </div>
-                        <span className="descriptionText">Note to buyer</span>
-                        <div className="delivery-content">
-                          <span className="text">{meetup.note}</span>
-                        </div>
-                      </div>
                     </div>
-                  ))
-              }
+                    <span className="descriptionText">Note to buyer</span>
+                    <div className="delivery-content">
+                      <span className="text">{meetup.note}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -385,8 +400,8 @@ class MenuEdit extends React.Component<Props, State> {
               buttonStyle="greenBorderOnly"
               size="small"
               onClick={() => {
-                if (currentMenu._id) {
-                  onDeleteMenu(currentMenu._id);
+                if (displayMenu._id) {
+                  onDeleteMenu(displayMenu._id);
                 }
                 goBack();
               }}
@@ -395,11 +410,7 @@ class MenuEdit extends React.Component<Props, State> {
             </Button>
           </div>
           <div>
-            <Button
-              buttonStyle="greenBorderOnly"
-              size="small"
-              onClick={() => goBack()}
-            >
+            <Button buttonStyle="greenBorderOnly" size="small" onClick={() => goBack()}>
               CANCEL
             </Button>
           </div>
@@ -408,14 +419,10 @@ class MenuEdit extends React.Component<Props, State> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                if (currentMenu._id) {
-                  // TODO: Modify to only provide updated data
-                  onUpdateMenu({
-                    _id: currentMenu._id,
-                    ...updatedMenu,
-                  });
+                if (displayMenu._id) {
+                  onUpdateMenu();
                 } else {
-                  onCreateMenu(updatedMenu);
+                  onCreateMenu();
                 }
                 goBack();
               }}
@@ -562,7 +569,7 @@ class MenuEdit extends React.Component<Props, State> {
               border-radius: 4px;
               background-color: #ffffff;
               outline: none;
-              transition: all .2s ease-in-out;
+              transition: all 0.2s ease-in-out;
             }
 
             .mapWrapper {

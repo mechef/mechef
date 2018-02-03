@@ -3,18 +3,24 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
-import { MenuObject } from '../utils/flowTypes';
+import type { MenuObject } from '../utils/flowTypes';
 import MenuItem from './MenuItem';
-import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
+import {
+  whiteColor,
+  borderRadius,
+  fontSize,
+  lineHeight,
+  placeholderTextColor,
+  textColor,
+} from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
   menuList: Array<MenuObject>,
-  // eslint-disable-next-line react/no-unused-prop-types
-  onTogglePublish: (menuId: string, publish: bool) => Rx.Observable,
+  onTogglePublish: (menuId: string, publish: boolean) => Rx.Observable,
   onEditMenu: (menuId: string) => Rx.Observable,
   onDeleteMenu: (menuId: string) => Rx.Observable,
-}
+};
 
 const MenuList = (props: Props) => (
   <div className="wrapper">
@@ -24,21 +30,19 @@ const MenuList = (props: Props) => (
         <div className="plus" />
       </button>
     </div>
-    {
-      props.menuList.map(menu => (
-        <div className="menuItemWrapper">
-          <MenuItem
-            dishName={menu.dishName}
-            description={menu.description}
-            thumbnailUrl={menu.images && menu.images.length ? `${IMAGE_URL}/${menu.images[0]}` : ''}
-            isPublish={menu.publish}
-            onTogglePublish={() => props.onTogglePublish(menu._id, !menu.publish)}
-            onEdit={() => props.onEditMenu(menu._id)}
-            onDelete={() => props.onDeleteMenu(menu._id)}
-          />
-        </div>
-      ))
-    }
+    {props.menuList.map(menu => (
+      <div className="menuItemWrapper">
+        <MenuItem
+          dishName={menu.dishName || ''}
+          description={menu.description || ''}
+          thumbnailUrl={menu.images && menu.images.length ? `${IMAGE_URL}/${menu.images[0]}` : ''}
+          isPublish={menu.publish || false}
+          onTogglePublish={() => props.onTogglePublish(menu._id || '', !menu.publish)}
+          onEdit={() => props.onEditMenu(menu._id || '')}
+          onDelete={() => props.onDeleteMenu(menu._id || '')}
+        />
+      </div>
+    ))}
     <style jsx>
       {`
         .wrapper {
@@ -75,7 +79,7 @@ const MenuList = (props: Props) => (
           background-image: url('../static/img/plus.png');
           background-size: contain;
           background-position: center;
-          background-repeat:no-repeat;
+          background-repeat: no-repeat;
           width: 18px;
           height: 18px;
           outline: none;
@@ -92,6 +96,5 @@ const MenuList = (props: Props) => (
     </style>
   </div>
 );
-
 
 export default MenuList;

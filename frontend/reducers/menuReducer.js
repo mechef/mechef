@@ -5,124 +5,150 @@ import { API_MENU, API_IMAGE } from '../utils/constants';
 
 const initialState = {
   menuList: [],
-  updatedMenu: {},
+  updatedMenuFields: {},
   currentMenuId: -1,
   isLoading: false,
 };
 
-const menuReducer$ = Rx.Observable.of(() => initialState)
-  .merge(
-    menuActions.setMenuLoading$.map(isLoading => (state) => {
-      return {
-        ...state,
-        isLoading,
-      };
-    }),
-    menuActions.fetchMenus$.flatMap(() => (
-      Rx.Observable.ajax({
-        crossDomain: true,
-        url: API_MENU,
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Authorization: window.localStorage.getItem('jwt'),
-        },
-        responseType: 'json',
-      }).map(data => state => ({
+const menuReducer$ = Rx.Observable.of(() => initialState).merge(
+  menuActions.setMenuLoading$.map(isLoading => state => ({
+    ...state,
+    isLoading,
+  })),
+  menuActions.fetchMenus$.flatMap(() =>
+    Rx.Observable.ajax({
+      crossDomain: true,
+      url: API_MENU,
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: window.localStorage.getItem('jwt'),
+      },
+      responseType: 'json',
+    })
+      .map(data => state => ({
         ...state,
         menuList: data.response.menuList,
-        updatedMenu: {},
+        updatedMenuFields: {},
         isLoading: false,
-      })).catch((error) => {
-        errorActions.setError$.next({ isShowModal: true, title: 'Get Menu List Error', message: error.message });
+      }))
+      .catch((error) => {
+        errorActions.setError$.next({
+          isShowModal: true,
+          title: 'Get Menu List Error',
+          message: error.message,
+        });
         return Rx.Observable.of(state => state);
-      })
-    )),
-    menuActions.setCurrentMenuId$.map(menuId => state => ({
-      ...state,
-      currentMenuId: menuId,
-    })),
-    menuActions.setFields$.map(payload => state => ({
-      ...state,
-      updatedMenu: {
-        ...state.updatedMenu,
-        ...payload,
+      }),
+  ),
+  menuActions.setCurrentMenuId$.map(menuId => state => ({
+    ...state,
+    currentMenuId: menuId,
+  })),
+  menuActions.setFields$.map(payload => state => ({
+    ...state,
+    updatedMenuFields: {
+      ...state.updatedMenuFields,
+      ...payload,
+    },
+  })),
+  menuActions.createMenu$.flatMap(reqbody =>
+    Rx.Observable.ajax({
+      crossDomain: true,
+      url: API_MENU,
+      method: 'POST',
+      body: reqbody,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: window.localStorage.getItem('jwt'),
+      },
+      responseType: 'json',
+    })
+      .map(data => state => ({
+        ...state,
+        menuList: [data.response.menu, ...state.menuList],
+        updatedMenuFields: {},
+      }))
+      .catch((error) => {
+        errorActions.setError$.next({
+          isShowModal: true,
+          title: 'Create Menu Error',
+          message: error.message,
+        });
+        return Rx.Observable.of(state => state);
+      }),
+  ),
+  menuActions.updateMenu$.flatMap(reqbody =>
+    Rx.Observable.ajax({
+      crossDomain: true,
+      url: `${API_MENU}/${reqbody._id}`,
+      method: 'PATCH',
+      body: reqbody,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: window.localStorage.getItem('jwt'),
+      },
+      responseType: 'json',
+    })
+      .map(data => state => ({
+        ...state,
+        menuList: state.menuList.map((menu) => {
+          if (menu._id === data.response.menu._id) {
+            return { ...menu, ...data.response.menu };
+          }
+          return menu;
+        }),
+        updatedMenuFields: {},
+      }))
+      .catch((error) => {
+        errorActions.setError$.next({
+          isShowModal: true,
+          title: 'Create Menu Error',
+          message: error.message,
+        });
+        return Rx.Observable.of(state => state);
+      }),
+  ),
+  menuActions.deleteMenu$.flatMap(menuId =>
+    Rx.Observable.ajax({
+      crossDomain: true,
+      url: `${API_MENU}/${menuId}`,
+      method: 'DELETE',
+      body: {},
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: window.localStorage.getItem('jwt'),
+      },
+      responseType: 'json',
+    })
+      .map(() => state => ({
+        ...state,
+        menuList: state.menuList.filter(menu => menu._id !== menuId),
+      }))
+      .catch((error) => {
+        errorActions.setError$.next({
+          isShowModal: true,
+          title: 'Delete Menu Error',
+          message: error.message,
+        });
+        return Rx.Observable.of(state => state);
+      }),
+  ),
+  menuActions.uploadImage$
+    .map((file) => {
+      if (file.size > 1000000) {
+        errorActions.setError$.next({
+          isShowModal: true,
+          title: 'Create Menu Image Error',
+          message: 'File size can‘t be over 1 MB !',
+        });
+      } else {
+        const formData = new FormData();
+        formData.append('image', file);
+        return formData;
       }
-    })),
-    menuActions.createMenu$.flatMap(reqbody => (
-      Rx.Observable.ajax({
-        crossDomain: true,
-        url: API_MENU,
-        method: 'POST',
-        body: reqbody,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Authorization: window.localStorage.getItem('jwt'),
-        },
-        responseType: 'json',
-      }).map(data => (
-        state => ({
-          ...state,
-          menuList: [...state.menuList, data.response.menu],
-          updatedMenu: {},
-        })
-      )).catch((error) => {
-        errorActions.setError$.next({ isShowModal: true, title: 'Create Menu Error', message: error.message });
-        return Rx.Observable.of(state => state);
-      })
-    )),
-    menuActions.updateMenu$.flatMap(reqbody => (
-      Rx.Observable.ajax({
-        crossDomain: true,
-        url: `${API_MENU}/${reqbody._id}`,
-        method: 'PATCH',
-        body: reqbody,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Authorization: window.localStorage.getItem('jwt'),
-        },
-        responseType: 'json',
-      }).map(data => (
-        state => ({ ...state,
-          menuList: state.menuList.map((menu) => {
-            if (menu._id === data.response.menu._id) {
-              return { ...menu, ...data.response.menu };
-            }
-            return menu;
-          }),
-          updatedMenu: {},
-        })
-      )).catch((error) => {
-        errorActions.setError$.next({ isShowModal: true, title: 'Create Menu Error', message: error.message });
-        return Rx.Observable.of(state => state);
-      })
-    )),
-    menuActions.deleteMenu$.flatMap(menuId => (
-      Rx.Observable.ajax({
-        crossDomain: true,
-        url: `${API_MENU}/${menuId}`,
-        method: 'DELETE',
-        body: {},
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Authorization: window.localStorage.getItem('jwt'),
-        },
-        responseType: 'json',
-      }).map(() => (
-        state => ({
-          ...state,
-          menuList: state.menuList.filter(menu => menu._id !== menuId),
-        })
-      )).catch((error) => {
-        errorActions.setError$.next({ isShowModal: true, title: 'Delete Menu Error', message: error.message });
-        return Rx.Observable.of(state => state);
-      })
-    )),
-    menuActions.uploadImage$.map((file) => {
-      const formData = new FormData();
-      formData.append('image', file);
-      return formData;
-    }).flatMap(formData => (
+    })
+    .flatMap(formData =>
       Rx.Observable.ajax({
         crossDomain: true,
         url: API_IMAGE,
@@ -132,18 +158,25 @@ const menuReducer$ = Rx.Observable.of(() => initialState)
           Authorization: window.localStorage.getItem('jwt'),
         },
         responseType: 'json',
-      }).map(data => state => ({
+      })
+        .map(data => state => ({
           ...state,
-          updatedMenu: {
-            ...state.updatedMenu,
-            images: state.updatedMenu.images ? [data.response.image, ...state.updatedMenu.images] : [data.response.image],
-          }
+          updatedMenuFields: {
+            ...state.updatedMenuFields,
+            images: state.updatedMenuFields.images
+              ? [data.response.image, ...state.updatedMenuFields.images]
+              : [data.response.image],
+          },
         }))
         .catch((error) => {
-          errorActions.setError$.next({ isShowModal: true, title: 'Create Menu Image Error', message: error.message });
+          errorActions.setError$.next({
+            isShowModal: true,
+            title: 'Create Menu Image Error',
+            message: error.message,
+          });
           return Rx.Observable.of(state => state);
-        })
-    )),
-  );
+        }),
+    ),
+);
 
 export default menuReducer$;
