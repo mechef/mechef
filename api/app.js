@@ -2,7 +2,9 @@
 const app = require('express')();
 
 const bodyParser = require('body-parser');
+const Promise = require('bluebird');
 const mongoose = require('mongoose');
+mongoose.Promise = Promise;
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
