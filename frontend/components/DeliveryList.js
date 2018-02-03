@@ -4,39 +4,54 @@ import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
-import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
+import {
+  whiteColor,
+  borderRadius,
+  fontSize,
+  lineHeight,
+  placeholderTextColor,
+  textColor,
+} from '../utils/styleVariables';
 import type { MeetupObject } from '../utils/flowTypes';
 
 type Props = {
   meetupList: Array<MeetupObject>,
   onEditDelivery: (meetupId: string) => Rx.Observable,
-}
+};
 
 class DeliveryList extends React.Component<Props> {
-  componentDidMount() {
-    this.props.meetupList.forEach((meetup) => {
-      // $FlowFixMe
-      const map = new google.maps.Map(document.getElementById(meetup._id), {
-        center: {
-          lat: meetup.meetupLatitude,
-          lng: meetup.meetupLongitude,
-        },
-        zoom: 15,
-        panControl: false,
-        mapTypeControl: false,
-        streetViewControl: false,
-        zoomControl: true,
-        fullscreenControl: false,
-      });
-      const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetupLongitude);
-      const marker = new google.maps.Marker({
-        position: latlng,
-        title: meetup.meetupAddress,
-        visible: true,
-      });
-      marker.setMap(map);
+  refreshMap = (meetup: MeetupObject) => {
+    // $FlowFixMe
+    const map = new google.maps.Map(document.getElementById(meetup._id), {
+      center: {
+        lat: meetup.meetupLatitude,
+        lng: meetup.meetupLongitude,
+      },
+      zoom: 15,
+      panControl: false,
+      mapTypeControl: false,
+      streetViewControl: false,
+      zoomControl: true,
+      fullscreenControl: false,
     });
+    const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetupLongitude);
+    const marker = new google.maps.Marker({
+      position: latlng,
+      title: meetup.meetupAddress,
+      visible: true,
+    });
+    marker.setMap(map);
+  };
+  componentDidMount() {
+    this.props.meetupList.forEach(meetup => this.refreshMap(meetup));
   }
+  componentDidUpdate() {
+    const newMeetupObject = this.props.meetupList[0];
+    if (newMeetupObject) {
+      this.refreshMap(newMeetupObject);
+    }
+  }
+
   render() {
     const { meetupList, onEditDelivery } = this.props;
     return (
@@ -47,18 +62,22 @@ class DeliveryList extends React.Component<Props> {
             <div className="plus" />
           </button>
         </div>
-        {
-          meetupList.map(meetup => (
-            <button key={meetup._id} className="deliveryItem" onClick={() => onEditDelivery(meetup._id)}>
-              <div className="mapWrapper" id={meetup._id} />
-              <span className="descriptionText">Meet up at</span>
-              <div className="delivery-content">
-                <span className="text">{meetup.meetupAddress}</span>
-                <span className="text">{meetup.meetupStartTime} - {meetup.meetupEndTime}</span>
-              </div>
-            </button>
-          ))
-        }
+        {meetupList.map(meetup => (
+          <button
+            key={meetup._id}
+            className="deliveryItem"
+            onClick={() => onEditDelivery(meetup._id || '')}
+          >
+            <div className="mapWrapper" id={meetup._id} />
+            <span className="descriptionText">Meet up at</span>
+            <div className="delivery-content">
+              <span className="text">{meetup.meetupAddress}</span>
+              <span className="text">
+                {meetup.meetupStartTime} - {meetup.meetupEndTime}
+              </span>
+            </div>
+          </button>
+        ))}
         <style jsx>
           {`
             .wrapper {
@@ -109,7 +128,7 @@ class DeliveryList extends React.Component<Props> {
               background-image: url('../static/img/plus.png');
               background-size: contain;
               background-position: center;
-              background-repeat:no-repeat;
+              background-repeat: no-repeat;
               width: 18px;
               height: 18px;
               outline: none;
@@ -134,7 +153,7 @@ class DeliveryList extends React.Component<Props> {
               background-color: #ffffff;
               cursor: pointer;
               outline: none;
-              transition: all .2s ease-in-out;
+              transition: all 0.2s ease-in-out;
             }
 
             .deliveryItem:hover {
@@ -157,9 +176,8 @@ class DeliveryList extends React.Component<Props> {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
-
 
 export default DeliveryList;
