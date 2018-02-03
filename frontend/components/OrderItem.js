@@ -19,17 +19,17 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  sellerId: string,
-  menuTitle: string,
-  buyerEmail: string,
-  quantity: number,
-  orderTime: string,
-  deliveryTo: string,
-  deliveryTime: string,
-  totalPrice: string,
-  status: string,
-  profileImageUrl: string,
-  menuImageUrl: string,
+  sellerId?: string,
+  menuTitle?: string,
+  buyerEmail?: string,
+  quantity?: number,
+  orderTime?: string,
+  deliveryTo?: string,
+  deliveryTime?: string,
+  totalPrice?: number,
+  status?: string,
+  profileImageUrl?: string,
+  menuImageUrl?: string,
 };
 
 class OrderItem extends React.Component<Props> {
@@ -49,7 +49,7 @@ class OrderItem extends React.Component<Props> {
             <div className="iconWrapper">
               <a
                 className="email"
-                href={`mailto:${this.props.buyerEmail}`}
+                href={this.props.buyerEmail ? `mailto:${this.props.buyerEmail}` : ''}
                 onClick={(event) => {
                   event.stopPropagation();
                 }}
@@ -90,7 +90,9 @@ class OrderItem extends React.Component<Props> {
             }
 
             .orderThumbnail {
-              background-image: url('${this.props.menuImageUrl}'), url('../static/pancake.jpg');
+              background-image: ${this.props.menuImageUrl
+        ? `url('${this.props.menuImageUrl}')`
+        : "url('../static/pancake.jpg')"};
               background-size: cover;
               background-position: center;
               width: 195px;
@@ -108,7 +110,9 @@ class OrderItem extends React.Component<Props> {
               width: 52px;
               height: 52px;
               border-radius: 26px;
-              background-image: url('${this.props.profileImageUrl}'), url('../static/avatar.jpg');
+              background-image: ${this.props.profileImageUrl
+        ? `url('${this.props.profileImageUrl}')`
+        : "url('../static/img/avatar.jpg')"};
               background-size: cover;
               background-position: center;
             }
@@ -189,7 +193,7 @@ class OrderItem extends React.Component<Props> {
             .icon {
               background-size: contain;
               background-position: center;
-              background-repeat:no-repeat;
+              background-repeat: no-repeat;
               width: 25px;
               height: 25px;
               outline: none;
