@@ -12,32 +12,19 @@ import IngredientList from './IngredientList';
 import IngredientEdit from './IngredientEdit';
 import DefaultComponent from './DefaultComponent';
 import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
-import { MemoObject } from '../utils/flowTypes';
+import type { MemoObject } from '../utils/flowTypes';
 import Spinner from '../components/Spinner';
 
 type Props = {
   ingredient: {
     memos: Array<MemoObject>,
-    updatedMemo: MemoObject,
+    updatedMemoFields: MemoObject,
     currentMemoId: string,
     isLoading: boolean,
   },
   fetchMemos$: any => Rx.Observable,
-  createMemo$: ({
-    name: string,
-    ingredients: Array<{
-      name: string,
-      amount: number
-    }>
-  }) => Rx.Observable,
-  updateMemo$: ({
-    _id: string,
-    name: string,
-    ingredients: Array<{
-      name: string,
-      amount: number
-    }>
-  }) => Rx.Observable,
+  createMemo$: (memo: MemoObject) => Rx.Observable,
+  updateMemo$: (memo: MemoObject) => Rx.Observable,
   deleteMemo$: (memoId: string) => Rx.Observable,
   setCurrentMemoId$: (memoId: string) => Rx.Observable,
   setFields$: (updatedField: MemoObject) => Rx.Observable,
@@ -45,7 +32,7 @@ type Props = {
   error: {
     title: string,
     message: string,
-    isShowModal: bool,
+    isShowModal: boolean,
   },
   global: {
     backArrow: {
@@ -55,7 +42,7 @@ type Props = {
   },
   toggleBackArrow$: string => Rx.Observable,
   setLoading$: boolean => Rx.Observable,
-}
+};
 
 export class IngredientPage extends React.Component<Props> {
   componentWillMount() {
@@ -66,7 +53,7 @@ export class IngredientPage extends React.Component<Props> {
   }
   render() {
     const {
-      ingredient: { memos, currentMemoId, updatedMemo, isLoading },
+      ingredient: { memos, currentMemoId, updatedMemoFields, isLoading },
       setError$,
       error,
       global: { backArrow },
@@ -78,66 +65,62 @@ export class IngredientPage extends React.Component<Props> {
       setCurrentMemoId$,
     } = this.props;
     const currentMemo = this.props.ingredient.memos.find(memo => memo._id === currentMemoId) || {};
+    const displayMemo = { ...currentMemo, ...updatedMemoFields };
     return (
       <div className="container">
-        {
-          error.isShowModal ?
-            <Modal
-              title={error.title}
-              message={error.message}
-              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
-            />
-            : null
-        }
-        {
-          isLoading ?
-            <Spinner />
-            :
-            null
-        }
-        {
-          backArrow.isShow ?
-            <IngredientEdit
-              memos={memos}
-              currentMemo={currentMemo}
-              updatedMemo={updatedMemo}
-              onCreateMemo={createMemo$}
-              onUpdateMemo={updateMemo$}
-              onDeleteMemo={memoId => deleteMemo$(memoId)}
-              onChangeField={setFields$}
-              goBack={() => toggleBackArrow$('')}
-            />
-            :
-            memos && memos.length ?
-              <IngredientList
-                memos={memos}
-                onDeleteMemo={memoId => deleteMemo$(memoId)}
-                onEditMemo={(memoId) => {
-                  setCurrentMemoId$(memoId);
-                  toggleBackArrow$('Edit Ingredient');
-                }}
-              />
-              : !isLoading ?
-                <DefaultComponent
-                  coverPhotoSrc="../static/img/ingredients_default.jpg"
-                >
-                  <div className="textSection">
-                    <h2 className="title">Hello there!</h2>
-                    <p className="description">This is the place to record your ingredients spendings, and a shopping list!</p>
-                  </div>
-                  <button
-                    className="addDish"
-                    onClick={() => {
-                      setCurrentMemoId$('');
-                      toggleBackArrow$('Edit Ingredient');
-                    }}
-                  >
-                    ADD YOUR INGREDIENTS
-                  </button>
-                </DefaultComponent>
-                : null
-
-        }
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+          />
+        ) : null}
+        {isLoading ? <Spinner /> : null}
+        {backArrow.isShow ? (
+          <IngredientEdit
+            memos={memos}
+            displayMemo={displayMemo}
+            onCreateMemo={() => {
+              createMemo$(currentMemo);
+            }}
+            onUpdateMemo={() => {
+              updateMemo$({
+                _id: currentMemo._id,
+                ...updatedMemoFields,
+              });
+            }}
+            onDeleteMemo={() => deleteMemo$(currentMemo._id || '')}
+            onChangeField={setFields$}
+            goBack={() => toggleBackArrow$('')}
+          />
+        ) : memos && memos.length ? (
+          <IngredientList
+            memos={memos}
+            onDeleteMemo={memoId => deleteMemo$(memoId)}
+            onEditMemo={(memoId) => {
+              setCurrentMemoId$(memoId);
+              toggleBackArrow$('Edit Ingredient');
+            }}
+          />
+        ) : !isLoading ? (
+          <DefaultComponent coverPhotoSrc="../static/img/ingredients_default.jpg">
+            <div className="textSection">
+              <h2 className="title">Hello there!</h2>
+              <p className="description">
+                This is the place to record your ingredients spendings, and a shopping list!
+              </p>
+            </div>
+            <button
+              className="addDish"
+              onClick={() => {
+                setCurrentMemoId$('');
+                toggleBackArrow$('Edit Ingredient');
+              }}
+            >
+              ADD YOUR INGREDIENTS
+            </button>
+          </DefaultComponent>
+        ) : null}
         <style jsx>
           {`
             .container {
@@ -192,7 +175,6 @@ export class IngredientPage extends React.Component<Props> {
     );
   }
 }
-
 
 const stateSelector = ({ ingredient, error, global }) => ({ ingredient, error, global });
 

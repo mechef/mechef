@@ -23,17 +23,21 @@ import { ORDER_STATE } from '../utils/constants';
 
 type Props = {
   order: OrderObject,
-  onEmail: () => Rx.Observable,
   onCancel: () => Rx.Observable,
   onUpdateState: (state: OrderState) => Rx.Observable,
 };
 
 class OrderModal extends React.Component<Props> {
+  defaultProps = {
+    onCancel: () => {},
+  };
   componentWillMount() {
+    // $FlowFixMe
     document.body.style.overflow = 'hidden';
   }
   componentDidMount() {
-    this.map = new google.maps.Map(document.getElementById('map'), {
+    // $FlowFixMe
+    const map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: this.props.order.deliveryLatitude,
         lng: this.props.order.deliveryLongitude,
@@ -45,30 +49,25 @@ class OrderModal extends React.Component<Props> {
       zoomControl: true,
       fullscreenControl: false,
     });
-    this.setInitialMarker();
+    // $FlowFixMe
+    const latlng = new google.maps.LatLng(
+      this.props.order.deliveryLatitude,
+      this.props.order.deliveryLongitude,
+    );
+    map.setCenter(latlng);
+    const marker = new google.maps.Marker({
+      position: latlng,
+      title: this.props.order.deliveryAddress,
+      visible: true,
+    });
+    marker.setMap(map);
     // const placesService = new google.maps.places.PlacesService(map);
   }
 
   componentWillUnmount() {
+    // $FlowFixMe
     document.body.style.overflow = 'auto';
   }
-
-  setInitialMarker = () => {
-    if (this.map) {
-      const latlng = new google.maps.LatLng(
-        this.props.order.deliveryLatitude,
-        this.props.order.deliveryLongitude,
-      );
-      this.map.setCenter(latlng);
-      const marker = new google.maps.Marker({
-        position: latlng,
-        title: this.props.initialValue,
-        visible: true,
-      });
-      marker.setMap(this.map);
-      this.marker = marker;
-    }
-  };
 
   render() {
     return (
@@ -87,7 +86,7 @@ class OrderModal extends React.Component<Props> {
               <div className="iconWrapper">
                 <a
                   className="email"
-                  href={`mailto: ${this.props.order.buyerEmail}`}
+                  href={this.props.order.buyerEmail ? `mailto: ${this.props.order.buyerEmail}` : ''}
                   onClick={event => event.stopPropagation()}
                 >
                   <div className="icon mailIcon" />
@@ -432,9 +431,5 @@ class OrderModal extends React.Component<Props> {
     );
   }
 }
-
-OrderModal.defaultProps = {
-  onCancel: () => {},
-};
 
 export default OrderModal;

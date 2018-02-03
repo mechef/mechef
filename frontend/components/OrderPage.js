@@ -71,7 +71,7 @@ class OrderPage extends React.Component<Props, State> {
             onUpdateState={(orderState: OrderState) => {
               this.props.setLoading$(true);
               updateOrderState$({
-                id: this.state.currentOrder._id,
+                id: this.state.currentOrder._id || '',
                 state: orderState,
               });
               this.setState({
@@ -168,8 +168,7 @@ class OrderPage extends React.Component<Props, State> {
                     deliveryTime={order.deliveryTime}
                     totalPrice={order.amount}
                     status={'WAITING'}
-                    profileImageUrl={`${IMAGE_URL}/${order.profileImage}`}
-                    menuImageUrl={`${IMAGE_URL}/${order.menuImage}`}
+                    menuImageUrl={order.image ? `${IMAGE_URL}/${order.image}` : ''}
                   />
                 </div>
               ))}

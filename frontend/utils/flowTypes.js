@@ -61,20 +61,20 @@ export type AccountObject = {
 export type OrderState = 'cancelled' | 'waiting' | 'finished';
 
 export type OrderObject = {
-  _id: string,
-  buyerName: string,
-  buyerEmail: string,
-  quantity: number,
-  amount: number,
-  orderTime: string,
-  deliveryAddress: string,
-  deliveryTime: string,
-  deliveryLatitude: number,
-  deliveryLongitude: number,
-  messageFromBuyer: string,
-  state: OrderState,
-  dishName: string,
-  image: string,
+  _id?: string,
+  buyerName?: string,
+  buyerEmail?: string,
+  quantity?: number,
+  amount?: number,
+  orderTime?: string,
+  deliveryAddress?: string,
+  deliveryTime?: string,
+  deliveryLatitude?: number,
+  deliveryLongitude?: number,
+  messageFromBuyer?: string,
+  state?: OrderState,
+  dishName?: string,
+  image?: string,
 };
 
 export type KitchenObject = {
