@@ -50,7 +50,7 @@
     "react-i18next": "^7.3.1",
     "rxjs": "^5.5.0",
     "uuid": "3.1.0",
-    "styled-jsx": "2.2.3",
+    "styled-jsx": "2.2.3"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.0",
