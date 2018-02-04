@@ -2,7 +2,8 @@ const Cart = require('../../models/cart');
 
 module.exports = (req, res) => {
   const cart = new Cart();
-  cart.dishes = req.body.dishes;
+  cart.menuList = [];
+  cart.amount = 0;
   cart.save((error, savedCart) => {
     if (error) {
       console.log(error);

@@ -5,13 +5,13 @@ const constants = require('../../utils/constants');
 const mailer = require('../../utils/mailer');
 const Promise = require('bluebird');
 
-const updateOneMenu = (order) => {
-  return Promise.resolve(() => Menu.findOneAndUpdate({ _id: menu._id }, { $inc: { quantity: -order.quantity } }).exec())
-    .then(() => {
-      console.log(order.dishName + ' is saved');
+function updateOneMenu(menu) {
+  return Menu.findOneAndUpdate({ _id: menu.menuId }, { $inc: { quantity: -menu.quantity }}, { new: true }).exec()
+  .then((menu) => {
+      return menu;
     })
-    .catch(err => console.error(err));
-};
+  .catch(err => console.error(err));
+}
 
   // Delivery.findOne({ _id: order.deliveryId }, (err, delivery) => {
   //   if (err) {
@@ -113,8 +113,87 @@ module.exports = (req, res) => {
   order.messageFromBuyer = req.body.messageFromBuyer;
   order.deliveryTime = req.body.deliveryTime;
   order.deliveryId = req.body.deliveryId;
-  order.quantity = req.body.quantity;
 
-  Promise.resolve(() => (Promise.all(order.meunList.map(menu => updateOneMenu(menu)))))
-  .then(() => {console.log("hi")});
+  Promise.all(order.menuList.map(menu => updateOneMenu(menu)))
+  .then((menuList) => {
+    Delivery.findOne({ _id: order.deliveryId }, (err, delivery) => {
+      if (err) {
+        res.status(404).json({ status: constants.fail, reason: constants.id_not_found });
+        return;
+      }
+
+      order.deliveryAddress = delivery.meetupAddress;
+      order.deliveryLatitude = delivery.meetupLatitude;
+      order.deliveryLongitude = delivery.meetupLongitude;
+
+      let amount = 0;
+      for (let i = 0; i < menuList.length; i++) {
+        const menu = menuList[i];
+        order.menuList[i].dishName = menu.dishName;
+        if (menu.images.length > 0) {
+          order.menuList[i].image = menu.images[0];
+        } else {
+          order.menuList[i].image = '';
+        }
+        order.menuList[i].sellerEmail = menu.email;
+        order.menuList[i].subtotal = order.menuList[i].quantity * menu.unitPrice;
+
+        amount += order.menuList[i].quantity * menu.unitPrice;
+
+        if (menu.quantity == 0) {
+          // send email to alert seller
+          if (constants.mailTurnOn) {
+            const mailOptions = {
+              from: '"Mechef" <mechef@mechef.com>',
+              to: order.sellerEmail,
+              subject: 'Your menu is sold out',
+              html: `Hi, the order is sold out, please see <a href="${constants.domain}/menu/${menu._id}/">${constants.domain}/menu/${menu._id}</a>`,
+            };
+
+            mailer.sendMail(mailOptions, (erro) => {
+              if (erro) {
+                console.log(erro);
+                res.status(500).json({ status: constants.fail });
+                return;
+              }
+            });
+          }
+        } else if (menu.quantity < 0) {
+          // maybe there will be race condition
+          Menu.findOneAndUpdate({ _id: menu._id }, { $set: { quantity: 0 } });
+          res.status(500).json({ status: constants.fail });
+          return;
+        }
+      }
+
+      order.amount = amount;
+
+      order.save((error, savedOrder) => {
+        if (error) {
+          console.log(error);
+          res.status(500).json({ status: constants.fail });
+          return;
+        }
+
+        if (constants.mailTurnOn) {
+          const mailOptions = {
+            from: '"Mechef" <mechef@mechef.com>',
+            to: order.buyerEmail,
+            subject: 'Order Complete Confirmation',
+            html: `order complete, please see <a href="${constants.domain}/order/${savedOrder._id}/">${constants.domain}/order/${savedOrder._id}</a>`,
+          };
+
+          mailer.sendMail(mailOptions, (erro) => {
+            if (erro) {
+              console.log(erro);
+              // TODO write log file
+            }
+            res.json({ status: constants.success, order: order.toOrder() });
+          });
+        } else {
+          res.json({ status: constants.success, order: order.toOrder() });
+        }
+      });
+    });
+  });
 };
