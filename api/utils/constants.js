@@ -25,4 +25,5 @@ module.exports = {
     saturday: 'saturday',
   },
   domain: 'http://localhost:3001',
+  mailTurnOn: false,
 };
