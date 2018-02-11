@@ -1,4 +1,3 @@
-
 // Global
 export const primaryColor = '#3e9f40';
 export const textColor = '#4a4a4a';
@@ -11,6 +10,7 @@ export const warningColor = '#f0ad4f';
 export const connectErrorColor = '#9b9b9b';
 export const whiteColor = '#ffffff';
 export const borderRadius = '4px';
+export const errorBorderColor = '#d0021b';
 
 // Button
 export const smallBtnWidth = '150px';

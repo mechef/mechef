@@ -96,6 +96,13 @@ export class MenuPage extends React.Component<Props> {
             goBack={() => toggleBackArrow$('')}
             fetchDelivery={this.props.fetchDelivery$}
             deliveryList={meetupList}
+            onFormError={() =>
+              setError$({
+                isShowModal: true,
+                title: 'Form Error',
+                message: 'Please make sure the data you fill in is correct!',
+              })
+            }
           />
         ) : menuList && menuList.length ? (
           <MenuList
