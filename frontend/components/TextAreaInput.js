@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react';
+import * as React from "react";
 
 import {
   primaryColor,
@@ -10,19 +10,18 @@ import {
   placeholderTextColor,
   placeholderLineHeight,
   placeholderFontWeight,
-  placeholderFontSize,
-} from '../utils/styleVariables';
+  placeholderFontSize
+} from "../utils/styleVariables";
 
 type Props = {
   placeholder: string,
   value: string | number,
-  onChange: () => mixed,
+  onChange: () => mixed
 };
 
 const TextAreaInput = (props: Props) => (
   <div className="container">
-    <input
-      type="textarea"
+    <textarea
       className="textAreaInput"
       placeholder={props.placeholder}
       value={props.value}
@@ -44,7 +43,7 @@ const TextAreaInput = (props: Props) => (
           height: ${textAreaInputHeight};
           width: 512px;
           background-color: ${textInputBgColor};
-          padding-left: 16px;
+          padding: 10px;
           font-size: ${placeholderFontSize};
           font-weight: ${placeholderFontWeight};
           border: 2px solid transparent;
@@ -66,9 +65,9 @@ const TextAreaInput = (props: Props) => (
 );
 
 TextAreaInput.defaultProps = {
-  value: '',
-  onChange: () => { },
-  placeholder: '',
+  value: "",
+  onChange: () => {},
+  placeholder: ""
 };
 
 export default TextAreaInput;
