@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react';
+import * as React from "react";
 
 import {
   primaryColor,
@@ -14,18 +14,19 @@ import {
   placeholderLineHeight,
   placeholderFontWeight,
   placeholderFontSize,
-  transparent,
-} from '../utils/styleVariables';
+  transparent
+} from "../utils/styleVariables";
 
 type Props = {
   type: string,
-  size: 'small' | 'medium' | 'large',
+  size: "small" | "medium" | "large",
   placeholder: string,
   value: string | number,
   onChange: () => mixed,
   onKeyPress: () => void,
   hasAddBtn: boolean,
   onAdd: () => mixed,
+  maxLength: number
 };
 
 const TextInput = (props: Props) => (
@@ -40,17 +41,13 @@ const TextInput = (props: Props) => (
       value={props.value}
       onChange={props.onChange}
       onKeyPress={props.onKeyPress}
+      maxLength={props.maxLength}
     />
-    {
-      props.hasAddBtn ?
-        <button
-          className="addBtn"
-          onClick={props.onAdd}
-        >
-          <div className="plus" />
-        </button>
-        : null
-    }
+    {props.hasAddBtn ? (
+      <button className="addBtn" onClick={props.onAdd}>
+        <div className="plus" />
+      </button>
+    ) : null}
     <style jsx>
       {`
         .container {
@@ -105,17 +102,17 @@ const TextInput = (props: Props) => (
         }
 
         .plus {
-          background-image: url('../static/img/plus.png');
+          background-image: url("../static/img/plus.png");
           background-size: contain;
           background-position: center;
-          background-repeat:no-repeat;
+          background-repeat: no-repeat;
           width: 15px;
           height: 15px;
           outline: none;
         }
 
         .addBtn:hover .plus {
-          background-image: url('../static/img/plus_hover.png');
+          background-image: url("../static/img/plus_hover.png");
         }
       `}
     </style>
@@ -123,13 +120,14 @@ const TextInput = (props: Props) => (
 );
 
 TextInput.defaultProps = {
-  size: 'small',
-  value: '',
+  size: "small",
+  value: "",
   onChange: () => {},
   onKeyPress: () => {},
-  placeholder: '',
+  placeholder: "",
   hasAddBtn: false,
   onAdd: () => {},
+  maxLength: 50
 };
 
 export default TextInput;
