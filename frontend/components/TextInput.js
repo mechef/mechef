@@ -83,6 +83,7 @@ class TextInput extends React.Component<Props, State> {
                 this.props.onError(false);
               }
             }}
+            maxLength={this.props.maxLength}
           />
           {this.props.hasAddBtn ? (
             <button className="addBtn" onClick={this.props.onAdd}>

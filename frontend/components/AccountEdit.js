@@ -281,6 +281,7 @@ class AccountEdit extends React.Component<Props> {
               background-color: rgba(0, 0, 0, 0.4);
               position: absolute;
               z-index: 1;
+              border-radius: 4px 4px 0 0;
             }
 
             .update-cover-photo__title {

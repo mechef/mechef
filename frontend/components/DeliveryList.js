@@ -1,23 +1,23 @@
 // @flow
 
-import * as React from "react";
-import Rx from "rxjs/Rx";
+import * as React from 'react';
+import Rx from 'rxjs/Rx';
 
-import Button from "./Button";
+import Button from './Button';
 import {
   whiteColor,
   borderRadius,
   fontSize,
   lineHeight,
   placeholderTextColor,
-  textColor
-} from "../utils/styleVariables";
-import type { MeetupObject } from "../utils/flowTypes";
+  textColor,
+} from '../utils/styleVariables';
+import type { MeetupObject } from '../utils/flowTypes';
 
 type Props = {
   meetupList: Array<MeetupObject>,
   onEditDelivery: (meetupId: string) => Rx.Observable,
-  onDeleteMeetup: (meetupId: string) => Rx.Observable
+  onDeleteMeetup: (meetupId: string) => Rx.Observable,
 };
 
 class DeliveryList extends React.Component<Props> {
@@ -26,21 +26,18 @@ class DeliveryList extends React.Component<Props> {
     const map = new google.maps.Map(document.getElementById(meetup._id), {
       center: {
         lat: meetup.meetupLatitude,
-        lng: meetup.meetupLongitude
+        lng: meetup.meetupLongitude,
       },
       zoom: 15,
       panControl: false,
       mapTypeControl: false,
-      fullscreenControl: false
+      fullscreenControl: false,
     });
-    const latlng = new google.maps.LatLng(
-      meetup.meetupLatitude,
-      meetup.meetupLongitude
-    );
+    const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetupLongitude);
     const marker = new google.maps.Marker({
       position: latlng,
       title: meetup.meetupAddress,
-      visible: true
+      visible: true,
     });
     marker.setMap(map);
   };
@@ -60,7 +57,7 @@ class DeliveryList extends React.Component<Props> {
       <div className="wrapper">
         <div className="header">
           <span className="title">Delivery List</span>
-          <button className="addButton" onClick={() => onEditDelivery("")}>
+          <button className="addButton" onClick={() => onEditDelivery('')}>
             <div className="plus" />
           </button>
         </div>
@@ -71,7 +68,7 @@ class DeliveryList extends React.Component<Props> {
                 role="button"
                 tabIndex="-1"
                 className="editIcon"
-                onClick={() => onEditDelivery(meetup._id || "")}
+                onClick={() => onEditDelivery(meetup._id || '')}
               />
               <div
                 role="button"
@@ -104,7 +101,7 @@ class DeliveryList extends React.Component<Props> {
             .mapWrapper {
               width: 512px;
               height: 100px;
-              margin-bottom: 12px;
+              margin-bottom: 40px;
             }
 
             .descriptionText {
@@ -141,7 +138,7 @@ class DeliveryList extends React.Component<Props> {
 
             .plus {
               margin: auto;
-              background-image: url("../static/img/plus.png");
+              background-image: url('../static/img/plus.png');
               background-size: contain;
               background-position: center;
               background-repeat: no-repeat;
@@ -151,7 +148,7 @@ class DeliveryList extends React.Component<Props> {
             }
 
             .addButton:hover .plus {
-              background-image: url("../static/img/plus_hover.png");
+              background-image: url('../static/img/plus_hover.png');
             }
 
             .deliveryItem {
@@ -192,19 +189,19 @@ class DeliveryList extends React.Component<Props> {
             }
 
             .editIcon:before {
-              content: "";
+              content: '';
               position: absolute;
               width: 100%;
               height: 100%;
               top: 0;
               left: 0;
-              background-image: url("../static/svg/edit_icon.svg");
+              background-image: url('../static/svg/edit_icon.svg');
               background-position: center;
               background-repeat: no-repeat;
             }
 
             .editIcon:hover::before {
-              background-image: url("../static/svg/edit_icon_hover.svg");
+              background-image: url('../static/svg/edit_icon_hover.svg');
             }
 
             .deleteIcon {
@@ -218,19 +215,19 @@ class DeliveryList extends React.Component<Props> {
             }
 
             .deleteIcon:before {
-              content: "";
+              content: '';
               position: absolute;
               width: 100%;
               height: 100%;
               top: 0;
               left: 0;
-              background-image: url("../static/svg/delete_icon.svg");
+              background-image: url('../static/svg/delete_icon.svg');
               background-position: center;
               background-repeat: no-repeat;
             }
 
             .deleteIcon:hover::before {
-              background-image: url("../static/svg/delete_icon_hover.svg");
+              background-image: url('../static/svg/delete_icon_hover.svg');
             }
 
             .delivery-content {

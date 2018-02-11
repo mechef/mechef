@@ -121,7 +121,7 @@ const AccountDetail = (props: Props) => (
         }
 
         .sellerId {
-          margin-left: 98px;
+          margin-left: 116px;
           margin-bottom: 11px;
           font-size: 24px;
           font-weight: 600;
@@ -131,8 +131,7 @@ const AccountDetail = (props: Props) => (
         }
 
         .sellerName {
-          margin-left: 101px;
-          margin-bottom: 20px;
+          margin: 8px 0 20px 116px;
           font-size: 14px;
           line-height: 1.43;
           letter-spacing: 0.6px;
@@ -143,7 +142,6 @@ const AccountDetail = (props: Props) => (
           display: flex;
           flex-direction: column;
           width: 552px;
-          height: 524px;
           padding: 25px 20px;
           margin-left: 21px;
           margin-bottom: 16px;
@@ -175,7 +173,6 @@ const AccountDetail = (props: Props) => (
           flex: 1;
           display: flex;
           flex-direction: column;
-          height: 70px;
           border-bottom: solid 2px #ececec;
         }
 
@@ -221,7 +218,6 @@ const AccountDetail = (props: Props) => (
 
         .left {
           width: 250px;
-          height: 70px;
           border-bottom: solid 2px #ececec;
         }
       `}

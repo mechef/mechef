@@ -1,56 +1,55 @@
 // @flow
 
-import * as React from "react";
-import Rx from "rxjs/Rx";
-import Router from "next/router";
+import * as React from 'react';
+import Rx from 'rxjs/Rx';
+import Router from 'next/router';
 
-import { connect } from "../state/RxState";
-import DashboardPageRouter from "../components/DashboardPageRouter";
-import globalActions from "../actions/globalActions";
+import { connect } from '../state/RxState';
+import DashboardPageRouter from '../components/DashboardPageRouter';
+import globalActions from '../actions/globalActions';
 import {
   primaryColor,
   transparent,
   btnTextColor,
   textHintColor,
-  whiteColor
-} from "../utils/styleVariables";
+  whiteColor,
+} from '../utils/styleVariables';
 
 type Props = {
   url: {
     query: {
-      page?: string
+      page?: string,
     },
-    pathname: string
+    pathname: string,
   },
   global: {
     backArrow: {
       isShow: boolean,
-      title: string
-    }
+      title: string,
+    },
   },
   toggleBackArrow$: string => Rx.Observable,
-  showSpinner$: boolean => Rx.Observable
+  showSpinner$: boolean => Rx.Observable,
 };
 
 type State = {
-  page: string
+  page: string,
 };
 
 const pageTitle = {
-  home: "HOME",
-  menu: "MENU",
-  order: "ORDER",
-  ingredient: "INGREDIENT",
-  shipping: "DELIVERY",
-  account: "ACCOUNT"
+  home: 'HOME',
+  menu: 'MENU',
+  order: 'ORDER',
+  ingredient: 'INGREDIENT',
+  shipping: 'DELIVERY',
+  account: 'ACCOUNT',
 };
 
 class Dashboard extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      page:
-        props.url.query && props.url.query.page ? props.url.query.page : "home"
+      page: props.url.query && props.url.query.page ? props.url.query.page : 'home',
     };
     this.navigate = this.navigate.bind(this);
   }
@@ -62,7 +61,7 @@ class Dashboard extends React.Component<Props, State> {
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.url.query && nextProps.url.query.page) {
       this.setState({
-        page: nextProps.url.query.page
+        page: nextProps.url.query.page,
       });
     }
   }
@@ -72,7 +71,7 @@ class Dashboard extends React.Component<Props, State> {
   navigate(path: string) {
     Router.push(`/dashboard?page=${path}`);
     if (this.props.global.backArrow.isShow) {
-      this.props.toggleBackArrow$("");
+      this.props.toggleBackArrow$('');
     }
   }
 
@@ -87,7 +86,7 @@ class Dashboard extends React.Component<Props, State> {
               <div
                 role="button"
                 onClick={() => {
-                  this.navigate("home");
+                  this.navigate('home');
                 }}
                 onKeyPress={() => {}}
                 tabIndex="0"
@@ -96,48 +95,48 @@ class Dashboard extends React.Component<Props, State> {
               </div>
               <ul className="dashboard-sidebar__menu">
                 <li
-                  className={this.state.page === "home" ? "active" : ""}
+                  className={this.state.page === 'home' ? 'active' : ''}
                   role="menuitem"
-                  onClick={() => this.navigate("home")}
+                  onClick={() => this.navigate('home')}
                 >
                   HOME
                 </li>
                 <li
-                  className={this.state.page === "menu" ? "active" : ""}
+                  className={this.state.page === 'menu' ? 'active' : ''}
                   role="menuitem"
-                  onClick={() => this.navigate("menu")}
+                  onClick={() => this.navigate('menu')}
                 >
                   MENU
                 </li>
                 <li
-                  className={this.state.page === "order" ? "active" : ""}
+                  className={this.state.page === 'order' ? 'active' : ''}
                   role="menuitem"
                   tabIndex="-1"
-                  onClick={() => this.navigate("order")}
+                  onClick={() => this.navigate('order')}
                 >
                   ORDERS
                 </li>
                 <li
-                  className={this.state.page === "ingredient" ? "active" : ""}
+                  className={this.state.page === 'ingredient' ? 'active' : ''}
                   role="menuitem"
                   tabIndex="-1"
-                  onClick={() => this.navigate("ingredient")}
+                  onClick={() => this.navigate('ingredient')}
                 >
                   INGREDIENTS
                 </li>
                 <li
-                  className={this.state.page === "shipping" ? "active" : ""}
+                  className={this.state.page === 'shipping' ? 'active' : ''}
                   role="menuitem"
                   tabIndex="-1"
-                  onClick={() => this.navigate("shipping")}
+                  onClick={() => this.navigate('shipping')}
                 >
                   SHIPPING
                 </li>
                 <li
-                  className={this.state.page === "account" ? "active" : ""}
+                  className={this.state.page === 'account' ? 'active' : ''}
                   role="menuitem"
                   tabIndex="-1"
-                  onClick={() => this.navigate("account")}
+                  onClick={() => this.navigate('account')}
                 >
                   ACCOUNT
                 </li>
@@ -163,23 +162,16 @@ class Dashboard extends React.Component<Props, State> {
                     className="backArrow"
                     role="button"
                     tabIndex="-1"
-                    onClick={() => toggleBackArrow$("")}
+                    onClick={() => toggleBackArrow$('')}
                   />
-                  <span className="dashboard-header__title">
-                    {backArrow.title}
-                  </span>
+                  <span className="dashboard-header__title">{backArrow.title}</span>
                 </div>
               ) : (
                 <div className="menuWrapper">
-                  <label
-                    htmlFor="dashboard-header__menu-toggle"
-                    className="dashboard-header__menu"
-                  >
+                  <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
                     <div className="drawerMenu" />
                   </label>
-                  <span className="dashboard-header__title">
-                    {pageTitle[this.state.page]}
-                  </span>
+                  <span className="dashboard-header__title">{pageTitle[this.state.page]}</span>
                 </div>
               )}
               <div className="dashboard-header__user-profile">
@@ -249,7 +241,6 @@ class Dashboard extends React.Component<Props, State> {
               cursor: pointer;
               line-height: 50px;
               font-size: 14px;
-              font-weight: 500;
               letter-spacing: 1px;
               color: ${btnTextColor};
               border-left: 9px solid ${transparent};
@@ -306,7 +297,7 @@ class Dashboard extends React.Component<Props, State> {
             }
 
             .drawerMenu {
-              background-image: url("../static/img/drawer.png");
+              background-image: url('../static/img/drawer.png');
               background-size: contain;
               background-position: center;
               background-repeat: no-repeat;
@@ -316,11 +307,11 @@ class Dashboard extends React.Component<Props, State> {
             }
 
             .drawerMenu:hover {
-              background-image: url("../static/img/drawer_hover.png");
+              background-image: url('../static/img/drawer_hover.png');
             }
 
             .backArrow {
-              background-image: url("../static/img/back.png");
+              background-image: url('../static/img/back.png');
               background-size: contain;
               background-position: center;
               background-repeat: no-repeat;
@@ -331,7 +322,7 @@ class Dashboard extends React.Component<Props, State> {
             }
 
             .backArrow:hover {
-              background-image: url("../static/img/back_hover.png");
+              background-image: url('../static/img/back_hover.png');
             }
 
             #dashboard-header__menu-toggle:checked ~ .dashboard__right {
@@ -391,18 +382,18 @@ class Dashboard extends React.Component<Props, State> {
             .dashboard-content__header {
               width: 100%;
               height: 240px;
-              background-image: url("../static/pancake.jpg");
+              background-image: url('../static/pancake.jpg');
               background-size: cover;
               background-position: center;
               position: relative;
             }
 
             .dashboard-content__header:after {
-              content: "";
+              content: '';
               position: absolute;
               top: 200px;
               left: 20px;
-              background-image: url("../static/avatar.jpg");
+              background-image: url('../static/avatar.jpg');
               background-size: cover;
               background-position: center;
               width: 80px;
@@ -417,7 +408,7 @@ class Dashboard extends React.Component<Props, State> {
 }
 
 const DashboardWrapper = connect(({ global }) => ({ global }), {
-  ...globalActions
+  ...globalActions,
 })(Dashboard);
 
 export default DashboardWrapper;
