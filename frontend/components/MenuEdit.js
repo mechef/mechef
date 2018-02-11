@@ -80,9 +80,6 @@ class MenuEdit extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchDelivery();
-  }
-
-  componentDidUpdate() {
     this.props.deliveryList.forEach(delivery => {
       // $FlowFixMe
       const map = new google.maps.Map(document.getElementById(delivery._id), {
