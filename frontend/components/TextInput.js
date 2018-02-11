@@ -64,7 +64,6 @@ const TextInput = (props: Props) => (
           background-color: ${textInputBgColor};
           padding-left: 16px;
           font-size: ${placeholderFontSize};
-          font-weight: ${placeholderFontWeight};
           border: 2px solid transparent;
           box-shadow: 0 0 1px #3d464d;
           box-sizing: border-box;
@@ -94,7 +93,7 @@ const TextInput = (props: Props) => (
           margin-right: auto;
           top: 0;
           bottom: 0;
-          left: 218px;
+          left: 209px;
           cursor: pointer;
           background-color: ${transparent};
           border: 0;

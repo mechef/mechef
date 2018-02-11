@@ -1,12 +1,12 @@
 // @flow
 
-import * as React from 'react';
-import Rx from 'rxjs/Rx';
+import * as React from "react";
+import Rx from "rxjs/Rx";
 
-import { transparent, whiteColor } from '../utils/styleVariables';
-import Button from './Button';
-import TextInput from './TextInput';
-import type { MemoObject } from '../utils/flowTypes';
+import { transparent, whiteColor } from "../utils/styleVariables";
+import Button from "./Button";
+import TextInput from "./TextInput";
+import type { MemoObject } from "../utils/flowTypes";
 
 type Props = {
   displayMemo: MemoObject,
@@ -15,20 +15,20 @@ type Props = {
   onDeleteMemo: () => Rx.Observable,
   onChangeField: (updatedField: MemoObject) => Rx.Observable,
   memos: Array<MemoObject>,
-  goBack: () => Rx.Observable,
+  goBack: () => Rx.Observable
 };
 
 type State = {
   inputIngredientName: string,
-  inputIngredientAmount: number,
+  inputIngredientAmount: number
 };
 
 class IngredientEdit extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      inputIngredientName: '',
-      inputIngredientAmount: 0,
+      inputIngredientName: "",
+      inputIngredientAmount: 0
     };
   }
   render() {
@@ -38,7 +38,7 @@ class IngredientEdit extends React.Component<Props, State> {
       onUpdateMemo,
       onDeleteMemo,
       onChangeField,
-      goBack,
+      goBack
     } = this.props;
     const currentIngredients = displayMemo.ingredients || [];
     const currentSum = displayMemo.sum || 0;
@@ -53,8 +53,8 @@ class IngredientEdit extends React.Component<Props, State> {
               type="text"
               placeholder="Input memo name"
               size="large"
-              value={displayMemo.name || ''}
-              onChange={(event) => {
+              value={displayMemo.name || ""}
+              onChange={event => {
                 if (event && event.target) {
                   onChangeField({ name: event.target.value });
                 }
@@ -77,9 +77,11 @@ class IngredientEdit extends React.Component<Props, State> {
                   placeholder="Enter Ingredients..."
                   size="small"
                   value={this.state.inputIngredientName}
-                  onChange={(event) => {
+                  onChange={event => {
                     if (event && event.target) {
-                      this.setState({ inputIngredientName: event.target.value });
+                      this.setState({
+                        inputIngredientName: event.target.value
+                      });
                     }
                   }}
                 />
@@ -89,10 +91,12 @@ class IngredientEdit extends React.Component<Props, State> {
                   type="text"
                   placeholder="$"
                   size="small"
-                  value={this.state.inputIngredientAmount || ''}
-                  onChange={(event) => {
+                  value={this.state.inputIngredientAmount || ""}
+                  onChange={event => {
                     if (event && event.target) {
-                      this.setState({ inputIngredientAmount: parseInt(event.target.value, 10) });
+                      this.setState({
+                        inputIngredientAmount: parseInt(event.target.value, 10)
+                      });
                     }
                   }}
                   hasAddBtn
@@ -102,14 +106,14 @@ class IngredientEdit extends React.Component<Props, State> {
                         ...currentIngredients,
                         {
                           name: this.state.inputIngredientName,
-                          amount: this.state.inputIngredientAmount,
-                        },
+                          amount: this.state.inputIngredientAmount
+                        }
                       ],
-                      sum: currentSum + this.state.inputIngredientAmount,
+                      sum: currentSum + this.state.inputIngredientAmount
                     });
                     this.setState({
-                      inputIngredientName: '',
-                      inputIngredientAmount: 0,
+                      inputIngredientName: "",
+                      inputIngredientAmount: 0
                     });
                   }}
                 />
@@ -121,13 +125,19 @@ class IngredientEdit extends React.Component<Props, State> {
                 <div key={index} className="ingredients">
                   {/* eslint-enable */}
                   <span className="ingredients__name">{ingredient.name}</span>
-                  <span className="ingredients__cost">$ {ingredient.amount}</span>
+                  <span className="ingredients__cost">
+                    $ {ingredient.amount}
+                  </span>
                   <button
                     className="removeWrapper"
                     onClick={() => {
                       onChangeField({
-                        ingredients: currentIngredients.filter((element, i) => i !== index),
-                        sum: parseInt(currentSum, 10) - parseInt(ingredient.amount, 10),
+                        ingredients: currentIngredients.filter(
+                          (element, i) => i !== index
+                        ),
+                        sum:
+                          parseInt(currentSum, 10) -
+                          parseInt(ingredient.amount, 10)
                       });
                     }}
                   >
@@ -151,7 +161,11 @@ class IngredientEdit extends React.Component<Props, State> {
             </Button>
           </div>
           <div>
-            <Button size="small" buttonStyle="greenBorderOnly" onClick={() => goBack()}>
+            <Button
+              size="small"
+              buttonStyle="greenBorderOnly"
+              onClick={() => goBack()}
+            >
               CANCEL
             </Button>
           </div>
@@ -196,7 +210,7 @@ class IngredientEdit extends React.Component<Props, State> {
             }
 
             .title {
-              margin: 0 0 16px 0;
+              margin: 0 0 12px 0;
               font-size: 16px;
               font-weight: 500;
               line-height: 1;
@@ -208,7 +222,6 @@ class IngredientEdit extends React.Component<Props, State> {
               margin: 0 0 16px 0;
               height: 14px;
               font-size: 14px;
-              font-weight: 500;
               line-height: 1;
               letter-spacing: 0.6px;
               text-align: left;

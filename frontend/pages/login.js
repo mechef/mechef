@@ -1,78 +1,77 @@
 // @flow
 
-import React from 'react';
-import Rx from 'rxjs/Rx';
-import fetch from 'isomorphic-unfetch';
-import urlencoder from 'form-urlencoded';
-import { translate } from 'react-i18next';
+import React from "react";
+import Rx from "rxjs/Rx";
+import fetch from "isomorphic-unfetch";
+import urlencoder from "form-urlencoded";
+import { translate } from "react-i18next";
 
-import i18n from '../i18n';
-import { connect } from '../state/RxState';
-import authActions from '../actions/authActions';
-import errorActions from '../actions/errorActions';
-import { API_REGISTER } from '../utils/constants';
-import Header from '../components/Header';
-import Modal from '../components/Modal';
-import Button from '../components/Button';
-import TextInput from '../components/TextInput';
-import Spinner from '../components/Spinner';
-
-
+import i18n from "../i18n";
+import { connect } from "../state/RxState";
+import authActions from "../actions/authActions";
+import errorActions from "../actions/errorActions";
+import { API_REGISTER } from "../utils/constants";
+import Header from "../components/Header";
+import Modal from "../components/Modal";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
+import Spinner from "../components/Spinner";
+import { primaryColor } from "../utils/styleVariables";
 type Props = {
-  setLoginField$: (any) => Rx.Observable,
+  setLoginField$: any => Rx.Observable,
   login$: ({ email: string, password: string }) => Rx.Observable,
   auth: {
     email: string,
-    password: string,
+    password: string
   },
   setError$: ({
     isShowModal: boolean,
     title: string,
-    message: string,
+    message: string
   }) => Rx.Observable,
   error: {
     title: string,
     message: string,
-    isShowModal: boolean,
+    isShowModal: boolean
   },
   global: {
-    isShowSpinner: boolean,
+    isShowSpinner: boolean
   }
-}
+};
 
 type State = {
   signup: {
     firstName: string,
     lastName: string,
     password: string,
-    email: string,
+    email: string
   },
-  isWrapperMove: boolean,
+  isWrapperMove: boolean
 };
 
 class Login extends React.Component<Props, State> {
   static defaultProps: {
     auth: {
-      email: '',
-      password: '',
+      email: "",
+      password: ""
     },
     error: {
-      title: '',
-      message: '',
-      isShowModal: false,
-    },
+      title: "",
+      message: "",
+      isShowModal: false
+    }
   };
 
   constructor(props) {
     super(props);
     this.state = {
       signup: {
-        firstName: '',
-        lastName: '',
-        password: '',
-        email: '',
+        firstName: "",
+        lastName: "",
+        password: "",
+        email: ""
       },
-      isWrapperMove: false,
+      isWrapperMove: false
     };
     this.onSubmitSignup = this.onSubmitSignup.bind(this);
   }
@@ -83,18 +82,18 @@ class Login extends React.Component<Props, State> {
     const formValues = urlencoder({
       name: `${this.state.signup.firstName} ${this.state.signup.lastName}`,
       email: this.state.signup.email,
-      password: this.state.signup.password,
+      password: this.state.signup.password
     });
 
     const res = await fetch(API_REGISTER, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
       },
-      body: formValues,
+      body: formValues
     });
     if (res.ok) {
-      alert('Successfully Registered！');
+      alert("Successfully Registered！");
     }
   }
 
@@ -105,25 +104,20 @@ class Login extends React.Component<Props, State> {
       auth: { email, password },
       error,
       setError$,
-      global: { isShowSpinner },
+      global: { isShowSpinner }
     } = this.props;
     return (
       <div>
-        {
-          error.isShowModal ?
-            <Modal
-              title={error.title}
-              message={error.message}
-              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
-            />
-            : null
-        }
-        {
-          isShowSpinner ?
-            <Spinner />
-            :
-            null
-        }
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() =>
+              setError$({ isShowModal: false, title: "", message: "" })
+            }
+          />
+        ) : null}
+        {isShowSpinner ? <Spinner /> : null}
         <Header selectedItem="join" />
         <div className="login-panel">
           <div className="login-form">
@@ -148,10 +142,12 @@ class Login extends React.Component<Props, State> {
                   this.setState({ isWrapperMove: true });
                 }}
               >
-                {this.props.t('joinNow')}
+                {this.props.t("joinNow")}
               </Button>
             </div>
-            <div className={`wrapper ${this.state.isWrapperMove ? 'move' : ''}`}>
+            <div
+              className={`wrapper ${this.state.isWrapperMove ? "move" : ""}`}
+            >
               <div className="login">
                 <p className="title">SIGN IN</p>
                 <div className="mail">
@@ -160,13 +156,13 @@ class Login extends React.Component<Props, State> {
                     placeholder="Mail or Username"
                     size="medium"
                     value={email}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         setLoginField$({ email: evt.target.value });
                       }
                     }}
-                    onKeyPress={(evt) => {
-                      if (evt && evt.key === 'Enter') {
+                    onKeyPress={evt => {
+                      if (evt && evt.key === "Enter") {
                         login$({ email, password });
                       }
                     }}
@@ -178,13 +174,13 @@ class Login extends React.Component<Props, State> {
                     placeholder="Password"
                     size="medium"
                     value={password}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         setLoginField$({ password: evt.target.value });
                       }
                     }}
-                    onKeyPress={(evt) => {
-                      if (evt && evt.key === 'Enter') {
+                    onKeyPress={evt => {
+                      if (evt && evt.key === "Enter") {
                         login$({ email, password });
                       }
                     }}
@@ -208,13 +204,13 @@ class Login extends React.Component<Props, State> {
                     placeholder="First Name"
                     size="medium"
                     value={this.state.signup.firstName}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         this.setState({
                           signup: {
                             ...this.state.signup,
-                            firstName: evt.target.value,
-                          },
+                            firstName: evt.target.value
+                          }
                         });
                       }
                     }}
@@ -226,13 +222,13 @@ class Login extends React.Component<Props, State> {
                     placeholder="Last Name"
                     size="medium"
                     value={this.state.signup.lastName}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         this.setState({
                           signup: {
                             ...this.state.signup,
-                            lastName: evt.target.value,
-                          },
+                            lastName: evt.target.value
+                          }
                         });
                       }
                     }}
@@ -244,13 +240,13 @@ class Login extends React.Component<Props, State> {
                     placeholder="Telephone Number"
                     size="medium"
                     value={this.state.signup.password}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         this.setState({
                           signup: {
                             ...this.state.signup,
-                            password: evt.target.value,
-                          },
+                            password: evt.target.value
+                          }
                         });
                       }
                     }}
@@ -262,25 +258,32 @@ class Login extends React.Component<Props, State> {
                     placeholder="Email Address"
                     size="medium"
                     value={this.state.signup.email}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         this.setState({
                           signup: {
                             ...this.state.signup,
-                            password: evt.target.value,
-                          },
+                            password: evt.target.value
+                          }
                         });
                       }
                     }}
                   />
                 </div>
                 <div className="wrapper__submit">
-                  <Button type="primary" size="medium" onClick={this.onSubmitSignup}>
+                  <Button
+                    type="primary"
+                    size="medium"
+                    onClick={this.onSubmitSignup}
+                  >
                     JOIN NOW
                   </Button>
                 </div>
                 <div className="wrapper__note">
-                  <span >If you click JOIN NOW, it means you agree with terms of service.</span>
+                  <span>
+                    If you click JOIN NOW, it means you agree with terms of
+                    service.
+                  </span>
                 </div>
               </div>
             </div>
@@ -324,6 +327,7 @@ class Login extends React.Component<Props, State> {
               line-height: 0.67;
               text-align: center;
               color: #ffffff;
+              font-family: 'Playball', cursive;
             }
 
             .login-form > .wrapper {
@@ -375,6 +379,7 @@ class Login extends React.Component<Props, State> {
               line-height: 1;
               text-align: center;
               color: #4a4a4a;
+              font-family: 'Playball', cursive;
             }
             .login-form .wrapper input {
               width: 356px;
@@ -402,9 +407,8 @@ class Login extends React.Component<Props, State> {
             }
             .wrapper .wrapper__note {
               font-size: 12px;
-              font-weight: 500;
               line-height: 1;
-              color: #4a4a4a;
+              color: ${primaryColor};
             }
 
             .register > div {
@@ -442,20 +446,19 @@ class Login extends React.Component<Props, State> {
   }
 }
 
-
 const stateSelector = ({ auth, error, global }) => ({ auth, error, global });
 
 const actionSubjects = {
   ...errorActions,
-  ...authActions,
+  ...authActions
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(Login);
+const Extended = translate(["common"], { i18n, wait: process.browser })(Login);
 
 // Passing down initial translations
 // use req.i18n instance on serverside to avoid overlapping requests set the language wrong
 Extended.getInitialProps = async ({ req }) => {
-  if (req && !process.browser) return i18n.getInitialProps(req, ['common']);
+  if (req && !process.browser) return i18n.getInitialProps(req, ["common"]);
   return {};
 };
 

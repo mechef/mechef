@@ -1,8 +1,8 @@
 // @flow
 
-import React from 'react';
-import Rx from 'rxjs/Rx';
-import moment from 'moment';
+import React from "react";
+import Rx from "rxjs/Rx";
+import moment from "moment";
 
 import {
   borderRadius,
@@ -15,8 +15,8 @@ import {
   textHintColor,
   transparent,
   fontSize,
-  connectErrorColor,
-} from '../utils/styleVariables';
+  connectErrorColor
+} from "../utils/styleVariables";
 
 type Props = {
   sellerId?: string,
@@ -29,14 +29,14 @@ type Props = {
   totalPrice?: number,
   status?: string,
   profileImageUrl?: string,
-  menuImageUrl?: string,
+  menuImageUrl?: string
 };
 
 class OrderItem extends React.Component<Props> {
   static defaultProps = {
-    description: '',
-    profileImageUrl: '',
-    menuImageUrl: '',
+    description: "",
+    profileImageUrl: "",
+    menuImageUrl: ""
   };
 
   render() {
@@ -49,8 +49,10 @@ class OrderItem extends React.Component<Props> {
             <div className="iconWrapper">
               <a
                 className="email"
-                href={this.props.buyerEmail ? `mailto:${this.props.buyerEmail}` : ''}
-                onClick={(event) => {
+                href={
+                  this.props.buyerEmail ? `mailto:${this.props.buyerEmail}` : ""
+                }
+                onClick={event => {
                   event.stopPropagation();
                 }}
               >
@@ -67,7 +69,7 @@ class OrderItem extends React.Component<Props> {
           <div className="infoWrapper">
             <div className="infoTitle">Order Time : </div>
             <span className="infoContent">
-              {moment(this.props.orderTime).format('MMM DD hh:mm')}
+              {moment(this.props.orderTime).format("MMM DD hh:mm")}
             </span>
           </div>
           <div className="infoWrapper">
@@ -77,7 +79,7 @@ class OrderItem extends React.Component<Props> {
           <div className="infoWrapper">
             <div className="infoTitle">Delivery Time : </div>
             <span className="infoContent">
-              {moment(this.props.deliveryTime).format('MMM DD hh:mm')}
+              {moment(this.props.deliveryTime).format("MMM DD hh:mm")}
             </span>
           </div>
         </div>
@@ -91,8 +93,8 @@ class OrderItem extends React.Component<Props> {
 
             .orderThumbnail {
               background-image: ${this.props.menuImageUrl
-        ? `url('${this.props.menuImageUrl}')`
-        : "url('../static/pancake.jpg')"};
+                ? `url('${this.props.menuImageUrl}')`
+                : "url('../static/pancake.jpg')"};
               background-size: cover;
               background-position: center;
               width: 195px;
@@ -102,28 +104,13 @@ class OrderItem extends React.Component<Props> {
               position: relative;
             }
 
-            .orderThumbnail:after {
-              content: '';
-              position: absolute;
-              left: calc(195px - 26px);
-              top: calc(195px / 2 - 26px);
-              width: 52px;
-              height: 52px;
-              border-radius: 26px;
-              background-image: ${this.props.profileImageUrl
-        ? `url('${this.props.profileImageUrl}')`
-        : "url('../static/img/avatar.jpg')"};
-              background-size: cover;
-              background-position: center;
-            }
-
             .orderText {
               flex: 1;
               display: flex;
               flex-direction: column;
               margin-left: 42px;
               margin-right: 20px;
-              padding-top: 19px;
+              padding-top: 20px;
             }
 
             .firstRow {
@@ -180,6 +167,7 @@ class OrderItem extends React.Component<Props> {
               font-size: 14px;
               font-weight: 500;
               color: ${textColor};
+              margin-bottom: 10px;
             }
 
             .iconWrapper {
@@ -187,7 +175,7 @@ class OrderItem extends React.Component<Props> {
             }
 
             .email {
-              margin-left: 30px;
+              margin-top: 0;
             }
 
             .icon {
@@ -200,11 +188,11 @@ class OrderItem extends React.Component<Props> {
             }
 
             .mailIcon {
-              background-image: url('../static/svg/order_mail.svg');
+              background-image: url("../static/svg/order_mail.svg");
             }
 
             .email:hover .mailIcon {
-              background-image: url('../static/svg/order_mail_hover.svg');
+              background-image: url("../static/svg/order_mail_hover.svg");
             }
           `}
         </style>

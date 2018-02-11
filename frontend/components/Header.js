@@ -1,18 +1,26 @@
 // @flow
 
-import React from 'react';
+import React from "react";
 
 type Props = {
-  selectedItem: string,
+  selectedItem: string
 };
 
 const Header = (props: Props) => (
   <nav className="mechef-navbar">
-    <img className="mechef-navbar-logo" src="../static/svg/mechef_logo.svg" alt="logo" />
+    <img
+      className="mechef-navbar-logo"
+      src="../static/svg/mechef_logo.svg"
+      alt="logo"
+    />
     <div className="mechef-navbar-collapse">
       <ul className="mechef-navbar-nav">
-        <li className={props.selectedItem === 'about' ? 'active' : ''}>HOW IT WORKS</li>
-        <li className={props.selectedItem === 'join' ? 'active' : ''}>JOIN NOW</li>
+        <li className={props.selectedItem === "about" ? "active" : ""}>
+          HOW IT WORKS
+        </li>
+        <li className={props.selectedItem === "join" ? "active" : ""}>
+          JOIN NOW
+        </li>
       </ul>
     </div>
     <style jsx>
@@ -21,14 +29,15 @@ const Header = (props: Props) => (
           display: flex;
           justify-content: space-between;
           width: 100%;
-          height: 90px;
+          height: 88px;
           background-color: #ffffff;
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
         }
         .mechef-navbar-logo {
-          height: 70px;
-          width: 113px;
-          margin: 13px 0px 7px 89px;
+          height: 43px;
+          margin-left: 89px;
+          margin-top: auto;
+          margin-bottom: auto;
         }
         .mechef-navbar-nav {
           display: flex;
@@ -50,10 +59,10 @@ const Header = (props: Props) => (
           border-bottom: 9px solid rgba(0, 0, 0, 0);
         }
         .mechef-navbar-nav li:hover {
-           border-bottom-color: #8cc63f;
+          border-bottom-color: #8cc63f;
         }
         .mechef-navbar-nav li.active {
-           border-bottom-color: #8cc63f;
+          border-bottom-color: #8cc63f;
         }
         @media screen and (max-width: 768px) {
           .mechef-navbar-collapse {
@@ -66,7 +75,7 @@ const Header = (props: Props) => (
 );
 
 Header.defaultProps = {
-  selectedItem: '',
+  selectedItem: ""
 };
 
 export default Header;

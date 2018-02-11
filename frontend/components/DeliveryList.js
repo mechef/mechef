@@ -16,7 +16,8 @@ import type { MeetupObject } from "../utils/flowTypes";
 
 type Props = {
   meetupList: Array<MeetupObject>,
-  onEditDelivery: (meetupId: string) => Rx.Observable
+  onEditDelivery: (meetupId: string) => Rx.Observable,
+  onDeleteMeetup: (meetupId: string) => Rx.Observable
 };
 
 class DeliveryList extends React.Component<Props> {
@@ -30,8 +31,6 @@ class DeliveryList extends React.Component<Props> {
       zoom: 15,
       panControl: false,
       mapTypeControl: false,
-      streetViewControl: false,
-      zoomControl: true,
       fullscreenControl: false
     });
     const latlng = new google.maps.LatLng(
@@ -56,7 +55,7 @@ class DeliveryList extends React.Component<Props> {
   }
 
   render() {
-    const { meetupList, onEditDelivery } = this.props;
+    const { meetupList, onEditDelivery, onDeleteMeetup } = this.props;
     return (
       <div className="wrapper">
         <div className="header">
@@ -66,11 +65,25 @@ class DeliveryList extends React.Component<Props> {
           </button>
         </div>
         {meetupList.map(meetup => (
-          <button
-            key={meetup._id}
-            className="deliveryItem"
-            onClick={() => onEditDelivery(meetup._id || "")}
-          >
+          <div key={meetup._id} className="deliveryItem">
+            <div className="actionButtonGroup">
+              <div
+                role="button"
+                tabIndex="-1"
+                className="editIcon"
+                onClick={() => onEditDelivery(meetup._id || "")}
+              />
+              <div
+                role="button"
+                tabIndex="-1"
+                className="deleteIcon"
+                onClick={() => {
+                  if (meetup._id) {
+                    onDeleteMeetup(meetup._id);
+                  }
+                }}
+              />
+            </div>
             <div className="mapWrapper" id={meetup._id} />
             <span className="descriptionText">Meet up at</span>
             <div className="delivery-content">
@@ -79,7 +92,7 @@ class DeliveryList extends React.Component<Props> {
                 {meetup.meetupStartTime} - {meetup.meetupEndTime}
               </div>
             </div>
-          </button>
+          </div>
         ))}
         <style jsx>
           {`
@@ -154,13 +167,70 @@ class DeliveryList extends React.Component<Props> {
               padding: 0;
               border-radius: 4px;
               background-color: #ffffff;
-              cursor: pointer;
               outline: none;
-              transition: all 0.2s ease-in-out;
+              position: relative;
             }
 
-            .deliveryItem:hover {
-              transform: scale(1.01);
+            .actionButtonGroup {
+              position: absolute;
+              top: 20px;
+              right: 20px;
+              z-index: 1;
+              width: 84px;
+              display: flex;
+              justify-content: space-between;
+            }
+
+            .editIcon {
+              width: 36px;
+              height: 36px;
+              position: relative;
+              background-color: ${whiteColor};
+              border-radius: ${borderRadius};
+              outline: none;
+              cursor: pointer;
+            }
+
+            .editIcon:before {
+              content: "";
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background-image: url("../static/svg/edit_icon.svg");
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+
+            .editIcon:hover::before {
+              background-image: url("../static/svg/edit_icon_hover.svg");
+            }
+
+            .deleteIcon {
+              width: 36px;
+              height: 36px;
+              position: relative;
+              background-color: ${whiteColor};
+              border-radius: ${borderRadius};
+              outline: none;
+              cursor: pointer;
+            }
+
+            .deleteIcon:before {
+              content: "";
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background-image: url("../static/svg/delete_icon.svg");
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+
+            .deleteIcon:hover::before {
+              background-image: url("../static/svg/delete_icon_hover.svg");
             }
 
             .delivery-content {

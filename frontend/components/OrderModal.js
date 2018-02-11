@@ -1,10 +1,10 @@
 // @flow
 
-import React from 'react';
-import Rx from 'rxjs/Rx';
-import moment from 'moment';
+import React from "react";
+import Rx from "rxjs/Rx";
+import moment from "moment";
 
-import MapWithAutoComplete from './MapWithAutoComplete';
+import MapWithAutoComplete from "./MapWithAutoComplete";
 import {
   borderRadius,
   whiteColor,
@@ -16,49 +16,49 @@ import {
   textHintColor,
   transparent,
   fontSize,
-  connectErrorColor,
-} from '../utils/styleVariables';
-import type { OrderObject, OrderState } from '../utils/flowTypes';
-import { ORDER_STATE } from '../utils/constants';
+  connectErrorColor
+} from "../utils/styleVariables";
+import type { OrderObject, OrderState } from "../utils/flowTypes";
+import { ORDER_STATE } from "../utils/constants";
 
 type Props = {
   order: OrderObject,
   onCancel: () => Rx.Observable,
-  onUpdateState: (state: OrderState) => Rx.Observable,
+  onUpdateState: (state: OrderState) => Rx.Observable
 };
 
 class OrderModal extends React.Component<Props> {
   defaultProps = {
-    onCancel: () => {},
+    onCancel: () => {}
   };
   componentWillMount() {
     // $FlowFixMe
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
   }
   componentDidMount() {
     // $FlowFixMe
-    const map = new google.maps.Map(document.getElementById('map'), {
+    const map = new google.maps.Map(document.getElementById("map"), {
       center: {
         lat: this.props.order.deliveryLatitude,
-        lng: this.props.order.deliveryLongitude,
+        lng: this.props.order.deliveryLongitude
       },
       zoom: 15,
       panControl: false,
       mapTypeControl: false,
       streetViewControl: false,
       zoomControl: true,
-      fullscreenControl: false,
+      fullscreenControl: false
     });
     // $FlowFixMe
     const latlng = new google.maps.LatLng(
       this.props.order.deliveryLatitude,
-      this.props.order.deliveryLongitude,
+      this.props.order.deliveryLongitude
     );
     map.setCenter(latlng);
     const marker = new google.maps.Marker({
       position: latlng,
       title: this.props.order.deliveryAddress,
-      visible: true,
+      visible: true
     });
     marker.setMap(map);
     // const placesService = new google.maps.places.PlacesService(map);
@@ -66,7 +66,7 @@ class OrderModal extends React.Component<Props> {
 
   componentWillUnmount() {
     // $FlowFixMe
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = "auto";
   }
 
   render() {
@@ -76,7 +76,7 @@ class OrderModal extends React.Component<Props> {
           <header className="alert-modal-header">
             <div className="cancelBtnWrapper">
               <button className="cancel-btn" onClick={this.props.onCancel}>
-                &times;
+                <img src="../static/svg/cancel_white.svg" />
               </button>
             </div>
           </header>
@@ -86,7 +86,11 @@ class OrderModal extends React.Component<Props> {
               <div className="iconWrapper">
                 <a
                   className="email"
-                  href={this.props.order.buyerEmail ? `mailto: ${this.props.order.buyerEmail}` : ''}
+                  href={
+                    this.props.order.buyerEmail
+                      ? `mailto: ${this.props.order.buyerEmail}`
+                      : ""
+                  }
                   onClick={event => event.stopPropagation()}
                 >
                   <div className="icon mailIcon" />
@@ -104,30 +108,38 @@ class OrderModal extends React.Component<Props> {
             <p className="infoWrapper">
               <p className="infoTitle">Order Time : </p>
               <span className="infoContent">
-                {moment(this.props.order.orderTime).format('MMM DD hh:mm')}
+                {moment(this.props.order.orderTime).format("MMM DD hh:mm")}
               </span>
             </p>
             <p className="infoWrapper">
               <p className="infoTitle">Delivery To : </p>
-              <span className="infoContent">{this.props.order.deliveryAddress}</span>
+              <span className="infoContent">
+                {this.props.order.deliveryAddress}
+              </span>
             </p>
             <p className="infoWrapper">
               <p className="infoTitle">Delivery Time : </p>
               <span className="infoContent">
-                {moment(this.props.order.deliveryTime).format('MMM DD hh:mm')}
+                {moment(this.props.order.deliveryTime).format("MMM DD hh:mm")}
               </span>
             </p>
             <div className="mapWrapper" id="map" />
             <div className="messageWrapper">
               <p className="messageTitle">Message from buyer : </p>
-              <span className="messageContent">{this.props.order.messageFromBuyer}</span>
+              <span className="messageContent">
+                {this.props.order.messageFromBuyer}
+              </span>
             </div>
             <p className="divider" />
             <div className="stateWrapper">
               <div
                 className={`
                   stateButtonWrapper
-                  ${this.props.order.state === ORDER_STATE.cancelled ? 'selected' : ''}
+                  ${
+                    this.props.order.state === ORDER_STATE.cancelled
+                      ? "selected"
+                      : ""
+                  }
                 `}
               >
                 <button
@@ -143,7 +155,11 @@ class OrderModal extends React.Component<Props> {
               <div
                 className={`
                   stateButtonWrapper
-                  ${this.props.order.state === ORDER_STATE.waiting ? 'selected' : ''}
+                  ${
+                    this.props.order.state === ORDER_STATE.waiting
+                      ? "selected"
+                      : ""
+                  }
                 `}
               >
                 <button
@@ -159,7 +175,11 @@ class OrderModal extends React.Component<Props> {
               <div
                 className={`
                   stateButtonWrapper
-                  ${this.props.order.state === ORDER_STATE.finished ? 'selected' : ''}
+                  ${
+                    this.props.order.state === ORDER_STATE.finished
+                      ? "selected"
+                      : ""
+                  }
                 `}
               >
                 <button
@@ -203,13 +223,13 @@ class OrderModal extends React.Component<Props> {
               justify-content: flex-end;
               height: 70px;
               width: 100%;
-              background-image: url('../static/img/menu_default.jpg');
+              background-image: url("../static/img/menu_default.jpg");
               background-size: cover;
               background-position: center;
               position: relative;
             }
             .alert-modal-header:before {
-              content: '';
+              content: "";
               height: 100%;
               width: 100%;
               background-color: rgba(0, 0, 0, 0.4);
@@ -217,11 +237,11 @@ class OrderModal extends React.Component<Props> {
               z-index: 1;
             }
             .alert-modal-header:after {
-              content: '';
+              content: "";
               position: absolute;
               top: 55px;
               left: 12px;
-              background-image: url('../static/avatar.jpg');
+              background-image: url("../static/avatar.jpg");
               background-size: cover;
               background-position: center;
               width: 30px;
@@ -255,7 +275,7 @@ class OrderModal extends React.Component<Props> {
             .modalBody {
               display: flex;
               flex-direction: column;
-              padding: 10px;
+              padding: 20px;
             }
 
             .firstRow {
@@ -347,11 +367,11 @@ class OrderModal extends React.Component<Props> {
             }
 
             .mailIcon {
-              background-image: url('../static/svg/order_mail.svg');
+              background-image: url("../static/svg/order_mail.svg");
             }
 
             .email:hover .mailIcon {
-              background-image: url('../static/svg/order_mail_hover.svg');
+              background-image: url("../static/svg/order_mail_hover.svg");
             }
 
             .stateWrapper {
@@ -398,27 +418,27 @@ class OrderModal extends React.Component<Props> {
             }
 
             .cancelledIcon {
-              background-image: url('../static/svg/order_cancel.svg');
+              background-image: url("../static/svg/order_cancel.svg");
             }
 
             .stateButtonWrapper:hover .cancelledIcon {
-              background-image: url('../static/svg/order_cancel_hover.svg');
+              background-image: url("../static/svg/order_cancel_hover.svg");
             }
 
             .waitingIcon {
-              background-image: url('../static/svg/order_waiting.svg');
+              background-image: url("../static/svg/order_waiting.svg");
             }
 
             .stateButtonWrapper:hover .waitingIcon {
-              background-image: url('../static/svg/order_waiting_hover.svg');
+              background-image: url("../static/svg/order_waiting_hover.svg");
             }
 
             .finishedIcon {
-              background-image: url('../static/svg/order_finished.svg');
+              background-image: url("../static/svg/order_finished.svg");
             }
 
             .stateButtonWrapper:hover .finishedIcon {
-              background-image: url('../static/svg/order_finished_hover.svg');
+              background-image: url("../static/svg/order_finished_hover.svg");
             }
 
             .mapWrapper {
