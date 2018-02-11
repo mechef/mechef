@@ -1,25 +1,25 @@
 // @flow
 
-import * as React from 'react';
-import Rx from 'rxjs/Rx';
+import * as React from "react";
+import Rx from "rxjs/Rx";
 
-import Button from './Button';
-import TextInput from './TextInput';
-import TextAreaInput from './TextAreaInput';
-import SelectBox from './SelectBox';
-import UploadImage from './UploadImage';
-import CheckBox from './CheckBox';
-import Tag from './Tag';
-import type { MenuObject, MeetupObject } from '../utils/flowTypes';
+import Button from "./Button";
+import TextInput from "./TextInput";
+import TextAreaInput from "./TextAreaInput";
+import SelectBox from "./SelectBox";
+import UploadImage from "./UploadImage";
+import CheckBox from "./CheckBox";
+import Tag from "./Tag";
+import type { MenuObject, MeetupObject } from "../utils/flowTypes";
 import {
   whiteColor,
   borderRadius,
   fontSize,
   lineHeight,
   placeholderTextColor,
-  textColor,
-} from '../utils/styleVariables';
-import { IMAGE_URL } from '../utils/constants';
+  textColor
+} from "../utils/styleVariables";
+import { IMAGE_URL } from "../utils/constants";
 
 type Props = {
   onCreateMenu: () => Rx.Observable,
@@ -31,50 +31,50 @@ type Props = {
   displayMenu: MenuObject,
   deliveryList: Array<MeetupObject>,
   fetchDelivery: () => Rx.Observable,
-  goBack: () => Rx.Observable,
+  goBack: () => Rx.Observable
 };
 
 type State = {
   ingredientInput: string,
-  categoryInput: string,
+  categoryInput: string
 };
 
 const quantity = [
-  { text: '1', value: '1' },
-  { text: '2', value: '2' },
-  { text: '3', value: '3' },
-  { text: '4', value: '4' },
-  { text: '5', value: '5' },
-  { text: '6', value: '6' },
-  { text: '7', value: '7' },
-  { text: '8', value: '8' },
-  { text: '9', value: '9' },
-  { text: '10', value: '10' },
+  { text: "1", value: "1" },
+  { text: "2", value: "2" },
+  { text: "3", value: "3" },
+  { text: "4", value: "4" },
+  { text: "5", value: "5" },
+  { text: "6", value: "6" },
+  { text: "7", value: "7" },
+  { text: "8", value: "8" },
+  { text: "9", value: "9" },
+  { text: "10", value: "10" }
 ];
 
 const cookingBuffer = [
-  { text: '1', value: '1' },
-  { text: '2', value: '2' },
-  { text: '3', value: '3' },
-  { text: '4', value: '4' },
-  { text: '5', value: '5' },
-  { text: '6', value: '6' },
-  { text: '7', value: '7' },
+  { text: "1", value: "1" },
+  { text: "2", value: "2" },
+  { text: "3", value: "3" },
+  { text: "4", value: "4" },
+  { text: "5", value: "5" },
+  { text: "6", value: "6" },
+  { text: "7", value: "7" }
 ];
 
 const serving = [
-  { text: 'For 1~2 people', value: '1' },
-  { text: 'For 2~3 people', value: '2' },
-  { text: 'For 3~4 people', value: '3' },
-  { text: 'For 4~5 people', value: '4' },
+  { text: "For 1~2 people", value: "1" },
+  { text: "For 2~3 people", value: "2" },
+  { text: "For 3~4 people", value: "3" },
+  { text: "For 4~5 people", value: "4" }
 ];
 
 class MenuEdit extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      ingredientInput: '',
-      categoryInput: '',
+      ingredientInput: "",
+      categoryInput: ""
     };
   }
 
@@ -83,25 +83,28 @@ class MenuEdit extends React.Component<Props, State> {
   }
 
   componentDidUpdate() {
-    this.props.deliveryList.forEach((delivery) => {
+    this.props.deliveryList.forEach(delivery => {
       // $FlowFixMe
       const map = new google.maps.Map(document.getElementById(delivery._id), {
         center: {
           lat: delivery.meetupLatitude,
-          lng: delivery.meetupLongitude,
+          lng: delivery.meetupLongitude
         },
         zoom: 15,
         panControl: false,
         mapTypeControl: false,
         streetViewControl: false,
         zoomControl: true,
-        fullscreenControl: false,
+        fullscreenControl: false
       });
-      const latlng = new google.maps.LatLng(delivery.meetupLatitude, delivery.meetupLongitude);
+      const latlng = new google.maps.LatLng(
+        delivery.meetupLatitude,
+        delivery.meetupLongitude
+      );
       const marker = new google.maps.Marker({
         position: latlng,
         title: delivery.meetupAddress,
-        visible: true,
+        visible: true
       });
       marker.setMap(map);
     });
@@ -110,14 +113,14 @@ class MenuEdit extends React.Component<Props, State> {
   // eslint-disable-next-line class-methods-use-this
   getAvailableDays(meetup: MeetupObject) {
     const result = [];
-    if (meetup.meetupSunday) result.push('Sunday');
-    if (meetup.meetupMonday) result.push('Monday');
-    if (meetup.meetupTuesday) result.push('Tuesday');
-    if (meetup.meetupWednesday) result.push('Wednesday');
-    if (meetup.meetupThursday) result.push('Thursday');
-    if (meetup.meetupFriday) result.push('Friday');
-    if (meetup.meetupSaturday) result.push('Saturday');
-    return result.join(' / ');
+    if (meetup.meetupSunday) result.push("Sunday");
+    if (meetup.meetupMonday) result.push("Monday");
+    if (meetup.meetupTuesday) result.push("Tuesday");
+    if (meetup.meetupWednesday) result.push("Wednesday");
+    if (meetup.meetupThursday) result.push("Thursday");
+    if (meetup.meetupFriday) result.push("Friday");
+    if (meetup.meetupSaturday) result.push("Saturday");
+    return result.join(" / ");
   }
 
   render() {
@@ -129,7 +132,7 @@ class MenuEdit extends React.Component<Props, State> {
       onUploadImage,
       onChangeField,
       displayMenu,
-      deliveryList,
+      deliveryList
     } = this.props;
     const currentCategories = displayMenu.category || [];
     const currentIngredients = displayMenu.ingredients || [];
@@ -152,10 +155,10 @@ class MenuEdit extends React.Component<Props, State> {
                     onImageUpload={onUploadImage}
                     onRemoveImage={() => {
                       const updatedImages = displayImages.filter(
-                        (image, imageIndex) => imageIndex !== index,
+                        (image, imageIndex) => imageIndex !== index
                       );
                       onChangeField({
-                        images: updatedImages,
+                        images: updatedImages
                       });
                     }}
                   />
@@ -165,13 +168,15 @@ class MenuEdit extends React.Component<Props, State> {
           </div>
           <div className="dishName">
             <h3 className="title">Dish Name</h3>
-            <p className="subtitle">The number of characters is limited to 50</p>
+            <p className="subtitle">
+              The number of characters is limited to 50
+            </p>
             <TextInput
               type="text"
               placeholder="Enter Dish Name"
               size="large"
-              value={displayMenu.dishName || ''}
-              onChange={(event) => {
+              value={displayMenu.dishName || ""}
+              onChange={event => {
                 if (event && event.target) {
                   onChangeField({ dishName: event.target.value });
                 }
@@ -186,8 +191,8 @@ class MenuEdit extends React.Component<Props, State> {
                 type="text"
                 placeholder="$"
                 size="small"
-                value={displayMenu.unitPrice || ''}
-                onChange={(event) => {
+                value={displayMenu.unitPrice || ""}
+                onChange={event => {
                   if (event && event.target) {
                     onChangeField({ unitPrice: event.target.value });
                   }
@@ -203,7 +208,7 @@ class MenuEdit extends React.Component<Props, State> {
                 defaultText="0"
                 onChange={(selectedValue: string | number) => {
                   onChangeField({
-                    quantity: parseInt(selectedValue),
+                    quantity: parseInt(selectedValue)
                   });
                 }}
               />
@@ -219,17 +224,17 @@ class MenuEdit extends React.Component<Props, State> {
                   placeholder="Enter Category"
                   size="small"
                   value={this.state.categoryInput}
-                  onChange={(event) => {
+                  onChange={event => {
                     if (event && event.target) {
                       this.setState({ categoryInput: event.target.value });
                     }
                   }}
                   onAdd={() => {
                     this.setState({
-                      categoryInput: '',
+                      categoryInput: ""
                     });
                     onChangeField({
-                      category: [...currentCategories, this.state.categoryInput],
+                      category: [...currentCategories, this.state.categoryInput]
                     });
                   }}
                   hasAddBtn
@@ -245,7 +250,9 @@ class MenuEdit extends React.Component<Props, State> {
                         title={tag}
                         onRemove={() => {
                           onChangeField({
-                            category: currentCategories.filter(categoryTag => categoryTag !== tag),
+                            category: currentCategories.filter(
+                              categoryTag => categoryTag !== tag
+                            )
                           });
                         }}
                       />
@@ -264,17 +271,20 @@ class MenuEdit extends React.Component<Props, State> {
                 placeholder="Enter Ingredients"
                 size="small"
                 value={this.state.ingredientInput}
-                onChange={(event) => {
+                onChange={event => {
                   if (event && event.target) {
                     this.setState({ ingredientInput: event.target.value });
                   }
                 }}
                 onAdd={() => {
                   onChangeField({
-                    ingredients: [...currentIngredients, this.state.ingredientInput],
+                    ingredients: [
+                      ...currentIngredients,
+                      this.state.ingredientInput
+                    ]
                   });
                   this.setState({
-                    ingredientInput: '',
+                    ingredientInput: ""
                   });
                 }}
                 hasAddBtn
@@ -290,7 +300,9 @@ class MenuEdit extends React.Component<Props, State> {
                       title={tag}
                       onRemove={() => {
                         onChangeField({
-                          ingredients: currentIngredients.filter(ingredient => ingredient !== tag),
+                          ingredients: currentIngredients.filter(
+                            ingredient => ingredient !== tag
+                          )
                         });
                       }}
                     />
@@ -304,8 +316,8 @@ class MenuEdit extends React.Component<Props, State> {
             <p className="subtitle">Description</p>
             <TextAreaInput
               placeholder="Write some description about your menu...."
-              value={displayMenu.description || ''}
-              onChange={(event) => {
+              value={displayMenu.description || ""}
+              onChange={event => {
                 if (event && event.target) {
                   onChangeField({ description: event.target.value });
                 }
@@ -318,11 +330,11 @@ class MenuEdit extends React.Component<Props, State> {
               <p className="subtitle">Choose cooking buffer</p>
               <SelectBox
                 options={cookingBuffer}
-                selectedValue={displayMenu.cookingBuffer || ''}
+                selectedValue={displayMenu.cookingBuffer || ""}
                 defaultText="Choose cooking buffer"
                 onChange={(selectedValue: string | number) => {
                   onChangeField({
-                    cookingBuffer: selectedValue.toString(),
+                    cookingBuffer: selectedValue.toString()
                   });
                 }}
               />
@@ -332,11 +344,11 @@ class MenuEdit extends React.Component<Props, State> {
               <p className="subtitle">Choose serving</p>
               <SelectBox
                 options={serving}
-                selectedValue={displayMenu.serving || ''}
+                selectedValue={displayMenu.serving || ""}
                 defaultText="For 1~2 people"
-                onChange={(selectedValue) => {
+                onChange={selectedValue => {
                   onChangeField({
-                    serving: selectedValue.toString(),
+                    serving: selectedValue.toString()
                   });
                 }}
               />
@@ -349,48 +361,56 @@ class MenuEdit extends React.Component<Props, State> {
             <h3 className="title">MEET UP</h3>
             <p className="subtitle">Location &amp; Time</p>
             <div className="meetupWrapper">
-              {deliveryList.filter(delivery => delivery.type === 'meetup').map(meetup => (
-                <div className="meetupItem">
-                  <span className="checkbox">
-                    <CheckBox
-                      checked={
-                        displayMenu.deliveryIdList
-                          ? displayMenu.deliveryIdList.includes(meetup._id)
-                          : false
-                      }
-                      onChange={(isChecked) => {
-                        const currentDeliveryIdList = displayMenu.deliveryIdList || [];
-                        if (isChecked && meetup._id) {
-                          onChangeField({
-                            deliveryIdList: [...currentDeliveryIdList, meetup._id],
-                          });
-                        } else {
-                          onChangeField({
-                            deliveryIdList: currentDeliveryIdList.filter(
-                              deliveryId => deliveryId !== meetup._id,
-                            ),
-                          });
+              {deliveryList
+                .filter(delivery => delivery.type === "meetup")
+                .map(meetup => (
+                  <div className="meetupItem">
+                    <span className="checkbox">
+                      <CheckBox
+                        checked={
+                          displayMenu.deliveryIdList
+                            ? displayMenu.deliveryIdList.includes(meetup._id)
+                            : false
                         }
-                      }}
-                    />
-                  </span>
-                  <div key={meetup._id} className="deliveryItem">
-                    <div className="mapWrapper" id={meetup._id} />
-                    <span className="descriptionText">Meet up at</span>
-                    <div className="delivery-content">
-                      <span className="text">{meetup.meetupAddress}</span>
-                      <span className="text">{this.getAvailableDays(meetup)}</span>
-                      <span className="text">
-                        {meetup.meetupStartTime} - {meetup.meetupEndTime}
-                      </span>
-                    </div>
-                    <span className="descriptionText">Note to buyer</span>
-                    <div className="delivery-content">
-                      <span className="text">{meetup.note}</span>
+                        onChange={isChecked => {
+                          const currentDeliveryIdList =
+                            displayMenu.deliveryIdList || [];
+                          if (isChecked && meetup._id) {
+                            onChangeField({
+                              deliveryIdList: [
+                                ...currentDeliveryIdList,
+                                meetup._id
+                              ]
+                            });
+                          } else {
+                            onChangeField({
+                              deliveryIdList: currentDeliveryIdList.filter(
+                                deliveryId => deliveryId !== meetup._id
+                              )
+                            });
+                          }
+                        }}
+                      />
+                    </span>
+                    <div key={meetup._id} className="deliveryItem">
+                      <div className="mapWrapper" id={meetup._id} />
+                      <span className="descriptionText">Meet up at</span>
+                      <div className="delivery-content">
+                        <div className="text">{meetup.meetupAddress}</div>
+                        <div className="text">
+                          {this.getAvailableDays(meetup)}
+                        </div>
+                        <div className="text">
+                          {meetup.meetupStartTime} - {meetup.meetupEndTime}
+                        </div>
+                      </div>
+                      <span className="descriptionText">Note to buyer</span>
+                      <div className="delivery-content">
+                        <div className="text">{meetup.note}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>
@@ -410,7 +430,11 @@ class MenuEdit extends React.Component<Props, State> {
             </Button>
           </div>
           <div>
-            <Button buttonStyle="greenBorderOnly" size="small" onClick={() => goBack()}>
+            <Button
+              buttonStyle="greenBorderOnly"
+              size="small"
+              onClick={() => goBack()}
+            >
               CANCEL
             </Button>
           </div>
@@ -543,7 +567,7 @@ class MenuEdit extends React.Component<Props, State> {
               background-color: ${whiteColor};
               padding: 24px 20px;
               border-radius: ${borderRadius};
-              overflow: scroll;
+              overflow-y: scroll;
             }
 
             .meetupItem {
@@ -552,7 +576,7 @@ class MenuEdit extends React.Component<Props, State> {
 
             .checkbox {
               width: 20px;
-              margin-right: 21px;
+              margin-right: 15px;
             }
 
             .deliveryItem {
@@ -595,9 +619,11 @@ class MenuEdit extends React.Component<Props, State> {
             .text {
               font-size: ${fontSize};
               font-weight: 500;
-              line-height: ${lineHeight};
+              line-height: 1.5;
               color: ${textColor};
               padding-bottom: 12px;
+              overflow-wrap: break-word;
+              width: 100%;
             }
 
             .buttonGroup {

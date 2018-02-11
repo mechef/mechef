@@ -1,22 +1,22 @@
 // @flow
 
-import * as React from 'react';
-import Rx from 'rxjs/Rx';
+import * as React from "react";
+import Rx from "rxjs/Rx";
 
-import Button from './Button';
+import Button from "./Button";
 import {
   whiteColor,
   borderRadius,
   fontSize,
   lineHeight,
   placeholderTextColor,
-  textColor,
-} from '../utils/styleVariables';
-import type { MeetupObject } from '../utils/flowTypes';
+  textColor
+} from "../utils/styleVariables";
+import type { MeetupObject } from "../utils/flowTypes";
 
 type Props = {
   meetupList: Array<MeetupObject>,
-  onEditDelivery: (meetupId: string) => Rx.Observable,
+  onEditDelivery: (meetupId: string) => Rx.Observable
 };
 
 class DeliveryList extends React.Component<Props> {
@@ -25,20 +25,23 @@ class DeliveryList extends React.Component<Props> {
     const map = new google.maps.Map(document.getElementById(meetup._id), {
       center: {
         lat: meetup.meetupLatitude,
-        lng: meetup.meetupLongitude,
+        lng: meetup.meetupLongitude
       },
       zoom: 15,
       panControl: false,
       mapTypeControl: false,
       streetViewControl: false,
       zoomControl: true,
-      fullscreenControl: false,
+      fullscreenControl: false
     });
-    const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetupLongitude);
+    const latlng = new google.maps.LatLng(
+      meetup.meetupLatitude,
+      meetup.meetupLongitude
+    );
     const marker = new google.maps.Marker({
       position: latlng,
       title: meetup.meetupAddress,
-      visible: true,
+      visible: true
     });
     marker.setMap(map);
   };
@@ -58,7 +61,7 @@ class DeliveryList extends React.Component<Props> {
       <div className="wrapper">
         <div className="header">
           <span className="title">Delivery List</span>
-          <button className="addButton" onClick={() => onEditDelivery('')}>
+          <button className="addButton" onClick={() => onEditDelivery("")}>
             <div className="plus" />
           </button>
         </div>
@@ -66,15 +69,15 @@ class DeliveryList extends React.Component<Props> {
           <button
             key={meetup._id}
             className="deliveryItem"
-            onClick={() => onEditDelivery(meetup._id || '')}
+            onClick={() => onEditDelivery(meetup._id || "")}
           >
             <div className="mapWrapper" id={meetup._id} />
             <span className="descriptionText">Meet up at</span>
             <div className="delivery-content">
-              <span className="text">{meetup.meetupAddress}</span>
-              <span className="text">
+              <div className="text">{meetup.meetupAddress}</div>
+              <div className="text">
                 {meetup.meetupStartTime} - {meetup.meetupEndTime}
-              </span>
+              </div>
             </div>
           </button>
         ))}
@@ -82,7 +85,7 @@ class DeliveryList extends React.Component<Props> {
           {`
             .wrapper {
               height: 791px;
-              overflow: scroll;
+              overflow-y: scroll;
             }
 
             .mapWrapper {
@@ -125,7 +128,7 @@ class DeliveryList extends React.Component<Props> {
 
             .plus {
               margin: auto;
-              background-image: url('../static/img/plus.png');
+              background-image: url("../static/img/plus.png");
               background-size: contain;
               background-position: center;
               background-repeat: no-repeat;
@@ -135,7 +138,7 @@ class DeliveryList extends React.Component<Props> {
             }
 
             .addButton:hover .plus {
-              background-image: url('../static/img/plus_hover.png');
+              background-image: url("../static/img/plus_hover.png");
             }
 
             .deliveryItem {
@@ -172,6 +175,9 @@ class DeliveryList extends React.Component<Props> {
               line-height: ${lineHeight};
               color: ${textColor};
               padding-bottom: 12px;
+              overflow-wrap: break-word;
+              width: 100%;
+              text-align: left;
             }
           `}
         </style>
