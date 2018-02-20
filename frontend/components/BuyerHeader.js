@@ -1,9 +1,17 @@
 // @flow
 import React from 'react';
+import Router from 'next/router';
 
 import CartButton from './CartButton';
 
-const BuyerHeader = () => (
+import { connect } from '../state/RxState';
+import type { CartObject } from '../utils/flowTypes';
+
+type Props = {
+  cart: Array<CartObject>,
+};
+
+const BuyerHeader = ({ cart }) => (
   <div className="buyer-header">
     <div className="buyer-header--left">
       <img className="buyer-header__logo" src="/static/img/food.png" alt="mechef" />
@@ -12,7 +20,14 @@ const BuyerHeader = () => (
       <span className="buyer-header__link">FAQ</span>
       <span className="buyer-header__link">HOW IT WORKS</span>
       <span className="buyer-header__cart">
-        <CartButton itemCount={100} onCartClicked={() => console.log('cart is clicked')} />
+        <CartButton
+          itemCount={cart.orders.reduce((total, order) => total + (order.quantity || 0), 0)}
+          onCartClicked={() => {
+            Router.push({
+                pathname: '/cart',
+              });
+          }}
+        />
       </span>
     </div>
     <style jsx>
@@ -55,4 +70,6 @@ const BuyerHeader = () => (
   </div>
 );
 
-export default BuyerHeader;
+const stateSelector = ({ cart }) => ({ cart });
+
+export default connect(stateSelector, {})(BuyerHeader);

@@ -13,7 +13,7 @@ import KitchenClosedComponent from './KitchenClosedComponent'
 import DishCard from './DishCard';
 import DishModal from './DishModal';
 
-import { KitchenObject, MenuObject } from '../utils/flowTypes';
+import type { KitchenObject, MenuObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
@@ -40,7 +40,7 @@ class KitchenPage extends React.Component<Props, State> {
 
   showDishModal: Function;
   showDishModal(dishId: string) {
-    const found = this.props.kitchen.dishes.find((dish) => dish._id == dishId);
+    const found = this.props.kitchen.dishes && this.props.kitchen.dishes.find((dish) => dish._id == dishId);
     this.setState({ displayedProduct: found });
   }
 
@@ -68,7 +68,7 @@ class KitchenPage extends React.Component<Props, State> {
 
   renderDishes: Function;
   renderDishes = () => {
-    return this.props.kitchen.dishes.map(dish => (
+    return this.props.kitchen.dishes && this.props.kitchen.dishes.map(dish => (
       <DishCard
         {...dish}
         key={dish.dishName}
@@ -89,7 +89,7 @@ class KitchenPage extends React.Component<Props, State> {
         />
         <div className="kitchen-display">
           {
-            kitchen.dishes.length > 0 ?
+            kitchen.dishes && kitchen.dishes.length > 0 ?
               this.renderDishes() :
               !kitchen.isLoading ? <KitchenClosedComponent /> : null
           }

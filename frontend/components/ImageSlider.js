@@ -5,7 +5,7 @@ import React from 'react';
 import { IMAGE_URL } from '../utils/constants';
 
 type ImageSliderProps = {
-  images: Array<string>,
+  images?: Array<string>,
 };
 
 type ImageSliderState = {
@@ -22,7 +22,7 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
 
     this.state = {
       containerWidth: 0,
-      selectedIndex: this.props.images.length > 0 ? 0 : undefined,
+      selectedIndex: this.props.images && this.props.images.length > 0 ? 0 : undefined,
       scrollPosition: 0,
     };
 
@@ -59,7 +59,7 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
           style={{ left: `${this.state.scrollPosition}px`}}
         >
           {
-            this.props.images.map((image) => (
+            this.props.images && this.props.images.map((image) => (
               <div
                 key={image}
                 className="image-slider__image"
@@ -69,7 +69,7 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
         </div>
         <div className="image-slider__legend">
           {
-            this.props.images.map((image, index) => (
+            this.props.images && this.props.images.map((image, index) => (
               <div
                 key={image}
                 className={`image-slider__legend-circle${index === this.state.selectedIndex ? '--selected' : ''}`}

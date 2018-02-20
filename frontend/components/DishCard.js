@@ -14,7 +14,7 @@ import {
 type Props = {
   _id: string,
   dishName: string,
-  unitPrice: number,
+  unitPrice: string,
   images: Array<string>,
   description: string,
   onDishSelected: Function,

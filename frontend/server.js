@@ -56,6 +56,11 @@ i18n
         app.render(req, res, actualPage, queryParams);
       });
 
+      server.get('/cart', (req, res) => {
+        const actualPage = '/cart';
+        app.render(req, res, actualPage);
+      });
+
       server.get('/', (req, res) => {
         // TODO: Find a way to login automatically by jwt
         app.render(req, res, '/login');

@@ -85,3 +85,16 @@ export type KitchenObject = {
   profileImage?: string,
   dishes?: Array<MenuObject>,
 };
+
+export type CartOrderObject = {
+  quantity?: number,
+  messageFromBuyer?: string,
+  dishName?: string,
+  description?: string,
+  unitPrice?: number,
+  images?: Array<string>,
+};
+
+export type CartObject = {
+  orders: Array<CartOrderObject>;
+};

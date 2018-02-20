@@ -7,7 +7,6 @@ import ImageSlider from './ImageSlider';
 import DishOrder from './DishOrder';
 import type { DishOrderType } from './DishOrder';
 import AddToCartButton from './AddToCartButton';
-import { DishObject } from '../utils/flowTypes';
 import {
   borderRadius,
   whiteColor,
@@ -15,11 +14,11 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  id: string,
+  _id: string,
   dishName: string,
   description: string,
   images: Array<string>,
-  unitPrice: number,
+  unitPrice?: string,
   quantity: number,
   onClose: () => Rx.Observable,
 };
@@ -56,7 +55,7 @@ class DishModal extends React.Component<Props, State> {
                 onOrderChange={this.onOrderChanged} />
             </div>
             <div className="dish-modal__content__button-container">
-              <AddToCartButton dishId={this.props.id} onAddToCartClick={this.props.onClose} />
+              <AddToCartButton dishId={this.props._id} onAddToCartClick={this.props.onClose} />
             </div>
           </div>
           <div className="dish-modal__close-button" onClick={this.props.onClose}></div>

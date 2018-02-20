@@ -10,8 +10,8 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  price: number,
-  maxServing: number,
+  price?: string,
+  maxServing?: number,
   onOrderChange?: (DishOrderType) => Rx.Observable,
 };
 
@@ -19,6 +19,7 @@ export type DishOrderType = {
   quantity?: number,
   subTotal?: number,
   note?: string,
+  price?: number,
 };
 
 type State = DishOrderType;
@@ -27,9 +28,12 @@ class DishOrder extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    const price = parseInt(props.price) || 0;
+
     this.state = {
+      price,
       quantity: 1,
-      subTotal: this.formatPrice(props.price || 0),
+      subTotal: this.formatPrice(price || 0),
       note: '',
     };
 
@@ -57,7 +61,7 @@ class DishOrder extends React.Component<Props, State> {
 
   recalculateSubTotal: Function;
   recalculateSubTotal(quantity: number) {
-    const subTotal = quantity * (this.props.price || 0);
+    const subTotal = quantity * (this.state.price || 0);
     this.setState({
       quantity: quantity,
       subTotal: this.formatPrice(subTotal),
@@ -81,7 +85,7 @@ class DishOrder extends React.Component<Props, State> {
           <span className="dish-order__field-name">Quantity</span>
           <div className="dish-order__quanity">
             <ServingModifier
-              maxServing={this.props.maxServing}
+              maxServing={this.props.maxServing || 0}
               onQuantityChanged={this.recalculateSubTotal}
             />
           </div>

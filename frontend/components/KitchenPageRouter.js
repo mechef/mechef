@@ -10,7 +10,7 @@ import errorActions from '../actions/errorActions';
 import KitchenPage from './KitchenPage';
 import DishPage from './DishPage';
 
-import { KitchenObject } from '../utils/flowTypes';
+import type { KitchenObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
@@ -34,7 +34,7 @@ class KitchenPageRouter extends React.Component<Props> {
 
   render() {
     const { kitchen, query } = this.props;
-    const dish = kitchen.dishes.find(dish => dish._id === query.dish);
+    const dish = kitchen.dishes && kitchen.dishes.find(dish => dish._id === query.dish);
 
     return (
       <div className="kitchen">

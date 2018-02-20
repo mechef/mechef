@@ -9,7 +9,7 @@ import AddToCartButton from './AddToCartButton';
 import DishDeliveryOption from './DishDeliveryOption';
 import type { DishOrderType } from './DishOrder';
 
-import { MenuObject } from '../utils/flowTypes';
+import type { MenuObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 import {
   primaryColor,
@@ -59,7 +59,7 @@ class DishPage extends React.Component<Props, State> {
     const { dish } = this.props;
 
     const renderDeliveryOptions = (deliveryList) => (
-      deliveryList.reduce((all, deliveryOption) => {
+      deliveryList && deliveryList.reduce((all, deliveryOption) => {
         if (!all.includes(deliveryOption.type)) {
           all.push(deliveryOption.type);
         }
@@ -136,54 +136,64 @@ class DishPage extends React.Component<Props, State> {
                 </div>
               </div>
             </div>
-            <div className="dish-page__left__section">
-              <div className="dish-page__left__field-title dish-page__left__category">
-                Category
+            {
+              dish.category && dish.category.length > 0 &&
+              <div className="dish-page__left__section">
+                <div className="dish-page__left__field-title dish-page__left__category">
+                  Category
+                </div>
+                <div className="dish-page__left__field-content">
+                  {
+                    dish.category.map(categoryText => (
+                      <div
+                        className="dish-page__left__field-content__label"
+                        key={categoryText}
+                      >
+                        {categoryText}
+                      </div>
+                    ))
+                  }
+                </div>
               </div>
-              <div className="dish-page__left__field-content">
-                {
-                  dish.category.map(categoryText => (
-                    <div
-                      className="dish-page__left__field-content__label"
-                      key={categoryText}
-                    >
-                      {categoryText}
-                    </div>
-                  ))
-                }
+            }
+            {
+              dish.ingredients && dish.ingredients.length > 0 &&
+              <div className="dish-page__left__section">
+                <div className="dish-page__left__field-title  dish-page__left__ingredients">
+                  Ingredients
+                </div>
+                <div className="dish-page__left__field-content">
+                  {
+                    dish.ingredients.map(ingredient => (
+                      <div
+                        className="dish-page__left__field-content__label"
+                        key={ingredient}
+                      >
+                        {ingredient}
+                      </div>
+                    ))
+                  }
+                </div>
               </div>
-            </div>
-            <div className="dish-page__left__section">
-              <div className="dish-page__left__field-title  dish-page__left__ingredients">
-                Ingredients
-              </div>
-              <div className="dish-page__left__field-content">
-                {
-                  dish.ingredients.map(ingredient => (
-                    <div
-                      className="dish-page__left__field-content__label"
-                      key={ingredient}
-                    >
-                      {ingredient}
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
+            }
             <hr className="dish-page__left__section-divider" />
             <div className="dish-page__left__section">
               <div className="dish-page__left__field-title">
                 Delivery
               </div>
-              <div className="dish-page__left__field-content">
-                {
-                  dish.deliveryList.map((deliveryOption) => (
-                    <DishDeliveryOption
-                      {...deliveryOption}
-                      key={deliveryOption._id} />
-                  ))
-                }
-              </div>
+              {
+                dish.deliveryList && dish.deliveryList.length > 0 ?
+                  <div className="dish-page__left__field-content">
+                    {
+                      dish.deliveryList.map((deliveryOption) => (
+                        <DishDeliveryOption
+                          {...deliveryOption}
+                          key={deliveryOption._id} />
+                      ))
+                    }
+                  </div> :
+                  <div>-</div>
+              }
             </div>
           </div>
           <div className="dish-page__right">
@@ -198,7 +208,7 @@ class DishPage extends React.Component<Props, State> {
             </div>
             <hr/>
             <div className="dish-page__right__footer">
-              <AddToCartButton dishId="this.props.id" onAddToCartClick={this.addToCartClick} />
+              <AddToCartButton dishId={this.props.dish._id} onAddToCartClick={this.addToCartClick} />
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { MeetupObject } from '../utils/flowTypes';
+import type { MeetupObject } from '../utils/flowTypes';
 import {
   primaryColor,
   textHintColor,
