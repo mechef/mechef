@@ -61,7 +61,7 @@ class Cart extends React.Component<Props, State> {
     };
 
     const renderOrders = (orders) => {
-      return orders.forEach(order => (
+      return orders && orders.forEach(order => (
         <div>order.dishName</div>
       ));
     };
@@ -76,7 +76,7 @@ class Cart extends React.Component<Props, State> {
           <hr />
           <div className="cart-content">
             {
-              cart.orders.length === 0 ?
+              !cart.orders || cart.orders.length === 0 ?
                 renderNoOrder() :
                 renderOrders(cart.orders)
             }

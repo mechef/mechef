@@ -87,6 +87,7 @@ export type KitchenObject = {
 };
 
 export type CartOrderObject = {
+  _id?: string,
   quantity?: number,
   messageFromBuyer?: string,
   dishName?: string,
@@ -96,5 +97,5 @@ export type CartOrderObject = {
 };
 
 export type CartObject = {
-  orders: Array<CartOrderObject>;
+  orders?: Array<CartOrderObject>;
 };

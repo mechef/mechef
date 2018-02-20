@@ -71,7 +71,7 @@ class KitchenPage extends React.Component<Props, State> {
     return this.props.kitchen.dishes && this.props.kitchen.dishes.map(dish => (
       <DishCard
         {...dish}
-        key={dish.dishName}
+        key={dish._id}
         onDishSelected={this.onDishSelected}
         onAddToCartClick={() => this.showDishModal(dish._id)}
       />

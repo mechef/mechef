@@ -12,14 +12,14 @@ import {
 type Props = {
   price?: string,
   maxServing?: number,
-  onOrderChange?: (DishOrderType) => Rx.Observable,
+  onOrderChange?: (DishOrderType) => Function,
 };
 
 export type DishOrderType = {
   quantity?: number,
   subTotal?: number,
-  note?: string,
-  price?: number,
+  messageFromBuyer?: string,
+  unitPrice?: number,
 };
 
 type State = DishOrderType;
@@ -28,13 +28,13 @@ class DishOrder extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const price = parseInt(props.price) || 0;
+    const unitPrice = parseInt(props.price) || 0;
 
     this.state = {
-      price,
+      unitPrice,
       quantity: 1,
-      subTotal: this.formatPrice(price || 0),
-      note: '',
+      subTotal: this.formatPrice(unitPrice || 0),
+      messageFromBuyer: '',
     };
 
     this.onNoteChange = this.onNoteChange.bind(this);
@@ -42,16 +42,21 @@ class DishOrder extends React.Component<Props, State> {
   }
 
   invokeOrderChange: Function;
-  invokeOrderChange() {
+  invokeOrderChange(order: DishOrderType) {
     if (typeof this.props.onOrderChange === 'function') {
-      this.props.onOrderChange({ ...this.state });
+      this.props.onOrderChange(order);
     }
   }
 
   onNoteChange: Function;
   onNoteChange(event: any) {
-    this.setState({ note: event.target.value });
-    this.invokeOrderChange();
+    const messageFromBuyer = event.target.value;
+    this.setState({ messageFromBuyer });
+    const order = {
+      ...this.state,
+      messageFromBuyer,
+    };
+    this.invokeOrderChange(order);
   }
 
   formatPrice: Function;
@@ -61,12 +66,17 @@ class DishOrder extends React.Component<Props, State> {
 
   recalculateSubTotal: Function;
   recalculateSubTotal(quantity: number) {
-    const subTotal = quantity * (this.state.price || 0);
+    const subTotal = quantity * (this.state.unitPrice || 0);
     this.setState({
-      quantity: quantity,
+      quantity,
       subTotal: this.formatPrice(subTotal),
     });
-    this.invokeOrderChange();
+    const order = {
+      ...this.state,
+      quantity,
+      subTotal,
+    };
+    this.invokeOrderChange(order);
   }
 
   render() {

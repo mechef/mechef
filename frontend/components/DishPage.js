@@ -9,6 +9,10 @@ import AddToCartButton from './AddToCartButton';
 import DishDeliveryOption from './DishDeliveryOption';
 import type { DishOrderType } from './DishOrder';
 
+import { connect } from '../state/RxState';
+import cartActions from '../actions/cartActions';
+import errorActions from '../actions/errorActions';
+
 import type { MenuObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 import {
@@ -23,36 +27,46 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  dish: MenuObject
+  dish: MenuObject,
+  addToCart$: (order: DishOrderType) => Rx.Observable,
 };
 
-type State = {
-  order: DishOrderType,
-};
+type State = DishOrderType;
 
 class DishPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    const unitPrice = Number(props.dish.unitPrice) || 0;
     this.state = {
-      order: {
-        quantity: 1,
-        subTotal: 0,
-      },
+      unitPrice,
+      quantity: 1,
+      subTotal: unitPrice,
+      messageFromBuyer: '',
     };
 
     this.onOrderChanged = this.onOrderChanged.bind(this);
-    this.addToCartClick = this.addToCartClick.bind(this);
+    this.addToCartClicked = this.addToCartClicked.bind(this);
   }
 
   onOrderChanged: Function;
   onOrderChanged(order: DishOrderType) {
-    this.setState({ order });
+    this.setState(order);
   }
 
-  addToCartClick: Function;
-  addToCartClick() {
-    console.log('adding item to cart. TODO: call api to update cart.')
+  addToCartClicked: Function;
+  addToCartClicked(dishId: string) {
+    const { dishName, images, description } = this.props.dish;
+    const order = {
+      ...this.state,
+      _id: dishId,
+      dishName: dishName,
+      images: images ? [...images] : [],
+      description: description,
+    };
+    console.log('order', order)
+    this.props.addToCart$(order);
+    // TODO: add notification or redirect to cart page
   }
 
   render() {
@@ -208,7 +222,7 @@ class DishPage extends React.Component<Props, State> {
             </div>
             <hr/>
             <div className="dish-page__right__footer">
-              <AddToCartButton dishId={this.props.dish._id} onAddToCartClick={this.addToCartClick} />
+              <AddToCartButton onAddToCartClick={this.addToCartClicked} />
             </div>
           </div>
         </div>
@@ -438,4 +452,11 @@ class DishPage extends React.Component<Props, State> {
   }
 }
 
-export default DishPage;
+const stateSelector = ({ error, global }) => ({ error });
+
+const actionSubjects = {
+  ...errorActions,
+  ...cartActions,
+};
+
+export default connect(stateSelector, actionSubjects)(DishPage);

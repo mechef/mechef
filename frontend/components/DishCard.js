@@ -18,7 +18,7 @@ type Props = {
   images: Array<string>,
   description: string,
   onDishSelected: Function,
-  onAddToCartClick: (id: string) => Rx.Observable,
+  onAddToCartClick: Function,
 };
 
 const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelected, onAddToCartClick }: Props) => (
@@ -33,7 +33,7 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
       <div className="dish-card__description">{description}</div>
       <div className="dish-card__price">{unitPrice}</div>
     </div>
-    <AddToCartButton dishId={_id} onAddToCartClick={onAddToCartClick} />
+    <AddToCartButton onAddToCartClick={onAddToCartClick} />
     <style jsx>
       {`
         .dish-card {

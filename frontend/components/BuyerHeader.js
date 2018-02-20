@@ -8,7 +8,7 @@ import { connect } from '../state/RxState';
 import type { CartObject } from '../utils/flowTypes';
 
 type Props = {
-  cart: Array<CartObject>,
+  cart: CartObject,
 };
 
 const BuyerHeader = ({ cart }) => (
@@ -21,7 +21,7 @@ const BuyerHeader = ({ cart }) => (
       <span className="buyer-header__link">HOW IT WORKS</span>
       <span className="buyer-header__cart">
         <CartButton
-          itemCount={cart.orders.reduce((total, order) => total + (order.quantity || 0), 0)}
+          itemCount={cart.orders ? cart.orders.reduce((total, order) => total + (order.quantity || 0), 0) : 0}
           onCartClicked={() => {
             Router.push({
                 pathname: '/cart',
