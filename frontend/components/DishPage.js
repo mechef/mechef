@@ -38,8 +38,10 @@ class DishPage extends React.Component<Props, State> {
     super(props);
 
     const unitPrice = Number(props.dish.unitPrice) || 0;
+    const maxServing = Number(props.dish.quantity) || 0;
     this.state = {
       unitPrice,
+      maxServing,
       quantity: 1,
       subTotal: unitPrice,
       messageFromBuyer: '',
@@ -55,11 +57,11 @@ class DishPage extends React.Component<Props, State> {
   }
 
   addToCartClicked: Function;
-  addToCartClicked(dishId: string) {
-    const { dishName, images, description } = this.props.dish;
+  addToCartClicked() {
+    const { _id, dishName, images, description } = this.props.dish;
     const order = {
       ...this.state,
-      _id: dishId,
+      dishId: _id,
       dishName: dishName,
       images: images ? [...images] : [],
       description: description,

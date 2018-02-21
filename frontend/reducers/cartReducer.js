@@ -35,8 +35,21 @@ const cartReducer$ = Rx.Observable.of(() => initialState)
       ...state,
       orders: [
         ...state.orders,
-        order,
+        {
+          ...order,
+          _id: Date.now(),
+        },
       ],
+    })),
+    cartActions.removeFromCart$.map((id) => (state) => ({
+      ...state,
+      orders: state.orders.reduce((orders, order) => (
+        order._id === id ? orders : [ ...orders, order ]
+      ), []),
+    })),
+    cartActions.modifyOrderInCart$.map((id, update) => (state) => ({
+      ...state,
+      orders: state.orders.map((order) => order._id === id ? { ...order, ...update } : order),
     })),
   );
 

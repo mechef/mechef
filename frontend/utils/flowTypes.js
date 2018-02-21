@@ -87,13 +87,15 @@ export type KitchenObject = {
 };
 
 export type CartOrderObject = {
-  _id?: string,
+  _id: number,
+  dishId?: string,
   quantity?: number,
   messageFromBuyer?: string,
   dishName?: string,
   description?: string,
   unitPrice?: number,
   images?: Array<string>,
+  maxServing?: number,
 };
 
 export type CartObject = {

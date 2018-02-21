@@ -20,6 +20,7 @@ export type DishOrderType = {
   subTotal?: number,
   messageFromBuyer?: string,
   unitPrice?: number,
+  maxServing: number,
 };
 
 type State = DishOrderType;
@@ -29,10 +30,12 @@ class DishOrder extends React.Component<Props, State> {
     super(props);
 
     const unitPrice = parseInt(props.price) || 0;
+    const maxServing = parseInt(props.maxServing) || 0;
 
     this.state = {
       unitPrice,
-      quantity: 1,
+      maxServing,
+      quantity: maxServing > 0 ? 1 : 0,
       subTotal: this.formatPrice(unitPrice || 0),
       messageFromBuyer: '',
     };
@@ -95,7 +98,7 @@ class DishOrder extends React.Component<Props, State> {
           <span className="dish-order__field-name">Quantity</span>
           <div className="dish-order__quanity">
             <ServingModifier
-              maxServing={this.props.maxServing || 0}
+              maxServing={this.state.maxServing}
               onQuantityChanged={this.recalculateSubTotal}
             />
           </div>

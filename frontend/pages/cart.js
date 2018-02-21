@@ -1,17 +1,22 @@
 // @flow
 
 import * as React from 'react';
+import Rx from 'rxjs/Rx';
 
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
+import CartItem from '../components/CartItem';
 
 import { connect } from '../state/RxState';
+import cartActions from '../actions/cartActions';
 import type { CartObject, CartOrderObject } from '../utils/flowTypes';
 
 import { fontSize } from '../utils/styleVariables';
 
 type Props = {
   cart: CartObject,
+  removeFromCart$: (index: number) => Rx.Observable,
+  modifyOrderInCart$: (index: number, update: Object) => Rx.Observable,
 };
 
 type State = {
@@ -21,7 +26,7 @@ type State = {
   subTotal: number,
 };
 
-class Cart extends React.Component<Props, State> {
+class Cart extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
 
@@ -33,22 +38,46 @@ class Cart extends React.Component<Props, State> {
       shipping,
       total: subTotal + shipping,
     };
+
+    this.onOrderModified = this.onOrderModified.bind(this);
+    this.onRemoveButtonClicked = this.onRemoveButtonClicked.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const subTotal = this.calculateSubTotal(nextProps.cart.orders);
+    this.setState({
+      subTotal,
+      total: subTotal,
+    });
+  }
+
+  formatPrice: Function;
   formatPrice(price) {
     return `$${price}.00`;
   }
 
+  calculateSubTotal: Function;
   calculateSubTotal(orders) {
     return orders.reduce((total, order) => {
       return total + this.calculateOrderPrice(order);
     }, 0);
   }
 
+  calculateOrderPrice: Function;
   calculateOrderPrice(order) {
     const quantity = order.quantity || 1;
     const unitPrice = order.unitPrice || 0;
     return quantity * unitPrice;
+  }
+
+  onOrderModified: Function;
+  onOrderModified(id: number, update: Object) {
+    this.props.modifyOrderInCart$(id, update);
+  }
+
+  onRemoveButtonClicked: Function;
+  onRemoveButtonClicked(id: number) {
+    this.props.removeFromCart$(id);
   }
 
   render() {
@@ -61,9 +90,23 @@ class Cart extends React.Component<Props, State> {
     };
 
     const renderOrders = (orders) => {
-      return orders && orders.forEach(order => (
-        <div>order.dishName</div>
-      ));
+      return (
+        <div className="cart-content">
+          {
+            orders.map(order => (
+              <div>
+                <CartItem
+                  key={order._id}
+                  order={order}
+                  onOrderModified={this.onOrderModified}
+                  onOrderRemoved={this.onRemoveButtonClicked}
+                />
+                <hr />
+              </div>
+            ))
+          }
+        </div>
+      );
     };
 
     return (
@@ -74,25 +117,23 @@ class Cart extends React.Component<Props, State> {
             My Shopping Cart
           </div>
           <hr />
-          <div className="cart-content">
-            {
-              !cart.orders || cart.orders.length === 0 ?
-                renderNoOrder() :
-                renderOrders(cart.orders)
-            }
-          </div>
+          {
+            cart.orders && cart.orders.length > 0 ?
+              renderOrders(cart.orders) :
+              renderNoOrder()
+          }
           <div className="cart-footer">
             <div className="cart-footer__item">
-              <span>SUBTOTAL</span>
+              <span className="cart-footer__item__label">SUBTOTAL</span>
               <span>{this.formatPrice(this.state.subTotal)}</span>
             </div>
             <div className="cart-footer__item">
-              <span>SHIPPING</span>
+              <span className="cart-footer__item__label">SHIPPING</span>
               <span>{this.formatPrice(this.state.shipping)}</span>
             </div>
             <hr />
             <div className="cart-footer__item">
-              <span>TOTAL</span>
+              <span className="cart-footer__item__label">TOTAL</span>
               <span>{this.formatPrice(this.state.total)}</span>
             </div>
           </div>
@@ -133,6 +174,15 @@ class Cart extends React.Component<Props, State> {
             }
             .cart-footer__item {
               padding: 25px 50px;
+              min-width: 326px;
+            }
+            .cart-footer__item .cart-footer__item__label {
+              width: 120px;
+              text-align; right;
+            }
+            .cart-footer__item .cart-footer__item__label + span {
+              width: 153px;
+              display: inline-block;
             }
             .cart-footer > .cart-footer__item + .cart-footer__item {
               padding-top: 18px;
@@ -146,9 +196,9 @@ class Cart extends React.Component<Props, State> {
 
 const stateSelector = ({ cart, error, global }) => ({ cart, error });
 
-// const actionSubjects = {
+const actionSubjects = {
 //   ...errorActions,
-//   ...kitchenActions,
-// };
+   ...cartActions,
+ };
 
-export default connect(stateSelector, {})(Cart);
+export default connect(stateSelector, actionSubjects)(Cart);

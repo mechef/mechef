@@ -4,45 +4,60 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 
 type Props = {
-  maxServing: number,
+  maxServing?: number,
+  quantity?: number,
   onQuantityChanged?: (newQuantity: number) => Rx.Observable,
 };
 
 type State = {
+  maxServing: number,
   quantity: number,
   isMinusDisabled: boolean,
   isPlusDisabled: boolean,
 };
 
+const MAX_SERVING = 10;
+
 class ServingModifier extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    const maxServing = props.maxServing && props.maxServing > 0 ? props.maxServing : MAX_SERVING;
+    const quantity = props.quantity && props.quantity < maxServing ? props.quantity : 1;
     this.state = {
+      maxServing,
       quantity: 1,
-      isMinusDisabled: true,
-      isPlusDisabled: false,
+      isMinusDisabled: this.isMinusDisabled(quantity),
+      isPlusDisabled: this.isPlusDisabled(quantity, maxServing),
     }
 
     this.onQuantityIncreased = this.onQuantityIncreased.bind(this);
     this.onQuantityDecreased = this.onQuantityDecreased.bind(this);
   }
 
-  updateHandlerDisabledState: Function;
-  updateHandlerDisabledState(quantity: number) {
-    const isPlusDisabled = quantity >= (this.props.maxServing || 99);
-    const isMinusDisabled = quantity <= 1;
+  componentDidMount() {
+    const quantity = this.props.quantity && this.props.quantity < this.state.maxServing ? this.props.quantity : 1;
     this.setState({
-      isMinusDisabled,
-      isPlusDisabled,
+      quantity: this.state.maxServing > 0 ? quantity : 0,
     });
+  }
+
+  isPlusDisabled: Function;
+  isPlusDisabled(quantity: number, maxServing: number) {
+    return quantity >= maxServing;
+  }
+
+  isMinusDisabled: Function;
+  isMinusDisabled(quantity: number) {
+    return quantity <= 1;
   }
 
   onQuantityDecreased: Function;
   onQuantityDecreased() {
     const newQuantity = this.state.isMinusDisabled ? 1 : this.state.quantity - 1;
-    this.updateHandlerDisabledState(newQuantity);
     this.setState({
+      isMinusDisabled: this.isMinusDisabled(newQuantity),
+      isPlusDisabled: this.isPlusDisabled(newQuantity, this.state.maxServing),
       quantity: newQuantity,
     });
     if (typeof this.props.onQuantityChanged === 'function') {
@@ -52,9 +67,10 @@ class ServingModifier extends React.Component<Props, State> {
 
   onQuantityIncreased: Function;
   onQuantityIncreased() {
-    const newQuantity =  this.state.isPlusDisabled ? this.props.maxServing : this.state.quantity + 1;
-    this.updateHandlerDisabledState(newQuantity);
+    const newQuantity =  this.state.isPlusDisabled ? this.state.maxServing : this.state.quantity + 1;
     this.setState({
+      isMinusDisabled: this.isMinusDisabled(newQuantity),
+      isPlusDisabled: this.isPlusDisabled(newQuantity, this.state.maxServing),
       quantity: newQuantity,
     });
     if (typeof this.props.onQuantityChanged === 'function') {

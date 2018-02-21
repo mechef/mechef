@@ -35,8 +35,10 @@ class DishModal extends React.Component<Props, State> {
     super(props);
 
     const unitPrice = Number(props.unitPrice) || 0;
+    const maxServing = Number(props.quantity) || 0;
     this.state = {
       unitPrice,
+      maxServing,
       quantity: 1,
       subTotal: unitPrice,
       messageFromBuyer: '',
@@ -52,11 +54,11 @@ class DishModal extends React.Component<Props, State> {
   }
 
   onAddToCartClicked: Function;
-  onAddToCartClicked(dishId: string) {
-    const { dishName, images, description } = this.props;
+  onAddToCartClicked() {
+    const { _id, dishName, images, description } = this.props;
     const order = {
       ...this.state,
-      _id: dishId,
+      dishId: _id,
       dishName: dishName,
       images: images ? [...images] : [],
       description: description,
