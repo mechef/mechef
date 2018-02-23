@@ -21,7 +21,9 @@ import { IMAGE_URL, ORDER_STATE } from '../utils/constants';
 import DefaultComponent from './DefaultComponent';
 
 type Props = {
-  account: AccountObject,
+  account: {
+    currentAccount: AccountObject,
+  },
   order: {
     orderList: Array<OrderObject>,
   },
@@ -58,8 +60,8 @@ export class Home extends React.Component<Props> {
         <div className="dashboard-content__header" />
         <div className="topWrapper">
           <div className="nameWrapper">
-            <p className="sellerId">{`@${account.name || ''}`}</p>
-            <p className="sellerName">{`@${account.kitchenName || ''}`}</p>
+            <p className="sellerId">{`@${account.currentAccount.name || ''}`}</p>
+            <p className="sellerName">{account.currentAccount.kitchenName || ''}</p>
           </div>
           <button className="myKitchenLink">
             <span className="kitchenLinkText">My Kitchen’s Link</span>
@@ -124,8 +126,8 @@ export class Home extends React.Component<Props> {
               width: 100%;
               height: 240px;
               background-image: url('${
-      this.props.account.coverPhoto
-        ? `${IMAGE_URL}/${this.props.account.coverPhoto}`
+      this.props.account.currentAccount.coverPhoto
+        ? `${IMAGE_URL}/${this.props.account.currentAccount.coverPhoto}`
         : '../static/pancake.jpg'
       }'), url('../static/pancake.jpg');
               background-size: cover;
@@ -139,8 +141,8 @@ export class Home extends React.Component<Props> {
               top: 200px;
               left: 20px;
               background-image: url('${
-      this.props.account.profileImage
-        ? `${IMAGE_URL}/${this.props.account.profileImage}`
+      this.props.account.currentAccount.profileImage
+        ? `${IMAGE_URL}/${this.props.account.currentAccount.profileImage}`
         : '../static/avatar.jpg'
       }'), url('../static/avatar.jpg');
               background-size: cover;
