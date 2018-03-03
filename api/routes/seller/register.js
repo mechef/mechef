@@ -51,6 +51,7 @@ module.exports = (req, res) => {
       seller.isActivate = false;
       seller.coverPhoto = '';
       seller.profileImage = '';
+      seller.kitchenName = req.body.kitchenName ? req.body.kitchenName : '';
       seller.kitchenDescription = req.body.kitchenDescription ? req.body.kitchenDescription : '';
       seller.firstName = req.body.firstName ? req.body.firstName : '';
       seller.lastName = req.body.lastName ? req.body.lastName : '';

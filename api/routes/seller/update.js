@@ -32,6 +32,44 @@ const jwt = require('jsonwebtoken');
  *     }
  *
  */
+
+const updateSeller = (req, res, email, updateFields, updateFieldsOfImage) => {
+  Seller.findOneAndUpdate({ email: email }, { $set: updateFields },
+    { projection: Seller.getHiddenFields(),
+     new: false, upsert: true }, (error, seller) => {
+    if (error) {
+      res.status(500).json({ status: constants.fail });
+      return;
+    }
+
+    if (updateFieldsOfImage.length > 0) {
+      const db = mongoose.connection.db;
+      const mongoDriver = mongoose.mongo;
+      const gfs = new Gridfs(db, mongoDriver);
+
+      for (let i = 0; i < updateFieldsOfImage.length; i++) {
+        if (seller[updateFieldsOfImage[i]]
+          && seller[updateFieldsOfImage[i]] !== ''
+          && seller[updateFieldsOfImage[i]] !== req.body[updateFieldsOfImage[i]]) {
+          gfs.remove({ filename: seller[updateFieldsOfImage[i]] }, (erro) => {
+            if (erro) {
+              console.log(erro);
+            }
+          });
+        }
+      }
+    }
+
+    Seller.findOne({ email: email },
+      Seller.getHiddenFields(), (er, updatedSeller) => {
+        if (er) {
+          res.json({ status: constants.fail });
+          return;
+        }
+        res.json({ status: constants.success, seller: updatedSeller});
+        });
+  });
+};
 module.exports = (req, res) => {
   const token = req.headers.authorization;
   if (!token) {
@@ -45,7 +83,6 @@ module.exports = (req, res) => {
       return;
     }
     const updateFields = {};
-    if (req.body.kitchenName) updateFields.kitchenName = req.body.kitchenName;
     if (req.body.kitchenDescription) updateFields.kitchenDescription = req.body.kitchenDescription;
     if (req.body.firstName) updateFields.firstName = req.body.firstName;
     if (req.body.lastName) updateFields.lastName = req.body.lastName;
@@ -59,41 +96,17 @@ module.exports = (req, res) => {
       updateFields.profileImage = req.body.profileImage;
       updateFieldsOfImage.push('profileImage');
     }
-
-    Seller.findOneAndUpdate({ email: decoded.email }, { $set: updateFields },
-      { projection: Seller.getHiddenFields(),
-       new: false, upsert: true }, (error, seller) => {
-      if (error) {
-        res.status(500).json({ status: constants.fail });
-        return;
-      }
-
-      if (updateFieldsOfImage.length > 0) {
-        const db = mongoose.connection.db;
-        const mongoDriver = mongoose.mongo;
-        const gfs = new Gridfs(db, mongoDriver);
-
-        for (let i = 0; i < updateFieldsOfImage.length; i++) {
-          if (seller[updateFieldsOfImage[i]]
-            && seller[updateFieldsOfImage[i]] !== ''
-            && seller[updateFieldsOfImage[i]] !== req.body[updateFieldsOfImage[i]]) {
-            gfs.remove({ filename: seller[updateFieldsOfImage[i]] }, (erro) => {
-              if (erro) {
-                console.log(erro);
-              }
-            });
-          }
-        }
-      }
-
-      Seller.findOne({ email: decoded.email },
-        Seller.getHiddenFields(), (er, updatedSeller) => {
-          if (er) {
-            res.json({ status: constants.fail });
+    if (req.body.kitchenName) {
+      Seller.findOne({ kitchenName: req.body.kitchenName }, (err, seller) => {
+        if (err || (seller && seller.kitchenName !== req.body.kitchenName)) {
+            res.status(400).json({ status: 'kitch name duplicated' });
             return;
-          }
-          res.json({ status: constants.success, seller: updatedSeller});
-          });
-    });
+        }
+        updateFields.kitchenName = req.body.kitchenName;
+        updateSeller(req, res, decoded.email, updateFields, updateFieldsOfImage);
+      });
+    } else {
+      updateSeller(req, res, decoded.email, updateFields, updateFieldsOfImage);
+    }
   });
 };
