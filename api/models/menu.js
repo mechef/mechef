@@ -18,5 +18,16 @@ const MenuSchema = new mongoose.Schema({
   publish: Boolean
 }, { versionKey: false, });
 
+MenuSchema.methods.toKitchenMenu = function() {
+  return {
+    dishName: this.dishName,
+    unitPrice: this.unitPrice,
+    quantity: this.quantity,
+    description: this.description,
+    images: this.images,
+    _id: this._id
+  }
+};
+
 // Export the Mongoose model
 module.exports = mongoose.model('Menu', MenuSchema);
