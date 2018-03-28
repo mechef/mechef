@@ -66,7 +66,6 @@ class DishPage extends React.Component<Props, State> {
       images: images ? [...images] : [],
       description: description,
     };
-    console.log('order', order)
     this.props.addToCart$(order);
     // TODO: add notification or redirect to cart page
   }

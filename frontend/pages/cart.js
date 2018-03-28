@@ -16,7 +16,7 @@ import { fontSize } from '../utils/styleVariables';
 type Props = {
   cart: CartObject,
   removeFromCart$: (index: number) => Rx.Observable,
-  modifyOrderInCart$: (index: number, update: Object) => Rx.Observable,
+  modifyOrderInCart$: (update: CartOrderObject) => Rx.Observable,
 };
 
 type State = {
@@ -36,19 +36,15 @@ class Cart extends React.PureComponent<Props, State> {
       orders: [ ...props.cart.orders ],
       subTotal,
       shipping,
-      total: subTotal + shipping,
+      total: subTotal,
     };
 
     this.onOrderModified = this.onOrderModified.bind(this);
     this.onRemoveButtonClicked = this.onRemoveButtonClicked.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const subTotal = this.calculateSubTotal(nextProps.cart.orders);
-    this.setState({
-      subTotal,
-      total: subTotal,
-    });
+  componentWillReceiveProps(nextProps: Props) {
+    this.updatePrices(nextProps.cart.orders);
   }
 
   formatPrice: Function;
@@ -71,13 +67,23 @@ class Cart extends React.PureComponent<Props, State> {
   }
 
   onOrderModified: Function;
-  onOrderModified(id: number, update: Object) {
-    this.props.modifyOrderInCart$(id, update);
+  onOrderModified(update: CartOrderObject) {
+    this.props.modifyOrderInCart$(update);
   }
 
   onRemoveButtonClicked: Function;
   onRemoveButtonClicked(id: number) {
     this.props.removeFromCart$(id);
+  }
+
+  updatePrices: Function;
+  updatePrices(orders: Array<CartOrderObject>) {
+    const subTotal = this.calculateSubTotal(orders);
+    const total = subTotal;
+    this.setState({
+      subTotal,
+      total,
+    });
   }
 
   render() {

@@ -47,9 +47,9 @@ const cartReducer$ = Rx.Observable.of(() => initialState)
         order._id === id ? orders : [ ...orders, order ]
       ), []),
     })),
-    cartActions.modifyOrderInCart$.map((id, update) => (state) => ({
+    cartActions.modifyOrderInCart$.map((orderUpdate) => (state) => ({
       ...state,
-      orders: state.orders.map((order) => order._id === id ? { ...order, ...update } : order),
+      orders: state.orders.map((order) => order._id === orderUpdate._id ? { ...order, ...orderUpdate } : order),
     })),
   );
 

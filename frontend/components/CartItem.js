@@ -9,7 +9,7 @@ import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
   order: CartOrderObject,
-  onOrderModified: (id: number, quantity: number) => Function,
+  onOrderModified: (update: CartOrderObject) => Function,
   onOrderRemoved: (id: number) => Function,
 };
 
@@ -46,9 +46,14 @@ class CartItem extends React.Component<Props, State> {
     const update = {
       quantity: newQuantity,
       subTotal: this.calculateSubTotal(newQuantity, this.state.unitPrice),
-    }
-    this.setState(update)
-    this.props.onOrderModified(this.props.order._id, update);
+    };
+    this.setState(update);
+
+    const orderUpdate = {
+      _id: this.props.order._id,
+      ...update,
+    };
+    this.props.onOrderModified(orderUpdate);
   }
 
   onRemoveButtonClicked: Function;
