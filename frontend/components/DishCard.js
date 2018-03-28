@@ -9,6 +9,7 @@ import {
   whiteColor,
   textColor,
   borderRadius,
+  addToCartButtonHeight,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -49,6 +50,8 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
         .dish-card__content {
           flex: 0 0 277px;
           overflow: hidden;
+          height: calc(100% - ${addToCartButtonHeight});
+          max-height: 312px;
         }
         .dish-card__image-container {
           border-top-left-radius: ${borderRadius};

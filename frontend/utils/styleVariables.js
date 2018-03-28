@@ -57,6 +57,9 @@ export const hintModalColor = '#9b9b9b';
 // Cart Button
 export const badgeBackgroundColor = '#8cc63f';
 
+// Add To Cart Button
+export const addToCartButtonHeight = '49px';
+
 // Dish Page
 export const dishPageImageSize = '250px';
 export const dishPageRightHorizontalMargin = '45px';

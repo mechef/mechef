@@ -2,6 +2,10 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
+import {
+  addToCartButtonHeight,
+} from '../utils/styleVariables';
+
 type Props = {
   onAddToCartClick: Function,
 };
@@ -18,7 +22,7 @@ const AddToCartButton = ({ onAddToCartClick }: Props) => (
         }
         .addToCartButton {
           width: 228px;
-          height: 49px;
+          height: ${addToCartButtonHeight};
           border-radius: 4px;
           background-color: #3e9f40;
           color: #ffffff;

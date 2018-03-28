@@ -108,8 +108,11 @@ class CartItem extends React.Component<Props, State> {
               display: flex;
             }
             .cart-item__image {
-              width: 160px;
+              display: flex;
+              flex-basis: 160px;
               height: 100%;
+              flex-grow: 0;
+              flex-shrink: 0;
               background-repeat: no-repeat;
               background-size: contain;
               background-position: center;
@@ -157,10 +160,9 @@ class CartItem extends React.Component<Props, State> {
             }
             .cart-item__modifier {
               align-self: center;
-              width: 250px;
             }
             .cart-item__modifier :global(.ServingModifierHandler--plus),
-            .cart-item__modifier :global(.ServingModifierHandler--plus-disabled),
+            .cart-item__modifier :global(.ServingModifierHandler--plus--disabled),
             .cart-item__modifier :global(.ServingModifierHandler--minus),
             .cart-item__modifier :global(.ServingModifierHandler--minus--disabled) {
               border: 1px solid #3f9f40;
@@ -176,12 +178,18 @@ class CartItem extends React.Component<Props, State> {
             }
             .cart-item__subTotal {
               align-self: center;
-              margin-left: auto;
+              margin-left: 8px;
               margin-right: 35px;
+              display: inline-flex;
+              flex-grow: 1;
+              flex-basis: auto;
+              justify-content: flex-end;
             }
             .cart-item__remove {
-              width: 16px;
+              display: flex;
+              flex-basis: 16px;
               height: 16px;
+              flex-shrink: 0;
               align-self: center;
               cursor: pointer;
               background-image: url('/static/svg/cancel-grey.svg');

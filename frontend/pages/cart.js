@@ -89,12 +89,6 @@ class Cart extends React.PureComponent<Props, State> {
   render() {
     const { cart } = this.props;
 
-    const renderNoOrder = () => {
-      return (
-        <div className="cart-content__no-order">No Order</div>
-      );
-    };
-
     const renderOrders = (orders) => {
       return (
         <div className="cart-content">
@@ -126,23 +120,27 @@ class Cart extends React.PureComponent<Props, State> {
           {
             cart.orders && cart.orders.length > 0 ?
               renderOrders(cart.orders) :
-              renderNoOrder()
+              <div className="cart-content__no-order">Cart is empty</div>
           }
-          <div className="cart-footer">
-            <div className="cart-footer__item">
-              <span className="cart-footer__item__label">SUBTOTAL</span>
-              <span>{this.formatPrice(this.state.subTotal)}</span>
-            </div>
-            <div className="cart-footer__item">
-              <span className="cart-footer__item__label">SHIPPING</span>
-              <span>{this.formatPrice(this.state.shipping)}</span>
-            </div>
-            <hr />
-            <div className="cart-footer__item">
-              <span className="cart-footer__item__label">TOTAL</span>
-              <span>{this.formatPrice(this.state.total)}</span>
-            </div>
-          </div>
+          {
+            cart.orders && cart.orders.length > 0 ?
+              <div className="cart-footer">
+                <div className="cart-footer__item">
+                  <span className="cart-footer__item__label">SUBTOTAL</span>
+                  <span>{this.formatPrice(this.state.subTotal)}</span>
+                </div>
+                <div className="cart-footer__item">
+                  <span className="cart-footer__item__label">SHIPPING</span>
+                  <span>{this.formatPrice(this.state.shipping)}</span>
+                </div>
+                <hr />
+                <div className="cart-footer__item">
+                  <span className="cart-footer__item__label">TOTAL</span>
+                  <span>{this.formatPrice(this.state.total)}</span>
+                </div>
+              </div> :
+              null
+          }
         </div>
         <BuyerFooter />
         <style jsx>
@@ -159,6 +157,7 @@ class Cart extends React.PureComponent<Props, State> {
             }
             .cart {
               margin: 0 100px;
+              min-width: 596px;
             }
             .cart-header {
               width: 100%;
@@ -170,8 +169,12 @@ class Cart extends React.PureComponent<Props, State> {
               text-align: center;
             }
             .cart-content__no-order {
-              text-align: center;
-              width: 100%;
+              display: flex;
+              justify-content: center;
+              flex-basis: auto;
+              flex-grow: 1;
+              align-items: center;
+              min-height: 120px;
             }
             .cart-footer {
               line-height: 24px;

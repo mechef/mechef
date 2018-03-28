@@ -124,6 +124,7 @@ class DishModal extends React.Component<Props, State> {
             .dish-modal__content {
               display: inline-flex;
               width: calc(100% - 294px);
+              max-width: 421px;
               height: 100%;
               vertical-align: top;
               flex-direction: column;
