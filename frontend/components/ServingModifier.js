@@ -3,6 +3,11 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
+import {
+  fontSize,
+  smallIconSize,
+} from '../utils/styleVariables';
+
 type Props = {
   maxServing?: number,
   quantity?: number,
@@ -103,16 +108,16 @@ class ServingModifier extends React.Component<Props, State> {
             .ServingModifierHandler--minus,
             .ServingModifierHandler--minus--disabled {
               display: inline-block;
-              height: 16px;
-              width: 16px;
+              height: ${smallIconSize};
+              width: ${smallIconSize};
               cursor: pointer;
               background-image: url('/static/svg/ic-minus.svg');
             }
             .ServingModifierHandler--plus,
             .ServingModifierHandler--plus--disabled {
               display: inline-block;
-              height: 16px;
-              width: 16px;
+              height: ${smallIconSize};
+              width: ${smallIconSize};
               cursor: pointer;
               background-image: url('/static/svg/ic-plus.svg');
             }
@@ -123,7 +128,7 @@ class ServingModifier extends React.Component<Props, State> {
               pointer-events: none;
             }
             .ServingModifierDisplay {
-              font-size: 14px;
+              font-size: ${fontSize};
               line-height: 1;
               min-width: 30px;
               text-align: center;

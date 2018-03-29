@@ -15,6 +15,7 @@ import {
   borderRadius,
   whiteColor,
   textColor,
+  fontSize,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -163,7 +164,7 @@ class DishModal extends React.Component<Props, State> {
               white-space: nowrap;
               color: ${textColor};
               width: 228px;
-              font-size: 14px;
+              font-size: ${fontSize};
               line-height: 1.2;
               margin-top: 20px;
             }

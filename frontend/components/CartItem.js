@@ -6,6 +6,15 @@ import ServingModifier from './ServingModifier';
 
 import type { CartOrderObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
+import {
+  borderRadius,
+  greyBackgroundColor,
+  fontWeight,
+  smallIconSize,
+  textHintColor,
+  textColor,
+  secondaryBtnHoverColor,
+} from '../utils/styleVariables';
 
 type Props = {
   order: CartOrderObject,
@@ -116,7 +125,7 @@ class CartItem extends React.Component<Props, State> {
               background-repeat: no-repeat;
               background-size: contain;
               background-position: center;
-              background-color: #d8d8d8;
+              background-color: ${greyBackgroundColor};
             }
             .cart-item__dish-detail {
               padding-left: 18px;
@@ -130,10 +139,10 @@ class CartItem extends React.Component<Props, State> {
             }
             .cart-item__dish-detail__name {
               font-size: 20px;
-              font-weight: 500;
+              font-weight: ${fontWeight};
               line-height: 0.8;
               letter-spacing: 0.8px;
-              color: #4a4a4a;
+              color: ${textColor};
               padding-bottom: 12px;
             }
             .cart-item__dish-detail__error {
@@ -145,7 +154,7 @@ class CartItem extends React.Component<Props, State> {
               font-size: 12px;
               line-height: 1.5;
               letter-spacing: 0.5px;
-              color: #9b9b9b;
+              color: ${textHintColor};
               overflow: hidden;
               position: relative;
             }
@@ -165,8 +174,8 @@ class CartItem extends React.Component<Props, State> {
             .cart-item__modifier :global(.ServingModifierHandler--plus--disabled),
             .cart-item__modifier :global(.ServingModifierHandler--minus),
             .cart-item__modifier :global(.ServingModifierHandler--minus--disabled) {
-              border: 1px solid #3f9f40;
-              border-radius: 4px;
+              border: 1px solid ${secondaryBtnHoverColor};
+              border-radius: ${borderRadius};
               width: 30px;
               height: 30px;
               background-repeat: no-repeat;
@@ -187,8 +196,8 @@ class CartItem extends React.Component<Props, State> {
             }
             .cart-item__remove {
               display: flex;
-              flex-basis: 16px;
-              height: 16px;
+              flex-basis: ${smallIconSize};
+              height: ${smallIconSize};
               flex-shrink: 0;
               align-self: center;
               cursor: pointer;

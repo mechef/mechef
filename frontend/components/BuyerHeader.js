@@ -6,6 +6,10 @@ import CartButton from './CartButton';
 
 import { connect } from '../state/RxState';
 import type { CartObject } from '../utils/flowTypes';
+import {
+  textColor,
+  whiteColor,
+} from '../utils/styleVariables';
 
 type Props = {
   cart: CartObject,
@@ -38,7 +42,7 @@ const BuyerHeader = ({ cart }) => (
           align-items: center;
           width: 100%;
           height: 90px;
-          background-color: #ffffff;
+          background-color: ${whiteColor};
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
           font-family: Ubuntu;
         }
@@ -62,7 +66,7 @@ const BuyerHeader = ({ cart }) => (
           font-size: 15px;
           line-height: 1;
           letter-spacing: 0.6;
-          color: #4a4a4a;
+          color: ${textColor};
           margin-right: 30px;
         }
       `}

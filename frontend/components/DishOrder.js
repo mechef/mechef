@@ -4,9 +4,14 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 
 import ServingModifier from './ServingModifier';
+import TextAreaInput from './TextAreaInput';
 
 import {
   fontSize,
+  fontWeight,
+  textColor,
+  borderRadius,
+  secondaryBtnHoverColor,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -87,12 +92,11 @@ class DishOrder extends React.Component<Props, State> {
       <div className="dish-order">
         <div className="dish-order__field dish-order__field--column">
           <div className="dish-order__note">Note to seller</div>
-          <textarea
-            className="dish-order__note-input"
-            autoComplete="off"
+          <TextAreaInput
             placeholder="Any preference? Let the seller know here..."
+            value={this.state.messageFromBuyer}
             onChange={this.onNoteChange}
-          ></textarea>
+          />
         </div>
         <div className="dish-order__field dish-order__field--row">
           <span className="dish-order__field-name">Quantity</span>
@@ -110,7 +114,7 @@ class DishOrder extends React.Component<Props, State> {
         <style jsx>
           {`
             .dish-order {
-              color: #4a4a4a;
+              color: ${textColor};
               font-size: ${fontSize};
               letter-spacing: 0.6;
             }
@@ -119,13 +123,17 @@ class DishOrder extends React.Component<Props, State> {
               font-size: ${fontSize};
               line-height: 1;
             }
+            .dish-order global:(.textAreaInput) {
+              max-width: 250px;
+              max-height: 120px;
+            }
             .dish-order__note-input {
               max-width: 250px;
               max-height: 120px;
               width: 100%;
               height: 120px;
-              border-radius: 4px;
-              border: solid 1px #979797;
+              border-radius: ${borderRadius};
+              border: solid 1px ${secondaryBtnHoverColor};
               outline: 0;
             }
             .dish-order__field--row {
@@ -140,7 +148,7 @@ class DishOrder extends React.Component<Props, State> {
             .dish-order__field-name,
             .dish-order__subtotal,
             .dish-order__quanity {
-              color: #4a4a4a;
+              color: ${textColor};
               font-size: ${fontSize};
               line-height: 1;
               letter-spacing: 0.6px;
@@ -150,7 +158,7 @@ class DishOrder extends React.Component<Props, State> {
             }
             .dish-order__subtotal,
             .dish-order__quanity {
-              font-weight: 500;
+              font-weight: ${fontWeight};
             }
           `}
         </style>

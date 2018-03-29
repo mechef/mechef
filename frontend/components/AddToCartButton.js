@@ -4,6 +4,12 @@ import Rx from 'rxjs/Rx';
 
 import {
   addToCartButtonHeight,
+  addToCartButtonWidth,
+  primaryColor,
+  primaryBtnHoverColor,
+  btnTextColor,
+  borderRadius,
+  fontSize,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -21,19 +27,19 @@ const AddToCartButton = ({ onAddToCartClick }: Props) => (
           justify-content: center;
         }
         .addToCartButton {
-          width: 228px;
+          width: ${addToCartButtonWidth};
           height: ${addToCartButtonHeight};
-          border-radius: 4px;
-          background-color: #3e9f40;
-          color: #ffffff;
-          font-size: 14px;
+          border-radius: ${borderRadius};
+          background-color: ${primaryColor};
+          color: ${btnTextColor};
+          font-size: ${fontSize};
           cursor: pointer;
           box-shadow: none;
           outline: none;
           border: none;
         }
         .addToCartButton:hover {
-          background-color: #367d36;
+          background-color: ${primaryBtnHoverColor};
         }
       `}
     </style>
