@@ -15,7 +15,7 @@ type Props = {
       dish?: string,
     },
   },
-}
+};
 
 type State = {
   kitchen: string,

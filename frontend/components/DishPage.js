@@ -8,12 +8,14 @@ import DishOrder from './DishOrder';
 import AddToCartButton from './AddToCartButton';
 import DishDeliveryOption from './DishDeliveryOption';
 import type { DishOrderType } from './DishOrder';
+import Spinner from './Spinner';
 
 import { connect } from '../state/RxState';
 import cartActions from '../actions/cartActions';
+import kitchenActions from '../actions/kitchenActions';
 import errorActions from '../actions/errorActions';
 
-import type { MenuObject } from '../utils/flowTypes';
+import type { KitchenObject, MenuObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 import {
   primaryColor,
@@ -27,8 +29,10 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  dish: MenuObject,
+  kitchen: KitchenObject,
+  dishId: string,
   addToCart$: (order: DishOrderType) => Rx.Observable,
+  fetchDish$: (dishId: string) => Rx.Observable,
 };
 
 type State = DishOrderType;
@@ -37,8 +41,10 @@ class DishPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const unitPrice = Number(props.dish.unitPrice) || 0;
-    const maxServing = Number(props.dish.quantity) || 0;
+    const currentDish = props.kitchen.currentDish || {};
+
+    const unitPrice = Number(currentDish.unitPrice) || 0;
+    const maxServing = Number(currentDish.quantity) || 0;
     this.state = {
       unitPrice,
       maxServing,
@@ -51,6 +57,10 @@ class DishPage extends React.Component<Props, State> {
     this.addToCartClicked = this.addToCartClicked.bind(this);
   }
 
+  componentDidMount() {
+    this.props.fetchDish$(this.props.dishId);
+  }
+
   onOrderChanged: Function;
   onOrderChanged(order: DishOrderType) {
     this.setState(order);
@@ -58,7 +68,10 @@ class DishPage extends React.Component<Props, State> {
 
   addToCartClicked: Function;
   addToCartClicked() {
-    const { _id, dishName, images, description } = this.props.dish;
+    if (!this.props.kitchen.currentDish) {
+      return;
+    }
+    const { _id, dishName, images, description } = this.props.kitchen.currentDish;
     const order = {
       ...this.state,
       dishId: _id,
@@ -71,7 +84,7 @@ class DishPage extends React.Component<Props, State> {
   }
 
   render() {
-    const { dish } = this.props;
+    const { currentDish } = this.props.kitchen;
 
     const renderDeliveryOptions = (deliveryList) => (
       deliveryList && deliveryList.reduce((all, deliveryOption) => {
@@ -89,144 +102,151 @@ class DishPage extends React.Component<Props, State> {
 
     return (
       <div className="dish-page">
-        <div className="dish-page__main">
-          <div className="dish-page__left">
-            <div className="dish-page__left__header">
-              <div className="dish-page__left__header--left">
-                <ImageSlider images={dish.images} />
-              </div>
-              <div className="dish-page__left__header--right">
-                <div className="dish-page__left__header__row">
-                  <div className="dish-page__left__dish-name">
-                    { dish.dishName }
+        { this.props.kitchen.isLoading ? <Spinner /> : null }
+        {
+          currentDish && currentDish.dishName ?
+            <div className="dish-page__main">
+              <div className="dish-page__left">
+                <div className="dish-page__left__header">
+                  <div className="dish-page__left__header--left">
+                    <ImageSlider images={currentDish.images} />
                   </div>
-                  <div className="dish-page__left__dish-delivery">
-                    {
-                      renderDeliveryOptions(dish.deliveryList)
-                    }
+                  <div className="dish-page__left__header--right">
+                    <div className="dish-page__left__header__row">
+                      <div className="dish-page__left__dish-name">
+                        { currentDish.dishName }
+                      </div>
+                      <div className="dish-page__left__dish-delivery">
+                        {
+                          renderDeliveryOptions(currentDish.deliveryList)
+                        }
+                      </div>
+                    </div>
+                    <div className="dish-page__left__header__row">
+                      <div className="dish-page__left__header__title">Remaining Quantity</div>
+                      <div className="dish-page__left__header__field">{currentDish.quantity}</div>
+                    </div>
+                    <div className="dish-page__left__header__row">
+                      <div className="dish-page__left__header__title">Unit Price</div>
+                      <div className="dish-page__left__header__field">{currentDish.unitPrice}</div>
+                    </div>
                   </div>
                 </div>
-                <div className="dish-page__left__header__row">
-                  <div className="dish-page__left__header__title">Remaining Quantity</div>
-                  <div className="dish-page__left__header__field">{dish.quantity}</div>
-                </div>
-                <div className="dish-page__left__header__row">
-                  <div className="dish-page__left__header__title">Unit Price</div>
-                  <div className="dish-page__left__header__field">{dish.unitPrice}</div>
-                </div>
-              </div>
-            </div>
-            <hr className="dish-page__left__header-divider" />
-            <div className="dish-page__left__section">
-              <div className="dish-page__left__field-title">
-                Description
-              </div>
-              <div className="dish-page__left__field-content">
-                description
-              </div>
-            </div>
-            <div className="dish-page__left__section">
-              <div className="dish-page__left__section__cell">
-                <div className="dish-page__left__field-title">
-                  Serving
-                </div>
-                <div className="dish-page__left__field-content">
-                  {
-                    dish.serving ?
-                      `${dish.serving} People` :
-                      '-'
-                  }
-                </div>
-              </div>
-              <div className="dish-page__left__section__cell">
-                <div className="dish-page__left__field-title">
-                  Preparation Time
-                </div>
-                <div className="dish-page__left__field-content">
-                  {
-                    dish.cookingBuffer ?
-                      `${dish.cookingBuffer} Days` :
-                      '-'
-                  }
-                </div>
-              </div>
-            </div>
-            {
-              dish.category && dish.category.length > 0 &&
-              <div className="dish-page__left__section">
-                <div className="dish-page__left__field-title dish-page__left__category">
-                  Category
-                </div>
-                <div className="dish-page__left__field-content">
-                  {
-                    dish.category.map(categoryText => (
-                      <div
-                        className="dish-page__left__field-content__label"
-                        key={categoryText}
-                      >
-                        {categoryText}
-                      </div>
-                    ))
-                  }
-                </div>
-              </div>
-            }
-            {
-              dish.ingredients && dish.ingredients.length > 0 &&
-              <div className="dish-page__left__section">
-                <div className="dish-page__left__field-title  dish-page__left__ingredients">
-                  Ingredients
-                </div>
-                <div className="dish-page__left__field-content">
-                  {
-                    dish.ingredients.map(ingredient => (
-                      <div
-                        className="dish-page__left__field-content__label"
-                        key={ingredient}
-                      >
-                        {ingredient}
-                      </div>
-                    ))
-                  }
-                </div>
-              </div>
-            }
-            <hr className="dish-page__left__section-divider" />
-            <div className="dish-page__left__section">
-              <div className="dish-page__left__field-title">
-                Delivery
-              </div>
-              {
-                dish.deliveryList && dish.deliveryList.length > 0 ?
+                <hr className="dish-page__left__header-divider" />
+                <div className="dish-page__left__section">
+                  <div className="dish-page__left__field-title">
+                    Description
+                  </div>
                   <div className="dish-page__left__field-content">
-                    {
-                      dish.deliveryList.map((deliveryOption) => (
-                        <DishDeliveryOption
-                          {...deliveryOption}
-                          key={deliveryOption._id} />
-                      ))
-                    }
-                  </div> :
-                  <div>-</div>
-              }
+                    description
+                  </div>
+                </div>
+                <div className="dish-page__left__section">
+                  <div className="dish-page__left__section__cell">
+                    <div className="dish-page__left__field-title">
+                      Serving
+                    </div>
+                    <div className="dish-page__left__field-content">
+                      {
+                        currentDish.serving ?
+                          `${currentDish.serving} People` :
+                          '-'
+                      }
+                    </div>
+                  </div>
+                  <div className="dish-page__left__section__cell">
+                    <div className="dish-page__left__field-title">
+                      Preparation Time
+                    </div>
+                    <div className="dish-page__left__field-content">
+                      {
+                        currentDish.cookingBuffer ?
+                          `${currentDish.cookingBuffer} Days` :
+                          '-'
+                      }
+                    </div>
+                  </div>
+                </div>
+                {
+                  currentDish.category && currentDish.category.length > 0 &&
+                  <div className="dish-page__left__section">
+                    <div className="dish-page__left__field-title dish-page__left__category">
+                      Category
+                    </div>
+                    <div className="dish-page__left__field-content">
+                      {
+                        currentDish.category.map(categoryText => (
+                          <div
+                            className="dish-page__left__field-content__label"
+                            key={categoryText}
+                          >
+                            {categoryText}
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </div>
+                }
+                {
+                  currentDish.ingredients && currentDish.ingredients.length > 0 &&
+                  <div className="dish-page__left__section">
+                    <div className="dish-page__left__field-title  dish-page__left__ingredients">
+                      Ingredients
+                    </div>
+                    <div className="dish-page__left__field-content">
+                      {
+                        currentDish.ingredients.map(ingredient => (
+                          <div
+                            className="dish-page__left__field-content__label"
+                            key={ingredient}
+                          >
+                            {ingredient}
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </div>
+                }
+                <hr className="dish-page__left__section-divider" />
+                <div className="dish-page__left__section">
+                  <div className="dish-page__left__field-title">
+                    Delivery
+                  </div>
+                  {
+                    currentDish.deliveryList && currentDish.deliveryList.length > 0 ?
+                      <div className="dish-page__left__field-content">
+                        {
+                          currentDish.deliveryList.map((deliveryOption) => (
+                            <DishDeliveryOption
+                              {...deliveryOption}
+                              key={deliveryOption._id} />
+                          ))
+                        }
+                      </div> :
+                      <div>Delivery Not Available</div>
+                  }
+                </div>
+              </div>
+              <div className="dish-page__right">
+                <div className="dish-page__right__header">Your Order</div>
+                <hr />
+                <div className="dish-page__right__order-detail">
+                  <DishOrder
+                    price={currentDish.unitPrice}
+                    maxServing={currentDish.quantity}
+                    onOrderChange={this.onOrderChanged}
+                  />
+                </div>
+                <hr/>
+                <div className="dish-page__right__footer">
+                  <AddToCartButton onAddToCartClick={this.addToCartClicked} />
+                </div>
+              </div>
+            </div> :
+            <div className="dish-not-found">
+              Oops, dish not found
             </div>
-          </div>
-          <div className="dish-page__right">
-            <div className="dish-page__right__header">Your Order</div>
-            <hr />
-            <div className="dish-page__right__order-detail">
-              <DishOrder
-                price={dish.unitPrice}
-                maxServing={dish.quantity}
-                onOrderChange={this.onOrderChanged}
-              />
-            </div>
-            <hr/>
-            <div className="dish-page__right__footer">
-              <AddToCartButton onAddToCartClick={this.addToCartClicked} />
-            </div>
-          </div>
-        </div>
+        }
         <div className="dish-page__footer">
           <div className="dish-page__footer__image" />
           <div className="dish-page__footer__question">
@@ -250,6 +270,13 @@ class DishPage extends React.Component<Props, State> {
               min-height: 100%;
               display: flex;
               flex-direction: row;
+            }
+            .dish-not-found {
+              width: 100%;
+              min-height: 300px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
             }
             .dish-page__left {
               max-width: calc(100% - ${dishPageRightWidth});
@@ -453,11 +480,12 @@ class DishPage extends React.Component<Props, State> {
   }
 }
 
-const stateSelector = ({ error, global }) => ({ error });
+const stateSelector = ({ kitchen, error, global }) => ({ kitchen, error });
 
 const actionSubjects = {
   ...errorActions,
   ...cartActions,
+  ...kitchenActions,
 };
 
 export default connect(stateSelector, actionSubjects)(DishPage);

@@ -9,6 +9,7 @@ import errorActions from '../actions/errorActions';
 
 import KitchenPage from './KitchenPage';
 import DishPage from './DishPage';
+import Spinner from './Spinner';
 
 import type { KitchenObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
@@ -18,8 +19,8 @@ type Props = {
     kitchen: string,
     dish?: string,
   },
-  kitchen: KitchenObject,
-  fetchKitchen$: () => Rx.Observable,
+  kitchen?: KitchenObject,
+  fetchKitchen$: (kitchen: string) => Rx.Observable,
   setLoading$: boolean => Rx.Subject,
 };
 
@@ -29,22 +30,20 @@ class KitchenPageRouter extends React.Component<Props> {
   }
 
   componentDidMount() {
-    this.props.fetchKitchen$(); // TODO: fetch kitchen using this.props.query
+    this.props.fetchKitchen$(this.props.query.kitchen);
   }
 
   render() {
     const { kitchen, query } = this.props;
-    const dish = kitchen.dishes && kitchen.dishes.find(dish => dish._id === query.dish);
 
     return (
       <div className="kitchen">
         <div className="kitchen-cover" />
+        { !kitchen || kitchen.isLoading ? <Spinner /> : null }
         {
-          dish ?
-            <DishPage dish={dish} /> :
-            !query.dish ?
-              <KitchenPage kitchenQuery={query.kitchen} kitchen={kitchen} /> :
-              null
+          !query.dish ?
+            <KitchenPage kitchenQuery={query.kitchen} kitchen={kitchen} /> :
+            <DishPage dishId={query.dish} />
         }
         <style jsx>
           {`
@@ -57,7 +56,7 @@ class KitchenPageRouter extends React.Component<Props> {
               background-repeat: no-repeat;
               background-size: cover;
               background-position: center;
-              background-image: url('${kitchen.coverPhoto ? `${IMAGE_URL}/${kitchen.coverPhoto}` : '/static/pancake.jpg'}'), url('/static/pancake.jpg');
+              background-image: url('${kitchen && kitchen.coverPhoto ? `${IMAGE_URL}/${kitchen.coverPhoto}` : '/static/pancake.jpg'}'), url('/static/pancake.jpg');
             }
           `}
         </style>

@@ -40,7 +40,7 @@ class KitchenPage extends React.Component<Props, State> {
 
   showDishModal: Function;
   showDishModal(dishId: string) {
-    const found = this.props.kitchen.dishes && this.props.kitchen.dishes.find((dish) => dish._id == dishId);
+    const found = this.props.kitchen.menuList && this.props.kitchen.menuList.find((dish) => dish._id == dishId);
     this.setState({ displayedProduct: found });
   }
 
@@ -68,7 +68,7 @@ class KitchenPage extends React.Component<Props, State> {
 
   renderDishes: Function;
   renderDishes = () => {
-    return this.props.kitchen.dishes && this.props.kitchen.dishes.map(dish => (
+    return this.props.kitchen.menuList && this.props.kitchen.menuList.map(dish => (
       <DishCard
         {...dish}
         key={dish._id}
@@ -80,6 +80,26 @@ class KitchenPage extends React.Component<Props, State> {
 
   render() {
     const { kitchen } = this.props;
+
+    if (!kitchen.kitchenName) {
+      return (
+        <div className="kitchen-not-found">
+          <span>Kitchen Not Found</span>
+          <style jsx>
+            {`
+              .kitchen-not-found {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                min-height: 300px;
+              }
+            `}
+          </style>
+        </div>
+      );
+    }
+
     return (
       <div className="kitchen-main">
         <KitchenHeader
@@ -89,7 +109,7 @@ class KitchenPage extends React.Component<Props, State> {
         />
         <div className="kitchen-display">
           {
-            kitchen.dishes && kitchen.dishes.length > 0 ?
+            kitchen.menuList && kitchen.menuList.length > 0 ?
               this.renderDishes() :
               !kitchen.isLoading ? <KitchenClosedComponent /> : null
           }
