@@ -31,26 +31,44 @@ const cartReducer$ = Rx.Observable.of(() => initialState)
       ...state,
       isLoading,
     })),
-    cartActions.addToCart$.map((order) => (state) => ({
-      ...state,
-      orders: [
-        ...state.orders,
-        {
-          ...order,
-          _id: Date.now(),
-        },
-      ],
-    })),
-    cartActions.removeFromCart$.map((id) => (state) => ({
-      ...state,
-      orders: state.orders.reduce((orders, order) => (
-        order._id === id ? orders : [ ...orders, order ]
-      ), []),
-    })),
-    cartActions.modifyOrderInCart$.map((orderUpdate) => (state) => ({
-      ...state,
-      orders: state.orders.map((order) => order._id === orderUpdate._id ? { ...order, ...orderUpdate } : order),
-    })),
+    cartActions.addToCart$.map((order) => (state) => {
+      const newCart = {
+        orders: [
+          ...state.orders,
+          {
+            ...order,
+            _id: Date.now(),
+          },
+        ]
+      };
+      window.localStorage.setItem('cart', JSON.stringify(newCart));
+      return {
+        ...state,
+        orders: [ ...newCart.orders ],
+      };
+    }),
+    cartActions.removeFromCart$.map((id) => (state) => {
+      const newCart = {
+        orders: state.orders.reduce((orders, order) => (
+          order._id === id ? orders : [ ...orders, order ]
+        ), []),
+      };
+      window.localStorage.setItem('cart', JSON.stringify(newCart));
+      return {
+        ...state,
+        orders: [ ...newCart.orders ],
+      }
+    }),
+    cartActions.modifyOrderInCart$.map((orderUpdate) => (state) => {
+      const newCart = {
+        orders: state.orders.map((order) => order._id === orderUpdate._id ? { ...order, ...orderUpdate } : order),
+      };
+      window.localStorage.setItem('cart', JSON.stringify(newCart));
+      return {
+        ...state,
+        orders: [ ...newCart.orders ],
+      };
+    }),
   );
 
 export default cartReducer$;
