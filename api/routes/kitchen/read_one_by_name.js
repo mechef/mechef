@@ -1,4 +1,5 @@
 const Kitchen = require('../../models/kitchen');
+const Delivery = require('../../models/delivery');
 const Menu = require('../../models/menu');
 const Seller = require('../../models/seller');
 const constants = require('../../utils/constants');
@@ -19,16 +20,32 @@ module.exports = (req, res) => {
     const query = Menu.find({ email: seller.email, publish: true });
     query.then((menuList) => {
       if (menuList) {
-        const kitchen = new Kitchen(
-          { kitchenName: seller.kitchenName,
-            kitchenDescription: seller.kitchenDescription,
-            coverPhoto: seller.coverPhoto,
-            menuList: menuList.map((menu) => {
-              return menu.toKitchenMenu();
-            })
+        Delivery.find({ email: seller.email }, (err, deliveryList) => {
+          if (err) {
+            res.status(500).json({ status: constants.fail });
+            return;
           }
-        );
-        res.json({ status: constants.success, kitchen });
+
+          menuList.map((menu) => {
+            const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryIdList);
+            menu.deliveryList = deliveryDetailList;
+            menu.deliveryIdList = undefined;
+            return menu.toKitchenMenu();
+          });
+
+          const kitchen = new Kitchen(
+            { kitchenName: seller.kitchenName,
+              kitchenDescription: seller.kitchenDescription,
+              coverPhoto: seller.coverPhoto,
+              profileImage: seller.profileImage,
+              email: seller.email,
+              coverPhoto: seller.coverPhoto,
+              menuList: menuList
+            }
+          );
+          res.json({ status: constants.success, kitchen });
+        });
+
       } else {
         res.status(404).json({ status: constants.fail, reason: constants.email_not_found });
       }
