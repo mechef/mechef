@@ -46,7 +46,6 @@ class KitchenPage extends React.Component<Props, State> {
 
   closeDishModal: Function;
   closeDishModal() {
-    console.log('onClose')
     this.setState({ displayedProduct: undefined });
   }
 
