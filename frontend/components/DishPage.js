@@ -405,8 +405,9 @@ class DishPage extends React.Component<Props, State> {
               flex-shrink: 0;
               background-color: ${dishPageRightBackground};
             }
-            .dish-page__right :global(.dish-order__note-input) {
+            .dish-page__right :global(.textAreaInput) {
               background-color: ${dishPageRightBackground};
+              max-width: 250px;
             }
             .dish-page__right__header {
               text-align: center;
@@ -424,9 +425,6 @@ class DishPage extends React.Component<Props, State> {
             }
             .dish-page__right__order-detail {
               padding: 47px ${dishPageRightHorizontalMargin} 30px;
-            }
-            .dish-page__right__order-detail .dish-order__note-input {
-              background-color: #f8f8f8;
             }
             .dish-page__right__footer {
               margin: 40px 0;

@@ -18,6 +18,8 @@ type Props = {
   price?: string,
   maxServing?: number,
   onOrderChange?: (DishOrderType) => Function,
+  textAreaWidth?: string | number,
+  textAreaHeight?: string | number,
 };
 
 export type DishOrderType = {
@@ -96,6 +98,8 @@ class DishOrder extends React.Component<Props, State> {
             placeholder="Any preference? Let the seller know here..."
             value={this.state.messageFromBuyer}
             onChange={this.onNoteChange}
+            width={this.props.textAreaWidth || 250}
+            height={this.props.textAreaHeight || 120}
           />
         </div>
         <div className="dish-order__field dish-order__field--row">
@@ -123,8 +127,7 @@ class DishOrder extends React.Component<Props, State> {
               font-size: ${fontSize};
               line-height: 1;
             }
-            .dish-order global:(.textAreaInput) {
-              max-width: 250px;
+            .dish-order :global(.textAreaInput) {
               max-height: 120px;
             }
             .dish-order__note-input {

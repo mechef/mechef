@@ -80,7 +80,9 @@ class DishModal extends React.Component<Props, State> {
               <DishOrder
                 price={this.props.unitPrice}
                 maxServing={this.props.quantity}
-                onOrderChange={this.onOrderChanged} />
+                onOrderChange={this.onOrderChanged}
+                textAreaWidth={380}
+                textAreaHeight={80} />
             </div>
             <div className="dish-modal__content__button-container">
               <AddToCartButton onAddToCartClick={this.onAddToCartClicked} />
@@ -148,10 +150,6 @@ class DishModal extends React.Component<Props, State> {
             }
             .dish-modal__content-wrapper :global(.dish-order__field-name) {
               color: #909090;
-            }
-            .dish-modal__content-wrapper :global(.dish-order__note-input) {
-              max-height: 80px;
-              max-width: 380px;
             }
             .dish-modal__content-wrapper :global(.dish-order__subtotal) {
               font-size: 20px;
