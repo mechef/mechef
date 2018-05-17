@@ -2,9 +2,6 @@
 
 import Rx from 'rxjs/Rx';
 import cartActions from '../actions/cartActions';
-import errorActions from '../actions/errorActions';
-import globalActions from '../actions/globalActions';
-import { API_ACCOUNT, API_MENU, API_GET_DELIVERY_LIST } from '../utils/constants';
 
 const initialState = {
   orders: [],
@@ -27,46 +24,57 @@ const defaultOrder = {
 
 const cartReducer$ = Rx.Observable.of(() => initialState)
   .merge(
-    cartActions.setLoading$.map((isLoading) => (state) => ({
+    cartActions.setLoading$.map(isLoading => state => ({
       ...state,
       isLoading,
     })),
-    cartActions.addToCart$.map((order) => (state) => {
+    cartActions.restoreCart$.map(kitchen => (state) => {
+      const orderJson = window.localStorage.getItem(`${encodeURIComponent(kitchen)}_cart`);
+      const orders = orderJson ? JSON.parse(orderJson).orders : [];
+      return {
+        ...state,
+        orders,
+      };
+    }),
+    cartActions.addToCart$.map(({ kitchen, ...order }) => (state) => {
       const newCart = {
         orders: [
           ...state.orders,
           {
             ...order,
+            kitchen,
             _id: Date.now(),
           },
-        ]
+        ],
       };
-      window.localStorage.setItem('cart', JSON.stringify(newCart));
+      window.localStorage.setItem(`${encodeURIComponent(kitchen)}_cart`, JSON.stringify(newCart));
       return {
         ...state,
-        orders: [ ...newCart.orders ],
+        orders: [...newCart.orders],
       };
     }),
-    cartActions.removeFromCart$.map((id) => (state) => {
+    cartActions.removeFromCart$.map(({ kitchen, id }) => (state) => {
       const newCart = {
         orders: state.orders.reduce((orders, order) => (
-          order._id === id ? orders : [ ...orders, order ]
+          order._id === id ? orders : [...orders, order]
         ), []),
       };
-      window.localStorage.setItem('cart', JSON.stringify(newCart));
+      window.localStorage.setItem(`${encodeURIComponent(kitchen)}_cart`, JSON.stringify(newCart));
       return {
         ...state,
-        orders: [ ...newCart.orders ],
-      }
-    }),
-    cartActions.modifyOrderInCart$.map((orderUpdate) => (state) => {
-      const newCart = {
-        orders: state.orders.map((order) => order._id === orderUpdate._id ? { ...order, ...orderUpdate } : order),
+        orders: [...newCart.orders],
       };
-      window.localStorage.setItem('cart', JSON.stringify(newCart));
+    }),
+    cartActions.modifyOrderInCart$.map(({ kitchen, ...order }) => (state) => {
+      const newCart = {
+        orders: state.orders.map(currentOrder => (
+          currentOrder._id === order._id ? { ...currentOrder, ...order } : currentOrder
+        )),
+      };
+      window.localStorage.setItem(`${encodeURIComponent(kitchen)}_cart`, JSON.stringify(newCart));
       return {
         ...state,
-        orders: [ ...newCart.orders ],
+        orders: [...newCart.orders],
       };
     }),
   );

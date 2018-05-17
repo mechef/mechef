@@ -56,9 +56,10 @@ i18n
         app.render(req, res, actualPage, queryParams);
       });
 
-      server.get('/cart', (req, res) => {
+      server.get('/cart/:kitchen', (req, res) => {
         const actualPage = '/cart';
-        app.render(req, res, actualPage);
+        const queryParams = {kitchen: req.params.kitchen};
+        app.render(req, res, actualPage, queryParams);
       });
 
       server.get('/', (req, res) => {

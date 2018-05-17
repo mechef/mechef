@@ -25,7 +25,6 @@ type Props = {
 type State = {
   unitPrice: number,
   subTotal: number,
-  quantity: number,
 };
 
 class CartItem extends React.Component<Props, State> {
@@ -37,7 +36,6 @@ class CartItem extends React.Component<Props, State> {
     const subTotal = this.calculateSubTotal(quantity, unitPrice);
     this.state = {
       unitPrice,
-      quantity,
       subTotal,
     };
 
@@ -45,21 +43,16 @@ class CartItem extends React.Component<Props, State> {
     this.onRemoveButtonClicked = this.onRemoveButtonClicked.bind(this);
   }
 
-  calculateSubTotal: Function;
-  calculateSubTotal(quantity: number, unitPrice: number) {
-    return quantity * unitPrice;
-  }
-
   onQuantityChanged: Function;
   onQuantityChanged(newQuantity: number) {
     const update = {
-      quantity: newQuantity,
       subTotal: this.calculateSubTotal(newQuantity, this.state.unitPrice),
     };
     this.setState(update);
 
     const orderUpdate = {
       _id: this.props.order._id,
+      quantity: newQuantity,
       ...update,
     };
     this.props.onOrderModified(orderUpdate);
@@ -70,14 +63,25 @@ class CartItem extends React.Component<Props, State> {
     this.props.onOrderRemoved(this.props.order._id);
   }
 
+  calculateSubTotal: Function;
+  calculateSubTotal = (quantity: number, unitPrice: number) => quantity * unitPrice;
+
   render() {
-    const { dishName, description, images, messageFromBuyer, maxServing, quantity } = this.props.order;
+    const {
+      dishName,
+      description,
+      images,
+      messageFromBuyer,
+      maxServing,
+      quantity,
+    } = this.props.order;
     const image = images && images.length > 0 ? `${IMAGE_URL}/${images.shift()}` : '/static/svg/mechef_logo_white.svg';
     return (
       <div className="cart-item">
         <div
           className="cart-item__image"
-          style={{backgroundImage: `url('${image}'), url('/static/svg/mechef_logo_white.svg')`}} />
+          style={{ backgroundImage: `url('${image}'), url('/static/svg/mechef_logo_white.svg')` }}
+        />
         <div className="cart-item__dish-detail">
           <div className="cart-item__dish-detail__name">
             {dishName}
@@ -211,6 +215,5 @@ class CartItem extends React.Component<Props, State> {
     );
   }
 }
-
 
 export default CartItem;

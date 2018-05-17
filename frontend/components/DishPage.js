@@ -7,16 +7,15 @@ import ImageSlider from './ImageSlider';
 import DishOrder from './DishOrder';
 import AddToCartButton from './AddToCartButton';
 import DishDeliveryOption from './DishDeliveryOption';
-import type { DishOrderType } from './DishOrder';
 import Spinner from './Spinner';
 
+import type { DishOrderType } from './DishOrder';
+import type { KitchenObject, MenuObject } from '../utils/flowTypes';
 import { connect } from '../state/RxState';
 import cartActions from '../actions/cartActions';
 import kitchenActions from '../actions/kitchenActions';
 import errorActions from '../actions/errorActions';
 
-import type { KitchenObject, MenuObject } from '../utils/flowTypes';
-import { IMAGE_URL } from '../utils/constants';
 import {
   primaryColor,
   borderRadius,
@@ -29,29 +28,20 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  kitchen: KitchenObject,
   dishId: string,
+  kitchen: KitchenObject,
+  selectedDish: MenuObject,
   addToCart$: (order: DishOrderType) => Rx.Observable,
   fetchDish$: (dishId: string) => Rx.Observable,
 };
 
-type State = DishOrderType;
+type State = { order?: DishOrderType };
 
 class DishPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const currentDish = props.kitchen.currentDish || {};
-
-    const unitPrice = Number(currentDish.unitPrice) || 0;
-    const maxServing = Number(currentDish.quantity) || 0;
-    this.state = {
-      unitPrice,
-      maxServing,
-      quantity: 1,
-      subTotal: unitPrice,
-      messageFromBuyer: '',
-    };
+    this.state = { order: undefined };
 
     this.onOrderChanged = this.onOrderChanged.bind(this);
     this.addToCartClicked = this.addToCartClicked.bind(this);
@@ -63,72 +53,96 @@ class DishPage extends React.Component<Props, State> {
 
   onOrderChanged: Function;
   onOrderChanged(order: DishOrderType) {
-    this.setState(order);
+    this.setState({ order });
+  }
+
+  createDefaultOrder: Function;
+  createDefaultOrder = (menuItem: MenuObject) => {
+    const unitPrice = parseInt(menuItem.unitPrice, 10) || 0;
+    const maxServing = parseInt(menuItem.quantity, 10) || 0;
+    const defaultOrder = {
+      unitPrice,
+      maxServing,
+      quantity: 1,
+      subTotal: unitPrice,
+      messageFromBuyer: '',
+    };
+    return defaultOrder;
   }
 
   addToCartClicked: Function;
   addToCartClicked() {
-    if (!this.props.kitchen.currentDish) {
+    if (!this.props.selectedDish) {
       return;
     }
-    const { _id, dishName, images, description } = this.props.kitchen.currentDish;
+    const {
+      _id,
+      dishName,
+      images,
+      description,
+    } = this.props.selectedDish;
+    const defaultOrder = this.createDefaultOrder(this.props.selectedDish);
     const order = {
-      ...this.state,
+      ...(this.state.order ? this.state.order : defaultOrder),
+      kitchen: this.props.kitchen.kitchenName,
       dishId: _id,
-      dishName: dishName,
+      dishName,
+      description,
       images: images ? [...images] : [],
-      description: description,
     };
     this.props.addToCart$(order);
     // TODO: add notification or redirect to cart page
   }
 
   render() {
-    const { currentDish } = this.props.kitchen;
+    const { selectedDish } = this.props;
 
-    const renderDeliveryOptions = (deliveryList) => (
-      deliveryList && deliveryList.reduce((all, deliveryOption) => {
+    const renderDeliveryOptions = deliveryList => (
+      // filter is workaround for bug in api
+      deliveryList && deliveryList.filter(deliveryOption => Boolean(deliveryOption)).reduce((all, deliveryOption) => {
         if (!all.includes(deliveryOption.type)) {
           all.push(deliveryOption.type);
         }
         return all;
-      }, []).map((deliveryOption) => (
+      }, []).map(deliveryOption => (
         <span
           key={deliveryOption}
           className="dish-page__left__delivery-option-badge"
-        >{deliveryOption}</span>
+        >
+          {deliveryOption}
+        </span>
       ))
     );
 
     return (
       <div className="dish-page">
-        { this.props.kitchen.isLoading ? <Spinner /> : null }
+        { this.props.isLoading ? <Spinner /> : null }
         {
-          currentDish && currentDish.dishName ?
+          !this.props.isLoading && selectedDish && selectedDish.dishName ?
             <div className="dish-page__main">
               <div className="dish-page__left">
                 <div className="dish-page__left__header">
                   <div className="dish-page__left__header--left">
-                    <ImageSlider images={currentDish.images} />
+                    <ImageSlider images={selectedDish.images} />
                   </div>
                   <div className="dish-page__left__header--right">
                     <div className="dish-page__left__header__row">
                       <div className="dish-page__left__dish-name">
-                        { currentDish.dishName }
+                        { selectedDish.dishName }
                       </div>
                       <div className="dish-page__left__dish-delivery">
                         {
-                          renderDeliveryOptions(currentDish.deliveryList)
+                          renderDeliveryOptions(selectedDish.deliveryList)
                         }
                       </div>
                     </div>
                     <div className="dish-page__left__header__row">
                       <div className="dish-page__left__header__title">Remaining Quantity</div>
-                      <div className="dish-page__left__header__field">{currentDish.quantity}</div>
+                      <div className="dish-page__left__header__field">{selectedDish.quantity}</div>
                     </div>
                     <div className="dish-page__left__header__row">
                       <div className="dish-page__left__header__title">Unit Price</div>
-                      <div className="dish-page__left__header__field">{currentDish.unitPrice}</div>
+                      <div className="dish-page__left__header__field">{selectedDish.unitPrice}</div>
                     </div>
                   </div>
                 </div>
@@ -148,8 +162,8 @@ class DishPage extends React.Component<Props, State> {
                     </div>
                     <div className="dish-page__left__field-content">
                       {
-                        currentDish.serving ?
-                          `${currentDish.serving} People` :
+                        selectedDish.serving ?
+                          `${selectedDish.serving} People` :
                           '-'
                       }
                     </div>
@@ -160,22 +174,22 @@ class DishPage extends React.Component<Props, State> {
                     </div>
                     <div className="dish-page__left__field-content">
                       {
-                        currentDish.cookingBuffer ?
-                          `${currentDish.cookingBuffer} Days` :
+                        selectedDish.cookingBuffer ?
+                          `${selectedDish.cookingBuffer} Days` :
                           '-'
                       }
                     </div>
                   </div>
                 </div>
                 {
-                  currentDish.category && currentDish.category.length > 0 &&
+                  selectedDish.category && selectedDish.category.length > 0 &&
                   <div className="dish-page__left__section">
                     <div className="dish-page__left__field-title dish-page__left__category">
                       Category
                     </div>
                     <div className="dish-page__left__field-content">
                       {
-                        currentDish.category.map(categoryText => (
+                        selectedDish.category.map(categoryText => (
                           <div
                             className="dish-page__left__field-content__label"
                             key={categoryText}
@@ -188,14 +202,14 @@ class DishPage extends React.Component<Props, State> {
                   </div>
                 }
                 {
-                  currentDish.ingredients && currentDish.ingredients.length > 0 &&
+                  selectedDish.ingredients && selectedDish.ingredients.length > 0 &&
                   <div className="dish-page__left__section">
                     <div className="dish-page__left__field-title  dish-page__left__ingredients">
                       Ingredients
                     </div>
                     <div className="dish-page__left__field-content">
                       {
-                        currentDish.ingredients.map(ingredient => (
+                        selectedDish.ingredients.map(ingredient => (
                           <div
                             className="dish-page__left__field-content__label"
                             key={ingredient}
@@ -213,13 +227,15 @@ class DishPage extends React.Component<Props, State> {
                     Delivery
                   </div>
                   {
-                    currentDish.deliveryList && currentDish.deliveryList.length > 0 ?
+                    selectedDish.deliveryList && selectedDish.deliveryList.length > 0 ?
                       <div className="dish-page__left__field-content">
                         {
-                          currentDish.deliveryList.map((deliveryOption) => (
+                          // filter is workaround for bug in api
+                          selectedDish.deliveryList.filter(deliveryOption => Boolean(deliveryOption)).map(deliveryOption => (
                             <DishDeliveryOption
                               {...deliveryOption}
-                              key={deliveryOption._id} />
+                              key={deliveryOption._id}
+                            />
                           ))
                         }
                       </div> :
@@ -232,14 +248,16 @@ class DishPage extends React.Component<Props, State> {
                 <hr />
                 <div className="dish-page__right__order-detail">
                   <DishOrder
-                    price={currentDish.unitPrice}
-                    maxServing={currentDish.quantity}
+                    price={selectedDish.unitPrice}
+                    maxServing={selectedDish.quantity}
                     onOrderChange={this.onOrderChanged}
                   />
                 </div>
-                <hr/>
+                <hr />
                 <div className="dish-page__right__footer">
-                  <AddToCartButton onAddToCartClick={this.addToCartClicked} />
+                  <AddToCartButton
+                    onAddToCartClick={this.addToCartClicked}
+                  />
                 </div>
               </div>
             </div> :
@@ -252,7 +270,13 @@ class DishPage extends React.Component<Props, State> {
           <div className="dish-page__footer__question">
             Any question about your order?
           </div>
-          <div className="dish-page__footer__contact">CONTACT CHEF</div>
+          {
+            this.props.kitchen.email ?
+              <a href={`mailto:${this.props.kitchen.email}`} className="dish-page__footer__contact">
+                CONTACT CHEF
+              </a> :
+              null
+          }
         </div>
         <style jsx>
           {`
@@ -464,12 +488,14 @@ class DishPage extends React.Component<Props, State> {
               color: ${dishPageHeaderColor};
             }
             .dish-page__footer__contact {
+              display: block;
               padding-top: 30px;
               font-family: Ubuntu;
               font-size: 16px;
               text-align: center;
               color: ${primaryColor};
               padding-bottom: 50px;
+              text-decoration: none;
             }
           `}
         </style>
@@ -478,7 +504,12 @@ class DishPage extends React.Component<Props, State> {
   }
 }
 
-const stateSelector = ({ kitchen, error, global }) => ({ kitchen, error });
+const stateSelector = ({ kitchen, error }) => ({
+  isLoading: kitchen.isLoading,
+  kitchen: kitchen.kitchen,
+  selectedDish: kitchen.selectedDish,
+  error,
+});
 
 const actionSubjects = {
   ...errorActions,

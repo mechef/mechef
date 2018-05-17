@@ -84,7 +84,7 @@ export type KitchenObject = {
   coverPhoto?: string,
   profileImage?: string,
   menuList?: Array<MenuObject>,
-  currentDish?: MenuObject,
+  email?: string,
 };
 
 export type CartOrderObject = {

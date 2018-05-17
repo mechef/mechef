@@ -1,16 +1,13 @@
 // @flow
 
 import React from 'react';
-import Rx from 'rxjs/Rx';
 
 import ImageSlider from './ImageSlider';
 import DishOrder from './DishOrder';
-import type { DishOrderType } from './DishOrder';
 import AddToCartButton from './AddToCartButton';
+import type { DishOrderType } from './DishOrder';
+import type { MenuObject } from '../utils/flowTypes';
 
-import { connect } from '../state/RxState';
-import cartActions from '../actions/cartActions';
-import errorActions from '../actions/errorActions';
 import {
   borderRadius,
   whiteColor,
@@ -19,31 +16,18 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  _id: string,
-  dishName: string,
-  description: string,
-  images: Array<string>,
-  unitPrice?: string,
-  quantity: number,
-  onClose: () => Function,
-  addToCart$: (order: DishOrderType) => Rx.Observable,
+  dish: MenuObject,
+  onClose: Function,
+  onDishAdded: Function,
 };
 
-type State = DishOrderType;
+type State = { order?: DishOrderType };
 
 class DishModal extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const unitPrice = Number(props.unitPrice) || 0;
-    const maxServing = Number(props.quantity) || 0;
-    this.state = {
-      unitPrice,
-      maxServing,
-      quantity: 1,
-      subTotal: unitPrice,
-      messageFromBuyer: '',
-    };
+    this.state = { order: undefined };
 
     this.onOrderChanged = this.onOrderChanged.bind(this);
     this.onAddToCartClicked = this.onAddToCartClicked.bind(this);
@@ -51,44 +35,67 @@ class DishModal extends React.Component<Props, State> {
 
   onOrderChanged: Function;
   onOrderChanged(order: DishOrderType) {
-    this.setState(order);
+    console.log(order)
+    this.setState({ order });
   }
 
   onAddToCartClicked: Function;
   onAddToCartClicked() {
-    const { _id, dishName, images, description } = this.props;
+    const {
+      _id,
+      dishName,
+      images,
+      description,
+    } = this.props.dish;
+    const defaultOrder = this.createDefaultOrder(this.props.dish);
     const order = {
-      ...this.state,
+      ...(this.state.order ? this.state.order : defaultOrder),
       dishId: _id,
-      dishName: dishName,
       images: images ? [...images] : [],
-      description: description,
+      dishName,
+      description,
     };
-    this.props.addToCart$(order);
+    this.props.onDishAdded && this.props.onDishAdded(order);
     this.props.onClose();
   }
 
+  createDefaultOrder: Function;
+  createDefaultOrder = (menuItem: MenuObject) => {
+    const unitPrice = parseInt(menuItem.unitPrice, 10) || 0;
+    const maxServing = parseInt(menuItem.quantity, 10) || 0;
+    const defaultOrder = {
+      unitPrice,
+      maxServing,
+      quantity: 1,
+      subTotal: unitPrice,
+      messageFromBuyer: '',
+    };
+    return defaultOrder;
+  }
+
   render() {
+    const { dish } = this.props;
     return (
       <div className="dish-modal-overlay">
         <div className="dish-modal">
-          <ImageSlider images={this.props.images} />
+          <ImageSlider images={dish.images} />
           <div className="dish-modal__content">
             <div className="dish-modal__content-wrapper">
-              <div className="dish-modal__name">{this.props.dishName}</div>
-              <div className="dish-modal__description">{this.props.description}</div>
+              <div className="dish-modal__name">{dish.dishName}</div>
+              <div className="dish-modal__description">{dish.description}</div>
               <DishOrder
-                price={this.props.unitPrice}
-                maxServing={this.props.quantity}
+                price={dish.unitPrice}
+                maxServing={dish.quantity}
                 onOrderChange={this.onOrderChanged}
                 textAreaWidth={380}
-                textAreaHeight={80} />
+                textAreaHeight={80}
+              />
             </div>
             <div className="dish-modal__content__button-container">
               <AddToCartButton onAddToCartClick={this.onAddToCartClicked} />
             </div>
           </div>
-          <div className="dish-modal__close-button" onClick={this.props.onClose}></div>
+          <div className="dish-modal__close-button" onClick={this.props.onClose} />
         </div>
         <style jsx>
           {`
@@ -189,11 +196,4 @@ class DishModal extends React.Component<Props, State> {
   }
 }
 
-const stateSelector = ({ error, global }) => ({ error });
-
-const actionSubjects = {
-  ...errorActions,
-  ...cartActions,
-};
-
-export default connect(stateSelector, actionSubjects)(DishModal);
+export default DishModal;

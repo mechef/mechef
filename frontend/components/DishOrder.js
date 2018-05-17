@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import Rx from 'rxjs/Rx';
 
 import ServingModifier from './ServingModifier';
 import TextAreaInput from './TextAreaInput';
@@ -15,18 +14,18 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  price?: string,
-  maxServing?: number,
+  price?: string | number,
+  maxServing?: string | number,
   onOrderChange?: (DishOrderType) => Function,
   textAreaWidth?: string | number,
   textAreaHeight?: string | number,
 };
 
 export type DishOrderType = {
-  quantity?: number,
-  subTotal?: number,
-  messageFromBuyer?: string,
-  unitPrice?: number,
+  quantity: number,
+  subTotal: number,
+  messageFromBuyer: string,
+  unitPrice: number,
   maxServing: number,
 };
 
@@ -36,26 +35,19 @@ class DishOrder extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const unitPrice = parseInt(props.price) || 0;
-    const maxServing = parseInt(props.maxServing) || 0;
+    const unitPrice = parseInt(props.price, 10) || 0;
+    const maxServing = parseInt(props.maxServing, 10) || 0;
 
     this.state = {
       unitPrice,
       maxServing,
       quantity: maxServing > 0 ? 1 : 0,
-      subTotal: this.formatPrice(unitPrice || 0),
+      subTotal: unitPrice,
       messageFromBuyer: '',
     };
 
     this.onNoteChange = this.onNoteChange.bind(this);
     this.recalculateSubTotal = this.recalculateSubTotal.bind(this);
-  }
-
-  invokeOrderChange: Function;
-  invokeOrderChange(order: DishOrderType) {
-    if (typeof this.props.onOrderChange === 'function') {
-      this.props.onOrderChange(order);
-    }
   }
 
   onNoteChange: Function;
@@ -69,17 +61,22 @@ class DishOrder extends React.Component<Props, State> {
     this.invokeOrderChange(order);
   }
 
-  formatPrice: Function;
-  formatPrice(price: number) {
-    return `$${price}.00`;
+  invokeOrderChange: Function;
+  invokeOrderChange(order: DishOrderType) {
+    if (typeof this.props.onOrderChange === 'function') {
+      this.props.onOrderChange(order);
+    }
   }
+
+  formatPrice: Function;
+  formatPrice = (price: number) => `$${price}.00`;
 
   recalculateSubTotal: Function;
   recalculateSubTotal(quantity: number) {
     const subTotal = quantity * (this.state.unitPrice || 0);
     this.setState({
       quantity,
-      subTotal: this.formatPrice(subTotal),
+      subTotal,
     });
     const order = {
       ...this.state,
@@ -113,7 +110,7 @@ class DishOrder extends React.Component<Props, State> {
         </div>
         <div className="dish-order__field dish-order__field--row">
           <span className="dish-order__field-name">Subtotal</span>
-          <span className="dish-order__subtotal">{this.state.subTotal}</span>
+          <span className="dish-order__subtotal">{this.formatPrice(this.state.subTotal)}</span>
         </div>
         <style jsx>
           {`

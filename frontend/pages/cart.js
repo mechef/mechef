@@ -8,19 +8,25 @@ import BuyerFooter from '../components/BuyerFooter';
 import CartItem from '../components/CartItem';
 
 import { connect } from '../state/RxState';
+import kitchenActions from '../actions/kitchenActions';
 import cartActions from '../actions/cartActions';
 import type { CartObject, CartOrderObject } from '../utils/flowTypes';
 
 import { fontSize } from '../utils/styleVariables';
 
 type Props = {
+  url: {
+    query: {
+      kitchen: string,
+    }
+  },
   cart: CartObject,
-  removeFromCart$: (index: number) => Rx.Observable,
-  modifyOrderInCart$: (update: CartOrderObject) => Rx.Observable,
+  restoreCart$: (kitchen: string) => Rx.Observable,
+  removeFromCart$: ({ kitchen: string, id: number }) => Rx.Observable,
+  modifyOrderInCart$: ({ kitchen: string, order: CartOrderObject }) => Rx.Observable,
 };
 
 type State = {
-  orders: Array<CartOrderObject>,
   shipping: number,
   total: number,
   subTotal: number,
@@ -33,7 +39,6 @@ class Cart extends React.PureComponent<Props, State> {
     const subTotal = this.calculateSubTotal(props.cart.orders);
     const shipping = 0;
     this.state = {
-      orders: [ ...props.cart.orders ],
       subTotal,
       shipping,
       total: subTotal,
@@ -43,38 +48,34 @@ class Cart extends React.PureComponent<Props, State> {
     this.onRemoveButtonClicked = this.onRemoveButtonClicked.bind(this);
   }
 
+  componentDidMount() {
+    this.props.restoreCart$(this.props.url.query.kitchen);
+  }
+
   componentWillReceiveProps(nextProps: Props) {
     this.updatePrices(nextProps.cart.orders);
   }
 
-  formatPrice: Function;
-  formatPrice(price) {
-    return `$${price}.00`;
-  }
-
-  calculateSubTotal: Function;
-  calculateSubTotal(orders) {
-    return orders.reduce((total, order) => {
-      return total + this.calculateOrderPrice(order);
-    }, 0);
-  }
-
-  calculateOrderPrice: Function;
-  calculateOrderPrice(order) {
-    const quantity = order.quantity || 1;
-    const unitPrice = order.unitPrice || 0;
-    return quantity * unitPrice;
-  }
-
   onOrderModified: Function;
-  onOrderModified(update: CartOrderObject) {
-    this.props.modifyOrderInCart$(update);
+  onOrderModified(order: CartOrderObject) {
+    this.props.modifyOrderInCart$({ order, kitchen: this.props.url.query.kitchen });
   }
 
   onRemoveButtonClicked: Function;
   onRemoveButtonClicked(id: number) {
-    this.props.removeFromCart$(id);
+    this.props.removeFromCart$({ kitchen: this.props.url.query.kitchen, id });
   }
+
+  calculateOrderPrice: Function;
+  calculateOrderPrice = ({ quantity = 1, unitPrice = 0 }) => quantity * unitPrice;
+
+  calculateSubTotal: Function;
+  calculateSubTotal(orders) {
+    return orders.reduce((total, order) => total + this.calculateOrderPrice(order), 0);
+  }
+
+  formatPrice: Function;
+  formatPrice = price => `$${price}.00`;
 
   updatePrices: Function;
   updatePrices(orders: Array<CartOrderObject>) {
@@ -89,26 +90,6 @@ class Cart extends React.PureComponent<Props, State> {
   render() {
     const { cart } = this.props;
 
-    const renderOrders = (orders) => {
-      return (
-        <div className="cart-content">
-          {
-            orders.map(order => (
-              <div>
-                <CartItem
-                  key={order._id}
-                  order={order}
-                  onOrderModified={this.onOrderModified}
-                  onOrderRemoved={this.onRemoveButtonClicked}
-                />
-                <hr />
-              </div>
-            ))
-          }
-        </div>
-      );
-    };
-
     return (
       <div>
         <BuyerHeader />
@@ -119,7 +100,20 @@ class Cart extends React.PureComponent<Props, State> {
           <hr />
           {
             cart.orders && cart.orders.length > 0 ?
-              renderOrders(cart.orders) :
+              <div className="cart-content">
+                {
+                  cart.orders.map(order => (
+                    <div key={order._id}>
+                      <CartItem
+                        order={order}
+                        onOrderModified={this.onOrderModified}
+                        onOrderRemoved={this.onRemoveButtonClicked}
+                      />
+                      <hr />
+                    </div>
+                  ))
+                }
+              </div> :
               <div className="cart-content__no-order">Cart is empty</div>
           }
           {
@@ -203,11 +197,15 @@ class Cart extends React.PureComponent<Props, State> {
   }
 }
 
-const stateSelector = ({ cart, error, global }) => ({ cart, error });
+const stateSelector = ({ cart, error }) => ({
+  cart,
+  error,
+});
 
 const actionSubjects = {
 //   ...errorActions,
-   ...cartActions,
- };
+  ...kitchenActions,
+  ...cartActions,
+};
 
 export default connect(stateSelector, actionSubjects)(Cart);

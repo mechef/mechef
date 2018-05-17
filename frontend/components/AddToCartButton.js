@@ -1,6 +1,5 @@
 // @flow
 import * as React from 'react';
-import Rx from 'rxjs/Rx';
 
 import {
   addToCartButtonHeight,
@@ -12,13 +11,16 @@ import {
   fontSize,
 } from '../utils/styleVariables';
 
-type Props = {
-  onAddToCartClick: Function,
-};
+type Props = { onAddToCartClick: Function };
 
 const AddToCartButton = ({ onAddToCartClick }: Props) => (
   <div className="addToCartButtonContainer">
-    <button className="addToCartButton" onClick={onAddToCartClick}>ADD TO CART</button>
+    <button
+      className="addToCartButton"
+      onClick={onAddToCartClick}
+    >
+      ADD TO CART
+    </button>
     <style jsx>
       {`
         .addToCartButtonContainer {

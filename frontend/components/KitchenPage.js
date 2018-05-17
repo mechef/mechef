@@ -5,20 +5,21 @@ import Router from 'next/router';
 import Rx from 'rxjs/Rx';
 
 import { connect } from '../state/RxState';
-import kitchenActions from '../actions/kitchenActions';
+import cartActions from '../actions/cartActions';
 import errorActions from '../actions/errorActions';
 
 import KitchenHeader from './KitchenHeader';
-import KitchenClosedComponent from './KitchenClosedComponent'
+import KitchenClosedComponent from './KitchenClosedComponent';
 import DishCard from './DishCard';
 import DishModal from './DishModal';
 
+import type { DishOrderType } from './DishOrder';
 import type { KitchenObject, MenuObject } from '../utils/flowTypes';
-import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
-  kitchenQuery: string,
   kitchen: KitchenObject,
+  kitchenName: string,
+  addToCart$: (order: DishOrderType) => Rx.Observable,
 };
 
 type State = {
@@ -36,12 +37,21 @@ class KitchenPage extends React.Component<Props, State> {
     this.showDishModal = this.showDishModal.bind(this);
     this.closeDishModal = this.closeDishModal.bind(this);
     this.onDishSelected = this.onDishSelected.bind(this);
+    this.addDishToCart = this.addDishToCart.bind(this);
   }
 
-  showDishModal: Function;
-  showDishModal(dishId: string) {
-    const found = this.props.kitchen.menuList && this.props.kitchen.menuList.find((dish) => dish._id == dishId);
-    this.setState({ displayedProduct: found });
+  onDishSelected: Function;
+  onDishSelected(dishId: string) {
+    Router.push(
+      {
+        pathname: '/kitchen',
+        query: {
+          kitchen: this.props.kitchenName,
+          dish: dishId,
+        },
+      },
+      `/kitchen/${this.props.kitchenName}/${dishId}`,
+    );
   }
 
   closeDishModal: Function;
@@ -49,38 +59,36 @@ class KitchenPage extends React.Component<Props, State> {
     this.setState({ displayedProduct: undefined });
   }
 
-  onDishSelected: Function;
-  onDishSelected(dishId: string) {
-    Router.push({
-        pathname: '/kitchen',
-        query: {
-          kitchen: this.props.kitchenQuery,
-          dish: dishId,
-        },
-      },
-      `/kitchen/${this.props.kitchenQuery}/${dishId}`
-    );
-    // if (this.props.global.backArrow.isShow) {
-    //   this.props.toggleBackArrow$('');
-    // }
+  showDishModal: Function;
+  showDishModal(dishId: string) {
+    const found = this.props.kitchen.menuList &&
+      this.props.kitchen.menuList.find(dish => dish._id === dishId);
+    this.setState({ displayedProduct: found });
+  }
+
+  addDishToCart: Function;
+  addDishToCart(dishOrder: DishOrderType) {
+    const order = {
+      kitchen: this.props.kitchen.kitchenName,
+      ...dishOrder,
+    };
+    this.props.addToCart$(order);
   }
 
   renderDishes: Function;
-  renderDishes = () => {
-    return this.props.kitchen.menuList && this.props.kitchen.menuList.map(dish => (
-      <DishCard
-        {...dish}
-        key={dish._id}
-        onDishSelected={this.onDishSelected}
-        onAddToCartClick={() => this.showDishModal(dish._id)}
-      />
-    ));
-  };
+  renderDishes = () => this.props.kitchen.menuList && this.props.kitchen.menuList.map(dish => (
+    <DishCard
+      {...dish}
+      key={dish._id}
+      onDishSelected={this.onDishSelected}
+      onAddToCartClick={() => this.showDishModal(dish._id)}
+    />
+  ));
 
   render() {
     const { kitchen } = this.props;
 
-    if (!kitchen.kitchenName) {
+    if (!kitchen.isLoading && !kitchen.kitchenName) {
       return (
         <div className="kitchen-not-found">
           <span>Kitchen Not Found</span>
@@ -114,7 +122,11 @@ class KitchenPage extends React.Component<Props, State> {
           }
           {
             this.state.displayedProduct ?
-              <DishModal {...this.state.displayedProduct} onClose={this.closeDishModal} /> :
+              <DishModal
+                dish={this.state.displayedProduct}
+                onClose={this.closeDishModal}
+                onDishAdded={this.addDishToCart}
+              /> :
               ''
           }
         </div>
@@ -136,11 +148,9 @@ class KitchenPage extends React.Component<Props, State> {
   }
 }
 
-const stateSelector = ({ kitchen, error, global }) => ({ kitchen, error });
-
 const actionSubjects = {
   ...errorActions,
-  ...kitchenActions,
+  ...cartActions,
 };
 
-export default connect(stateSelector, actionSubjects)(KitchenPage);
+export default connect(() => {}, actionSubjects)(KitchenPage);

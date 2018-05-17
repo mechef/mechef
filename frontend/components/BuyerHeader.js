@@ -13,9 +13,10 @@ import {
 
 type Props = {
   cart: CartObject,
+  kitchenName?: string,
 };
 
-const BuyerHeader = ({ cart }) => (
+const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
   <div className="buyer-header">
     <div className="buyer-header--left">
       <img className="buyer-header__logo" src="/static/img/food.png" alt="mechef" />
@@ -24,14 +25,22 @@ const BuyerHeader = ({ cart }) => (
       <span className="buyer-header__link">FAQ</span>
       <span className="buyer-header__link">HOW IT WORKS</span>
       <span className="buyer-header__cart">
-        <CartButton
-          itemCount={cart.orders ? cart.orders.reduce((total, order) => total + (order.quantity || 0), 0) : 0}
-          onCartClicked={() => {
-            Router.push({
-                pathname: '/cart',
-              });
-          }}
-        />
+        {
+          kitchenName ?
+            <CartButton
+              itemCount={
+                cart.orders ?
+                  cart.orders.reduce((total, order) => total + (order.quantity || 0), 0) :
+                  0
+              }
+              onCartClicked={() => {
+                Router.push({
+                    pathname: `/cart/${encodeURIComponent(kitchenName)}`,
+                  });
+              }}
+            /> :
+            null
+        }
       </span>
     </div>
     <style jsx>
