@@ -1,25 +1,26 @@
 // @flow
 
-import React from "react";
-import Rx from "rxjs/Rx";
-
-import { connect } from "../state/RxState";
-import deliveryActions from "../actions/deliveryActions";
-import errorActions from "../actions/errorActions";
-import globalActions from "../actions/globalActions";
-import Modal from "./Modal";
-import DeliveryList from "./DeliveryList";
-import DeliveryEdit from "./DeliveryEdit";
-import DefaultComponent from "./DefaultComponent";
-import type { MeetupObject } from "../utils/flowTypes";
+import React from 'react';
+import Rx from 'rxjs/Rx';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
+import { connect } from '../state/RxState';
+import deliveryActions from '../actions/deliveryActions';
+import errorActions from '../actions/errorActions';
+import globalActions from '../actions/globalActions';
+import Modal from './Modal';
+import DeliveryList from './DeliveryList';
+import DeliveryEdit from './DeliveryEdit';
+import DefaultComponent from './DefaultComponent';
+import type { MeetupObject } from '../utils/flowTypes';
 import {
   whiteColor,
   primaryColor,
   textColor,
   primaryBtnHoverColor,
-  textSize
-} from "../utils/styleVariables";
-import Spinner from "../components/Spinner";
+  textSize,
+} from '../utils/styleVariables';
+import Spinner from '../components/Spinner';
 
 type Props = {
   delivery: {
@@ -27,7 +28,7 @@ type Props = {
     updatedMeetupFields: MeetupObject,
     currentMeetupId: string,
     currentShippingId: string,
-    isLoading: boolean
+    isLoading: boolean,
   },
   fetchDelivery$: any => Rx.Observable,
   createMeetup$: (meetup: MeetupObject) => Rx.Observable,
@@ -38,21 +39,21 @@ type Props = {
   setError$: ({
     isShowModal: boolean,
     title: string,
-    message: string
+    message: string,
   }) => Rx.Observable,
   error: {
     title: string,
     message: string,
-    isShowModal: boolean
+    isShowModal: boolean,
   },
   global: {
     backArrow: {
       isShow: boolean,
-      title: string
-    }
+      title: string,
+    },
   },
   toggleBackArrow$: string => Rx.Observable,
-  setLoading$: boolean => Rx.Observable
+  setLoading$: boolean => Rx.Observable,
 };
 
 export class DeliveryPage extends React.Component<Props> {
@@ -73,11 +74,10 @@ export class DeliveryPage extends React.Component<Props> {
       updateMeetup$,
       deleteMeetup$,
       setCurrentMeetupId$,
-      setMeetupFields$
+      setMeetupFields$,
     } = this.props;
 
-    const currentMeetup =
-      meetupList.find(delivery => delivery._id === currentMeetupId) || {};
+    const currentMeetup = meetupList.find(delivery => delivery._id === currentMeetupId) || {};
 
     const displayMeetup = { ...currentMeetup, ...updatedMeetupFields };
 
@@ -87,9 +87,7 @@ export class DeliveryPage extends React.Component<Props> {
           <Modal
             title={error.title}
             message={error.message}
-            onCancel={() =>
-              setError$({ isShowModal: false, title: "", message: "" })
-            }
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
           />
         ) : null}
         {isLoading ? <Spinner /> : null}
@@ -101,44 +99,42 @@ export class DeliveryPage extends React.Component<Props> {
             onCreateMeetup={() => {
               createMeetup$({
                 ...updatedMeetupFields,
-                type: "meetup"
+                type: 'meetup',
               });
             }}
             onUpdateMeetup={() => {
               updateMeetup$({
                 _id: currentMeetup._id,
-                ...updatedMeetupFields
+                ...updatedMeetupFields,
               });
             }}
             onDeleteMeetup={deleteMeetup$}
-            goBack={() => toggleBackArrow$("")}
+            goBack={() => toggleBackArrow$('')}
           />
         ) : meetupList && meetupList.length ? (
           <DeliveryList
             meetupList={meetupList}
-            onEditDelivery={meetupId => {
+            onEditDelivery={(meetupId) => {
               setCurrentMeetupId$(meetupId);
-              toggleBackArrow$("Edit Delivery");
+              toggleBackArrow$('Edit Delivery');
             }}
             onDeleteMeetup={deleteMeetup$}
           />
         ) : !isLoading ? (
           <DefaultComponent coverPhotoSrc="../static/img/delivery_default.jpg">
             <div className="textSection">
-              <h2 className="title">Hello there!</h2>
-              <p className="subtitle">MEET UP</p>
-              <p className="description">
-                Add your first meetup location and available date &amp; time
-              </p>
+              <h2 className="title">{this.props.t('hello_there')}</h2>
+              <p className="subtitle">{this.props.t('meetup_default')}</p>
+              <p className="description">{this.props.t('meetup_default_description')}</p>
             </div>
             <button
               className="addDish"
               onClick={() => {
-                setCurrentMeetupId$("");
-                toggleBackArrow$("Edit Delivery");
+                setCurrentMeetupId$('');
+                toggleBackArrow$('Edit Delivery');
               }}
             >
-              ADD MEETUP OPTION
+              {this.props.t('add_meetup_option')}
             </button>
           </DefaultComponent>
         ) : null}
@@ -205,13 +201,15 @@ export class DeliveryPage extends React.Component<Props> {
 const stateSelector = ({ delivery, error, global }) => ({
   delivery,
   error,
-  global
+  global,
 });
 
 const actionSubjects = {
   ...errorActions,
   ...deliveryActions,
-  ...globalActions
+  ...globalActions,
 };
 
-export default connect(stateSelector, actionSubjects)(DeliveryPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(DeliveryPage);
+
+export default connect(stateSelector, actionSubjects)(Extended);

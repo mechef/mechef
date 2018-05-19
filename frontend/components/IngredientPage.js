@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
-
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import ingredientActions from '../actions/ingredientActions';
 import errorActions from '../actions/errorActions';
@@ -105,10 +106,8 @@ export class IngredientPage extends React.Component<Props> {
         ) : !isLoading ? (
           <DefaultComponent coverPhotoSrc="../static/img/ingredients_default.jpg">
             <div className="textSection">
-              <h2 className="title">Hello there!</h2>
-              <p className="description">
-                This is the place to record your ingredients spendings, and a shopping list!
-              </p>
+              <h2 className="title">{this.props.t('ingredients_default_description')}</h2>
+              <p className="description">{this.props.t('hello_there')}</p>
             </div>
             <button
               className="addDish"
@@ -117,7 +116,7 @@ export class IngredientPage extends React.Component<Props> {
                 toggleBackArrow$('Edit Ingredient');
               }}
             >
-              ADD YOUR INGREDIENTS
+              {this.props.t('add_your_ingredients')}
             </button>
           </DefaultComponent>
         ) : null}
@@ -184,4 +183,6 @@ const actionSubjects = {
   ...globalActions,
 };
 
-export default connect(stateSelector, actionSubjects)(IngredientPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(IngredientPage);
+
+export default connect(stateSelector, actionSubjects)(Extended);

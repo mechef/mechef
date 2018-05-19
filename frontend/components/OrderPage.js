@@ -1,29 +1,25 @@
 // @flow
 
-import React from "react";
-import Rx from "rxjs/Rx";
-
-import { connect } from "../state/RxState";
-import orderActions from "../actions/orderActions";
-import errorActions from "../actions/errorActions";
-import Modal from "./Modal";
-import OrderModal from "./OrderModal";
-import type { OrderObject, OrderState } from "../utils/flowTypes";
-import { IMAGE_URL } from "../utils/constants";
-import {
-  primaryColor,
-  textColor,
-  whiteColor,
-  primaryBtnHoverColor
-} from "../utils/styleVariables";
-import DefaultComponent from "./DefaultComponent";
-import OrderItem from "./OrderItem";
-import Spinner from "../components/Spinner";
+import React from 'react';
+import Rx from 'rxjs/Rx';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
+import { connect } from '../state/RxState';
+import orderActions from '../actions/orderActions';
+import errorActions from '../actions/errorActions';
+import Modal from './Modal';
+import OrderModal from './OrderModal';
+import type { OrderObject, OrderState } from '../utils/flowTypes';
+import { IMAGE_URL } from '../utils/constants';
+import { primaryColor, textColor, whiteColor, primaryBtnHoverColor } from '../utils/styleVariables';
+import DefaultComponent from './DefaultComponent';
+import OrderItem from './OrderItem';
+import Spinner from '../components/Spinner';
 
 type Props = {
   order: {
     orderList: Array<OrderObject>,
-    isLoading: boolean
+    isLoading: boolean,
   },
   fetchOrders$: any => Rx.Observable,
   setLoading$: boolean => Rx.Observable,
@@ -31,19 +27,19 @@ type Props = {
   setError$: ({
     isShowModal: boolean,
     title: string,
-    message: string
+    message: string,
   }) => Rx.Observable,
   error: {
     title: string,
     message: string,
-    isShowModal: boolean
-  }
+    isShowModal: boolean,
+  },
 };
 
 type State = {
   isShowOrderModal: boolean,
   currentOrder: OrderObject,
-  filter: string
+  filter: string,
 };
 
 class OrderPage extends React.Component<Props, State> {
@@ -52,7 +48,7 @@ class OrderPage extends React.Component<Props, State> {
     this.state = {
       isShowOrderModal: false,
       currentOrder: {},
-      filter: "all"
+      filter: 'all',
     };
   }
   componentWillMount() {
@@ -62,12 +58,7 @@ class OrderPage extends React.Component<Props, State> {
     this.props.fetchOrders$();
   }
   render() {
-    const {
-      order: { orderList, isLoading },
-      setError$,
-      error,
-      updateOrderState$
-    } = this.props;
+    const { order: { orderList, isLoading }, setError$, error, updateOrderState$ } = this.props;
 
     return (
       <div className="container">
@@ -75,9 +66,7 @@ class OrderPage extends React.Component<Props, State> {
           <Modal
             title={error.title}
             message={error.message}
-            onCancel={() =>
-              setError$({ isShowModal: false, title: "", message: "" })
-            }
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
           />
         ) : null}
         {isLoading ? <Spinner /> : null}
@@ -87,17 +76,17 @@ class OrderPage extends React.Component<Props, State> {
             onUpdateState={(orderState: OrderState) => {
               this.props.setLoading$(true);
               updateOrderState$({
-                id: this.state.currentOrder._id || "",
-                state: orderState
+                id: this.state.currentOrder._id || '',
+                state: orderState,
               });
               this.setState({
-                isShowOrderModal: false
+                isShowOrderModal: false,
               });
             }}
             onCancel={() => {
               this.setState({
                 isShowOrderModal: false,
-                currentOrder: {}
+                currentOrder: {},
               });
             }}
           />
@@ -106,83 +95,71 @@ class OrderPage extends React.Component<Props, State> {
           <div className="orderWrapper">
             <div className="header">
               <div className="titleWithNotification">
-                <span className="orderTitle">All Orders</span>
+                <span className="orderTitle">{this.props.t('order')}</span>
                 <button
                   className={`
                       notification
-                      ${this.state.filter === "all" ? "selected" : ""}
+                      ${this.state.filter === 'all' ? 'selected' : ''}
                     `}
                   onClick={() => {
-                    this.setState({ filter: "all" });
+                    this.setState({ filter: 'all' });
                   }}
                 >
                   {orderList.length}
                 </button>
               </div>
               <div className="titleWithNotification">
-                <span className="orderTitle">Pending Orders</span>
+                <span className="orderTitle">{this.props.t('pending')}</span>
                 <button
                   className={`
                       notification
-                      ${this.state.filter === "pending" ? "selected" : ""}
+                      ${this.state.filter === 'pending' ? 'selected' : ''}
                     `}
                   onClick={() => {
-                    this.setState({ filter: "waiting" });
+                    this.setState({ filter: 'waiting' });
                   }}
                 >
-                  {
-                    orderList.filter(
-                      (order: OrderObject) => order.state === "waiting"
-                    ).length
-                  }
+                  {orderList.filter((order: OrderObject) => order.state === 'waiting').length}
                 </button>
               </div>
               <div className="titleWithNotification">
-                <span className="orderTitle">Cancelled Orders</span>
+                <span className="orderTitle">{this.props.t('cancelled')}</span>
                 <button
                   className={`
                       notification
-                      ${this.state.filter === "cancelled" ? "selected" : ""}
+                      ${this.state.filter === 'cancelled' ? 'selected' : ''}
                     `}
                   onClick={() => {
-                    this.setState({ filter: "cancelled" });
+                    this.setState({ filter: 'cancelled' });
                   }}
                 >
-                  {
-                    orderList.filter(
-                      (order: OrderObject) => order.state === "cancelled"
-                    ).length
-                  }
+                  {orderList.filter((order: OrderObject) => order.state === 'cancelled').length}
                 </button>
               </div>
               <div className="titleWithNotification">
-                <span className="orderTitle">Finished Orders</span>
+                <span className="orderTitle">{this.props.t('delivered')}</span>
                 <button
                   className={`
                       notification
-                      ${this.state.filter === "finished" ? "selected" : ""}
+                      ${this.state.filter === 'finished' ? 'selected' : ''}
                     `}
                   onClick={() => {
-                    this.setState({ filter: "finished" });
+                    this.setState({ filter: 'finished' });
                   }}
                 >
-                  {orderList.filter(order => order.state === "finished").length}
+                  {orderList.filter(order => order.state === 'finished').length}
                 </button>
               </div>
             </div>
             {orderList
-              .filter(
-                order =>
-                  order.state === this.state.filter ||
-                  this.state.filter === "all"
-              )
+              .filter(order => order.state === this.state.filter || this.state.filter === 'all')
               .map(order => (
                 <div
                   className="orderItemWrapper"
                   onClick={() => {
                     this.setState({
                       isShowOrderModal: true,
-                      currentOrder: order
+                      currentOrder: order,
                     });
                   }}
                 >
@@ -195,10 +172,8 @@ class OrderPage extends React.Component<Props, State> {
                     deliveryTo={order.deliveryAddress}
                     deliveryTime={order.deliveryTime}
                     totalPrice={order.amount}
-                    status={"WAITING"}
-                    menuImageUrl={
-                      order.image ? `${IMAGE_URL}/${order.image}` : ""
-                    }
+                    status={'WAITING'}
+                    menuImageUrl={order.image ? `${IMAGE_URL}/${order.image}` : ''}
                   />
                 </div>
               ))}
@@ -206,13 +181,11 @@ class OrderPage extends React.Component<Props, State> {
         ) : !isLoading ? (
           <DefaultComponent coverPhotoSrc="../static/img/orders_default.jpg">
             <div className="textSection">
-              <h2 className="title">Hello there!</h2>
-              <p className="description">
-                Share your menu to get your first order!
-              </p>
+              <h2 className="title">{this.props.t('hello_there')}</h2>
+              <p className="description">{this.props.t('order_default_description')}</p>
             </div>
             <button className="addDish" onClick={() => {}}>
-              MY STORE'S LINK
+              {this.props.t('my_store_link')}
             </button>
           </DefaultComponent>
         ) : null}
@@ -325,7 +298,9 @@ const stateSelector = ({ order, error }) => ({ order, error });
 
 const actionSubjects = {
   ...errorActions,
-  ...orderActions
+  ...orderActions,
 };
 
-export default connect(stateSelector, actionSubjects)(OrderPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(OrderPage);
+
+export default connect(stateSelector, actionSubjects)(Extended);

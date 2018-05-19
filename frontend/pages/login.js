@@ -121,7 +121,7 @@ class Login extends React.Component<Props, State> {
         <div className="login-panel">
           <div className="login-form">
             <div className="login-btn splits">
-              <p className="splits-title">Have an account?</p>
+              <p className="splits-title">{this.props.t('dont_have_account')}</p>
               <Button
                 buttonStyle="whiteBorderOnly"
                 size="small"
@@ -133,7 +133,7 @@ class Login extends React.Component<Props, State> {
               </Button>
             </div>
             <div className="rgstr-btn splits">
-              <p className="splits-title">Dont have an account?</p>
+              <p className="splits-title">{this.props.t('dont_have_account')}</p>
               <Button
                 buttonStyle="whiteBorderOnly"
                 size="small"
@@ -141,12 +141,12 @@ class Login extends React.Component<Props, State> {
                   this.setState({ isWrapperMove: true });
                 }}
               >
-                {this.props.t('joinNow')}
+                {this.props.t('button_joinnow')}
               </Button>
             </div>
             <div className={`wrapper ${this.state.isWrapperMove ? 'move' : ''}`}>
               <div className="login">
-                <p className="title">SIGN IN</p>
+                <p className="title">{this.props.t('button_signin')}</p>
                 <div className="mail">
                   <TextInput
                     type="mail"
@@ -190,11 +190,11 @@ class Login extends React.Component<Props, State> {
                     login$({ email, password });
                   }}
                 >
-                  SIGN IN
+                  {this.props.t('button_signin')}
                 </Button>
               </div>
               <div className="register">
-                <p className="title">Be a Chef today!</p>
+                <p className="title">{this.props.t('beacheftoday')}</p>
                 <div>
                   <TextInput
                     type="text"
@@ -269,11 +269,11 @@ class Login extends React.Component<Props, State> {
                 </div>
                 <div className="wrapper__submit">
                   <Button type="primary" size="medium" onClick={this.onSubmitSignup}>
-                    JOIN NOW
+                    {this.props.t('button_joinnow')}
                   </Button>
                 </div>
                 <div className="wrapper__note">
-                  <span>If you click JOIN NOW, it means you agree with terms of service.</span>
+                  <span>{this.props.t('user_agreement')}</span>
                 </div>
               </div>
             </div>

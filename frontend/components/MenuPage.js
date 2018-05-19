@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
-
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import menuActions from '../actions/menuActions';
 import deliveryActions from '../actions/deliveryActions';
@@ -122,10 +123,8 @@ export class MenuPage extends React.Component<Props> {
         ) : !isLoading ? (
           <DefaultComponent coverPhotoSrc="../static/img/menu_default.jpg">
             <div className="textSection">
-              <h2 className="title">Hello there!</h2>
-              <p className="description">
-                Fill this place with your signature dishes, build your own menu!
-              </p>
+              <h2 className="title">{this.props.t('hello_there')}</h2>
+              <p className="description">{this.props.t('menu_empty_description')}</p>
             </div>
             <button
               className="addDish"
@@ -134,7 +133,7 @@ export class MenuPage extends React.Component<Props> {
                 toggleBackArrow$('Edit Menu');
               }}
             >
-              ADD DISH
+              {this.props.t('add_dish')}
             </button>
           </DefaultComponent>
         ) : null}
@@ -200,5 +199,5 @@ const actionSubjects = {
   ...deliveryActions,
   ...globalActions,
 };
-
-export default connect(stateSelector, actionSubjects)(MenuPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(MenuPage);
+export default connect(stateSelector, actionSubjects)(Extended);

@@ -3,7 +3,8 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import Router from 'next/router';
-
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import DashboardPageRouter from '../components/DashboardPageRouter';
 import globalActions from '../actions/globalActions';
@@ -99,14 +100,14 @@ class Dashboard extends React.Component<Props, State> {
                   role="menuitem"
                   onClick={() => this.navigate('home')}
                 >
-                  HOME
+                  {this.props.t('home')}
                 </li>
                 <li
                   className={this.state.page === 'menu' ? 'active' : ''}
                   role="menuitem"
                   onClick={() => this.navigate('menu')}
                 >
-                  MENU
+                  {this.props.t('menu')}
                 </li>
                 <li
                   className={this.state.page === 'order' ? 'active' : ''}
@@ -114,7 +115,7 @@ class Dashboard extends React.Component<Props, State> {
                   tabIndex="-1"
                   onClick={() => this.navigate('order')}
                 >
-                  ORDERS
+                  {this.props.t('order')}
                 </li>
                 <li
                   className={this.state.page === 'ingredient' ? 'active' : ''}
@@ -122,7 +123,7 @@ class Dashboard extends React.Component<Props, State> {
                   tabIndex="-1"
                   onClick={() => this.navigate('ingredient')}
                 >
-                  INGREDIENTS
+                  {this.props.t('ingredients_title')}
                 </li>
                 <li
                   className={this.state.page === 'shipping' ? 'active' : ''}
@@ -130,7 +131,7 @@ class Dashboard extends React.Component<Props, State> {
                   tabIndex="-1"
                   onClick={() => this.navigate('shipping')}
                 >
-                  SHIPPING
+                  {this.props.t('delivery')}
                 </li>
                 <li
                   className={this.state.page === 'account' ? 'active' : ''}
@@ -138,7 +139,7 @@ class Dashboard extends React.Component<Props, State> {
                   tabIndex="-1"
                   onClick={() => this.navigate('account')}
                 >
-                  ACCOUNT
+                  {this.props.t('account')}
                 </li>
               </ul>
               <ul className="dashboard-sidebar__footer">
@@ -407,8 +408,10 @@ class Dashboard extends React.Component<Props, State> {
   }
 }
 
+const Extended = translate(['common'], { i18n, wait: process.browser })(Dashboard);
+
 const DashboardWrapper = connect(({ global }) => ({ global }), {
   ...globalActions,
-})(Dashboard);
+})(Extended);
 
 export default DashboardWrapper;

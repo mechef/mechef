@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
-
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
 import errorActions from '../actions/errorActions';
@@ -142,4 +143,6 @@ const actionSubjects = {
   ...globalActions,
 };
 
-export default connect(stateSelector, actionSubjects)(AccountPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(AccountPage);
+
+export default connect(stateSelector, actionSubjects)(Extended);

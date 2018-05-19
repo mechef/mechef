@@ -3,7 +3,8 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 import moment from 'moment';
-
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
 import errorActions from '../actions/errorActions';
@@ -64,11 +65,11 @@ export class Home extends React.Component<Props> {
             <p className="sellerName">{account.currentAccount.kitchenName || ''}</p>
           </div>
           <button className="myKitchenLink">
-            <span className="kitchenLinkText">My Kitchen’s Link</span>
+            <span className="kitchenLinkText">{this.props.t('button_my_store')}</span>
           </button>
         </div>
         <p className="orderTableTitle">
-          <span className="titleText">ORDERS</span>
+          <span className="titleText">{this.props.t('home_order')}</span>
           {orderList && orderList.length ? (
             <span className="orderCount">
               <span className="orderCountNum">{orderList.length}</span>
@@ -78,10 +79,10 @@ export class Home extends React.Component<Props> {
         {orderList && orderList.length ? (
           <div className="orderTable">
             <div className="tableHeader">
-              <span className="firstCell">Delivery Time</span>
-              <span className="secondCell">Buyer‘s Name</span>
-              <span className="thirdCell">Order Name</span>
-              <span className="fourthCell">Quantity</span>
+              <span className="firstCell">{this.props.t('delivery_time')}</span>
+              <span className="secondCell">{this.props.t('buyer_name')}</span>
+              <span className="thirdCell">{this.props.t('order_name')}</span>
+              <span className="fourthCell">{this.props.t('home_quantity')}</span>
             </div>
             {orderList
               .filter(order => order.state === ORDER_STATE.waiting)
@@ -107,8 +108,8 @@ export class Home extends React.Component<Props> {
           <div className="defaultComponentWrapper">
             <DefaultComponent>
               <div className="textSection">
-                <h2 className="title">Hello there!</h2>
-                <p className="description">Your upcoming orders will be displayed here!</p>
+                <h2 className="title">{this.props.t('hello_there')}</h2>
+                <p className="description">{this.props.t('home_default_description')}</p>
               </div>
             </DefaultComponent>
           </div>
@@ -341,4 +342,6 @@ const actionSubjects = {
   ...orderActions,
 };
 
-export default connect(stateSelector, actionSubjects)(Home);
+const Extended = translate(['common'], { i18n, wait: process.browser })(Home);
+
+export default connect(stateSelector, actionSubjects)(Extended);
