@@ -10,7 +10,7 @@ import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
   account: AccountObject,
-  onUpdate: (status: string) => Rx.Observable,
+  onUpdate: (status: string) => Rx.Observable
 };
 
 const AccountDetail = (props: Props) => (
@@ -21,25 +21,25 @@ const AccountDetail = (props: Props) => (
     <div className="kitchenInfo">
       <div className="name">
         <div className="kitchenName">
-          <span className="smallTitle">Kitchen Name</span>
+          <span className="smallTitle">{props.t('kitchen_name')}</span>
           <span className="contentText">{props.account.kitchenName}</span>
         </div>
         <div className="userName">
-          <span className="smallTitle">User Name</span>
+          <span className="smallTitle">{props.t('user_name')}</span>
           <span className="contentText">{props.account.name}</span>
         </div>
       </div>
       <div className="description">
-        <span className="smallTitle">Kitchen Description</span>
+        <span className="smallTitle">{props.t('kitechen_description')}</span>
         <p className="contentText">{props.account.kitchenDescription || ''}</p>
       </div>
       <div className="name">
         <div className="kitchenName">
-          <span className="smallTitle">Phone Number</span>
+          <span className="smallTitle">{props.t('mobile_number')}</span>
           <span className="contentText">{props.account.phoneNumber}</span>
         </div>
         <div className="userName">
-          <span className="smallTitle">Email Address</span>
+          <span className="smallTitle">{props.t('email')}</span>
           <span className="contentText">{props.account.email}</span>
         </div>
       </div>

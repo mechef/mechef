@@ -23,36 +23,40 @@ type Props = {
   setFields$: (account: AccountObject) => Rx.Observable,
   createCoverPhoto$: File => Rx.Observable,
   createProfileImage$: File => Rx.Observable,
-  setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
+  setError$: ({
+    isShowModal: boolean,
+    title: string,
+    message: string
+  }) => Rx.Observable,
   error: {
     title: string,
     message: string,
-    isShowModal: boolean,
+    isShowModal: boolean
   },
   global: {
     backArrow: {
       isShow: boolean,
-      title: string,
-    },
+      title: string
+    }
   },
-  toggleBackArrow$: string => Rx.Observable,
+  toggleBackArrow$: string => Rx.Observable
 };
 
 type State = {
-  pageStatus: string,
+  pageStatus: string
 };
 
 export const pageStatus = {
   UPDATE_ACCOUNT: 'EDIT ACCOUNT',
   UPDATE_PASSWORD: 'UPDATE PASSWORD',
-  UPDATE_BANK_ACCOUNT: 'UPDATE BANK ACCOUNT',
+  UPDATE_BANK_ACCOUNT: 'UPDATE BANK ACCOUNT'
 };
 
 export class AccountPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      pageStatus: '',
+      pageStatus: ''
     };
   }
   componentDidMount() {
@@ -69,7 +73,7 @@ export class AccountPage extends React.Component<Props, State> {
       setFields$,
       createCoverPhoto$,
       createProfileImage$,
-      toggleBackArrow$,
+      toggleBackArrow$
     } = this.props;
     const account = { ...currentAccount, ...updatedFields };
     return (
@@ -78,44 +82,50 @@ export class AccountPage extends React.Component<Props, State> {
           <Modal
             title={error.title}
             message={error.message}
-            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+            onCancel={() =>
+              setError$({ isShowModal: false, title: '', message: '' })
+            }
           />
         ) : null}
         {/* eslint-disable no-nested-ternary */
-          backArrow.isShow ? (
-            this.state.pageStatus === pageStatus.UPDATE_ACCOUNT ? (
-              <AccountEdit
-                account={account}
-                onUpdateCoverPhoto={createCoverPhoto$}
-                onUpdateProfileImage={createProfileImage$}
-                onSubmit={() => updateAccountDetail$(updatedFields)}
-                onUpdateField={setFields$}
-                goback={() => toggleBackArrow$('')}
-              />
-            ) : this.state.pageStatus === pageStatus.UPDATE_BANK_ACCOUNT ? (
-              <UpdateBankAccount
-                account={account}
-                goback={() => toggleBackArrow$('')}
-                onSubmit={updateAccountDetail$}
-              />
-            ) : (
-              <UpdatePassword
-                account={account}
-                goback={() => toggleBackArrow$('')}
-                onSubmit={updateAccountDetail$}
-              />
-            )
-          ) : (
-            <AccountDetail
+        backArrow.isShow ? (
+          this.state.pageStatus === pageStatus.UPDATE_ACCOUNT ? (
+            <AccountEdit
               account={account}
-              onUpdate={(status) => {
-                toggleBackArrow$(pageStatus[status]);
-                this.setState({
-                  pageStatus: status,
-                });
-              }}
+              onUpdateCoverPhoto={createCoverPhoto$}
+              onUpdateProfileImage={createProfileImage$}
+              onSubmit={() => updateAccountDetail$(updatedFields)}
+              onUpdateField={setFields$}
+              goback={() => toggleBackArrow$('')}
+              t={this.props.t}
+            />
+          ) : this.state.pageStatus === pageStatus.UPDATE_BANK_ACCOUNT ? (
+            <UpdateBankAccount
+              account={account}
+              goback={() => toggleBackArrow$('')}
+              onSubmit={updateAccountDetail$}
+              t={this.props.t}
+            />
+          ) : (
+            <UpdatePassword
+              account={account}
+              goback={() => toggleBackArrow$('')}
+              onSubmit={updateAccountDetail$}
+              t={this.props.t}
             />
           )
+        ) : (
+          <AccountDetail
+            account={account}
+            onUpdate={status => {
+              toggleBackArrow$(pageStatus[status]);
+              this.setState({
+                pageStatus: status
+              });
+            }}
+            t={this.props.t}
+          />
+        )
         /* eslint-enable no-nested-ternary */
         }
         <style jsx>
@@ -134,15 +144,17 @@ const stateSelector = ({ account, error, global }) => ({
   currentAccount: account.currentAccount,
   updatedFields: account.updatedFields,
   error,
-  global,
+  global
 });
 
 const actionSubjects = {
   ...errorActions,
   ...accountActions,
-  ...globalActions,
+  ...globalActions
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(AccountPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  AccountPage
+);
 
 export default connect(stateSelector, actionSubjects)(Extended);
