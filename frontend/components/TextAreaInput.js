@@ -16,7 +16,9 @@ import {
 type Props = {
   placeholder: string,
   value: string | number,
-  onChange: () => mixed
+  onChange: () => mixed,
+  width: string | number,
+  height: string | number,
 };
 
 const TextAreaInput = (props: Props) => (
@@ -32,16 +34,16 @@ const TextAreaInput = (props: Props) => (
         .container {
           position: relative;
           display: flex;
-          height: ${textAreaInputHeight};
-          width: 512px;
+          height: ${isNaN(props.height) ? props.height : props.height + 'px'};
+          width: ${isNaN(props.width) ? props.width : props.width + 'px'};
         }
 
         .textAreaInput {
           outline: none;
           border: solid 1px #979797;
           border-radius: ${borderRadius};
-          height: ${textAreaInputHeight};
-          width: 512px;
+          height: ${isNaN(props.height) ? props.height : props.height + 'px'};
+          width: ${isNaN(props.width) ? props.width : props.width + 'px'};
           background-color: ${textInputBgColor};
           padding: 10px;
           font-size: ${placeholderFontSize};
@@ -67,7 +69,9 @@ const TextAreaInput = (props: Props) => (
 TextAreaInput.defaultProps = {
   value: "",
   onChange: () => {},
-  placeholder: ""
+  placeholder: "",
+  width: '512px',
+  height: textAreaInputHeight,
 };
 
 export default TextAreaInput;

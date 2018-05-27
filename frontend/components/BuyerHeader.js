@@ -1,9 +1,22 @@
 // @flow
 import React from 'react';
+import Router from 'next/router';
 
 import CartButton from './CartButton';
 
-const BuyerHeader = () => (
+import { connect } from '../state/RxState';
+import type { CartObject } from '../utils/flowTypes';
+import {
+  textColor,
+  whiteColor,
+} from '../utils/styleVariables';
+
+type Props = {
+  cart: CartObject,
+  kitchenName?: string,
+};
+
+const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
   <div className="buyer-header">
     <div className="buyer-header--left">
       <img className="buyer-header__logo" src="/static/img/food.png" alt="mechef" />
@@ -12,7 +25,22 @@ const BuyerHeader = () => (
       <span className="buyer-header__link">FAQ</span>
       <span className="buyer-header__link">HOW IT WORKS</span>
       <span className="buyer-header__cart">
-        <CartButton itemCount={100} onCartClicked={() => console.log('cart is clicked')} />
+        {
+          kitchenName ?
+            <CartButton
+              itemCount={
+                cart.orders ?
+                  cart.orders.reduce((total, order) => total + (order.quantity || 0), 0) :
+                  0
+              }
+              onCartClicked={() => {
+                Router.push({
+                    pathname: `/cart/${encodeURIComponent(kitchenName)}`,
+                  });
+              }}
+            /> :
+            null
+        }
       </span>
     </div>
     <style jsx>
@@ -23,7 +51,7 @@ const BuyerHeader = () => (
           align-items: center;
           width: 100%;
           height: 90px;
-          background-color: #ffffff;
+          background-color: ${whiteColor};
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
           font-family: Ubuntu;
         }
@@ -47,7 +75,7 @@ const BuyerHeader = () => (
           font-size: 15px;
           line-height: 1;
           letter-spacing: 0.6;
-          color: #4a4a4a;
+          color: ${textColor};
           margin-right: 30px;
         }
       `}
@@ -55,4 +83,6 @@ const BuyerHeader = () => (
   </div>
 );
 
-export default BuyerHeader;
+const stateSelector = ({ cart }) => ({ cart });
+
+export default connect(stateSelector, {})(BuyerHeader);

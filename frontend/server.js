@@ -56,6 +56,12 @@ i18n
         app.render(req, res, actualPage, queryParams);
       });
 
+      server.get('/cart/:kitchen', (req, res) => {
+        const actualPage = '/cart';
+        const queryParams = {kitchen: req.params.kitchen};
+        app.render(req, res, actualPage, queryParams);
+      });
+
       server.get('/', (req, res) => {
         // TODO: Find a way to login automatically by jwt
         app.render(req, res, '/login');
