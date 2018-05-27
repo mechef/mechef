@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 
 import ImageSlider from './ImageSlider';
 import DishOrder from './DishOrder';
@@ -33,6 +35,7 @@ type Props = {
   selectedDish: MenuObject,
   addToCart$: (order: DishOrderType) => Rx.Observable,
   fetchDish$: (dishId: string) => Rx.Observable,
+  t: any,
 };
 
 type State = { order?: DishOrderType };
@@ -95,23 +98,25 @@ class DishPage extends React.Component<Props, State> {
   }
 
   render() {
-    const { selectedDish } = this.props;
+    const { t, selectedDish } = this.props;
 
     const renderDeliveryOptions = deliveryList => (
       // filter is workaround for bug in api
-      deliveryList && deliveryList.filter(deliveryOption => Boolean(deliveryOption)).reduce((all, deliveryOption) => {
-        if (!all.includes(deliveryOption.type)) {
-          all.push(deliveryOption.type);
-        }
-        return all;
-      }, []).map(deliveryOption => (
-        <span
-          key={deliveryOption}
-          className="dish-page__left__delivery-option-badge"
-        >
-          {deliveryOption}
-        </span>
-      ))
+      deliveryList && deliveryList
+        .filter(deliveryOption => Boolean(deliveryOption))
+        .reduce((all, deliveryOption) => {
+          if (!all.includes(deliveryOption.type)) {
+            all.push(deliveryOption.type);
+          }
+          return all;
+        }, []).map(deliveryOption => (
+          <span
+            key={deliveryOption}
+            className="dish-page__left__delivery-option-badge"
+          >
+            {deliveryOption}
+          </span>
+        ))
     );
 
     return (
@@ -137,11 +142,11 @@ class DishPage extends React.Component<Props, State> {
                       </div>
                     </div>
                     <div className="dish-page__left__header__row">
-                      <div className="dish-page__left__header__title">Remaining Quantity</div>
+                      <div className="dish-page__left__header__title">{ t('remain_quantity') }</div>
                       <div className="dish-page__left__header__field">{selectedDish.quantity}</div>
                     </div>
                     <div className="dish-page__left__header__row">
-                      <div className="dish-page__left__header__title">Unit Price</div>
+                      <div className="dish-page__left__header__title">{ t('unit_price') }</div>
                       <div className="dish-page__left__header__field">{selectedDish.unitPrice}</div>
                     </div>
                   </div>
@@ -149,16 +154,16 @@ class DishPage extends React.Component<Props, State> {
                 <hr className="dish-page__left__header-divider" />
                 <div className="dish-page__left__section">
                   <div className="dish-page__left__field-title">
-                    Description
+                    { t('product_description') }
                   </div>
                   <div className="dish-page__left__field-content">
-                    description
+                    {selectedDish.description}
                   </div>
                 </div>
                 <div className="dish-page__left__section">
                   <div className="dish-page__left__section__cell">
                     <div className="dish-page__left__field-title">
-                      Serving
+                      { t('serving') }
                     </div>
                     <div className="dish-page__left__field-content">
                       {
@@ -170,7 +175,7 @@ class DishPage extends React.Component<Props, State> {
                   </div>
                   <div className="dish-page__left__section__cell">
                     <div className="dish-page__left__field-title">
-                      Preparation Time
+                      { t('prep_time') }
                     </div>
                     <div className="dish-page__left__field-content">
                       {
@@ -185,7 +190,7 @@ class DishPage extends React.Component<Props, State> {
                   selectedDish.category && selectedDish.category.length > 0 &&
                   <div className="dish-page__left__section">
                     <div className="dish-page__left__field-title dish-page__left__category">
-                      Category
+                      { t('category') }
                     </div>
                     <div className="dish-page__left__field-content">
                       {
@@ -205,7 +210,7 @@ class DishPage extends React.Component<Props, State> {
                   selectedDish.ingredients && selectedDish.ingredients.length > 0 &&
                   <div className="dish-page__left__section">
                     <div className="dish-page__left__field-title  dish-page__left__ingredients">
-                      Ingredients
+                      { t('ingredients') }
                     </div>
                     <div className="dish-page__left__field-content">
                       {
@@ -224,19 +229,21 @@ class DishPage extends React.Component<Props, State> {
                 <hr className="dish-page__left__section-divider" />
                 <div className="dish-page__left__section">
                   <div className="dish-page__left__field-title">
-                    Delivery
+                    { t('delivery') }
                   </div>
                   {
                     selectedDish.deliveryList && selectedDish.deliveryList.length > 0 ?
                       <div className="dish-page__left__field-content">
                         {
                           // filter is workaround for bug in api
-                          selectedDish.deliveryList.filter(deliveryOption => Boolean(deliveryOption)).map(deliveryOption => (
-                            <DishDeliveryOption
-                              {...deliveryOption}
-                              key={deliveryOption._id}
-                            />
-                          ))
+                          selectedDish.deliveryList
+                            .filter(deliveryOption => Boolean(deliveryOption))
+                            .map(deliveryOption => (
+                              <DishDeliveryOption
+                                {...deliveryOption}
+                                key={deliveryOption._id}
+                              />
+                            ))
                         }
                       </div> :
                       <div>Delivery Not Available</div>
@@ -244,7 +251,7 @@ class DishPage extends React.Component<Props, State> {
                 </div>
               </div>
               <div className="dish-page__right">
-                <div className="dish-page__right__header">Your Order</div>
+                <div className="dish-page__right__header">{t('your_order')}</div>
                 <hr />
                 <div className="dish-page__right__order-detail">
                   <DishOrder
@@ -268,12 +275,12 @@ class DishPage extends React.Component<Props, State> {
         <div className="dish-page__footer">
           <div className="dish-page__footer__image" />
           <div className="dish-page__footer__question">
-            Any question about your order?
+            { t('order_question') }
           </div>
           {
             this.props.kitchen.email ?
               <a href={`mailto:${this.props.kitchen.email}`} className="dish-page__footer__contact">
-                CONTACT CHEF
+                { t('contact_chef') }
               </a> :
               null
           }
@@ -504,6 +511,8 @@ class DishPage extends React.Component<Props, State> {
   }
 }
 
+const Extended = translate(['common'], { i18n, wait: process.browser })(DishPage);
+
 const stateSelector = ({ kitchen, error }) => ({
   isLoading: kitchen.isLoading,
   kitchen: kitchen.kitchen,
@@ -517,4 +526,4 @@ const actionSubjects = {
   ...kitchenActions,
 };
 
-export default connect(stateSelector, actionSubjects)(DishPage);
+export default connect(stateSelector, actionSubjects)(Extended);

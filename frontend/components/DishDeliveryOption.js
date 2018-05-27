@@ -1,5 +1,8 @@
 // @flow
 import React from 'react';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
+import { connect } from '../state/RxState';
 
 import type { MeetupObject } from '../utils/flowTypes';
 import {
@@ -21,20 +24,20 @@ class Meetup extends React.Component<Props> {
       ...meetupDetail
     } = this.props;
 
-    const formatDeliveryDays = (meetupDetail) => {
+    const formatDeliveryDays = (detail, t) => {
       const days = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
+        t('sunday'),
+        t('monday'),
+        t('tuesday'),
+        t('wednesday'),
+        t('thursday'),
+        t('friday'),
+        t('saturday'),
       ];
-      const deliveryDays = days.map(day => Boolean(meetupDetail[`meetup${day}`]));
+      const deliveryDays = days.map(day => Boolean(detail[`meetup${day}`]));
       const everyday = deliveryDays.every(day => day === true);
       const noday = deliveryDays.every(day => day === false);
-      const deliveryDaysString = `Every ${
+      const deliveryDaysString = `${t('every')} ${
         deliveryDays.reduce((all, deliver, index) => {
           if (deliver) {
             all.push(days[index]);
@@ -43,7 +46,7 @@ class Meetup extends React.Component<Props> {
         }, []).join(', ')
       }`;
       return everyday ?
-        'Everyday' :
+        t('everyday') :
         noday ?
           '-' :
           deliveryDaysString;
@@ -51,7 +54,7 @@ class Meetup extends React.Component<Props> {
 
     return (
       <div>
-        <div className="meetup__type">Meet up</div>
+        <div className="meetup__type">{ t('meetup') }</div>
         <div>{meetupAddress}</div>
         <div>
           <span className="meetup__days">
@@ -87,14 +90,14 @@ class Meetup extends React.Component<Props> {
   }
 }
 
-const Shipping = ({ meetupAddress, note }) => (
+const Shipping = ({ meetupAddress, note, t }) => (
   <div>
     <div className="shipping__cell">
-      <div className="shipping__title">Shipping to</div>
+      <div className="shipping__title">{ t('menu_shipping_description') }</div>
       <div>{meetupAddress}</div>
     </div>
     <div className="shipping__cell">
-      <div className="shipping__title">Shipping Cost</div>
+      <div className="shipping__title">{ t('shipping_cost') }</div>
       <div>$0.00</div>
     </div>
     {
@@ -126,12 +129,12 @@ const Shipping = ({ meetupAddress, note }) => (
   </div>
 );
 
-const DishDeliveryOption = ({ type, ...deliveryOption }: Props) => (
+const DishDeliveryOption = ({ t, type, ...deliveryOption }: Props) => (
   <div className="dish-delivery-option">
     {
       type === 'meetup' ?
-        <Meetup {...deliveryOption} /> :
-        <Shipping {...deliveryOption} />
+        <Meetup {...deliveryOption} t={t} /> :
+        <Shipping {...deliveryOption} t={t} />
     }
     <style jsx>
       {`
@@ -147,4 +150,4 @@ const DishDeliveryOption = ({ type, ...deliveryOption }: Props) => (
   </div>
 );
 
-export default DishDeliveryOption;
+export default connect(() => { {} }, {})(translate(['common'], { i18n, wait: process.browser })(DishDeliveryOption));

@@ -146,6 +146,8 @@
   "meetup_loc": "待ち合わせ場所",
   "enter_meetup_loc": "待ち合わせ場所を入力してください。",
   "meetup_date": "待ち合わせの日付",
+  "every": "毎週",
+  "everyday": "全日",
   "monday": "月曜日",
   "tuesday": "火曜日",
   "wednesday": "水曜日",
