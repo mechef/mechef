@@ -2,6 +2,13 @@
 
 import React from 'react';
 
+import {
+  buyerFooterBackgroundColor,
+  buyerFooterFontSize,
+  buyerFooterLineHeight,
+  whiteColor,
+} from '../utils/styleVariables';
+
 const BuyerFooter = () => (
   <div className="buyer-footer">
     <div className="buyer-footer__content">
@@ -24,10 +31,10 @@ const BuyerFooter = () => (
       {`
         .buyer-footer {
           width: 100%;
-          background-color: #262526;
-          color: #ffffff;
-          font-size: 12px;
-          line-height: 1;
+          background-color: ${buyerFooterBackgroundColor};
+          color: ${whiteColor};
+          font-size: ${buyerFooterFontSize};
+          line-height: ${buyerFooterLineHeight};
           letter-spacing: 0.5px;
           padding: 65px 100px;
         }

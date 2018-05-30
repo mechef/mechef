@@ -34,6 +34,7 @@ type Props = {
     message: string,
     isShowModal: boolean,
   },
+  t: any,
 };
 
 type State = {
@@ -58,7 +59,9 @@ class OrderPage extends React.Component<Props, State> {
     this.props.fetchOrders$();
   }
   render() {
-    const { order: { orderList, isLoading }, setError$, error, updateOrderState$ } = this.props;
+    const {
+      order: { orderList, isLoading }, setError$, error, updateOrderState$,
+    } = this.props;
 
     return (
       <div className="container">
@@ -172,7 +175,7 @@ class OrderPage extends React.Component<Props, State> {
                     deliveryTo={order.deliveryAddress}
                     deliveryTime={order.deliveryTime}
                     totalPrice={order.amount}
-                    status={'WAITING'}
+                    status="WAITING"
                     menuImageUrl={order.image ? `${IMAGE_URL}/${order.image}` : ''}
                   />
                 </div>

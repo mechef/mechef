@@ -83,5 +83,22 @@ export type KitchenObject = {
   kitchenDescription?: string,
   coverPhoto?: string,
   profileImage?: string,
-  dishes?: Array<MenuObject>,
+  menuList?: Array<MenuObject>,
+  email?: string,
+};
+
+export type CartOrderObject = {
+  _id: number,
+  dishId?: string,
+  quantity?: number,
+  messageFromBuyer?: string,
+  dishName?: string,
+  description?: string,
+  unitPrice?: number,
+  images?: Array<string>,
+  maxServing?: number,
+};
+
+export type CartObject = {
+  orders?: Array<CartOrderObject>;
 };

@@ -11,6 +11,7 @@ export const API_ACCOUNT = `${BASE_URL}/seller`;
 export const API_MENU = `${BASE_URL}/menu`;
 export const API_ORDER = `${BASE_URL}/order`;
 export const API_IMAGE = `${BASE_URL}/image`;
+export const API_KITCHEN = `${BASE_URL}/kitchen`;
 
 // Default Map Config
 export const DEFAULT_LATITUDE = 35.652832;

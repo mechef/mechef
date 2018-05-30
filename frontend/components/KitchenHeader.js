@@ -5,7 +5,7 @@ import React from 'react';
 import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
-  name: string,
+  name?: string,
   description?: string,
   profileImage?: string,
   noDescription?: boolean,
