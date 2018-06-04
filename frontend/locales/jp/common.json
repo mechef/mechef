@@ -29,8 +29,7 @@
   "checkoutshipping_enter_building": "アパート名、ビル名、部屋番号、階などをにゅうりょくしてください。",
   "checkoutshipping_payment_detail": "支払方法",
   "checkoutshipping_cod": "代引き",
-  "checkoutshipping_cod_description":
-    "checkoutshipping_Please stay tuned, more payment methods like credit card payment will come soon!",
+  "checkoutshipping_cod_description": "現在の支払い方法は代引きのみになっております。",
   "checkoutshipping_your_order": "お客様のご注文",
   "checkoutshipping_edit_cart": "カートの内容を変更する",
   "checkoutshipping_subtotal": "小合計",
@@ -416,5 +415,11 @@
   "passwordcreate_beacheftoday": "すぐお店のオーナーになる！",
   "passwordcreate_enter_pw_placeholder": "パスワードを入力してください。",
   "passwordcreate_confirm_pw_placeholder": "確認パスワードを入力してください。",
-  "passwordcreate_button_getstarted": "スタート"
+  "passwordcreate_button_getstarted": "スタート",
+
+  "dont_have_account": "アカウントを持ってない方",
+  "button_joinnow": "新規登録",
+  "button_signin": "ログイン",
+  "beacheftoday": "すぐお店のオーナーになる！",
+  "user_agreement": "利用規約"
 }

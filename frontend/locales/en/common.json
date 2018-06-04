@@ -412,5 +412,11 @@
   "passwordcreate_beacheftoday": "Be a chef today!",
   "passwordcreate_enter_pw_placeholder": "Enter your password",
   "passwordcreate_confirm_pw_placeholder": "Confirm your password",
-  "passwordcreate_button_getstarted": "GET STARTED"
+  "passwordcreate_button_getstarted": "GET STARTED",
+
+  "dont_have_account": "I don't have an account yet",
+  "button_joinnow": "Account Registration",
+  "button_signin": "Login",
+  "beacheftoday": "Be a chef today!",
+  "user_agreement": "Terms & Conditions"
 }

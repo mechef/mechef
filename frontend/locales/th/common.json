@@ -1,7 +1,7 @@
 {
   "establishorder_order_established": "สั่งอาหารเเรียบร้อย",
   "establishorder_congratulations": "ขอแสดงความยินดี",
-  "establishorder_thanks_message": "ขอบคุณที่สั่งอาหารกับเรา<br>Enjoy the meal prepared by the chef!",
+  "establishorder_thanks_message": "ขอบคุณที่สั่งอาหารกับเรา<br>ขอให้ทานอาหารให้อร่อย!",
   "establishorder_add_calendar": "เพิ่มการเตือนออเดอร์ที่สั่งไปลงในปฏิธินของฉัน",
 
   "checkoutshipping_checkout_details": "รายละเอียดการสั่งซื้อ",
@@ -28,8 +28,7 @@
   "checkoutshipping_enter_building": "ใส่ชื่ออาคารและเบอร์ห้องของคุณที่นี่",
   "checkoutshipping_payment_detail": "รายละเอียดการชำระเงิน",
   "checkoutshipping_cod": "เงินสด",
-  "checkoutshipping_cod_description":
-    "checkoutshipping_ขณะนี้ระบบรองรับการชำระด้วยเงินสดเท่านั้น แต่เรากำลังเพิ่มทางเลือกการใช้จ่ายอื่นๆในระบบของเรา",
+  "checkoutshipping_cod_description": "ขณะนี้ระบบรองรับการชำระด้วยเงินสดเท่านั้น แต่เรากำลังเพิ่มทางเลือกการใช้จ่ายอื่นๆในระบบของเรา",
   "checkoutshipping_your_order": "ออเดอร์ของคุณ",
   "checkoutshipping_edit_cart": "แก้ไขตะกร้าสินค้า",
   "checkoutshipping_subtotal": "รวมยอดรายการ",
@@ -397,5 +396,11 @@
   "passwordcreate_beacheftoday": "เริ่มเป็นเชฟได้แล้ววันนี้!",
   "passwordcreate_enter_pw_placeholder": "ใส่ password ที่นี่",
   "passwordcreate_confirm_pw_placeholder": "ยืนยัน password",
-  "passwordcreate_button_getstarted": "เริ่มการมใช้งาน"
+  "passwordcreate_button_getstarted": "เริ่มการมใช้งาน",
+
+  "dont_have_account": "ยังไม่มีบัญชี",
+  "button_joinnow": "สร้างบัญชีผู้ใช้ใหม่",
+  "button_signin": "เข้าระบบ",
+  "beacheftoday": "เริ่มเป็นเชฟได้แล้ววันนี้",
+  "user_agreement": "ข้อตกลงในการใช้ระบบ"
 }
