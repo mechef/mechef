@@ -44,9 +44,9 @@ class IngredientEdit extends React.Component<Props, State> {
     const currentSum = displayMemo.sum || 0;
     return (
       <div className="dashboard-content">
-        <p className="dashboard-content__title">Edit Ingredients</p>
+        <p className="dashboard-content__title">{this.props.t('ingredientsedit_edit_ingredients')}</p>
         <div className="edit-ingredient">
-          <p className="title">List Name*</p>
+          <p className="title">{this.props.t('ingredientsedit_list_name')}</p>
           <p className="subtitle">The number of characters is limited to 50.</p>
           <p className="edit-ingredient__input">
             <TextInput
@@ -62,11 +62,11 @@ class IngredientEdit extends React.Component<Props, State> {
             />
           </p>
           <div className="edit-ingredient__choose-ingredient">
-            <p className="title">Ingredients</p>
+            <p className="title">{this.props.t('ingredientsedit_ingredients')}</p>
             <p className="subtitleWrapper">
-              <span className="subtitle">Choose Ingredients.</span>
+              <span className="subtitle">{this.props.t('ingredientsedit_ingredients_list_add')}</span>
               <div>
-                <span className="totalText">Total:</span>
+                <span className="totalText">{this.props.t('ingredientsedit_total')}</span>
                 <span className="costText">$ {displayMemo.sum || 0}</span>
               </div>
             </p>
@@ -157,7 +157,7 @@ class IngredientEdit extends React.Component<Props, State> {
                 goBack();
               }}
             >
-              DELETE
+              {this.props.t('ingredientsedit_button_delete')}
             </Button>
           </div>
           <div>
@@ -166,7 +166,7 @@ class IngredientEdit extends React.Component<Props, State> {
               buttonStyle="greenBorderOnly"
               onClick={() => goBack()}
             >
-              CANCEL
+              {this.props.t('ingredientsedit_button_cancel')}
             </Button>
           </div>
           <div>
@@ -182,7 +182,7 @@ class IngredientEdit extends React.Component<Props, State> {
                 goBack();
               }}
             >
-              SAVE
+              {this.props.t('ingredientsedit_button_save')}
             </Button>
           </div>
         </div>

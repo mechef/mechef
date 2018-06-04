@@ -84,7 +84,7 @@ class AccountEdit extends React.Component<Props> {
             />
             <div className="update-cover-photo__title">
               <i className="fa fa-camera update-cover-photo__icon" aria-hidden="true" />
-              <span>Update your cover photo</span>
+              <span>{this.props.t('accountedit_update_cover_photo')}</span>
             </div>
           </div>
           <div className="update-profile-image">
@@ -129,7 +129,7 @@ class AccountEdit extends React.Component<Props> {
             </div>
           </div>
           <div className="bank-info">
-            <p className="bank-info__title">Kitchen Name*</p>
+            <p className="bank-info__title">{this.props.t('accountpreview_kitchen_name')}</p>
             <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
             <TextInput
               type="text"
@@ -146,7 +146,7 @@ class AccountEdit extends React.Component<Props> {
             />
           </div>
           <div className="bank-info">
-            <p className="bank-info__title">Kitchen Description*</p>
+            <p className="bank-info__title">{this.props.t('accountpreview_kitechen_description')}</p>
             <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
             <TextAreaInput
               placeholder="Write some description about your kitchen...."
@@ -161,7 +161,7 @@ class AccountEdit extends React.Component<Props> {
             />
           </div>
           <div className="bank-info">
-            <p className="bank-info__title">User Name*</p>
+            <p className="bank-info__title">{this.props.t('accountpreview_user_name')}</p>
             <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
             <div className="inputGroup">
               <TextInput
@@ -194,7 +194,7 @@ class AccountEdit extends React.Component<Props> {
           </div>
           <div className="two-div">
             <div className="left">
-              <p className="bank-info__title">Phone Number*</p>
+              <p className="bank-info__title">{this.props.t('accountpreview_mobile_number')}</p>
               <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
               <TextInput
                 type="text"
@@ -211,7 +211,7 @@ class AccountEdit extends React.Component<Props> {
               />
             </div>
             <div className="right">
-              <p className="bank-info__title">Email Address*</p>
+              <p className="bank-info__title">{this.props.t('accountpreview_email')}</p>
               <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
               <TextInput
                 type="text"
@@ -232,12 +232,12 @@ class AccountEdit extends React.Component<Props> {
         <div className="buttonGroup">
           <div>
             <Button buttonStyle="greenBorderOnly" size="small" onClick={this.props.goback}>
-              CANCEL
+              {this.props.t('accountedit_button_cancel')}
             </Button>
           </div>
           <div>
             <Button buttonStyle="primary" size="small" onClick={this.props.onSubmit}>
-              SAVE
+              {this.props.t('accountedit_button_save')}
             </Button>
           </div>
         </div>

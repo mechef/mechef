@@ -19,7 +19,7 @@ type Props = {
 const IngredientList = (props: Props): React.Element<'div'> => (
   <div>
     <div className="header">
-      <span className="title">Ingredients List</span>
+      <span className="title">{props.t('ingredientslist_ingredients_list')}</span>
       <button className="addButton" onClick={() => props.onEditMemo('')}>
         <div className="plus" />
       </button>
@@ -40,9 +40,9 @@ const IngredientList = (props: Props): React.Element<'div'> => (
           </div>
           <div>
             <span className="ingredient-subtext">
-              Ingredients: {memo.ingredients && memo.ingredients.length}
+              {props.t('ingredientslist_ingredients_number')} {memo.ingredients && memo.ingredients.length}
             </span>
-            <span className="ingredient-subtext">Total: ${memo.sum}</span>
+            <span className="ingredient-subtext">{props.t('ingredientslist_total')} ${memo.sum}</span>
           </div>
         </div>
       </div>

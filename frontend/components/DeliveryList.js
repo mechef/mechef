@@ -56,7 +56,7 @@ class DeliveryList extends React.Component<Props> {
     return (
       <div className="wrapper">
         <div className="header">
-          <span className="title">Delivery List</span>
+          <span className="title">{this.props.t('deliverylist_delivery')}</span>
           <button className="addButton" onClick={() => onEditDelivery('')}>
             <div className="plus" />
           </button>
@@ -82,7 +82,7 @@ class DeliveryList extends React.Component<Props> {
               />
             </div>
             <div className="mapWrapper" id={meetup._id} />
-            <span className="descriptionText">Meet up at</span>
+            <span className="descriptionText">{this.props.t('deliverylist_meetup_at')}</span>
             <div className="delivery-content">
               <div className="text">{meetup.meetupAddress}</div>
               <div className="text">

@@ -21,25 +21,25 @@ const AccountDetail = (props: Props) => (
     <div className="kitchenInfo">
       <div className="name">
         <div className="kitchenName">
-          <span className="smallTitle">{props.t('kitchen_name')}</span>
+          <span className="smallTitle">{props.t('accountedit_kitchen_name_placeholder')}</span>
           <span className="contentText">{props.account.kitchenName}</span>
         </div>
         <div className="userName">
-          <span className="smallTitle">{props.t('user_name')}</span>
+          <span className="smallTitle">{props.t('accountedit_user_name')}</span>
           <span className="contentText">{props.account.name}</span>
         </div>
       </div>
       <div className="description">
-        <span className="smallTitle">{props.t('kitechen_description')}</span>
+        <span className="smallTitle">{props.t('accountedit_kitchen_description')}</span>
         <p className="contentText">{props.account.kitchenDescription || ''}</p>
       </div>
       <div className="name">
         <div className="kitchenName">
-          <span className="smallTitle">{props.t('mobile_number')}</span>
+          <span className="smallTitle">{props.t('accountedit_phone_number_placeholder')}</span>
           <span className="contentText">{props.account.phoneNumber}</span>
         </div>
         <div className="userName">
-          <span className="smallTitle">{props.t('email')}</span>
+          <span className="smallTitle">{props.t('accountedit_email_address_placeholder')}</span>
           <span className="contentText">{props.account.email}</span>
         </div>
       </div>
@@ -51,12 +51,12 @@ const AccountDetail = (props: Props) => (
             props.onUpdate(pageStatus.UPDATE_ACCOUNT);
           }}
         >
-          UPDATE
+          {props.t('accountpreview_button_update')}
         </Button>
       </div>
     </div>
     <div className="additionalInfo">
-      <p className="smallTitle">Bank Account</p>
+      <p className="smallTitle">{props.t('accountpreview_bank_account')}</p>
       <div className="infoContent">
         <div className="left">
           <span className="contentText">000 000 0000</span>
@@ -69,13 +69,13 @@ const AccountDetail = (props: Props) => (
               props.onUpdate(pageStatus.UPDATE_BANK_ACCOUNT);
             }}
           >
-            EDIT
+            {props.t('accountpreview_button_edit')}
           </Button>
         </div>
       </div>
     </div>
     <div className="additionalInfo">
-      <p className="smallTitle">Password</p>
+      <p className="smallTitle">{props.t('accountpreview_password')}</p>
       <div className="infoContent">
         <div className="left">
           <span className="contentText">******</span>
@@ -88,7 +88,7 @@ const AccountDetail = (props: Props) => (
               props.onUpdate(pageStatus.UPDATE_PASSWORD);
             }}
           >
-            UPDATE
+            {props.t('accountpreview_button_update')}
           </Button>
         </div>
       </div>

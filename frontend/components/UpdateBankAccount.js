@@ -53,7 +53,7 @@ class UpdateBankAccount extends React.Component<Props, State> {
         <div className="buttonGroup">
           <div>
             <Button buttonStyle="greenBorderOnly" size="small" onClick={this.props.goback}>
-              CANCEL
+              {this.props.t('accountupdatepw_button_cancel')}
             </Button>
           </div>
           <div>
@@ -66,7 +66,7 @@ class UpdateBankAccount extends React.Component<Props, State> {
                 });
               }}
             >
-              SAVE
+              {this.props.t('accountupdatepw_button_save')}
             </Button>
           </div>
         </div>

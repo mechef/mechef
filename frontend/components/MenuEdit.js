@@ -134,10 +134,10 @@ class MenuEdit extends React.Component<Props, State> {
     const displayImages = displayMenu.images || [];
     return (
       <div className="dashboard-content">
-        <p className="mainTitle">Edit Menu</p>
+        <p className="mainTitle">{this.props.t('Menu Details')}</p>
         <div className="editContainer">
           <div className="addImage">
-            <h3 className="title">Add Images*</h3>
+            <h3 className="title">{this.props.t('Add Images*')}</h3>
             <p className="subtitle">Add Images Add Images</p>
             <div className="uploadImageWrapper">
               {displayImages.length < 3 ? (
@@ -162,7 +162,7 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
           <div className="dishName">
-            <h3 className="title">Dish Name</h3>
+            <h3 className="title">{this.props.t('walkthroughmenudetails_dish_name')}</h3>
             <p className="subtitle">The number of characters is limited to 50</p>
             <TextInput
               type="text"
@@ -179,8 +179,8 @@ class MenuEdit extends React.Component<Props, State> {
           </div>
           <div className="formSection">
             <div className="smallInputContainer">
-              <h3 className="title">Unit Price</h3>
-              <span className="subtitle">Enter Unit Price</span>
+              <h3 className="title">{this.props.t('walkthroughmenudetails_unit_price')}</h3>
+              <span className="subtitle">{this.props.t('walkthroughmenudetails_unit_price_description')}</span>
               <TextInput
                 type="text"
                 placeholder="$"
@@ -195,8 +195,8 @@ class MenuEdit extends React.Component<Props, State> {
               />
             </div>
             <div className="smallInputContainer">
-              <h3 className="title">Quantity</h3>
-              <span className="subtitle">Choose quantity</span>
+              <h3 className="title">{this.props.t('walkthroughmenudetails_quantity')}</h3>
+              <span className="subtitle">{this.props.t('walkthroughmenudetails_quantity_description')}</span>
               <SelectBox
                 options={quantity}
                 selectedValue={displayMenu.quantity || 0}
@@ -209,10 +209,10 @@ class MenuEdit extends React.Component<Props, State> {
               />
             </div>
           </div>
-          <h3 className="title">Category</h3>
+          <h3 className="title">{this.props.t('walkthroughmenudetails_menu_category')}</h3>
           <div className="formSection">
             <div className="smallInputContainer">
-              <p className="subtitle">Choose category</p>
+              <p className="subtitle">{this.props.t('walkthroughmenudetails_category_description')}</p>
               <div className="flexWrapper">
                 <TextInput
                   type="text"
@@ -256,8 +256,8 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
           <div className="ingredient">
-            <h3 className="title">Ingredients</h3>
-            <p className="subtitle">Choose Ingredients</p>
+            <h3 className="title">{this.props.t('walkthroughmenudetails_ingredients_description')}</h3>
+            <p className="subtitle">{this.props.t('walkthroughmenudetails_enter_ingredients')}</p>
             <div className="flexWrapper">
               <TextInput
                 type="text"
@@ -300,8 +300,8 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
           <div className="description">
-            <h3 className="title">Description*</h3>
-            <p className="subtitle">Description</p>
+            <h3 className="title">{this.props.t('walkthroughmenudetails_menu_description')}</h3>
+            <p className="subtitle">{this.props.t('walkthroughmenudetails_description_description')}</p>
             <TextAreaInput
               placeholder="Write some description about your menu...."
               value={displayMenu.description || ''}
@@ -314,8 +314,8 @@ class MenuEdit extends React.Component<Props, State> {
           </div>
           <div className="formSection">
             <div className="smallInputContainer">
-              <h3 className="title">Cooking Buffer</h3>
-              <p className="subtitle">Choose cooking buffer</p>
+              <h3 className="title">{this.props.t('walkthroughmenudetails_cooking_buffer')}</h3>
+              <p className="subtitle">{this.props.t('walkthroughmenudetails_set_cooking_buffer')}</p>
               <SelectBox
                 options={cookingBuffer}
                 selectedValue={displayMenu.cookingBuffer || ''}
@@ -329,8 +329,8 @@ class MenuEdit extends React.Component<Props, State> {
               />
             </div>
             <div className="smallInputContainer">
-              <h3 className="title">Serving</h3>
-              <p className="subtitle">Choose serving</p>
+              <h3 className="title">{this.props.t('walkthroughmenudetails_serving')}</h3>
+              <p className="subtitle">{this.props.t('walkthroughmenudetails_serving_description')}</p>
               <SelectBox
                 options={serving}
                 selectedValue={displayMenu.serving || ''}
@@ -344,11 +344,11 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
         </div>
-        <p className="mainTitle">Set Up Delivery</p>
+        <p className="mainTitle">{this.props.t('menucreatemenu_menu_setup_delivery')}</p>
         <div className="shippingContainer">
           <div className="meetup">
-            <h3 className="title">MEET UP</h3>
-            <p className="subtitle">Location &amp; Time</p>
+            <h3 className="title">{this.props.t('menucreatemenu_menu_meetup')}</h3>
+            <p className="subtitle">{this.props.t('menucreatemenu_menu_meetup_description')}</p>
             <div className="meetupWrapper">
               {deliveryList.filter(delivery => delivery.type === 'meetup').map(meetup => (
                 <div className="meetupItem">
@@ -377,7 +377,7 @@ class MenuEdit extends React.Component<Props, State> {
                   </span>
                   <div key={meetup._id} className="deliveryItem">
                     <div className="mapWrapper" id={meetup._id} />
-                    <span className="descriptionText">Meet up at</span>
+                    <span className="descriptionText">{this.props.t('deliverylist_meetup_at')}</span>
                     <div className="delivery-content">
                       <div className="text">{meetup.meetupAddress}</div>
                       <div className="text">{this.getAvailableDays(meetup)}</div>
@@ -385,7 +385,7 @@ class MenuEdit extends React.Component<Props, State> {
                         {meetup.meetupStartTime} - {meetup.meetupEndTime}
                       </div>
                     </div>
-                    <span className="descriptionText">Note to buyer</span>
+                    <span className="descriptionText">{this.props.t('deliveryeditmeetup_note_placeholder')}</span>
                     <div className="delivery-content">
                       <div className="text">{meetup.note}</div>
                     </div>
@@ -407,12 +407,12 @@ class MenuEdit extends React.Component<Props, State> {
                 goBack();
               }}
             >
-              DELETE
+              {this.props.t('menucreatemenu_button_delete')}
             </Button>
           </div>
           <div>
             <Button buttonStyle="greenBorderOnly" size="small" onClick={() => goBack()}>
-              CANCEL
+              {this.props.t('menucreatemenu_button_cancel')}
             </Button>
           </div>
           <div>
@@ -432,7 +432,7 @@ class MenuEdit extends React.Component<Props, State> {
                 }
               }}
             >
-              SAVE
+              {this.props.t('menucreatemenu_button_save')}
             </Button>
           </div>
         </div>

@@ -67,17 +67,17 @@ class OrderItem extends React.Component<Props> {
           </div>
           <div className="divider" />
           <div className="infoWrapper">
-            <div className="infoTitle">Order Time : </div>
+            <div className="infoTitle">{this.props.t('orderdetailview_order_time')}</div>
             <span className="infoContent">
               {moment(this.props.orderTime).format("MMM DD hh:mm")}
             </span>
           </div>
           <div className="infoWrapper">
-            <div className="infoTitle">Delivery To : </div>
+            <div className="infoTitle">{this.props.t('orderdetailview_deli_to')}</div>
             <span className="infoContent">{this.props.deliveryTo}</span>
           </div>
           <div className="infoWrapper">
-            <div className="infoTitle">Delivery Time : </div>
+            <div className="infoTitle">{this.props.t('orderdetailview_Deli_time')}</div>
             <span className="infoContent">
               {moment(this.props.deliveryTime).format("MMM DD hh:mm")}
             </span>

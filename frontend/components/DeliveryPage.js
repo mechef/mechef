@@ -110,6 +110,7 @@ export class DeliveryPage extends React.Component<Props> {
             }}
             onDeleteMeetup={deleteMeetup$}
             goBack={() => toggleBackArrow$('')}
+            t={this.props.t}
           />
         ) : meetupList && meetupList.length ? (
           <DeliveryList
@@ -119,6 +120,7 @@ export class DeliveryPage extends React.Component<Props> {
               toggleBackArrow$('Edit Delivery');
             }}
             onDeleteMeetup={deleteMeetup$}
+            t={this.props.t}
           />
         ) : !isLoading ? (
           <DefaultComponent coverPhotoSrc="../static/img/delivery_default.jpg">

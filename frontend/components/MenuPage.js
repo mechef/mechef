@@ -104,6 +104,7 @@ export class MenuPage extends React.Component<Props> {
                 message: 'Please make sure the data you fill in is correct!',
               })
             }
+            t={this.props.t}
           />
         ) : menuList && menuList.length ? (
           <MenuList
@@ -119,6 +120,7 @@ export class MenuPage extends React.Component<Props> {
                 publish,
               });
             }}
+            t={this.props.t}
           />
         ) : !isLoading ? (
           <DefaultComponent coverPhotoSrc="../static/img/menu_default.jpg">

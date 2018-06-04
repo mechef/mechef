@@ -70,10 +70,10 @@ class DeliveryEdit extends React.Component<Props> {
     } = this.props;
     return (
       <div className="dashboard-content">
-        <p className="dashboard-content__title">Edit Delivery</p>
+        <p className="dashboard-content__title">{this.props.t('deliveryeditmeetup_edit_meetup')}</p>
         <div className="editContainer">
           <div className="meetupLocation">
-            <h3 className="title">Meet up location</h3>
+            <h3 className="title">{this.props.t('deliveryeditmeetup_meetup_loc')}</h3>
             <p className="subtitle">Location and Time</p>
             <MapWithAutoComplete
               initialValue={displayMeetup.meetupAddress || ''}
@@ -94,7 +94,7 @@ class DeliveryEdit extends React.Component<Props> {
             />
           </div>
           <div className="meetupDate">
-            <h3 className="title">Meet up date</h3>
+            <h3 className="title">{this.props.t('deliveryeditmeetup_meetup_date')}</h3>
             <p className="subtitle">Select Date</p>
             <div className="checkboxGroup">
               {days.map(day => (
@@ -113,10 +113,10 @@ class DeliveryEdit extends React.Component<Props> {
               ))}
             </div>
           </div>
-          <h3 className="title">Meet up time</h3>
+          <h3 className="title">{this.props.t('deliveryeditmeetup_meetup_time')}</h3>
           <div className="meetupTime">
             <div className="smallInputContainer">
-              <span className="subtitle">From</span>
+              <span className="subtitle">{this.props.t('deliveryeditmeetup_from')}</span>
               <SelectBox
                 options={availableTime}
                 selectedValue={displayMeetup.meetupStartTime}
@@ -129,7 +129,7 @@ class DeliveryEdit extends React.Component<Props> {
               />
             </div>
             <div className="smallInputContainer">
-              <span className="subtitle">To</span>
+              <span className="subtitle">{this.props.t('deliveryeditmeetup_to')}</span>
               <SelectBox
                 options={availableTime}
                 selectedValue={displayMeetup.meetupEndTime}
@@ -142,8 +142,8 @@ class DeliveryEdit extends React.Component<Props> {
               />
             </div>
           </div>
-          <h3 className="title">Note</h3>
-          <p className="subtitle">meet up information to buyer</p>
+          <h3 className="title">{this.props.t('deliveryeditmeetup_note')}</h3>
+          <p className="subtitle">{this.props.t('deliveryeditmeetup_note_description')}</p>
           <TextInput
             type="text"
             placeholder="Write something......"
@@ -168,12 +168,12 @@ class DeliveryEdit extends React.Component<Props> {
                 goBack();
               }}
             >
-              DELETE
+              {this.props.t('deliveryeditmeetup_button_delete')}
             </Button>
           </div>
           <div>
             <Button buttonStyle="greenBorderOnly" size="small" onClick={() => goBack()}>
-              CANCEL
+              {this.props.t('deliveryeditmeetup_button_cancel')}
             </Button>
           </div>
           <div>
@@ -189,7 +189,7 @@ class DeliveryEdit extends React.Component<Props> {
                 goBack();
               }}
             >
-              SAVE
+              {this.props.t('deliveryeditmeetup_button_save')}
             </Button>
           </div>
         </div>

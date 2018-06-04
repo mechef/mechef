@@ -106,26 +106,26 @@ class OrderModal extends React.Component<Props> {
             </p>
             <p className="divider" />
             <p className="infoWrapper">
-              <p className="infoTitle">Order Time : </p>
+              <p className="infoTitle">{this.props.t('orderdetailview_order_time')}</p>
               <span className="infoContent">
                 {moment(this.props.order.orderTime).format("MMM DD hh:mm")}
               </span>
             </p>
             <p className="infoWrapper">
-              <p className="infoTitle">Delivery To : </p>
+              <p className="infoTitle">{this.props.t('orderdetailview_deli_to')}</p>
               <span className="infoContent">
                 {this.props.order.deliveryAddress}
               </span>
             </p>
             <p className="infoWrapper">
-              <p className="infoTitle">Delivery Time : </p>
+              <p className="infoTitle">{this.props.t('orderdetailview_Deli_time')}</p>
               <span className="infoContent">
                 {moment(this.props.order.deliveryTime).format("MMM DD hh:mm")}
               </span>
             </p>
             <div className="mapWrapper" id="map" />
             <div className="messageWrapper">
-              <p className="messageTitle">Message from buyer : </p>
+              <p className="messageTitle">{this.props.t('orderdetailview_message_from_buyer')}</p>
               <span className="messageContent">
                 {this.props.order.messageFromBuyer}
               </span>
@@ -149,7 +149,7 @@ class OrderModal extends React.Component<Props> {
                   }}
                 >
                   <div className="icon cancelledIcon" />
-                  <p className="stateActionText">CANCEL</p>
+                  <p className="stateActionText">{this.props.t('orderdetailview_status_cancel')}</p>
                 </button>
               </div>
               <div
@@ -169,7 +169,7 @@ class OrderModal extends React.Component<Props> {
                   }}
                 >
                   <div className="icon waitingIcon" />
-                  <p className="stateActionText">WAITING</p>
+                  <p className="stateActionText">{this.props.t('orderdetailview_status_waiting')}</p>
                 </button>
               </div>
               <div
@@ -189,7 +189,7 @@ class OrderModal extends React.Component<Props> {
                   }}
                 >
                   <div className="icon finishedIcon" />
-                  <p className="stateActionText">FINISHED</p>
+                  <p className="stateActionText">{this.props.t('orderdetailview_status_finish')}</p>
                 </button>
               </div>
             </div>

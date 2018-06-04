@@ -92,6 +92,7 @@ class OrderPage extends React.Component<Props, State> {
                 currentOrder: {},
               });
             }}
+            t={this.props.t}
           />
         ) : null}
         {orderList && orderList.length ? (
@@ -177,6 +178,7 @@ class OrderPage extends React.Component<Props, State> {
                     totalPrice={order.amount}
                     status="WAITING"
                     menuImageUrl={order.image ? `${IMAGE_URL}/${order.image}` : ''}
+                    t={this.props.t}
                   />
                 </div>
               ))}

@@ -93,6 +93,7 @@ export class IngredientPage extends React.Component<Props> {
             onDeleteMemo={() => deleteMemo$(currentMemo._id || '')}
             onChangeField={setFields$}
             goBack={() => toggleBackArrow$('')}
+            t={this.props.t}
           />
         ) : memos && memos.length ? (
           <IngredientList
@@ -102,6 +103,7 @@ export class IngredientPage extends React.Component<Props> {
               setCurrentMemoId$(memoId);
               toggleBackArrow$('Edit Ingredient');
             }}
+            t={this.props.t}
           />
         ) : !isLoading ? (
           <DefaultComponent coverPhotoSrc="../static/img/ingredients_default.jpg">
