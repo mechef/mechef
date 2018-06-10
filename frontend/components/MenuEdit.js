@@ -183,6 +183,8 @@ class MenuEdit extends React.Component<Props, State> {
               <span className="subtitle">{this.props.t('walkthroughmenudetails_unit_price_description')}</span>
               <TextInput
                 type="text"
+                pattern="^\d+$"
+                validationMessage="Please Enter Only Numbers"
                 placeholder="$"
                 size="small"
                 value={displayMenu.unitPrice || ''}
