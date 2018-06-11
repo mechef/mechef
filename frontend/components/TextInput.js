@@ -20,6 +20,8 @@ import {
 
 type Props = {
   type: string,
+  pattern: string,
+  validationMessage: string,
   size: 'small' | 'medium' | 'large',
   placeholder: string,
   value: string | number,
@@ -61,13 +63,32 @@ class TextInput extends React.Component<Props, State> {
         <div className="inputWrapper">
           <input
             type={this.props.type}
+            pattern={this.props.pattern}
+            title={this.props.title}
             className={`
               textInput
               ${this.props.size}
             `}
             placeholder={this.props.placeholder}
             value={this.props.value}
-            onChange={this.props.onChange}
+            onChange={(event) => {
+              if (event && event.target && this.props.pattern) {
+                let re = new RegExp(this.props.pattern);
+                if (!re.test(event.target.value)) {
+                  this.setState({
+                    errors: {
+                      ...this.state.errors,
+                      validation: this.props.validationMessage,
+                    },
+                  });
+                  this.props.onError(true);
+                } else {
+                  this.setState({ errors: {} });
+                  this.props.onError(false);
+                }
+              }
+              this.props.onChange(event);
+            }}
             onKeyPress={this.props.onKeyPress}
             onBlur={() => {
               if (this.props.isRequired && !this.props.value) {
