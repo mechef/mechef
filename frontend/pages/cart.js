@@ -2,11 +2,11 @@
 
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
-
+import Router from 'next/router';
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
 import CartItem from '../components/CartItem';
-
+import Button from '../components/Button';
 import { connect } from '../state/RxState';
 import kitchenActions from '../actions/kitchenActions';
 import cartActions from '../actions/cartActions';
@@ -18,7 +18,7 @@ type Props = {
   url: {
     query: {
       kitchen: string,
-    }
+    },
   },
   cart: CartObject,
   restoreCart$: (kitchen: string) => Rx.Observable,
@@ -94,47 +94,53 @@ class Cart extends React.PureComponent<Props, State> {
       <div>
         <BuyerHeader />
         <div className="cart">
-          <div className="cart-header">
-            My Shopping Cart
-          </div>
+          <div className="cart-header">My Shopping Cart</div>
           <hr />
-          {
-            cart.orders && cart.orders.length > 0 ?
-              <div className="cart-content">
-                {
-                  cart.orders.map(order => (
-                    <div key={order._id}>
-                      <CartItem
-                        order={order}
-                        onOrderModified={this.onOrderModified}
-                        onOrderRemoved={this.onRemoveButtonClicked}
-                      />
-                      <hr />
-                    </div>
-                  ))
-                }
-              </div> :
-              <div className="cart-content__no-order">Cart is empty</div>
-          }
-          {
-            cart.orders && cart.orders.length > 0 ?
-              <div className="cart-footer">
-                <div className="cart-footer__item">
-                  <span className="cart-footer__item__label">SUBTOTAL</span>
-                  <span>{this.formatPrice(this.state.subTotal)}</span>
+          {cart.orders && cart.orders.length > 0 ? (
+            <div className="cart-content">
+              {cart.orders.map(order => (
+                <div key={order._id}>
+                  <CartItem
+                    order={order}
+                    onOrderModified={this.onOrderModified}
+                    onOrderRemoved={this.onRemoveButtonClicked}
+                  />
+                  <hr />
                 </div>
-                <div className="cart-footer__item">
-                  <span className="cart-footer__item__label">SHIPPING</span>
-                  <span>{this.formatPrice(this.state.shipping)}</span>
-                </div>
-                <hr />
-                <div className="cart-footer__item">
-                  <span className="cart-footer__item__label">TOTAL</span>
-                  <span>{this.formatPrice(this.state.total)}</span>
-                </div>
-              </div> :
-              null
-          }
+              ))}
+            </div>
+          ) : (
+            <div className="cart-content__no-order">Cart is empty</div>
+          )}
+          {cart.orders && cart.orders.length > 0 ? (
+            <div className="cart-footer">
+              <div className="cart-footer__item">
+                <span className="cart-footer__item__label">SUBTOTAL</span>
+                <span>{this.formatPrice(this.state.subTotal)}</span>
+              </div>
+              <div className="cart-footer__item">
+                <span className="cart-footer__item__label">SHIPPING</span>
+                <span>{this.formatPrice(this.state.shipping)}</span>
+              </div>
+              <hr />
+              <div className="cart-footer__item">
+                <span className="cart-footer__item__label">TOTAL</span>
+                <span>{this.formatPrice(this.state.total)}</span>
+              </div>
+              <Button
+                buttonStyle="primary"
+                size="small"
+                onClick={() => {
+                  Router.push({
+                    pathname: `/checkout/${this.props.url.query.kitchen}`,
+                  });
+                }}
+              >
+                {/* TODO Bible: Replace with i18n */}
+                Place Order
+              </Button>
+            </div>
+          ) : null}
         </div>
         <BuyerFooter />
         <style jsx>
@@ -203,7 +209,7 @@ const stateSelector = ({ cart, error }) => ({
 });
 
 const actionSubjects = {
-//   ...errorActions,
+  //   ...errorActions,
   ...kitchenActions,
   ...cartActions,
 };

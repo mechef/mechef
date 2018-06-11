@@ -75,7 +75,10 @@ class CartItem extends React.Component<Props, State> {
       maxServing,
       quantity,
     } = this.props.order;
-    const image = images && images.length > 0 ? `${IMAGE_URL}/${images.shift()}` : '/static/svg/mechef_logo_white.svg';
+    const image =
+      images && images.length > 0
+        ? `${IMAGE_URL}/${images.shift()}`
+        : '/static/svg/mechef_logo_white.svg';
     return (
       <div className="cart-item">
         <div
@@ -83,22 +86,10 @@ class CartItem extends React.Component<Props, State> {
           style={{ backgroundImage: `url('${image}'), url('/static/svg/mechef_logo_white.svg')` }}
         />
         <div className="cart-item__dish-detail">
-          <div className="cart-item__dish-detail__name">
-            {dishName}
-          </div>
-          {
-            undefined ?
-              <div className="cart-item__dish-detail__error">
-                not enough food
-              </div> :
-              null
-          }
-          <div className="cart-item__dish-detail__description">
-            {description}
-          </div>
-          <div className="cart-item__dish-detail__note">
-            {messageFromBuyer}
-          </div>
+          <div className="cart-item__dish-detail__name">{dishName}</div>
+          {undefined ? <div className="cart-item__dish-detail__error">not enough food</div> : null}
+          <div className="cart-item__dish-detail__description">{description}</div>
+          <div className="cart-item__dish-detail__note">{messageFromBuyer}</div>
         </div>
         <div className="cart-item__modifier">
           <ServingModifier
@@ -107,11 +98,7 @@ class CartItem extends React.Component<Props, State> {
             onQuantityChanged={this.onQuantityChanged}
           />
         </div>
-        <div className="cart-item__subTotal">
-          {
-            this.state.subTotal
-          }
-        </div>
+        <div className="cart-item__subTotal">{this.state.subTotal}</div>
         <div className="cart-item__remove" onClick={this.onRemoveButtonClicked} />
         <style jsx>
           {`
