@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import { translate } from 'react-i18next';
+import SelectBox from '../components/SelectBox';
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
 import Button from '../components/Button';
@@ -33,6 +34,7 @@ type State = {
     firstName: string,
     lastName: string,
     buyerEmail: string,
+    buyerPhoneNumber: string,
     messageFromBuyer: string,
     deliveryTime: string,
     deliveryId: string,
@@ -48,6 +50,7 @@ class Checkout extends React.PureComponent<Props, State> {
         firstName: '',
         lastName: '',
         buyerEmail: '',
+        buyerPhoneNumber: '',
         messageFromBuyer: '',
         deliveryTime: '',
         deliveryId: '',
@@ -154,14 +157,47 @@ class Checkout extends React.PureComponent<Props, State> {
                   type="text"
                   placeholder="Enter your phone number"
                   size="medium"
-                  value={''}
+                  value={this.state.newOrder.buyerPhoneNumber}
                   onChange={(event) => {
                     if (event && event.target) {
-                      console.log(event.target.value);
+                      this.setState({
+                        newOrder: {
+                          ...this.state.newOrder,
+                          buyerPhoneNumber: event.target.value,
+                        },
+                      });
                     }
                   }}
                 />
               </div>
+              <h3>DELIVERY DETAIL</h3>
+              <SelectBox
+                options={
+                  // TODO Bible: Add shipping type and move to constant file in the future
+                  [{ text: 'Meet Up', value: 'meetup' }]
+                }
+                selectedValue="meetup"
+                defaultText="Meet Up"
+                onChange={(selectedValue: string | number) => {
+                  console.log(selectedValue);
+                }}
+              />
+              <SelectBox
+                options={[]}
+                selectedValue={''}
+                defaultText="24:00"
+                onChange={(selectedValue: string | number) => {
+                  console.log(selectedValue);
+                }}
+              />
+              <SelectBox
+                options={[]}
+                selectedValue={''}
+                defaultText="date"
+                onChange={(selectedValue: string | number) => {
+                  console.log(selectedValue);
+                }}
+              />
             </section>
             <section className="orderList">
               <h3>YOUR ORDER</h3>
