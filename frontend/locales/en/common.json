@@ -418,5 +418,8 @@
   "button_joinnow": "Account Registration",
   "button_signin": "Login",
   "beacheftoday": "Be a chef today!",
-  "user_agreement": "Terms & Conditions"
+  "user_agreement": "Terms & Conditions",
+
+  "validationmessage_only_number": "Please enter only numbers",
+  "validationmessage_email": "Please include an @ in the email address",
 }

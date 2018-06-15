@@ -149,7 +149,9 @@ class Login extends React.Component<Props, State> {
                 <p className="title">{this.props.t('button_signin')}</p>
                 <div className="mail">
                   <TextInput
-                    type="mail"
+                    type="email"
+                    pattern="^.+@.+\..+$"
+                    validationMessage={this.props.t('validationmessage_email')}
                     placeholder="Mail or Username"
                     size="medium"
                     value={email}
@@ -251,7 +253,9 @@ class Login extends React.Component<Props, State> {
                 </div>
                 <div>
                   <TextInput
-                    type="mail"
+                    type="email"
+                    pattern="^.+@.+\..+$"
+                    validationMessage={this.props.t('validationmessage_email')}
                     placeholder="Email Address"
                     size="medium"
                     value={this.state.signup.email}

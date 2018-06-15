@@ -184,7 +184,7 @@ class MenuEdit extends React.Component<Props, State> {
               <TextInput
                 type="text"
                 pattern="^\d+$"
-                validationMessage="Please Enter Only Numbers"
+                validationMessage={this.props.t('validationmessage_only_number')}
                 placeholder="$"
                 size="small"
                 value={displayMenu.unitPrice || ''}
