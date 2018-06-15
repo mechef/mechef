@@ -134,7 +134,9 @@ class Checkout extends React.PureComponent<Props, State> {
                 <h4>Email Address*</h4>
                 <p className="subtitle">subtitle</p>
                 <TextInput
-                  type="text"
+                  type="email"
+                  pattern="^.+@.+\..+$"
+                  validationMessage={this.props.t('validationmessage_email')}
                   placeholder="Enter your email address"
                   size="medium"
                   value={this.state.newOrder.buyerEmail}

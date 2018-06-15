@@ -90,6 +90,8 @@ class IngredientEdit extends React.Component<Props, State> {
                 <TextInput
                   type="text"
                   placeholder="$"
+                  pattern="^\d+$"
+                  validationMessage={this.props.t('validationmessage_only_number')}
                   size="small"
                   value={this.state.inputIngredientAmount || ""}
                   onChange={event => {
