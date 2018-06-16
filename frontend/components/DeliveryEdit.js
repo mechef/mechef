@@ -18,6 +18,7 @@ type Props = {
   onChangeMeetupField: (meetupField: MeetupObject) => Rx.Observable,
   displayMeetup: MeetupObject,
   goBack: () => Rx.Observable,
+  t: (key: string) => string,
 };
 
 const availableTime = [

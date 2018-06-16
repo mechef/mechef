@@ -1,8 +1,8 @@
 // @flow
 
-import React from "react";
-import Rx from "rxjs/Rx";
-import moment from "moment";
+import React from 'react';
+import Rx from 'rxjs/Rx';
+import moment from 'moment';
 
 import {
   borderRadius,
@@ -15,8 +15,8 @@ import {
   textHintColor,
   transparent,
   fontSize,
-  connectErrorColor
-} from "../utils/styleVariables";
+  connectErrorColor,
+} from '../utils/styleVariables';
 
 type Props = {
   sellerId?: string,
@@ -29,14 +29,15 @@ type Props = {
   totalPrice?: number,
   status?: string,
   profileImageUrl?: string,
-  menuImageUrl?: string
+  menuImageUrl?: string,
+  t: (key: string) => string,
 };
 
 class OrderItem extends React.Component<Props> {
   static defaultProps = {
-    description: "",
-    profileImageUrl: "",
-    menuImageUrl: ""
+    description: '',
+    profileImageUrl: '',
+    menuImageUrl: '',
   };
 
   render() {
@@ -50,9 +51,9 @@ class OrderItem extends React.Component<Props> {
               <a
                 className="email"
                 href={
-                  this.props.buyerEmail ? `mailto:${this.props.buyerEmail}` : ""
+                  this.props.buyerEmail ? `mailto:${this.props.buyerEmail}` : ''
                 }
-                onClick={event => {
+                onClick={(event) => {
                   event.stopPropagation();
                 }}
               >
@@ -69,7 +70,7 @@ class OrderItem extends React.Component<Props> {
           <div className="infoWrapper">
             <div className="infoTitle">{this.props.t('orderdetailview_order_time')}</div>
             <span className="infoContent">
-              {moment(this.props.orderTime).format("MMM DD hh:mm")}
+              {moment(this.props.orderTime).format('MMM DD hh:mm')}
             </span>
           </div>
           <div className="infoWrapper">
@@ -79,7 +80,7 @@ class OrderItem extends React.Component<Props> {
           <div className="infoWrapper">
             <div className="infoTitle">{this.props.t('orderdetailview_Deli_time')}</div>
             <span className="infoContent">
-              {moment(this.props.deliveryTime).format("MMM DD hh:mm")}
+              {moment(this.props.deliveryTime).format('MMM DD hh:mm')}
             </span>
           </div>
         </div>

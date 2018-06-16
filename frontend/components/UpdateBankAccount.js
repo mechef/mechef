@@ -4,13 +4,13 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
-import TextInput from './TextInput';
 import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
   account: AccountObject,
   onSubmit: (account: AccountObject) => Rx.Observable,
   goback: any => Rx.Observable,
+  t: (key: string) => string,
 };
 
 type State = {

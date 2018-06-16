@@ -1,27 +1,23 @@
 // @flow
 
-import React from "react";
-import Rx from "rxjs/Rx";
-import moment from "moment";
+import React from 'react';
+import Rx from 'rxjs/Rx';
+import moment from 'moment';
 
-import MapWithAutoComplete from "./MapWithAutoComplete";
 import {
   borderRadius,
   whiteColor,
   primaryColor,
-  lineHeight,
-  titleFontSize,
-  subtitleFontSize,
   textColor,
-  textHintColor,
   transparent,
   fontSize,
-  connectErrorColor
-} from "../utils/styleVariables";
-import type { OrderObject, OrderState } from "../utils/flowTypes";
-import { ORDER_STATE } from "../utils/constants";
+  connectErrorColor,
+} from '../utils/styleVariables';
+import type { OrderObject, OrderState } from '../utils/flowTypes';
+import { ORDER_STATE } from '../utils/constants';
 
 type Props = {
+  t: (key: string) => string,
   order: OrderObject,
   onCancel: () => Rx.Observable,
   onUpdateState: (state: OrderState) => Rx.Observable
@@ -29,36 +25,36 @@ type Props = {
 
 class OrderModal extends React.Component<Props> {
   defaultProps = {
-    onCancel: () => {}
+    onCancel: () => {},
   };
   componentWillMount() {
     // $FlowFixMe
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
   }
   componentDidMount() {
     // $FlowFixMe
-    const map = new google.maps.Map(document.getElementById("map"), {
+    const map = new google.maps.Map(document.getElementById('map'), {
       center: {
         lat: this.props.order.deliveryLatitude,
-        lng: this.props.order.deliveryLongitude
+        lng: this.props.order.deliveryLongitude,
       },
       zoom: 15,
       panControl: false,
       mapTypeControl: false,
       streetViewControl: false,
       zoomControl: true,
-      fullscreenControl: false
+      fullscreenControl: false,
     });
     // $FlowFixMe
     const latlng = new google.maps.LatLng(
       this.props.order.deliveryLatitude,
-      this.props.order.deliveryLongitude
+      this.props.order.deliveryLongitude,
     );
     map.setCenter(latlng);
     const marker = new google.maps.Marker({
       position: latlng,
       title: this.props.order.deliveryAddress,
-      visible: true
+      visible: true,
     });
     marker.setMap(map);
     // const placesService = new google.maps.places.PlacesService(map);
@@ -66,7 +62,7 @@ class OrderModal extends React.Component<Props> {
 
   componentWillUnmount() {
     // $FlowFixMe
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = 'auto';
   }
 
   render() {
@@ -76,7 +72,7 @@ class OrderModal extends React.Component<Props> {
           <header className="alert-modal-header">
             <div className="cancelBtnWrapper">
               <button className="cancel-btn" onClick={this.props.onCancel}>
-                <img src="../static/svg/cancel_white.svg" />
+                <img alt="Cancel" src="../static/svg/cancel_white.svg" />
               </button>
             </div>
           </header>
@@ -89,7 +85,7 @@ class OrderModal extends React.Component<Props> {
                   href={
                     this.props.order.buyerEmail
                       ? `mailto: ${this.props.order.buyerEmail}`
-                      : ""
+                      : ''
                   }
                   onClick={event => event.stopPropagation()}
                 >
@@ -108,7 +104,7 @@ class OrderModal extends React.Component<Props> {
             <p className="infoWrapper">
               <p className="infoTitle">{this.props.t('orderdetailview_order_time')}</p>
               <span className="infoContent">
-                {moment(this.props.order.orderTime).format("MMM DD hh:mm")}
+                {moment(this.props.order.orderTime).format('MMM DD hh:mm')}
               </span>
             </p>
             <p className="infoWrapper">
@@ -120,7 +116,7 @@ class OrderModal extends React.Component<Props> {
             <p className="infoWrapper">
               <p className="infoTitle">{this.props.t('orderdetailview_Deli_time')}</p>
               <span className="infoContent">
-                {moment(this.props.order.deliveryTime).format("MMM DD hh:mm")}
+                {moment(this.props.order.deliveryTime).format('MMM DD hh:mm')}
               </span>
             </p>
             <div className="mapWrapper" id="map" />
@@ -137,8 +133,8 @@ class OrderModal extends React.Component<Props> {
                   stateButtonWrapper
                   ${
                     this.props.order.state === ORDER_STATE.cancelled
-                      ? "selected"
-                      : ""
+                      ? 'selected'
+                      : ''
                   }
                 `}
               >
@@ -157,8 +153,8 @@ class OrderModal extends React.Component<Props> {
                   stateButtonWrapper
                   ${
                     this.props.order.state === ORDER_STATE.waiting
-                      ? "selected"
-                      : ""
+                      ? 'selected'
+                      : ''
                   }
                 `}
               >
@@ -177,8 +173,8 @@ class OrderModal extends React.Component<Props> {
                   stateButtonWrapper
                   ${
                     this.props.order.state === ORDER_STATE.finished
-                      ? "selected"
-                      : ""
+                      ? 'selected'
+                      : ''
                   }
                 `}
               >

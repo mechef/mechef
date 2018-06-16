@@ -16,6 +16,7 @@ import UpdatePassword from './UpdatePassword';
 import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
+  t: (key: string) => string,
   currentAccount: AccountObject,
   updatedFields: AccountObject,
   fetchAccountDetail$: any => Rx.Observable,
@@ -49,14 +50,14 @@ type State = {
 export const pageStatus = {
   UPDATE_ACCOUNT: 'EDIT ACCOUNT',
   UPDATE_PASSWORD: 'UPDATE PASSWORD',
-  UPDATE_BANK_ACCOUNT: 'UPDATE BANK ACCOUNT'
+  UPDATE_BANK_ACCOUNT: 'UPDATE BANK ACCOUNT',
 };
 
 export class AccountPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      pageStatus: ''
+      pageStatus: '',
     };
   }
   componentDidMount() {
@@ -73,7 +74,7 @@ export class AccountPage extends React.Component<Props, State> {
       setFields$,
       createCoverPhoto$,
       createProfileImage$,
-      toggleBackArrow$
+      toggleBackArrow$,
     } = this.props;
     const account = { ...currentAccount, ...updatedFields };
     return (
@@ -117,10 +118,10 @@ export class AccountPage extends React.Component<Props, State> {
         ) : (
           <AccountDetail
             account={account}
-            onUpdate={status => {
+            onUpdate={(status) => {
               toggleBackArrow$(pageStatus[status]);
               this.setState({
-                pageStatus: status
+                pageStatus: status,
               });
             }}
             t={this.props.t}
@@ -144,17 +145,15 @@ const stateSelector = ({ account, error, global }) => ({
   currentAccount: account.currentAccount,
   updatedFields: account.updatedFields,
   error,
-  global
+  global,
 });
 
 const actionSubjects = {
   ...errorActions,
   ...accountActions,
-  ...globalActions
+  ...globalActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  AccountPage
-);
+const Extended = translate(['common'], { i18n, wait: process.browser })(AccountPage);
 
 export default connect(stateSelector, actionSubjects)(Extended);

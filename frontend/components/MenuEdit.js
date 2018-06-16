@@ -33,6 +33,7 @@ type Props = {
   deliveryList: Array<MeetupObject>,
   fetchDelivery: () => Rx.Observable,
   goBack: () => Rx.Observable,
+  t: (key: string) => string,
 };
 
 type State = {
@@ -149,9 +150,7 @@ class MenuEdit extends React.Component<Props, State> {
                     imgSrc={`${IMAGE_URL}/${displayImages[index]}`}
                     onImageUpload={onUploadImage}
                     onRemoveImage={() => {
-                      const updatedImages = displayImages.filter(
-                        (image, imageIndex) => imageIndex !== index,
-                      );
+                      const updatedImages = displayImages.filter((image, imageIndex) => imageIndex !== index);
                       onChangeField({
                         images: updatedImages,
                       });
@@ -369,9 +368,7 @@ class MenuEdit extends React.Component<Props, State> {
                           });
                         } else {
                           onChangeField({
-                            deliveryIdList: currentDeliveryIdList.filter(
-                              deliveryId => deliveryId !== meetup._id,
-                            ),
+                            deliveryIdList: currentDeliveryIdList.filter(deliveryId => deliveryId !== meetup._id),
                           });
                         }
                       }}

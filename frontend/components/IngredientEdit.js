@@ -1,12 +1,12 @@
 // @flow
 
-import * as React from "react";
-import Rx from "rxjs/Rx";
+import * as React from 'react';
+import Rx from 'rxjs/Rx';
 
-import { transparent, whiteColor } from "../utils/styleVariables";
-import Button from "./Button";
-import TextInput from "./TextInput";
-import type { MemoObject } from "../utils/flowTypes";
+import { transparent, whiteColor } from '../utils/styleVariables';
+import Button from './Button';
+import TextInput from './TextInput';
+import type { MemoObject } from '../utils/flowTypes';
 
 type Props = {
   displayMemo: MemoObject,
@@ -15,7 +15,8 @@ type Props = {
   onDeleteMemo: () => Rx.Observable,
   onChangeField: (updatedField: MemoObject) => Rx.Observable,
   memos: Array<MemoObject>,
-  goBack: () => Rx.Observable
+  goBack: () => Rx.Observable,
+  t: (key: string) => string,
 };
 
 type State = {
@@ -27,8 +28,8 @@ class IngredientEdit extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      inputIngredientName: "",
-      inputIngredientAmount: 0
+      inputIngredientName: '',
+      inputIngredientAmount: 0,
     };
   }
   render() {
@@ -38,7 +39,7 @@ class IngredientEdit extends React.Component<Props, State> {
       onUpdateMemo,
       onDeleteMemo,
       onChangeField,
-      goBack
+      goBack,
     } = this.props;
     const currentIngredients = displayMemo.ingredients || [];
     const currentSum = displayMemo.sum || 0;
@@ -53,8 +54,8 @@ class IngredientEdit extends React.Component<Props, State> {
               type="text"
               placeholder="Input memo name"
               size="large"
-              value={displayMemo.name || ""}
-              onChange={event => {
+              value={displayMemo.name || ''}
+              onChange={(event) => {
                 if (event && event.target) {
                   onChangeField({ name: event.target.value });
                 }
@@ -77,10 +78,10 @@ class IngredientEdit extends React.Component<Props, State> {
                   placeholder="Enter Ingredients..."
                   size="small"
                   value={this.state.inputIngredientName}
-                  onChange={event => {
+                  onChange={(event) => {
                     if (event && event.target) {
                       this.setState({
-                        inputIngredientName: event.target.value
+                        inputIngredientName: event.target.value,
                       });
                     }
                   }}
@@ -93,11 +94,11 @@ class IngredientEdit extends React.Component<Props, State> {
                   pattern="^\d+$"
                   validationMessage={this.props.t('validationmessage_only_number')}
                   size="small"
-                  value={this.state.inputIngredientAmount || ""}
-                  onChange={event => {
+                  value={this.state.inputIngredientAmount || ''}
+                  onChange={(event) => {
                     if (event && event.target) {
                       this.setState({
-                        inputIngredientAmount: parseInt(event.target.value, 10)
+                        inputIngredientAmount: parseInt(event.target.value, 10),
                       });
                     }
                   }}
@@ -108,14 +109,14 @@ class IngredientEdit extends React.Component<Props, State> {
                         ...currentIngredients,
                         {
                           name: this.state.inputIngredientName,
-                          amount: this.state.inputIngredientAmount
-                        }
+                          amount: this.state.inputIngredientAmount,
+                        },
                       ],
-                      sum: currentSum + this.state.inputIngredientAmount
+                      sum: currentSum + this.state.inputIngredientAmount,
                     });
                     this.setState({
-                      inputIngredientName: "",
-                      inputIngredientAmount: 0
+                      inputIngredientName: '',
+                      inputIngredientAmount: 0,
                     });
                   }}
                 />
@@ -134,12 +135,10 @@ class IngredientEdit extends React.Component<Props, State> {
                     className="removeWrapper"
                     onClick={() => {
                       onChangeField({
-                        ingredients: currentIngredients.filter(
-                          (element, i) => i !== index
-                        ),
+                        ingredients: currentIngredients.filter((element, i) => i !== index),
                         sum:
                           parseInt(currentSum, 10) -
-                          parseInt(ingredient.amount, 10)
+                          parseInt(ingredient.amount, 10),
                       });
                     }}
                   >

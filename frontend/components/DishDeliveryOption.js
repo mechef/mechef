@@ -2,7 +2,6 @@
 import React from 'react';
 import { translate } from 'react-i18next';
 import i18n from '../i18n';
-import { connect } from '../state/RxState';
 
 import type { MeetupObject } from '../utils/flowTypes';
 import {
@@ -12,11 +11,15 @@ import {
   fontSize,
 } from '../utils/styleVariables';
 
-type Props = MeetupObject;
+type MeetupProps = {
+  ...MeetupObject,
+  t: (key: string) => string,
+};
 
-class Meetup extends React.Component<Props> {
+class Meetup extends React.Component<MeetupProps> {
   render() {
     const {
+      t,
       meetupAddress,
       meetupStartTime,
       meetupEndTime,
@@ -24,20 +27,20 @@ class Meetup extends React.Component<Props> {
       ...meetupDetail
     } = this.props;
 
-    const formatDeliveryDays = (detail, t) => {
+    const formatDeliveryDays = (detail) => {
       const days = [
-        t('sunday'),
-        t('monday'),
-        t('tuesday'),
-        t('wednesday'),
-        t('thursday'),
-        t('friday'),
-        t('saturday'),
+        t('deliveryeditmeetup_sunday'),
+        t('deliveryeditmeetup_monday'),
+        t('deliveryeditmeetup_tuesday'),
+        t('deliveryeditmeetup_wednesday'),
+        t('deliveryeditmeetup_thursday'),
+        t('deliveryeditmeetup_friday'),
+        t('deliveryeditmeetup_saturday'),
       ];
       const deliveryDays = days.map(day => Boolean(detail[`meetup${day}`]));
       const everyday = deliveryDays.every(day => day === true);
       const noday = deliveryDays.every(day => day === false);
-      const deliveryDaysString = `${t('every')} ${
+      const deliveryDaysString = `${t('deliveryeditmeetup_every')} ${
         deliveryDays.reduce((all, deliver, index) => {
           if (deliver) {
             all.push(days[index]);
@@ -46,7 +49,7 @@ class Meetup extends React.Component<Props> {
         }, []).join(', ')
       }`;
       return everyday ?
-        t('everyday') :
+        t('deliveryeditmeetup_everyday') :
         noday ?
           '-' :
           deliveryDaysString;
@@ -54,7 +57,7 @@ class Meetup extends React.Component<Props> {
 
     return (
       <div>
-        <div className="meetup__type">{ t('meetup') }</div>
+        <div className="meetup__type">{ t('menucreatemenu_menu_meetup_description') }</div>
         <div>{meetupAddress}</div>
         <div>
           <span className="meetup__days">
@@ -90,14 +93,20 @@ class Meetup extends React.Component<Props> {
   }
 }
 
-const Shipping = ({ meetupAddress, note, t }) => (
+type ShippingProps = {
+  t: (key: string) => string,
+  meetupAddress?: string,
+  note?: string,
+};
+
+const Shipping = ({ meetupAddress, note, t }: ShippingProps) => (
   <div>
     <div className="shipping__cell">
-      <div className="shipping__title">{ t('menu_shipping_description') }</div>
+      <div className="shipping__title">{ t('menucreatemenu_menu_shipping_description') }</div>
       <div>{meetupAddress}</div>
     </div>
     <div className="shipping__cell">
-      <div className="shipping__title">{ t('shipping_cost') }</div>
+      <div className="shipping__title">{ t('deliveryeditshipping_enter_shipping_cost') }</div>
       <div>$0.00</div>
     </div>
     {
@@ -129,6 +138,11 @@ const Shipping = ({ meetupAddress, note, t }) => (
   </div>
 );
 
+type Props = {
+  ...MeetupObject,
+  t: (key: string) => string,
+};
+
 const DishDeliveryOption = ({ t, type, ...deliveryOption }: Props) => (
   <div className="dish-delivery-option">
     {
@@ -150,4 +164,4 @@ const DishDeliveryOption = ({ t, type, ...deliveryOption }: Props) => (
   </div>
 );
 
-export default connect(() => { {} }, {})(translate(['common'], { i18n, wait: process.browser })(DishDeliveryOption));
+export default translate(['common'], { i18n, wait: process.browser })(DishDeliveryOption);

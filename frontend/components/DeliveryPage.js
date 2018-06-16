@@ -54,6 +54,7 @@ type Props = {
   },
   toggleBackArrow$: string => Rx.Observable,
   setLoading$: boolean => Rx.Observable,
+  t: (key: string) => string,
 };
 
 export class DeliveryPage extends React.Component<Props> {
@@ -65,7 +66,9 @@ export class DeliveryPage extends React.Component<Props> {
   }
   render() {
     const {
-      delivery: { meetupList, currentMeetupId, updatedMeetupFields, isLoading },
+      delivery: {
+        meetupList, currentMeetupId, updatedMeetupFields, isLoading,
+      },
       setError$,
       error,
       global: { backArrow },
