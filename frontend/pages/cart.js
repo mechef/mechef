@@ -3,6 +3,9 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import Router from 'next/router';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
+
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
 import CartItem from '../components/CartItem';
@@ -15,6 +18,7 @@ import type { CartObject, CartOrderObject } from '../utils/flowTypes';
 import { fontSize } from '../utils/styleVariables';
 
 type Props = {
+  t: any,
   url: {
     query: {
       kitchen: string,
@@ -88,59 +92,64 @@ class Cart extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { cart } = this.props;
+    const { cart, t } = this.props;
 
     return (
       <div>
         <BuyerHeader />
         <div className="cart">
-          <div className="cart-header">My Shopping Cart</div>
+          <div className="cart-header">
+            {t('shoppingcart_my_shopping_cart')}
+          </div>
           <hr />
-          {cart.orders && cart.orders.length > 0 ? (
-            <div className="cart-content">
-              {cart.orders.map(order => (
-                <div key={order._id}>
-                  <CartItem
-                    order={order}
-                    onOrderModified={this.onOrderModified}
-                    onOrderRemoved={this.onRemoveButtonClicked}
-                  />
-                  <hr />
+          {
+            cart.orders && cart.orders.length > 0 ?
+              <div className="cart-content">
+                {
+                  cart.orders.map(order => (
+                    <div key={order._id}>
+                      <CartItem
+                        order={order}
+                        onOrderModified={this.onOrderModified}
+                        onOrderRemoved={this.onRemoveButtonClicked}
+                      />
+                      <hr />
+                    </div>
+                  ))
+                }
+              </div> :
+              <div className="cart-content__no-order">{t('shoppingcart_empty_cart')}</div>
+          }
+          {
+            cart.orders && cart.orders.length > 0 ? (
+              <div className="cart-footer">
+                <div className="cart-footer__item">
+                  <span className="cart-footer__item__label">{t('shoppingcart_subtotal')}</span>
+                  <span>{this.formatPrice(this.state.subTotal)}</span>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="cart-content__no-order">Cart is empty</div>
-          )}
-          {cart.orders && cart.orders.length > 0 ? (
-            <div className="cart-footer">
-              <div className="cart-footer__item">
-                <span className="cart-footer__item__label">SUBTOTAL</span>
-                <span>{this.formatPrice(this.state.subTotal)}</span>
+                <div className="cart-footer__item">
+                  <span className="cart-footer__item__label">{t('shoppingcart_shipping_c')}</span>
+                  <span>{this.formatPrice(this.state.shipping)}</span>
+                </div>
+                <hr />
+                <div className="cart-footer__item">
+                  <span className="cart-footer__item__label">{t('shoppingcart_total')}</span>
+                  <span>{this.formatPrice(this.state.total)}</span>
+                </div>
+                <Button
+                  buttonStyle="primary"
+                  size="small"
+                  onClick={() => {
+                    Router.push({
+                      pathname: `/checkout/${this.props.url.query.kitchen}`,
+                    });
+                  }}
+                >
+                  {t('shoppingcart_place_order')}
+                </Button>
               </div>
-              <div className="cart-footer__item">
-                <span className="cart-footer__item__label">SHIPPING</span>
-                <span>{this.formatPrice(this.state.shipping)}</span>
-              </div>
-              <hr />
-              <div className="cart-footer__item">
-                <span className="cart-footer__item__label">TOTAL</span>
-                <span>{this.formatPrice(this.state.total)}</span>
-              </div>
-              <Button
-                buttonStyle="primary"
-                size="small"
-                onClick={() => {
-                  Router.push({
-                    pathname: `/checkout/${this.props.url.query.kitchen}`,
-                  });
-                }}
-              >
-                {/* TODO Bible: Replace with i18n */}
-                Place Order
-              </Button>
-            </div>
-          ) : null}
+            ) : null
+          }
         </div>
         <BuyerFooter />
         <style jsx>
@@ -214,4 +223,6 @@ const actionSubjects = {
   ...cartActions,
 };
 
-export default connect(stateSelector, actionSubjects)(Cart);
+const Extended = translate(['common'], { i18n, wait: process.browser })(Cart);
+
+export default connect(stateSelector, actionSubjects)(Extended);

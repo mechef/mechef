@@ -11,6 +11,7 @@ type Props = {
   account: AccountObject,
   onSubmit: (account: AccountObject) => Rx.Observable,
   goback: any => Rx.Observable,
+  t: (key: string) => string,
 };
 
 type State = {

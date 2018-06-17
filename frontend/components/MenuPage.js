@@ -49,6 +49,7 @@ type Props = {
     },
   },
   toggleBackArrow$: string => Rx.Observable,
+  t: (key: string) => string,
 };
 
 export class MenuPage extends React.Component<Props> {
@@ -61,7 +62,9 @@ export class MenuPage extends React.Component<Props> {
   render() {
     const {
       delivery: { meetupList },
-      menu: { menuList, currentMenuId, updatedMenuFields, isLoading },
+      menu: {
+        menuList, currentMenuId, updatedMenuFields, isLoading,
+      },
       setError$,
       error,
       global: { backArrow },
@@ -193,7 +196,11 @@ export class MenuPage extends React.Component<Props> {
   }
 }
 
-const stateSelector = ({ delivery, menu, error, global }) => ({ delivery, menu, error, global });
+const stateSelector = ({
+  delivery, menu, error, global,
+}) => ({
+  delivery, menu, error, global,
+});
 
 const actionSubjects = {
   ...errorActions,

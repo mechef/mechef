@@ -26,15 +26,33 @@ type Props = {
   onAddToCartClick: Function,
 };
 
-const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelected, onAddToCartClick }: Props) => (
+const DishCard = ({
+  _id,
+  dishName,
+  unitPrice,
+  images,
+  description,
+  onDishSelected,
+  onAddToCartClick,
+}: Props) => (
   <div className="dish-card">
     <div className="dish-card__content">
-      <div className="dish-card__image-container" onClick={() => onDishSelected(_id)}>
+      <div
+        className="dish-card__image-container"
+        role="Link"
+        onClick={() => onDishSelected(_id)}
+      >
         {
           images && images.length > 0 ? <div className="dish-card__image" /> : ''
         }
       </div>
-      <div className="dish-card__name" onClick={() => onDishSelected(_id)}>{dishName}</div>
+      <div
+        className="dish-card__name"
+        role="Link"
+        onClick={() => onDishSelected(_id)}
+      >
+        {dishName}
+      </div>
       <div className="dish-card__description">{description}</div>
       <div className="dish-card__price">{unitPrice}</div>
     </div>

@@ -15,6 +15,7 @@ type Props = {
   memos: Array<MemoObject>,
   onEditMemo: (memoId: string) => Rx.Observable,
   onDeleteMemo: (memoId: string) => Rx.Observable,
+  t: (key: string) => string,
 };
 const IngredientList = (props: Props): React.Element<'div'> => (
   <div>

@@ -99,7 +99,7 @@ class CartItem extends React.Component<Props, State> {
           />
         </div>
         <div className="cart-item__subTotal">{this.state.subTotal}</div>
-        <div className="cart-item__remove" onClick={this.onRemoveButtonClicked} />
+        <div className="cart-item__remove" role="Button" onClick={this.onRemoveButtonClicked} />
         <style jsx>
           {`
             .cart-item {

@@ -68,7 +68,6 @@ export const buyerFooterLineHeight = '1';
 export const badgeBackgroundColor = '#8cc63f';
 
 // Add To Cart Button
-export const addToCartButtonHeight = '50px';
 export const addToCartButtonWidth = '228px';
 
 // Dish Page

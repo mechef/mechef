@@ -43,6 +43,7 @@ type Props = {
   },
   toggleBackArrow$: string => Rx.Observable,
   setLoading$: boolean => Rx.Observable,
+  t: (key: string) => string,
 };
 
 export class IngredientPage extends React.Component<Props> {
@@ -54,7 +55,9 @@ export class IngredientPage extends React.Component<Props> {
   }
   render() {
     const {
-      ingredient: { memos, currentMemoId, updatedMemoFields, isLoading },
+      ingredient: {
+        memos, currentMemoId, updatedMemoFields, isLoading,
+      },
       setError$,
       error,
       global: { backArrow },

@@ -10,7 +10,8 @@ import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
   account: AccountObject,
-  onUpdate: (status: string) => Rx.Observable
+  onUpdate: (status: string) => Rx.Observable,
+  t: (key: string) => string,
 };
 
 const AccountDetail = (props: Props) => (

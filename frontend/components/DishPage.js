@@ -35,7 +35,7 @@ type Props = {
   selectedDish: MenuObject,
   addToCart$: (order: DishOrderType) => Rx.Observable,
   fetchDish$: (dishId: string) => Rx.Observable,
-  t: any,
+  t: (key: string) => string,
 };
 
 type State = { order?: DishOrderType };
@@ -142,11 +142,11 @@ class DishPage extends React.Component<Props, State> {
                       </div>
                     </div>
                     <div className="dish-page__left__header__row">
-                      <div className="dish-page__left__header__title">{ t('remain_quantity') }</div>
+                      <div className="dish-page__left__header__title">{ t('productdetail_remain_quantity') }</div>
                       <div className="dish-page__left__header__field">{selectedDish.quantity}</div>
                     </div>
                     <div className="dish-page__left__header__row">
-                      <div className="dish-page__left__header__title">{ t('unit_price') }</div>
+                      <div className="dish-page__left__header__title">{ t('productdetail_unit_price') }</div>
                       <div className="dish-page__left__header__field">{selectedDish.unitPrice}</div>
                     </div>
                   </div>
@@ -154,7 +154,7 @@ class DishPage extends React.Component<Props, State> {
                 <hr className="dish-page__left__header-divider" />
                 <div className="dish-page__left__section">
                   <div className="dish-page__left__field-title">
-                    { t('product_description') }
+                    { t('productdetail_product_description') }
                   </div>
                   <div className="dish-page__left__field-content">
                     {selectedDish.description}
@@ -163,73 +163,77 @@ class DishPage extends React.Component<Props, State> {
                 <div className="dish-page__left__section">
                   <div className="dish-page__left__section__cell">
                     <div className="dish-page__left__field-title">
-                      { t('serving') }
+                      { t('productdetail_serving') }
                     </div>
                     <div className="dish-page__left__field-content">
                       {
                         selectedDish.serving ?
-                          `${selectedDish.serving} People` :
+                          `${selectedDish.serving} ${t('productdetail_serving_unit')}` :
                           '-'
                       }
                     </div>
                   </div>
                   <div className="dish-page__left__section__cell">
                     <div className="dish-page__left__field-title">
-                      { t('prep_time') }
+                      { t('productdetail_prep_time') }
                     </div>
                     <div className="dish-page__left__field-content">
                       {
                         selectedDish.cookingBuffer ?
-                          `${selectedDish.cookingBuffer} Days` :
+                          `${selectedDish.cookingBuffer} ${t('productdetail_prep_time_unit')}` :
                           '-'
                       }
                     </div>
                   </div>
                 </div>
                 {
-                  selectedDish.category && selectedDish.category.length > 0 &&
-                  <div className="dish-page__left__section">
-                    <div className="dish-page__left__field-title dish-page__left__category">
-                      { t('category') }
+                  selectedDish.category && selectedDish.category.length > 0 ?
+                  (
+                    <div className="dish-page__left__section">
+                      <div className="dish-page__left__field-title dish-page__left__category">
+                        { t('productdetail_category') }
+                      </div>
+                      <div className="dish-page__left__field-content">
+                        {
+                          selectedDish.category && selectedDish.category.map(categoryText => (
+                            <div
+                              className="dish-page__left__field-content__label"
+                              key={categoryText}
+                            >
+                              {categoryText}
+                            </div>
+                          ))
+                        }
+                      </div>
                     </div>
-                    <div className="dish-page__left__field-content">
-                      {
-                        selectedDish.category.map(categoryText => (
-                          <div
-                            className="dish-page__left__field-content__label"
-                            key={categoryText}
-                          >
-                            {categoryText}
-                          </div>
-                        ))
-                      }
-                    </div>
-                  </div>
+                  ) : null
                 }
                 {
-                  selectedDish.ingredients && selectedDish.ingredients.length > 0 &&
-                  <div className="dish-page__left__section">
-                    <div className="dish-page__left__field-title  dish-page__left__ingredients">
-                      { t('ingredients') }
+                  selectedDish.ingredients && selectedDish.ingredients.length > 0 ?
+                  (
+                    <div className="dish-page__left__section">
+                      <div className="dish-page__left__field-title  dish-page__left__ingredients">
+                        { t('productdetail_ingredients') }
+                      </div>
+                      <div className="dish-page__left__field-content">
+                        {
+                          selectedDish.ingredients && selectedDish.ingredients.map(ingredient => (
+                            <div
+                              className="dish-page__left__field-content__label"
+                              key={ingredient}
+                            >
+                              {ingredient}
+                            </div>
+                          ))
+                        }
+                      </div>
                     </div>
-                    <div className="dish-page__left__field-content">
-                      {
-                        selectedDish.ingredients.map(ingredient => (
-                          <div
-                            className="dish-page__left__field-content__label"
-                            key={ingredient}
-                          >
-                            {ingredient}
-                          </div>
-                        ))
-                      }
-                    </div>
-                  </div>
+                  ) : null
                 }
                 <hr className="dish-page__left__section-divider" />
                 <div className="dish-page__left__section">
                   <div className="dish-page__left__field-title">
-                    { t('delivery') }
+                    { t('productdetail_deli') }
                   </div>
                   {
                     selectedDish.deliveryList && selectedDish.deliveryList.length > 0 ?
@@ -251,7 +255,7 @@ class DishPage extends React.Component<Props, State> {
                 </div>
               </div>
               <div className="dish-page__right">
-                <div className="dish-page__right__header">{t('your_order')}</div>
+                <div className="dish-page__right__header">{t('productdetail_your_order')}</div>
                 <hr />
                 <div className="dish-page__right__order-detail">
                   <DishOrder
@@ -275,12 +279,12 @@ class DishPage extends React.Component<Props, State> {
         <div className="dish-page__footer">
           <div className="dish-page__footer__image" />
           <div className="dish-page__footer__question">
-            { t('order_question') }
+            { t('productdetail_order_question') }
           </div>
           {
             this.props.kitchen.email ?
-              <a href={`mailto:${this.props.kitchen.email}`} className="dish-page__footer__contact">
-                { t('contact_chef') }
+              <a href={`mailto:${this.props.kitchen.email || ''}`} className="dish-page__footer__contact">
+                { t('productdetail_contact_chef') }
               </a> :
               null
           }

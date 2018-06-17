@@ -40,6 +40,7 @@ type Props = {
     message: string,
     isShowModal: boolean,
   },
+  t: (key: string) => string,
 };
 
 export class Home extends React.Component<Props> {
@@ -48,7 +49,9 @@ export class Home extends React.Component<Props> {
     this.props.fetchOrders$();
   }
   render() {
-    const { account, order: { orderList }, setError$, error } = this.props;
+    const {
+      account, order: { orderList }, setError$, error,
+    } = this.props;
     return (
       <div className="homeContainer">
         {error.isShowModal ? (

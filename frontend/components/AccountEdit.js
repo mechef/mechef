@@ -10,6 +10,7 @@ import { IMAGE_URL } from '../utils/constants';
 import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
+  t: (key: string) => string,
   account: AccountObject,
   onUpdateCoverPhoto: File => Rx.Observable,
   onUpdateProfileImage: File => Rx.Observable,

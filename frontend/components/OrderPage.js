@@ -34,7 +34,7 @@ type Props = {
     message: string,
     isShowModal: boolean,
   },
-  t: any,
+  t: (key: string) => string,
 };
 
 type State = {

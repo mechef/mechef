@@ -2,8 +2,6 @@
 
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
-
-import Button from './Button';
 import {
   whiteColor,
   borderRadius,
@@ -18,9 +16,20 @@ type Props = {
   meetupList: Array<MeetupObject>,
   onEditDelivery: (meetupId: string) => Rx.Observable,
   onDeleteMeetup: (meetupId: string) => Rx.Observable,
+  t: (key: string) => string,
 };
 
 class DeliveryList extends React.Component<Props> {
+  componentDidMount() {
+    this.props.meetupList.forEach(meetup => this.refreshMap(meetup));
+  }
+  componentDidUpdate() {
+    const newMeetupObject = this.props.meetupList[0];
+    if (newMeetupObject) {
+      this.refreshMap(newMeetupObject);
+    }
+  }
+
   refreshMap = (meetup: MeetupObject) => {
     // $FlowFixMe
     const map = new google.maps.Map(document.getElementById(meetup._id), {
@@ -41,15 +50,6 @@ class DeliveryList extends React.Component<Props> {
     });
     marker.setMap(map);
   };
-  componentDidMount() {
-    this.props.meetupList.forEach(meetup => this.refreshMap(meetup));
-  }
-  componentDidUpdate() {
-    const newMeetupObject = this.props.meetupList[0];
-    if (newMeetupObject) {
-      this.refreshMap(newMeetupObject);
-    }
-  }
 
   render() {
     const { meetupList, onEditDelivery, onDeleteMeetup } = this.props;
