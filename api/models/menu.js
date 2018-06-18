@@ -26,7 +26,6 @@ MenuSchema.methods.toKitchenMenu = function() {
     description: this.description,
     images: this.images,
     _id: this._id,
-    deliveryList: this.deliveryList
   }
 };
 

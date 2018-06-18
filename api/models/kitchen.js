@@ -8,6 +8,7 @@ const KitchenSchema = new mongoose.Schema({
   coverPhoto: String,
   profileImage: String,
   email: String,
+  deliveryList: [mongoose.Schema.Types.Mixed],
   menuList: [mongoose.Schema.Types.Mixed],
 }, { versionKey: false, });
 
