@@ -26,10 +26,7 @@ module.exports = (req, res) => {
             return;
           }
 
-          menuList.map((menu) => {
-            const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryIdList);
-            menu.deliveryList = deliveryDetailList;
-            menu.deliveryIdList = undefined;
+          menuList = menuList.map((menu) => {
             return menu.toKitchenMenu();
           });
 
@@ -40,6 +37,7 @@ module.exports = (req, res) => {
               profileImage: seller.profileImage,
               email: seller.email,
               coverPhoto: seller.coverPhoto,
+              deliveryList: deliveryList,
               menuList: menuList
             }
           );
