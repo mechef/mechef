@@ -1,4 +1,5 @@
 // Global
+export const smallBreak = '478px';
 export const primaryColor = '#3e9f40';
 export const textColor = '#4a4a4a';
 export const textHintColor = '#9b9b9b';
@@ -66,6 +67,12 @@ export const buyerFooterLineHeight = '1';
 
 // Cart Button
 export const badgeBackgroundColor = '#8cc63f';
+
+// Cart Item
+export const cartItemPadding = '30px 0 18px';
+export const cartItemPaddingSmall = '20px 8px 22px';
+export const cartItemImageSize = '160px';
+export const cartItemImageSizeSmall = '80px';
 
 // Add To Cart Button
 export const addToCartButtonWidth = '228px';
