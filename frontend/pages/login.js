@@ -353,6 +353,7 @@ class Login extends React.Component<Props, State> {
               width: 100%;
             }
             .login-form .wrapper .register {
+              position: relative;
               left: 100%;
             }
             .login-form .wrapper.move .register {

@@ -61,7 +61,12 @@ export class Home extends React.Component<Props> {
             onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
           />
         ) : null}
-        <div className="dashboard-content__header" />
+        <div
+          className="dashboard-content__header"
+          style={{
+            backgroundImage: `url('${this.props.account.currentAccount.coverPhoto ? `${IMAGE_URL}/${this.props.account.currentAccount.coverPhoto}` : '../static/avatar.jpg'}`
+          }}
+        />
         <div className="topWrapper">
           <div className="nameWrapper">
             <p className="sellerId">{`@${account.currentAccount.name || ''}`}</p>
@@ -129,11 +134,6 @@ export class Home extends React.Component<Props> {
               margin-bottom: 25px;
               width: 100%;
               height: 240px;
-              background-image: url('${
-      this.props.account.currentAccount.coverPhoto
-        ? `${IMAGE_URL}/${this.props.account.currentAccount.coverPhoto}`
-        : '../static/pancake.jpg'
-      }'), url('../static/pancake.jpg');
               background-size: cover;
               background-position: center;
               position: relative;
@@ -144,9 +144,8 @@ export class Home extends React.Component<Props> {
               position: absolute;
               top: 200px;
               left: 20px;
-              background-image: url('${
-      this.props.account.currentAccount.profileImage
-        ? `${IMAGE_URL}/${this.props.account.currentAccount.profileImage}`
+              background-image: url('${account.currentAccount.profileImage
+        ? `${IMAGE_URL}/${account.currentAccount.profileImage}`
         : '../static/avatar.jpg'
       }'), url('../static/avatar.jpg');
               background-size: cover;
