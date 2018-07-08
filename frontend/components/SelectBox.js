@@ -113,7 +113,8 @@ class SelectBox extends React.Component<Props, State> {
             onClick={this.handleClick}
             className={`
               buttonWrapper
-              ${this.state.isOpenOptions ? 'greyBorderBottom' : ''}
+              ${Object.keys(this.state.errors).length ? 'errorBorder' : ''}
+              ${this.state.isOpenOptions ? 'openOption greyBorderBottom' : ''}
             `}
           >
             <span className={`placeholder ${selectedOption ? 'selectedStyle' : ''}`}>
@@ -124,7 +125,8 @@ class SelectBox extends React.Component<Props, State> {
           <ul
             className={`
             optionWrapper
-            ${!this.state.isOpenOptions ? 'closeOption' : ''}
+            ${Object.keys(this.state.errors).length ? 'errorBorder' : ''}
+            ${this.state.isOpenOptions ? 'openOption' : 'closeOption'}
           `}
           >
             {this.props.options.map(option => (
@@ -176,13 +178,24 @@ class SelectBox extends React.Component<Props, State> {
               align-items: center;
               background-color: ${whiteColor};
               border: 1px solid;
-              border-color: ${Object.keys(this.state.errors).length
-        ? `${errorBorderColor}`
-        : `${this.state.isOpenOptions ? `${primaryColor}` : '#ececec'}`};
+              border-color: #ececec;
               border-radius: ${borderRadius};
               cursor: pointer;
               box-sizing: border-box;
             }
+
+            .errorBorder {
+              border-color: ${errorBorderColor};
+            }
+
+            .openOption {
+              border-color: ${primaryColor};
+            }
+
+            .closeOption {
+              border-color: '#ececec';
+            }
+
             .greyBorderBottom {
               border-bottom-color: #ececec;
               border-bottom-right-radius: 0;
@@ -215,10 +228,8 @@ class SelectBox extends React.Component<Props, State> {
               margin: 0;
               border-bottom-left-radius: ${borderRadius};
               border-bottom-right-radius: ${borderRadius};
-              border: 1px solid;
-              border-color: ${Object.keys(this.state.errors).length
-        ? `${errorBorderColor}`
-        : `${this.state.isOpenOptions ? `${primaryColor}` : '#ececec'}`};
+              border-width: 1px;
+              border-style: solid;
               border-top: 0;
               padding: 0;
               height: 144px;

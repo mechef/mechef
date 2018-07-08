@@ -10,6 +10,7 @@ export default class MyDocument extends Document {
   }
 
   render() {
+
     // eslint-disable-next-line jsx-a11y/html-has-lang
     return (
       // eslint-disable-next-line jsx-a11y/html-has-lang
