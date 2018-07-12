@@ -2,31 +2,46 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
-
+import moment from 'moment';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
 import errorActions from '../actions/errorActions';
 import orderActions from '../actions/orderActions';
 import Modal from './Modal';
-import { transparent, whiteColor, textColor, textHintColor, textSize } from '../utils/styleVariables';
-import { AccountObject, OrderObject } from '../utils/flowTypes';
-import { IMAGE_URL } from '../utils/constants';
+import {
+  transparent,
+  whiteColor,
+  textColor,
+  textHintColor,
+  textSize,
+} from '../utils/styleVariables';
+import type { AccountObject, OrderObject } from '../utils/flowTypes';
+import { IMAGE_URL, ORDER_STATE } from '../utils/constants';
 import DefaultComponent from './DefaultComponent';
 
 type Props = {
-  account: AccountObject,
+  account: {
+    currentAccount: AccountObject,
+  },
   order: {
     orderList: Array<OrderObject>,
   },
   fetchAccountDetail$: any => Rx.Observable,
   fetchOrders$: any => Rx.Observable,
-  setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
+  setError$: ({
+    isShowModal: boolean,
+    title: string,
+    message: string,
+  }) => Rx.Observable,
   error: {
     title: string,
     message: string,
-    isShowModal: bool,
+    isShowModal: boolean,
   },
-}
+  t: (key: string) => string,
+};
 
 export class Home extends React.Component<Props> {
   componentDidMount() {
@@ -35,81 +50,78 @@ export class Home extends React.Component<Props> {
   }
   render() {
     const {
-      account,
-      order: { orderList },
-      setError$,
-      error,
+      account, order: { orderList }, setError$, error,
     } = this.props;
     return (
       <div className="homeContainer">
-        {
-          error.isShowModal ?
-            <Modal
-              title={error.title}
-              message={error.message}
-              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
-            />
-            : null
-        }
-        <div className="dashboard-content__header" />
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+          />
+        ) : null}
+        <div
+          className="dashboard-content__header"
+          style={{
+            backgroundImage: `url('${this.props.account.currentAccount.coverPhoto ? `${IMAGE_URL}/${this.props.account.currentAccount.coverPhoto}` : '../static/avatar.jpg'}`
+          }}
+        />
         <div className="topWrapper">
           <div className="nameWrapper">
-            <p className="sellerId">{`@${account.name || ''}`}</p>
-            <p className="sellerName">{`@${account.kitchenName || ''}`}</p>
+            <p className="sellerId">{`@${account.currentAccount.name || ''}`}</p>
+            <p className="sellerName">{account.currentAccount.kitchenName || ''}</p>
           </div>
           <button className="myKitchenLink">
-            <span className="kitchenLinkText">My Kitchen’s Link</span>
+            <span className="kitchenLinkText">{this.props.t('button_my_store')}</span>
           </button>
         </div>
         <p className="orderTableTitle">
-          <span className="titleText">ORDERS</span>
-          {
-            orderList && orderList.length ?
-              <span className="orderCount">
-                <span className="orderCountNum">
-                  {orderList.length}
-                </span>
-              </span>
-              : null
-          }
+          <span className="titleText">{this.props.t('home_order')}</span>
+          {orderList && orderList.length ? (
+            <span className="orderCount">
+              <span className="orderCountNum">{orderList.length}</span>
+            </span>
+          ) : null}
         </p>
-        {
-          orderList && orderList.length ?
-            <div className="orderTable">
-              <div className="tableHeader">
-                <span className="firstCell">Delivery Time</span>
-                <span className="secondCell">Buyer‘s Name</span>
-                <span className="thirdCell">Order Name</span>
-                <span className="fourthCell">Quantity</span>
-              </div>
-              {
-                orderList.map((orderItem, index) => (
-                  <div
-                    key={orderItem._id}
-                    className={`
+        {orderList && orderList.length ? (
+          <div className="orderTable">
+            <div className="tableHeader">
+              <span className="firstCell">{this.props.t('delivery_time')}</span>
+              <span className="secondCell">{this.props.t('buyer_name')}</span>
+              <span className="thirdCell">{this.props.t('order_name')}</span>
+              <span className="fourthCell">{this.props.t('home_quantity')}</span>
+            </div>
+            {orderList
+              .filter(order => order.state === ORDER_STATE.waiting)
+              .map((orderItem, index) => (
+                <div
+                  key={orderItem._id}
+                  className={`
                   tableBody
                   ${index % 2 === 0 ? 'greyBackground' : 'whiteBackground'}
                   ${index === orderList.length - 1 ? 'borderBottomRadius' : ''}
                 `}
-                  >
-                    <span className="firstCell greyText">{orderItem.deliveryTime}</span>
-                    <span className="secondCell boldText">{orderItem.buyerName}</span>
-                    <span className="thirdCell boldText">{orderItem.dishName}</span>
-                    <span className="fourthCell boldText">{orderItem.quantity}</span>
-                  </div>
-                ))
-              }
-            </div>
-            :
-            <div className="defaultComponentWrapper">
-              <DefaultComponent>
-                <div className="textSection">
-                  <h2 className="title">Hello there!</h2>
-                  <p className="description">Your upcoming orders will be displayed here!</p>
+                >
+                  <span className="firstCell greyText">
+                    {moment(orderItem.deliveryTime).format('MMM DD hh:mm')}
+                  </span>
+                  <span className="secondCell boldText">{orderItem.buyerName}</span>
+                  <span className="thirdCell boldText">{orderItem.dishName}</span>
+                  <span className="fourthCell boldText">{orderItem.quantity}</span>
                 </div>
-              </DefaultComponent>
-            </div>
-        }
+              ))}
+          </div>
+        ) : (
+          <div className="defaultComponentWrapper">
+            <DefaultComponent>
+              <div className="textSection">
+                <h2 className="title">{this.props.t('hello_there')}</h2>
+                <p className="description">{this.props.t('home_default_description')}</p>
+              </div>
+            </DefaultComponent>
+          </div>
+        )}
         <style jsx>
           {`
             .homeContainer {
@@ -122,7 +134,6 @@ export class Home extends React.Component<Props> {
               margin-bottom: 25px;
               width: 100%;
               height: 240px;
-              background-image: url('${this.props.account.coverPhoto ? `${IMAGE_URL}/${this.props.account.coverPhoto}` : "../static/pancake.jpg"}'), url('../static/pancake.jpg');
               background-size: cover;
               background-position: center;
               position: relative;
@@ -133,7 +144,10 @@ export class Home extends React.Component<Props> {
               position: absolute;
               top: 200px;
               left: 20px;
-              background-image: url('${this.props.account.profileImage ? `${IMAGE_URL}/${this.props.account.profileImage}` : "../static/avatar.jpg"}'), url('../static/avatar.jpg');
+              background-image: url('${account.currentAccount.profileImage
+        ? `${IMAGE_URL}/${account.currentAccount.profileImage}`
+        : '../static/avatar.jpg'
+      }'), url('../static/avatar.jpg');
               background-size: cover;
               background-position: center;
               width: 80px;
@@ -172,7 +186,7 @@ export class Home extends React.Component<Props> {
             }
 
             .sellerId {
-              margin-left: 98px;
+              margin-left: 116px;
               margin-bottom: 11px;
               font-size: 24px;
               font-weight: 600;
@@ -181,15 +195,14 @@ export class Home extends React.Component<Props> {
               color: #4a4a4a;
             }
             .sellerName {
-              margin-left: 101px;
-              margin-bottom: 20px;
+              margin: 8px 0 20px 116px;
               font-size: 14px;
               line-height: 1.43;
               letter-spacing: 0.6px;
               color: #4a4a4a;
             }
             .orderTable {
-              width: 747px;
+              width: calc(100% - 40px);
               margin-left: 20px;
             }
 
@@ -315,11 +328,15 @@ export class Home extends React.Component<Props> {
           `}
         </style>
       </div>
-    )
+    );
   }
 }
 
-const stateSelector = ({ account, error, order }) => ({ account, error, order });
+const stateSelector = ({ account, error, order }) => ({
+  account,
+  error,
+  order,
+});
 
 const actionSubjects = {
   ...errorActions,
@@ -327,4 +344,6 @@ const actionSubjects = {
   ...orderActions,
 };
 
-export default connect(stateSelector, actionSubjects)(Home);
+const Extended = translate(['common'], { i18n, wait: process.browser })(Home);
+
+export default connect(stateSelector, actionSubjects)(Extended);

@@ -6,32 +6,13 @@ import Rx from 'rxjs/Rx';
 import Button from './Button';
 import { IMAGE_URL } from '../utils/constants';
 import { pageStatus } from './AccountPage';
+import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
-  account: {
-    name?: string,
-    kitchenName?: string,
-    kitchenDescription?: string,
-    firstName?: string,
-    lastName?: string,
-    phoneNumber?: string,
-    email?: string,
-    coverPhoto?: string,
-    profileImage?: string,
-    update: {
-      name?: string,
-      kitchenName?: string,
-      kitchenDescription?: string,
-      firstName?: string,
-      lastName?: string,
-      phoneNumber?: string,
-      email?: string,
-      coverPhoto?: File,
-      profileImage?: File,
-    },
-  },
+  account: AccountObject,
   onUpdate: (status: string) => Rx.Observable,
-}
+  t: (key: string) => string,
+};
 
 const AccountDetail = (props: Props) => (
   <div>
@@ -41,25 +22,25 @@ const AccountDetail = (props: Props) => (
     <div className="kitchenInfo">
       <div className="name">
         <div className="kitchenName">
-          <span className="smallTitle">Kitchen Name</span>
+          <span className="smallTitle">{props.t('accountedit_kitchen_name_placeholder')}</span>
           <span className="contentText">{props.account.kitchenName}</span>
         </div>
         <div className="userName">
-          <span className="smallTitle">User Name</span>
+          <span className="smallTitle">{props.t('accountedit_user_name')}</span>
           <span className="contentText">{props.account.name}</span>
         </div>
       </div>
       <div className="description">
-        <span className="smallTitle">Kitchen Description</span>
+        <span className="smallTitle">{props.t('accountedit_kitchen_description')}</span>
         <p className="contentText">{props.account.kitchenDescription || ''}</p>
       </div>
       <div className="name">
         <div className="kitchenName">
-          <span className="smallTitle">Phone Number</span>
+          <span className="smallTitle">{props.t('accountedit_phone_number_placeholder')}</span>
           <span className="contentText">{props.account.phoneNumber}</span>
         </div>
         <div className="userName">
-          <span className="smallTitle">Email Address</span>
+          <span className="smallTitle">{props.t('accountedit_email_address_placeholder')}</span>
           <span className="contentText">{props.account.email}</span>
         </div>
       </div>
@@ -71,12 +52,12 @@ const AccountDetail = (props: Props) => (
             props.onUpdate(pageStatus.UPDATE_ACCOUNT);
           }}
         >
-          UPDATE
+          {props.t('accountpreview_button_update')}
         </Button>
       </div>
     </div>
     <div className="additionalInfo">
-      <p className="smallTitle">Bank Account</p>
+      <p className="smallTitle">{props.t('accountpreview_bank_account')}</p>
       <div className="infoContent">
         <div className="left">
           <span className="contentText">000 000 0000</span>
@@ -89,13 +70,13 @@ const AccountDetail = (props: Props) => (
               props.onUpdate(pageStatus.UPDATE_BANK_ACCOUNT);
             }}
           >
-            EDIT
+            {props.t('accountpreview_button_edit')}
           </Button>
         </div>
       </div>
     </div>
     <div className="additionalInfo">
-      <p className="smallTitle">Password</p>
+      <p className="smallTitle">{props.t('accountpreview_password')}</p>
       <div className="infoContent">
         <div className="left">
           <span className="contentText">******</span>
@@ -108,7 +89,7 @@ const AccountDetail = (props: Props) => (
               props.onUpdate(pageStatus.UPDATE_PASSWORD);
             }}
           >
-            UPDATE
+            {props.t('accountpreview_button_update')}
           </Button>
         </div>
       </div>
@@ -119,7 +100,7 @@ const AccountDetail = (props: Props) => (
           margin-bottom: 25px;
           width: 100%;
           height: 240px;
-          background-image: url('${IMAGE_URL}/${props.account.coverPhoto || ''}'), url('../static/pancake.jpg');
+          background-image: url('${IMAGE_URL}/${props.account.coverPhoto}'), url('../static/pancake.jpg');
           background-size: cover;
           background-position: center;
           position: relative;
@@ -130,7 +111,7 @@ const AccountDetail = (props: Props) => (
           position: absolute;
           top: 200px;
           left: 20px;
-          background-image: url('${IMAGE_URL}/${props.account.profileImage || ''}'), url('../static/avatar.jpg');
+          background-image: url('${IMAGE_URL}/${props.account.profileImage}'), url('../static/avatar.jpg');
           background-size: cover;
           background-position: center;
           width: 80px;
@@ -139,7 +120,7 @@ const AccountDetail = (props: Props) => (
         }
 
         .sellerId {
-          margin-left: 98px;
+          margin-left: 116px;
           margin-bottom: 11px;
           font-size: 24px;
           font-weight: 600;
@@ -149,8 +130,7 @@ const AccountDetail = (props: Props) => (
         }
 
         .sellerName {
-          margin-left: 101px;
-          margin-bottom: 20px;
+          margin: 8px 0 20px 116px;
           font-size: 14px;
           line-height: 1.43;
           letter-spacing: 0.6px;
@@ -161,7 +141,6 @@ const AccountDetail = (props: Props) => (
           display: flex;
           flex-direction: column;
           width: 552px;
-          height: 524px;
           padding: 25px 20px;
           margin-left: 21px;
           margin-bottom: 16px;
@@ -193,7 +172,6 @@ const AccountDetail = (props: Props) => (
           flex: 1;
           display: flex;
           flex-direction: column;
-          height: 70px;
           border-bottom: solid 2px #ececec;
         }
 
@@ -239,7 +217,6 @@ const AccountDetail = (props: Props) => (
 
         .left {
           width: 250px;
-          height: 70px;
           border-bottom: solid 2px #ececec;
         }
       `}

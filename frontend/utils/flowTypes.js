@@ -42,7 +42,7 @@ export type MenuObject = {
   images?: Array<string>,
   ingredients?: Array<string>,
   category?: Array<string>,
-  publish?: bool,
+  publish?: boolean,
 };
 
 export type AccountObject = {
@@ -56,36 +56,25 @@ export type AccountObject = {
   email?: string,
   coverPhoto?: string,
   profileImage?: string,
-  update?: {
-    name?: string,
-    kitchenName?: string,
-    kitchenDescription?: string,
-    firstName?: string,
-    lastName?: string,
-    phoneNumber?: string,
-    email?: string,
-    coverPhoto?: string,
-    profileImage?: string,
-  },
 };
 
 export type OrderState = 'cancelled' | 'waiting' | 'finished';
 
 export type OrderObject = {
-  _id: string,
-  buyerName: string,
-  buyerEmail: string,
-  quantity: number,
-  amount: number,
-  orderTime: string,
-  deliveryAddress: string,
-  deliveryTime: string,
-  deliveryLatitude: number,
-  deliveryLongtitude: number,
-  messageFromBuyer: string,
-  state: OrderState,
-  dishName: string,
-  image: string,
+  _id?: string,
+  buyerName?: string,
+  buyerEmail?: string,
+  quantity?: number,
+  amount?: number,
+  orderTime?: string,
+  deliveryAddress?: string,
+  deliveryTime?: string,
+  deliveryLatitude?: number,
+  deliveryLongitude?: number,
+  messageFromBuyer?: string,
+  state?: OrderState,
+  dishName?: string,
+  image?: string,
 };
 
 export type KitchenObject = {
@@ -94,5 +83,22 @@ export type KitchenObject = {
   kitchenDescription?: string,
   coverPhoto?: string,
   profileImage?: string,
-  dishes?: Array<MenuObject>,
+  menuList?: Array<MenuObject>,
+  email?: string,
+};
+
+export type CartOrderObject = {
+  _id: number,
+  dishId?: string,
+  quantity?: number,
+  messageFromBuyer?: string,
+  dishName?: string,
+  description?: string,
+  unitPrice?: number,
+  images?: Array<string>,
+  maxServing?: number,
+};
+
+export type CartObject = {
+  orders?: Array<CartOrderObject>;
 };

@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
-
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import menuActions from '../actions/menuActions';
 import deliveryActions from '../actions/deliveryActions';
@@ -12,7 +13,7 @@ import Modal from './Modal';
 import MenuList from './MenuList';
 import MenuEdit from './MenuEdit';
 import DefaultComponent from './DefaultComponent';
-import { MenuObject, MeetupObject } from '../utils/flowTypes';
+import type { MenuObject, MeetupObject } from '../utils/flowTypes';
 import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
 import Spinner from '../components/Spinner';
 
@@ -22,6 +23,7 @@ type Props = {
   },
   menu: {
     menuList: Array<MenuObject>,
+    updatedMenuFields: MenuObject,
     currentMenuId: string,
     isLoading: boolean,
   },
@@ -38,7 +40,7 @@ type Props = {
   error: {
     title: string,
     message: string,
-    isShowModal: bool,
+    isShowModal: boolean,
   },
   global: {
     backArrow: {
@@ -47,7 +49,8 @@ type Props = {
     },
   },
   toggleBackArrow$: string => Rx.Observable,
-}
+  t: (key: string) => string,
+};
 
 export class MenuPage extends React.Component<Props> {
   componentWillMount() {
@@ -59,7 +62,9 @@ export class MenuPage extends React.Component<Props> {
   render() {
     const {
       delivery: { meetupList },
-      menu: { menuList, currentMenuId, updatedMenu, isLoading },
+      menu: {
+        menuList, currentMenuId, updatedMenuFields, isLoading,
+      },
       setError$,
       error,
       global: { backArrow },
@@ -71,76 +76,72 @@ export class MenuPage extends React.Component<Props> {
       toggleBackArrow$,
       setCurrentMenuId$,
     } = this.props;
-    const currentMenu = menuList && menuList.find(menu => menu._id === currentMenuId) || {};
-
+    const currentMenu = (menuList && menuList.find(menu => menu._id === currentMenuId)) || {};
+    const displayMenu = { ...currentMenu, ...updatedMenuFields };
     return (
       <div className="container">
-        {
-          error.isShowModal ?
-            <Modal
-              title={error.title}
-              message={error.message}
-              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
-            />
-            : null
-        }
-        {
-          isLoading ?
-            <Spinner />
-            :
-            null
-        }
-        {
-          backArrow.isShow ?
-            <MenuEdit
-              menuList={menuList}
-              updatedMenu={updatedMenu}
-              currentMenu={currentMenu}
-              onChangeField={setFields$}
-              onCreateMenu={createMenu$}
-              onUpdateMenu={updateMenu$}
-              onDeleteMenu={menuId => deleteMenu$(menuId)}
-              onUploadImage={uploadImage$}
-              goBack={() => toggleBackArrow$('')}
-              fetchDelivery={this.props.fetchDelivery$}
-              deliveryList={meetupList}
-            />
-            :
-            menuList && menuList.length ?
-              <MenuList
-                menuList={menuList}
-                onEditMenu={(menuId) => {
-                  setCurrentMenuId$(menuId);
-                  toggleBackArrow$('Edit Menu');
-                }}
-                onDeleteMenu={menuId => deleteMenu$(menuId)}
-                onTogglePublish={(menuId, publish) => {
-                  updateMenu$({
-                    _id: menuId,
-                    publish,
-                  });
-                }}
-              />
-              : !isLoading ?
-                <DefaultComponent
-                  coverPhotoSrc="../static/img/menu_default.jpg"
-                >
-                  <div className="textSection">
-                    <h2 className="title">Hello there!</h2>
-                    <p className="description">Fill this place with your signature dishes, build your own menu!</p>
-                  </div>
-                  <button
-                    className="addDish"
-                    onClick={() => {
-                      setCurrentMenuId$('');
-                      toggleBackArrow$('Edit Menu');
-                    }}
-                  >
-                    ADD DISH
-                  </button>
-                </DefaultComponent>
-                : null
-        }
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+          />
+        ) : null}
+        {isLoading ? <Spinner /> : null}
+        {backArrow.isShow ? (
+          <MenuEdit
+            menuList={menuList}
+            displayMenu={displayMenu}
+            onChangeField={setFields$}
+            onCreateMenu={() => createMenu$(updatedMenuFields)}
+            onUpdateMenu={() => updateMenu$({ _id: currentMenu._id, ...updatedMenuFields })}
+            onDeleteMenu={menuId => deleteMenu$(menuId)}
+            onUploadImage={uploadImage$}
+            goBack={() => toggleBackArrow$('')}
+            fetchDelivery={this.props.fetchDelivery$}
+            deliveryList={meetupList}
+            onFormError={() =>
+              setError$({
+                isShowModal: true,
+                title: 'Form Error',
+                message: 'Please make sure the data you fill in is correct!',
+              })
+            }
+            t={this.props.t}
+          />
+        ) : menuList && menuList.length ? (
+          <MenuList
+            menuList={menuList}
+            onEditMenu={(menuId) => {
+              setCurrentMenuId$(menuId);
+              toggleBackArrow$('Edit Menu');
+            }}
+            onDeleteMenu={menuId => deleteMenu$(menuId)}
+            onTogglePublish={(menuId, publish) => {
+              updateMenu$({
+                _id: menuId,
+                publish,
+              });
+            }}
+            t={this.props.t}
+          />
+        ) : !isLoading ? (
+          <DefaultComponent coverPhotoSrc="../static/img/menu_default.jpg">
+            <div className="textSection">
+              <h2 className="title">{this.props.t('hello_there')}</h2>
+              <p className="description">{this.props.t('menu_empty_description')}</p>
+            </div>
+            <button
+              className="addDish"
+              onClick={() => {
+                setCurrentMenuId$('');
+                toggleBackArrow$('Edit Menu');
+              }}
+            >
+              {this.props.t('add_dish')}
+            </button>
+          </DefaultComponent>
+        ) : null}
         <style jsx>
           {`
             .container {
@@ -195,8 +196,11 @@ export class MenuPage extends React.Component<Props> {
   }
 }
 
-
-const stateSelector = ({ delivery, menu, error, global }) => ({ delivery, menu, error, global });
+const stateSelector = ({
+  delivery, menu, error, global,
+}) => ({
+  delivery, menu, error, global,
+});
 
 const actionSubjects = {
   ...errorActions,
@@ -204,5 +208,5 @@ const actionSubjects = {
   ...deliveryActions,
   ...globalActions,
 };
-
-export default connect(stateSelector, actionSubjects)(MenuPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(MenuPage);
+export default connect(stateSelector, actionSubjects)(Extended);

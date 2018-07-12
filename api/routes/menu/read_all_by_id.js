@@ -15,16 +15,16 @@ module.exports = (req, res) => {
       const query = Menu.find({ email: seller.email, publish: true });
       query.then((menuList) => {
         if (menuList) {
-          Delivery.find({ email: decoded.email }, (err, deliveryList) => {
+          Delivery.find({ email: seller.email }, (err, deliveryList) => {
             if (err) {
               res.status(500).json({ status: constants.fail });
               return;
             }
-
+            
             menuList.forEach(function(menu) {
               const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryIdList);
               menu.deliveryList = deliveryDetailList;
-              delete menu.deliveryIdList;
+              menu.deliveryIdList = undefined;
             });
 
             res.json({ status: constants.success, menuList });

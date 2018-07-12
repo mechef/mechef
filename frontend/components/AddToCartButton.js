@@ -1,56 +1,35 @@
 // @flow
 import * as React from 'react';
-import Rx from 'rxjs/Rx';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
+import Button from './Button';
+
+import { addToCartButtonWidth } from '../utils/styleVariables';
 
 type Props = {
-  dishId: string,
-  onAddToCartClick: (dishId: string) => Rx.Observable,
-}
+  onAddToCartClick: Function,
+  t: (key: string) => string
+};
 
-class AddToCartButton extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
+const AddToCartButton = ({ onAddToCartClick, t }: Props) => (
+  <div className="addToCartButtonContainer">
+    <Button
+      buttonStyle="primary"
+      size="expanded"
+      onClick={onAddToCartClick}
+    >
+      { t('productdetail_add_cart') }
+    </Button>
+    <style jsx>
+      {`
+        .addToCartButtonContainer {
+          display: block;
+          margin: 0 auto;
+          width: ${addToCartButtonWidth};
+        }
+      `}
+    </style>
+  </div>
+);
 
-    this.addProductToCart = this.addProductToCart.bind(this);
-  }
-
-  addProductToCart: Function;
-
-  addProductToCart() {
-    this.props.onAddToCartClick(this.props.dishId);
-  }
-
-  render() {
-    return (
-      <div className="addToCartButtonContainer">
-        <button className="addToCartButton" onClick={this.addProductToCart}>ADD TO CART</button>
-        <style jsx>
-          {`
-            .addToCartButtonContainer {
-              flex-grow: 0;
-              display: flex;
-              justify-content: center;
-            }
-            .addToCartButton {
-              width: 228px;
-              height: 49px;
-              border-radius: 4px;
-              background-color: #3e9f40;
-              color: #ffffff;
-              font-size: 14px;
-              cursor: pointer;
-              box-shadow: none;
-              outline: none;
-              border: none;
-            }
-            .addToCartButton:hover {
-              background-color: #367d36;
-            }
-          `}
-        </style>
-      </div>
-    );
-  }
-}
-
-export default AddToCartButton;
+export default translate(['common'], { i18n, wait: process.browser })(AddToCartButton);

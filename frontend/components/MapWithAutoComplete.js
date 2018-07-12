@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Geosuggest from 'react-geosuggest';
 import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../utils/constants';
@@ -19,18 +18,16 @@ type Props = {
   initialLong: number,
   onChange: () => mixed,
   onSuggestSelect: () => mixed,
-}
-
+};
 
 class MapWithAutoComplete extends React.Component<Props> {
-
   static defaultProps = {
     initialValue: '',
     initialLat: DEFAULT_LATITUDE,
     initialLong: DEFAULT_LONGITUDE,
     onChange: () => {},
     onSuggestSelect: () => {},
-  }
+  };
 
   componentDidMount() {
     this.map = new google.maps.Map(document.getElementById('map'), {
@@ -61,7 +58,7 @@ class MapWithAutoComplete extends React.Component<Props> {
       marker.setMap(this.map);
       this.marker = marker;
     }
-  }
+  };
 
   render() {
     return (
@@ -89,9 +86,11 @@ class MapWithAutoComplete extends React.Component<Props> {
               longitude: suggest.location.lng,
             });
           }}
+          maxLength={50}
           onChange={this.props.onChange}
         />
-        <style>{`
+        <style>
+          {`
           .geosuggest {
             position: relative;
             width: 511px;
@@ -113,6 +112,20 @@ class MapWithAutoComplete extends React.Component<Props> {
           .geosuggest__input:focus {
             border-color: ${primaryColor};
             box-shadow: 0 0 0 transparent;
+          }
+
+          .geosuggest__input-wrapper:after {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            background-image: url('../static/svg/location.svg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            top: calc(50% - 8px);
+            right: 0;
+            width: 16px;
+            height: 16px;
           }
           .geosuggest__suggests {
             position: absolute;
@@ -170,17 +183,18 @@ class MapWithAutoComplete extends React.Component<Props> {
 
         `}
         </style>
-        <style jsx>{`
-          .container {
-            display: flex;
-            flex-direction: column-reverse;
-            width: 100%;
-          }
-          .mapWrapper {
-            width: 100%;
-            height: 161px;
-          }
-        `}
+        <style jsx>
+          {`
+            .container {
+              display: flex;
+              flex-direction: column-reverse;
+              width: 100%;
+            }
+            .mapWrapper {
+              width: 100%;
+              height: 161px;
+            }
+          `}
         </style>
       </div>
     );

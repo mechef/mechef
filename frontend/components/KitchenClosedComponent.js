@@ -1,11 +1,17 @@
 // @flow
 import React from 'react';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 
-const KitchenClosedComponent = () => (
+type Props = {
+  t: (key: string) => string,
+};
+
+const KitchenClosedComponent = ({ t }: Props) => (
   <div className="kitchen-closed-box">
     <div className="kitchen-closed-box__image" />
-    <div className="kitchen-closed-box__text">Kitchen is closed!</div>
-    <div className="kitchen-closed-box__link">CONTACT CHEF</div>
+    <div className="kitchen-closed-box__text">{t('buyerstorenomenu_kitchen_close')}</div>
+    <div className="kitchen-closed-box__link">{t('buyerstorenomenu_contact_chef')}</div>
     <style jsx>
       {`
         .kitchen-closed-box {
@@ -57,4 +63,6 @@ const KitchenClosedComponent = () => (
   </div>
 );
 
-export default KitchenClosedComponent;
+const Extended = translate(['common'], { i18n, wait: process.browser })(KitchenClosedComponent);
+
+export default Extended;

@@ -2,56 +2,52 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
-import { whiteColor, textColor, transparent, placeholderTextColor, borderRadius } from '../utils/styleVariables';
+import {
+  whiteColor,
+  textColor,
+  transparent,
+  placeholderTextColor,
+  borderRadius,
+} from '../utils/styleVariables';
+import type { MemoObject } from '../utils/flowTypes';
 
 type Props = {
-  memos: Array<{
-    _id: string,
-    sum: number,
-    name: string,
-    ingredients: Array<{
-      name: string,
-      amount: number,
-    }>,
-  }>,
+  memos: Array<MemoObject>,
   onEditMemo: (memoId: string) => Rx.Observable,
   onDeleteMemo: (memoId: string) => Rx.Observable,
-}
+  t: (key: string) => string,
+};
 const IngredientList = (props: Props): React.Element<'div'> => (
   <div>
     <div className="header">
-      <span className="title">Ingredients List</span>
+      <span className="title">{props.t('ingredientslist_ingredients_list')}</span>
       <button className="addButton" onClick={() => props.onEditMemo('')}>
         <div className="plus" />
       </button>
     </div>
-    {
-      props.memos.map(memo => (
-        <div key={memo._id} className="ingredientList">
-          <div className="ingredientItem">
-            <div className="titleWrapper">
-              <span>{memo.name}</span>
-              <div className="iconWrapper">
-                <button className="btn" onClick={() => props.onEditMemo(memo._id)}>
-                  <div className="icon editIcon" />
-                </button>
-                <button className="btn" onClick={props.onDeleteMemo}>
-                  <div className="icon deleteIcon" />
-                </button>
-              </div>
-            </div>
-            <div>
-              <span className="ingredient-subtext">
-                Ingredients: {memo.ingredients && memo.ingredients.length}
-              </span>
-              <span className="ingredient-subtext">
-                Total: {`$${memo.sum}`}
-              </span>
+    {props.memos.map(memo => (
+      <div key={memo._id} className="ingredientList">
+        <div className="ingredientItem">
+          <div className="titleWrapper">
+            <span>{memo.name}</span>
+            <div className="iconWrapper">
+              <button className="btn" onClick={() => props.onEditMemo(memo._id || '')}>
+                <div className="icon editIcon" />
+              </button>
+              <button className="btn" onClick={props.onDeleteMemo}>
+                <div className="icon deleteIcon" />
+              </button>
             </div>
           </div>
+          <div>
+            <span className="ingredient-subtext">
+              {props.t('ingredientslist_ingredients_number')} {memo.ingredients && memo.ingredients.length}
+            </span>
+            <span className="ingredient-subtext">{props.t('ingredientslist_total')} ${memo.sum}</span>
+          </div>
         </div>
-      ))
-    }
+      </div>
+    ))}
     <style jsx>
       {`
         .ingredientList {
@@ -97,7 +93,7 @@ const IngredientList = (props: Props): React.Element<'div'> => (
           background-image: url('../static/img/plus.png');
           background-size: contain;
           background-position: center;
-          background-repeat:no-repeat;
+          background-repeat: no-repeat;
           width: 18px;
           height: 18px;
           outline: none;
@@ -136,7 +132,7 @@ const IngredientList = (props: Props): React.Element<'div'> => (
         .icon {
           background-size: contain;
           background-position: center;
-          background-repeat:no-repeat;
+          background-repeat: no-repeat;
           width: 14px;
           height: 14px;
           outline: none;

@@ -17,8 +17,8 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  buttonStyle: 'primary' | 'greenBorderOnly' | 'whiteBorderOnly',
-  size: 'small' | 'medium',
+  buttonStyle?: 'primary' | 'greenBorderOnly' | 'whiteBorderOnly',
+  size?: 'small' | 'medium' | 'expanded',
   children?: React.Node,
   onClick: () => mixed,
 };
@@ -76,6 +76,9 @@ const Button = (props: Props) => (
         }
         .medium {
           width: ${mediumBtnWidth};
+        }
+        .expanded {
+          width: 100%;
         }
       `}
     </style>

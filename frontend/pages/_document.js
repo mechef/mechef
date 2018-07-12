@@ -3,13 +3,14 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
 
 export default class MyDocument extends Document {
-  static getInitialProps({ renderPage }) {
-    const { html, head, errorHtml, chunks } = renderPage();
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx)
     const styles = flush();
-    return { html, head, errorHtml, chunks, styles };
+    return { ...initialProps, styles }
   }
 
   render() {
+
     // eslint-disable-next-line jsx-a11y/html-has-lang
     return (
       // eslint-disable-next-line jsx-a11y/html-has-lang

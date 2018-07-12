@@ -63,6 +63,31 @@ const orderReducer$ = Rx.Observable.of(() => initialState)
         }));
       })
     )),
+    orderActions.createOrder$.flatMap(reqbody =>
+      Rx.Observable.ajax({
+        crossDomain: true,
+        url: API_ORDER,
+        method: 'POST',
+        body: reqbody,
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Authorization: window.localStorage.getItem('jwt'),
+        },
+        responseType: 'json',
+      })
+        .map(data => state => ({
+          ...state,
+          isLoading: false,
+        }))
+        .catch((error) => {
+          errorActions.setError$.next({
+            isShowModal: true,
+            title: 'Create Order Error',
+            message: error.message,
+          });
+          return Rx.Observable.of(state => state);
+        }),
+    ),
   );
 
 export default orderReducer$;

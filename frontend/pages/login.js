@@ -4,7 +4,9 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 import fetch from 'isomorphic-unfetch';
 import urlencoder from 'form-urlencoded';
+import { translate } from 'react-i18next';
 
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import authActions from '../actions/authActions';
 import errorActions from '../actions/errorActions';
@@ -14,9 +16,10 @@ import Modal from '../components/Modal';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import Spinner from '../components/Spinner';
+import { primaryColor } from '../utils/styleVariables';
 
 type Props = {
-  setLoginField$: (any) => Rx.Observable,
+  setLoginField$: any => Rx.Observable,
   login$: ({ email: string, password: string }) => Rx.Observable,
   auth: {
     email: string,
@@ -34,8 +37,8 @@ type Props = {
   },
   global: {
     isShowSpinner: boolean,
-  }
-}
+  },
+};
 
 type State = {
   signup: {
@@ -106,26 +109,19 @@ class Login extends React.Component<Props, State> {
     } = this.props;
     return (
       <div>
-        {
-          error.isShowModal ?
-            <Modal
-              title={error.title}
-              message={error.message}
-              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
-            />
-            : null
-        }
-        {
-          isShowSpinner ?
-            <Spinner />
-            :
-            null
-        }
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+          />
+        ) : null}
+        {isShowSpinner ? <Spinner /> : null}
         <Header selectedItem="join" />
         <div className="login-panel">
           <div className="login-form">
             <div className="login-btn splits">
-              <p className="splits-title">Have an account?</p>
+              <p className="splits-title">{this.props.t('dont_have_account')}</p>
               <Button
                 buttonStyle="whiteBorderOnly"
                 size="small"
@@ -137,7 +133,7 @@ class Login extends React.Component<Props, State> {
               </Button>
             </div>
             <div className="rgstr-btn splits">
-              <p className="splits-title">Dont have an account?</p>
+              <p className="splits-title">{this.props.t('dont_have_account')}</p>
               <Button
                 buttonStyle="whiteBorderOnly"
                 size="small"
@@ -145,15 +141,17 @@ class Login extends React.Component<Props, State> {
                   this.setState({ isWrapperMove: true });
                 }}
               >
-                JOIN NOW
+                {this.props.t('button_joinnow')}
               </Button>
             </div>
             <div className={`wrapper ${this.state.isWrapperMove ? 'move' : ''}`}>
               <div className="login">
-                <p className="title">SIGN IN</p>
+                <p className="title">{this.props.t('button_signin')}</p>
                 <div className="mail">
                   <TextInput
-                    type="mail"
+                    type="email"
+                    pattern="^.+@.+\..+$"
+                    validationMessage={this.props.t('validationmessage_email')}
                     placeholder="Mail or Username"
                     size="medium"
                     value={email}
@@ -194,11 +192,11 @@ class Login extends React.Component<Props, State> {
                     login$({ email, password });
                   }}
                 >
-                  SIGN IN
+                  {this.props.t('button_signin')}
                 </Button>
               </div>
               <div className="register">
-                <p className="title">Be a Chef today!</p>
+                <p className="title">{this.props.t('beacheftoday')}</p>
                 <div>
                   <TextInput
                     type="text"
@@ -237,7 +235,7 @@ class Login extends React.Component<Props, State> {
                 </div>
                 <div>
                   <TextInput
-                    type="password"
+                    type="tel"
                     placeholder="Telephone Number"
                     size="medium"
                     value={this.state.signup.password}
@@ -255,7 +253,9 @@ class Login extends React.Component<Props, State> {
                 </div>
                 <div>
                   <TextInput
-                    type="mail"
+                    type="email"
+                    pattern="^.+@.+\..+$"
+                    validationMessage={this.props.t('validationmessage_email')}
                     placeholder="Email Address"
                     size="medium"
                     value={this.state.signup.email}
@@ -264,7 +264,7 @@ class Login extends React.Component<Props, State> {
                         this.setState({
                           signup: {
                             ...this.state.signup,
-                            password: evt.target.value,
+                            email: evt.target.value,
                           },
                         });
                       }
@@ -273,11 +273,11 @@ class Login extends React.Component<Props, State> {
                 </div>
                 <div className="wrapper__submit">
                   <Button type="primary" size="medium" onClick={this.onSubmitSignup}>
-                    JOIN NOW
+                    {this.props.t('button_joinnow')}
                   </Button>
                 </div>
                 <div className="wrapper__note">
-                  <span >If you click JOIN NOW, it means you agree with terms of service.</span>
+                  <span>{this.props.t('user_agreement')}</span>
                 </div>
               </div>
             </div>
@@ -321,6 +321,7 @@ class Login extends React.Component<Props, State> {
               line-height: 0.67;
               text-align: center;
               color: #ffffff;
+              font-family: 'Playball', cursive;
             }
 
             .login-form > .wrapper {
@@ -352,6 +353,7 @@ class Login extends React.Component<Props, State> {
               width: 100%;
             }
             .login-form .wrapper .register {
+              position: relative;
               left: 100%;
             }
             .login-form .wrapper.move .register {
@@ -372,6 +374,7 @@ class Login extends React.Component<Props, State> {
               line-height: 1;
               text-align: center;
               color: #4a4a4a;
+              font-family: 'Playball', cursive;
             }
             .login-form .wrapper input {
               width: 356px;
@@ -399,9 +402,8 @@ class Login extends React.Component<Props, State> {
             }
             .wrapper .wrapper__note {
               font-size: 12px;
-              font-weight: 500;
               line-height: 1;
-              color: #4a4a4a;
+              color: ${primaryColor};
             }
 
             .register > div {
@@ -439,7 +441,6 @@ class Login extends React.Component<Props, State> {
   }
 }
 
-
 const stateSelector = ({ auth, error, global }) => ({ auth, error, global });
 
 const actionSubjects = {
@@ -447,4 +448,13 @@ const actionSubjects = {
   ...authActions,
 };
 
-export default connect(stateSelector, actionSubjects)(Login);
+const Extended = translate(['common'], { i18n, wait: process.browser })(Login);
+
+// Passing down initial translations
+// use req.i18n instance on serverside to avoid overlapping requests set the language wrong
+Extended.getInitialProps = async ({ req }) => {
+  if (req && !process.browser) return i18n.getInitialProps(req, ['common']);
+  return {};
+};
+
+export default connect(stateSelector, actionSubjects)(Extended);

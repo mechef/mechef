@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from 'react';
+import * as React from "react";
 
 import {
   primaryColor,
@@ -10,19 +10,20 @@ import {
   placeholderTextColor,
   placeholderLineHeight,
   placeholderFontWeight,
-  placeholderFontSize,
-} from '../utils/styleVariables';
+  placeholderFontSize
+} from "../utils/styleVariables";
 
 type Props = {
   placeholder: string,
   value: string | number,
   onChange: () => mixed,
+  width: string | number,
+  height: string | number,
 };
 
 const TextAreaInput = (props: Props) => (
   <div className="container">
-    <input
-      type="textarea"
+    <textarea
       className="textAreaInput"
       placeholder={props.placeholder}
       value={props.value}
@@ -33,18 +34,18 @@ const TextAreaInput = (props: Props) => (
         .container {
           position: relative;
           display: flex;
-          height: ${textAreaInputHeight};
-          width: 512px;
+          height: ${isNaN(props.height) ? props.height : props.height + 'px'};
+          width: ${isNaN(props.width) ? props.width : props.width + 'px'};
         }
 
         .textAreaInput {
           outline: none;
           border: solid 1px #979797;
           border-radius: ${borderRadius};
-          height: ${textAreaInputHeight};
-          width: 512px;
+          height: ${isNaN(props.height) ? props.height : props.height + 'px'};
+          width: ${isNaN(props.width) ? props.width : props.width + 'px'};
           background-color: ${textInputBgColor};
-          padding-left: 16px;
+          padding: 10px;
           font-size: ${placeholderFontSize};
           font-weight: ${placeholderFontWeight};
           border: 2px solid transparent;
@@ -66,9 +67,11 @@ const TextAreaInput = (props: Props) => (
 );
 
 TextAreaInput.defaultProps = {
-  value: '',
-  onChange: () => { },
-  placeholder: '',
+  value: "",
+  onChange: () => {},
+  placeholder: "",
+  width: '512px',
+  height: textAreaInputHeight,
 };
 
 export default TextAreaInput;

@@ -2,31 +2,43 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
+import moment from 'moment';
 
-import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor, transparent, fontSize, connectErrorColor } from '../utils/styleVariables';
+import {
+  borderRadius,
+  whiteColor,
+  primaryColor,
+  lineHeight,
+  titleFontSize,
+  subtitleFontSize,
+  textColor,
+  textHintColor,
+  transparent,
+  fontSize,
+  connectErrorColor,
+} from '../utils/styleVariables';
 
 type Props = {
-  sellerId: string,
-  menuTitle: string,
-  quantity: number,
-  orderTime: string,
-  deliveryTo: string,
-  deliveryTime: string,
-  totalPrice: string,
-  status: string,
-  profileImageUrl: string,
-  menuImageUrl: string,
-  onEmail: () => Rx.Observable,
-}
+  sellerId?: string,
+  menuTitle?: string,
+  buyerEmail?: string,
+  quantity?: number,
+  orderTime?: string,
+  deliveryTo?: string,
+  deliveryTime?: string,
+  totalPrice?: number,
+  status?: string,
+  profileImageUrl?: string,
+  menuImageUrl?: string,
+  t: (key: string) => string,
+};
 
-class OrderItem extends React.Component<Props, State> {
-
+class OrderItem extends React.Component<Props> {
   static defaultProps = {
     description: '',
     profileImageUrl: '',
     menuImageUrl: '',
-    onEmail: () => {},
-  }
+  };
 
   render() {
     return (
@@ -36,9 +48,17 @@ class OrderItem extends React.Component<Props, State> {
           <div className="firstRow">
             <span className="sellerId">{this.props.sellerId}</span>
             <div className="iconWrapper">
-              <button className="btn" onClick={this.props.onEmail}>
+              <a
+                className="email"
+                href={
+                  this.props.buyerEmail ? `mailto:${this.props.buyerEmail}` : ''
+                }
+                onClick={(event) => {
+                  event.stopPropagation();
+                }}
+              >
                 <div className="icon mailIcon" />
-              </button>
+              </a>
             </div>
           </div>
           <div className="secondRow">{this.props.menuTitle}</div>
@@ -48,30 +68,34 @@ class OrderItem extends React.Component<Props, State> {
           </div>
           <div className="divider" />
           <div className="infoWrapper">
-            <div className="infoTitle">Order Time : </div>
-            <span className="infoContent">{this.props.orderTime}</span>
+            <div className="infoTitle">{this.props.t('orderdetailview_order_time')}</div>
+            <span className="infoContent">
+              {moment(this.props.orderTime).format('MMM DD hh:mm')}
+            </span>
           </div>
           <div className="infoWrapper">
-            <div className="infoTitle">Delivery To : </div>
+            <div className="infoTitle">{this.props.t('orderdetailview_deli_to')}</div>
             <span className="infoContent">{this.props.deliveryTo}</span>
           </div>
           <div className="infoWrapper">
-            <div className="infoTitle">Delivery Time : </div>
-            <span className="infoContent">{this.props.deliveryTime}</span>
+            <div className="infoTitle">{this.props.t('orderdetailview_Deli_time')}</div>
+            <span className="infoContent">
+              {moment(this.props.deliveryTime).format('MMM DD hh:mm')}
+            </span>
           </div>
         </div>
         <style jsx>
           {`
             .orderContainer {
               display: flex;
-              width: 744px;
-              height: 195px;
               border-radius: ${borderRadius};
               background-color: ${whiteColor};
             }
 
             .orderThumbnail {
-              background-image: url('${this.props.menuImageUrl}'), url('../static/pancake.jpg');
+              background-image: ${this.props.menuImageUrl
+                ? `url('${this.props.menuImageUrl}')`
+                : "url('../static/pancake.jpg')"};
               background-size: cover;
               background-position: center;
               width: 195px;
@@ -81,26 +105,13 @@ class OrderItem extends React.Component<Props, State> {
               position: relative;
             }
 
-            .orderThumbnail:after {
-              content: '';
-              position: absolute;
-              left: calc(195px - 26px);
-              top: calc(195px / 2 - 26px);
-              width: 52px;
-              height: 52px;
-              border-radius: 26px;
-              background-image: url('${this.props.profileImageUrl}'), url('../static/avatar.jpg');
-              background-size: cover;
-              background-position: center;
-            }
-
             .orderText {
               flex: 1;
               display: flex;
               flex-direction: column;
               margin-left: 42px;
               margin-right: 20px;
-              padding-top: 19px;
+              padding-top: 20px;
             }
 
             .firstRow {
@@ -157,36 +168,32 @@ class OrderItem extends React.Component<Props, State> {
               font-size: 14px;
               font-weight: 500;
               color: ${textColor};
+              margin-bottom: 10px;
             }
 
             .iconWrapper {
               margin-right: 21px;
             }
 
-            .btn {
-              cursor: pointer;
-              background-color: ${transparent};
-              border: 0;
-              padding: 0;
-              outline: none;
-              margin-left: 30px;
+            .email {
+              margin-top: 0;
             }
 
             .icon {
               background-size: contain;
               background-position: center;
-              background-repeat:no-repeat;
+              background-repeat: no-repeat;
               width: 25px;
               height: 25px;
               outline: none;
             }
 
             .mailIcon {
-              background-image: url('../static/svg/order_mail.svg');
+              background-image: url("../static/svg/order_mail.svg");
             }
 
-            .btn:hover .mailIcon {
-              background-image: url('../static/svg/order_mail_hover.svg');
+            .email:hover .mailIcon {
+              background-image: url("../static/svg/order_mail_hover.svg");
             }
           `}
         </style>
@@ -194,6 +201,5 @@ class OrderItem extends React.Component<Props, State> {
     );
   }
 }
-
 
 export default OrderItem;

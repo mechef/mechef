@@ -1,24 +1,35 @@
 // @flow
 
 import React from 'react';
-import Rx from 'rxjs/Rx';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 
 import ServingModifier from './ServingModifier';
+import TextAreaInput from './TextAreaInput';
 
 import {
   fontSize,
+  fontWeight,
+  textColor,
+  borderRadius,
+  secondaryBtnHoverColor,
 } from '../utils/styleVariables';
 
 type Props = {
-  price: number,
-  maxServing: number,
-  onOrderChange?: (DishOrderType) => Rx.Observable,
+  price?: string | number,
+  maxServing?: string | number,
+  onOrderChange?: (DishOrderType) => Function,
+  textAreaWidth?: string | number,
+  textAreaHeight?: string | number,
+  t: (key: string) => string,
 };
 
 export type DishOrderType = {
-  quantity?: number,
-  subTotal?: number,
-  note?: string,
+  quantity: number,
+  subTotal: number,
+  messageFromBuyer: string,
+  unitPrice: number,
+  maxServing: number,
 };
 
 type State = DishOrderType;
@@ -27,73 +38,88 @@ class DishOrder extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    const unitPrice = parseInt(props.price, 10) || 0;
+    const maxServing = parseInt(props.maxServing, 10) || 0;
+
     this.state = {
-      quantity: 1,
-      subTotal: this.formatPrice(props.price || 0),
-      note: '',
+      unitPrice,
+      maxServing,
+      quantity: maxServing > 0 ? 1 : 0,
+      subTotal: unitPrice,
+      messageFromBuyer: '',
     };
 
     this.onNoteChange = this.onNoteChange.bind(this);
     this.recalculateSubTotal = this.recalculateSubTotal.bind(this);
   }
 
+  onNoteChange: Function;
+  onNoteChange(event: any) {
+    const messageFromBuyer = event.target.value;
+    this.setState({ messageFromBuyer });
+    const order = {
+      ...this.state,
+      messageFromBuyer,
+    };
+    this.invokeOrderChange(order);
+  }
+
   invokeOrderChange: Function;
-  invokeOrderChange() {
+  invokeOrderChange(order: DishOrderType) {
     if (typeof this.props.onOrderChange === 'function') {
-      this.props.onOrderChange({ ...this.state });
+      this.props.onOrderChange(order);
     }
   }
 
-  onNoteChange: Function;
-  onNoteChange(event: any) {
-    this.setState({ note: event.target.value });
-    this.invokeOrderChange();
-  }
-
   formatPrice: Function;
-  formatPrice(price: number) {
-    return `$${price}.00`;
-  }
+  formatPrice = (price: number) => `$${price}.00`;
 
   recalculateSubTotal: Function;
   recalculateSubTotal(quantity: number) {
-    const subTotal = quantity * (this.props.price || 0);
+    const subTotal = quantity * (this.state.unitPrice || 0);
     this.setState({
-      quantity: quantity,
-      subTotal: this.formatPrice(subTotal),
+      quantity,
+      subTotal,
     });
-    this.invokeOrderChange();
+    const order = {
+      ...this.state,
+      quantity,
+      subTotal,
+    };
+    this.invokeOrderChange(order);
   }
 
   render() {
+    const { t } = this.props;
     return (
       <div className="dish-order">
         <div className="dish-order__field dish-order__field--column">
-          <div className="dish-order__note">Note to seller</div>
-          <textarea
-            className="dish-order__note-input"
-            autoComplete="off"
+          <div className="dish-order__note">{ t('productadd_note_to_chef') }</div>
+          <TextAreaInput
             placeholder="Any preference? Let the seller know here..."
+            value={this.state.messageFromBuyer}
             onChange={this.onNoteChange}
-          ></textarea>
+            width={this.props.textAreaWidth || 250}
+            height={this.props.textAreaHeight || 120}
+          />
         </div>
         <div className="dish-order__field dish-order__field--row">
-          <span className="dish-order__field-name">Quantity</span>
+          <span className="dish-order__field-name">{ t('productadd_quantity') }</span>
           <div className="dish-order__quanity">
             <ServingModifier
-              maxServing={this.props.maxServing}
+              maxServing={this.state.maxServing}
               onQuantityChanged={this.recalculateSubTotal}
             />
           </div>
         </div>
         <div className="dish-order__field dish-order__field--row">
-          <span className="dish-order__field-name">Subtotal</span>
-          <span className="dish-order__subtotal">{this.state.subTotal}</span>
+          <span className="dish-order__field-name">{ t('productdetail_subtotal') }</span>
+          <span className="dish-order__subtotal">{this.formatPrice(this.state.subTotal)}</span>
         </div>
         <style jsx>
           {`
             .dish-order {
-              color: #4a4a4a;
+              color: ${textColor};
               font-size: ${fontSize};
               letter-spacing: 0.6;
             }
@@ -102,13 +128,16 @@ class DishOrder extends React.Component<Props, State> {
               font-size: ${fontSize};
               line-height: 1;
             }
+            .dish-order :global(.textAreaInput) {
+              max-height: 120px;
+            }
             .dish-order__note-input {
               max-width: 250px;
               max-height: 120px;
               width: 100%;
               height: 120px;
-              border-radius: 4px;
-              border: solid 1px #979797;
+              border-radius: ${borderRadius};
+              border: solid 1px ${secondaryBtnHoverColor};
               outline: 0;
             }
             .dish-order__field--row {
@@ -123,7 +152,7 @@ class DishOrder extends React.Component<Props, State> {
             .dish-order__field-name,
             .dish-order__subtotal,
             .dish-order__quanity {
-              color: #4a4a4a;
+              color: ${textColor};
               font-size: ${fontSize};
               line-height: 1;
               letter-spacing: 0.6px;
@@ -133,7 +162,7 @@ class DishOrder extends React.Component<Props, State> {
             }
             .dish-order__subtotal,
             .dish-order__quanity {
-              font-weight: 500;
+              font-weight: ${fontWeight};
             }
           `}
         </style>
@@ -142,4 +171,6 @@ class DishOrder extends React.Component<Props, State> {
   }
 }
 
-export default DishOrder;
+const Extended = translate(['common'], { i18n, wait: process.browser })(DishOrder);
+
+export default Extended;

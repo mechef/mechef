@@ -72,13 +72,12 @@ class MenuItem extends React.Component<Props, State> {
           <button
             className={`
               bottomPart
-              toggleBtn
-              ${this.state.isPublish ? '' : 'reverseRow'}
+              ${this.state.isPublish ? 'publishedToggleBtn' : 'unpublishedToggleBtn'}
             `}
             onClick={this.handleChange}
           >
-            <div className="circle" />
-            <span className="toggleText">
+            <div className={`${this.state.isPublish ? 'publishedCircle' : 'unpublishedCircle'}`} />
+            <span className={`${this.state.isPublish ? 'publishedText' : 'unpublishedText'}`}>
               {
                 this.state.isPublish ?
                   'PUBLISH'
@@ -142,41 +141,51 @@ class MenuItem extends React.Component<Props, State> {
               padding: 0;
             }
 
-            .toggleBtn {
+            .publishedToggleBtn {
               display: flex;
               align-items: center;
               align-self: flex-end;
               width: 99px;
               height: 26px;
               border-radius: 26px;
-              background-color: ${this.state.isPublish ? primaryColor : textHintColor};
-              border: 1px solid ${this.state.isPublish ? primaryColor : textHintColor};
               margin-right: 20px;
               margin-bottom: 20px;
               cursor: pointer;
               outline: none;
             }
 
-            .reverseRow {
+            .unpublishedToggleBtn {
+              background-color: ${textHintColor};
+              border: 1px solid ${textHintColor};
               flex-direction: row-reverse;
             }
 
-            .circle {
+            .publishedCircle {
               width: 20px;
               height: 20px;
               border-radius: 26px;
               background-color: ${whiteColor};
-              margin-left: ${this.state.isPublish ? '3px' : '0'};
-              margin-right: ${this.state.isPublish ? '0' : '3px'};
+              margin-left: 3px;
+              margin-right: 0;
             }
 
-            .toggleText {
-              margin-left: ${this.state.isPublish ? '10px' : '0'};
-              margin-right: ${this.state.isPublish ? '0' : '10px'};
+            .unpublishedCircle {
+              margin-left: 0;
+              margin-right: 3px;
+            }
+
+            .publishedText {
+              margin-left: 10px;
+              margin-right: 0;
               font-size: 9px;
               letter-spacing: 0.3px;
               color: ${whiteColor};
               line-height: ${lineHeight};
+            }
+
+            .unpublishedText {
+              margin-left: 0;
+              margin-right: 10px;
             }
 
             .iconWrapper {

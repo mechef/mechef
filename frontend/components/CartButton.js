@@ -2,6 +2,8 @@
 
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 
 import {
   primaryColor,
@@ -14,23 +16,24 @@ import {
 type Props = {
   itemCount?: number,
   onCartClicked: () => Rx.Observable,
+  t: (key: string) => string,
 };
 
-const CartButton = ({ itemCount = 0, onCartClicked }: Props) => (
+const CartButton = ({ t, itemCount = 0, onCartClicked }: Props) => (
   <div className="cartButtonContainer">
     <button
       type="button"
       className="cartButton"
       onClick={onCartClicked}
     >
-      MY CART
+      {t('storecart_mycart')}
     </button>
     {
-      itemCount > 0 ?
+      itemCount > 0 ? (
         <div className="itemCountBadge">
           {itemCount > 99 ? '99+' : itemCount }
-        </div> :
-        ''
+        </div>
+        ) : ''
     }
     <style jsx>
       {`
@@ -74,4 +77,6 @@ const CartButton = ({ itemCount = 0, onCartClicked }: Props) => (
   </div>
 );
 
-export default CartButton;
+const Extended = translate(['common'], { i18n, wait: process.browser })(CartButton);
+
+export default Extended;

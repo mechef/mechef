@@ -5,12 +5,10 @@ const mongoose = require('mongoose');
 const OrderSchema = new mongoose.Schema({
   buyerName: String,
   buyerEmail: String,
-  menuId: String,
-  dishName: String,
-  image: String,
+  buyerPhoneNumber: String,
+  menuList: [mongoose.Schema.Types.Mixed],
   sellerEmail: String,
   state: String,
-  quantity: Number,
   amount: Number,
   orderTime: Date,
   deliveryId: String,
@@ -18,7 +16,6 @@ const OrderSchema = new mongoose.Schema({
   deliveryAddress: String,
   deliveryLatitude: Number,
   deliveryLongitude: Number,
-  messageFromBuyer: String
 }, { versionKey: false, });
 
 OrderSchema.methods.toOrder = function() {
@@ -26,14 +23,14 @@ OrderSchema.methods.toOrder = function() {
     _id: this._id,
     buyerName: this.buyerName,
     buyerEmail: this.buyerEmail,
-    quantity: this.quantity,
+    buyerPhoneNumber: this.buyerPhoneNumber,
+    menuList: this.menuList,
     amount: this.amount,
     orderTime: this.orderTime,
     deliveryAddress: this.deliveryAddress,
     deliveryTime: this.deliveryTime,
     deliveryLatitude: this.deliveryLatitude,
     deliveryLongitude: this.deliveryLongitude,
-    messageFromBuyer: this.messageFromBuyer,
     state: this.state,
     dishName: this.dishName,
     image: this.image

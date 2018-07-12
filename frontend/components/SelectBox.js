@@ -8,6 +8,9 @@ import {
   whiteColor,
   borderRadius,
   primaryColor,
+  errorBorderColor,
+  transparent,
+  textColor,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -15,23 +18,27 @@ type Props = {
     text: string,
     value: string,
   }>,
-  selectedValue: string,
+  selectedValue: string | number,
   defaultText: string,
-  onChange: (selectedValue: string) => mixed,
+  onChange: (selectedValue: string | number) => mixed,
+  onError: (isError: boolean) => void,
+  isRequired: boolean,
 };
 
 type State = {
   isOpenOptions: boolean,
-  selectedValue: string,
-}
+  selectedValue: string | number,
+  errors: { [string]: string },
+};
 
 class SelectBox extends React.Component<Props, State> {
-
   static defaultProps = {
     selectedValue: '',
     defaultText: '',
     onChange: () => {},
-  }
+    onError: () => {},
+    isRequired: false,
+  };
 
   box: ?HTMLDivElement;
 
@@ -40,7 +47,8 @@ class SelectBox extends React.Component<Props, State> {
     this.state = {
       isOpenOptions: false,
       selectedValue: props.selectedValue,
-    }
+      errors: {},
+    };
   }
 
   componentWillReceiveProps(newProps: Props) {
@@ -62,16 +70,29 @@ class SelectBox extends React.Component<Props, State> {
     this.setState({
       isOpenOptions: false,
       selectedValue,
+      errors: {},
     });
-  }
+  };
 
   handleClick = () => {
     this.setState({ isOpenOptions: !this.state.isOpenOptions });
   };
 
   handleClickOutside = (e: any) => {
-    if (this.box && !this.box.contains(e.target)) {
+    if (this.state.isOpenOptions && this.box && !this.box.contains(e.target)) {
       this.setState({ isOpenOptions: false });
+      if (this.props.isRequired && !this.state.selectedValue) {
+        this.setState({
+          errors: {
+            ...this.state.errors,
+            isRequired: 'Required',
+          },
+        });
+        this.props.onError(true);
+      } else {
+        this.setState({ errors: {} });
+        this.props.onError(false);
+      }
     }
   };
 
@@ -80,43 +101,58 @@ class SelectBox extends React.Component<Props, State> {
     const { selectedValue } = this.state;
     const selectedOption = options.find(option => option.value === selectedValue);
     return (
-      <div
-        ref={(box) => { this.box = box; }}
-        className="selectBoxWrapper"
-      >
-        <button
-          type="button"
-          onClick={this.handleClick}
-          className={`
-            buttonWrapper
-            ${this.state.isOpenOptions ? 'greyBorderBottom' : ''}
-          `}
+      <div>
+        <div
+          ref={(box) => {
+            this.box = box;
+          }}
+          className="selectBoxWrapper"
         >
-          <span className={`placeholder ${selectedOption ? 'selectedStyle' : ''}`}>
-            {selectedOption ? selectedOption.text : defaultText}
-          </span>
-          <div className="dropdownIcon" />
-        </button>
-        <ul className={`
-          optionWrapper
-          ${!this.state.isOpenOptions ? 'closeOption' : ''}
-        `}>
-          {
-            this.props.options.map(option => (
+          <button
+            type="button"
+            onClick={this.handleClick}
+            className={`
+              buttonWrapper
+              ${Object.keys(this.state.errors).length ? 'errorBorder' : ''}
+              ${this.state.isOpenOptions ? 'openOption greyBorderBottom' : ''}
+            `}
+          >
+            <span className={`placeholder ${selectedOption ? 'selectedStyle' : ''}`}>
+              {selectedOption ? selectedOption.text : defaultText}
+            </span>
+            <div className="dropdownIcon" />
+          </button>
+          <ul
+            className={`
+            optionWrapper
+            ${Object.keys(this.state.errors).length ? 'errorBorder' : ''}
+            ${this.state.isOpenOptions ? 'openOption' : 'closeOption'}
+          `}
+          >
+            {this.props.options.map(option => (
               <li
                 key={option.value}
                 className={`
-                  optionStyle
-                  ${option.value === selectedValue ? 'selectedStyle' : ''}
-                `}
+                    optionStyle
+                    ${option.value === selectedValue ? 'selectedStyle' : ''}
+                  `}
                 value={option.value}
-                onClick={() => { this.handleChange(option.value); }}
+                onClick={() => {
+                  this.handleChange(option.value);
+                }}
               >
                 {option.text}
               </li>
-            ))
-          }
-        </ul>
+            ))}
+          </ul>
+        </div>
+        <div className="errorWrapper">
+          <span>
+            {Object.keys(this.state.errors)
+              .map(key => this.state.errors[key])
+              .join(', ')}
+          </span>
+        </div>
         <style jsx>
           {`
             .selectBoxWrapper {
@@ -124,6 +160,12 @@ class SelectBox extends React.Component<Props, State> {
               flex-direction: column;
               width: 100%;
               position: relative;
+            }
+
+            .errorWrapper {
+              padding-top: 5px;
+              color: ${errorBorderColor};
+              font-size: 12px;
             }
 
             .buttonWrapper {
@@ -135,11 +177,25 @@ class SelectBox extends React.Component<Props, State> {
               justify-content: space-between;
               align-items: center;
               background-color: ${whiteColor};
-              border: solid 1px #979797;
+              border: 1px solid;
+              border-color: #ececec;
               border-radius: ${borderRadius};
               cursor: pointer;
               box-sizing: border-box;
             }
+
+            .errorBorder {
+              border-color: ${errorBorderColor};
+            }
+
+            .openOption {
+              border-color: ${primaryColor};
+            }
+
+            .closeOption {
+              border-color: '#ececec';
+            }
+
             .greyBorderBottom {
               border-bottom-color: #ececec;
               border-bottom-right-radius: 0;
@@ -172,7 +228,8 @@ class SelectBox extends React.Component<Props, State> {
               margin: 0;
               border-bottom-left-radius: ${borderRadius};
               border-bottom-right-radius: ${borderRadius};
-              border: solid 1px #979797;
+              border-width: 1px;
+              border-style: solid;
               border-top: 0;
               padding: 0;
               height: 144px;
@@ -199,14 +256,13 @@ class SelectBox extends React.Component<Props, State> {
             }
 
             .selectedStyle {
-              color: ${primaryColor};
+              color: ${textColor};
             }
           `}
         </style>
-      </div >
+      </div>
     );
   }
-
 }
 
 export default SelectBox;

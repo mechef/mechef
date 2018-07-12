@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
-
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import deliveryActions from '../actions/deliveryActions';
 import errorActions from '../actions/errorActions';
@@ -11,14 +12,20 @@ import Modal from './Modal';
 import DeliveryList from './DeliveryList';
 import DeliveryEdit from './DeliveryEdit';
 import DefaultComponent from './DefaultComponent';
-import { MeetupObject } from '../utils/flowTypes';
-import { whiteColor, primaryColor, textColor, primaryBtnHoverColor, textSize } from '../utils/styleVariables';
+import type { MeetupObject } from '../utils/flowTypes';
+import {
+  whiteColor,
+  primaryColor,
+  textColor,
+  primaryBtnHoverColor,
+  textSize,
+} from '../utils/styleVariables';
 import Spinner from '../components/Spinner';
 
 type Props = {
   delivery: {
     meetupList: Array<MeetupObject>,
-    updatedMeetup: MeetupObject,
+    updatedMeetupFields: MeetupObject,
     currentMeetupId: string,
     currentShippingId: string,
     isLoading: boolean,
@@ -29,11 +36,15 @@ type Props = {
   deleteMeetup$: (meetupId: string) => Rx.Observable,
   setCurrentMeetupId$: (meetupId: string) => Rx.Observable,
   setMeetupFields$: (updatedField: MeetupObject) => Rx.Observable,
-  setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
+  setError$: ({
+    isShowModal: boolean,
+    title: string,
+    message: string,
+  }) => Rx.Observable,
   error: {
     title: string,
     message: string,
-    isShowModal: bool,
+    isShowModal: boolean,
   },
   global: {
     backArrow: {
@@ -43,7 +54,8 @@ type Props = {
   },
   toggleBackArrow$: string => Rx.Observable,
   setLoading$: boolean => Rx.Observable,
-}
+  t: (key: string) => string,
+};
 
 export class DeliveryPage extends React.Component<Props> {
   componentWillMount() {
@@ -54,8 +66,11 @@ export class DeliveryPage extends React.Component<Props> {
   }
   render() {
     const {
-      delivery: { meetupList, currentMeetupId, updatedMeetup, isLoading },
-      setError$, error,
+      delivery: {
+        meetupList, currentMeetupId, updatedMeetupFields, isLoading,
+      },
+      setError$,
+      error,
       global: { backArrow },
       toggleBackArrow$,
       createMeetup$,
@@ -65,68 +80,69 @@ export class DeliveryPage extends React.Component<Props> {
       setMeetupFields$,
     } = this.props;
 
-    const currentMeetup = meetupList.find(
-      delivery => delivery._id === currentMeetupId) || {};
+    const currentMeetup = meetupList.find(delivery => delivery._id === currentMeetupId) || {};
+
+    const displayMeetup = { ...currentMeetup, ...updatedMeetupFields };
 
     return (
       <div className="container">
-        {
-          error.isShowModal ?
-            <Modal
-              title={error.title}
-              message={error.message}
-              onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
-            />
-            : null
-        }
-        {
-          isLoading ?
-            <Spinner />
-            :
-            null
-        }
-        {
-          backArrow.isShow ?
-            <DeliveryEdit
-              meetupList={meetupList}
-              updatedMeetup={updatedMeetup}
-              currentMeetup={currentMeetup}
-              onChangeMeetupField={setMeetupFields$}
-              onCreateMeetup={createMeetup$}
-              onUpdateMeetup={updateMeetup$}
-              onDeleteMeetup={deleteMeetup$}
-              goBack={() => toggleBackArrow$('')}
-            />
-            :
-            meetupList && meetupList.length ?
-              <DeliveryList
-                meetupList={meetupList}
-                onEditDelivery={(meetupId) => {
-                  setCurrentMeetupId$(meetupId);
-                  toggleBackArrow$('Edit Delivery');
-                }}
-              />
-              : !isLoading ?
-                <DefaultComponent
-                  coverPhotoSrc="../static/img/delivery_default.jpg"
-                >
-                  <div className="textSection">
-                    <h2 className="title">Hello there!</h2>
-                    <p className="subtitle">MEET UP</p>
-                    <p className="description">Add your first meetup location and available date &amp; time</p>
-                  </div>
-                  <button
-                    className="addDish"
-                    onClick={() => {
-                      setCurrentMeetupId$('');
-                      toggleBackArrow$('Edit Delivery');
-                    }}
-                  >
-                    ADD MEETUP OPTION
-                  </button>
-                </DefaultComponent>
-                : null
-        }
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+          />
+        ) : null}
+        {isLoading ? <Spinner /> : null}
+        {backArrow.isShow ? (
+          <DeliveryEdit
+            meetupList={meetupList}
+            displayMeetup={displayMeetup}
+            onChangeMeetupField={setMeetupFields$}
+            onCreateMeetup={() => {
+              createMeetup$({
+                ...updatedMeetupFields,
+                type: 'meetup',
+              });
+            }}
+            onUpdateMeetup={() => {
+              updateMeetup$({
+                _id: currentMeetup._id,
+                ...updatedMeetupFields,
+              });
+            }}
+            onDeleteMeetup={deleteMeetup$}
+            goBack={() => toggleBackArrow$('')}
+            t={this.props.t}
+          />
+        ) : meetupList && meetupList.length ? (
+          <DeliveryList
+            meetupList={meetupList}
+            onEditDelivery={(meetupId) => {
+              setCurrentMeetupId$(meetupId);
+              toggleBackArrow$('Edit Delivery');
+            }}
+            onDeleteMeetup={deleteMeetup$}
+            t={this.props.t}
+          />
+        ) : !isLoading ? (
+          <DefaultComponent coverPhotoSrc="../static/img/delivery_default.jpg">
+            <div className="textSection">
+              <h2 className="title">{this.props.t('hello_there')}</h2>
+              <p className="subtitle">{this.props.t('meetup_default')}</p>
+              <p className="description">{this.props.t('meetup_default_description')}</p>
+            </div>
+            <button
+              className="addDish"
+              onClick={() => {
+                setCurrentMeetupId$('');
+                toggleBackArrow$('Edit Delivery');
+              }}
+            >
+              {this.props.t('add_meetup_option')}
+            </button>
+          </DefaultComponent>
+        ) : null}
         <style jsx>
           {`
             .container {
@@ -187,8 +203,11 @@ export class DeliveryPage extends React.Component<Props> {
   }
 }
 
-
-const stateSelector = ({ delivery, error, global }) => ({ delivery, error, global });
+const stateSelector = ({ delivery, error, global }) => ({
+  delivery,
+  error,
+  global,
+});
 
 const actionSubjects = {
   ...errorActions,
@@ -196,4 +215,6 @@ const actionSubjects = {
   ...globalActions,
 };
 
-export default connect(stateSelector, actionSubjects)(DeliveryPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(DeliveryPage);
+
+export default connect(stateSelector, actionSubjects)(Extended);

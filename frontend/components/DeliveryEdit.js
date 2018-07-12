@@ -8,18 +8,18 @@ import TextInput from './TextInput';
 import SelectBox from './SelectBox';
 import CheckBox from './CheckBox';
 import MapWithAutoComplete from './MapWithAutoComplete';
-import { MeetupObject } from '../utils/flowTypes';
+import type { MeetupObject } from '../utils/flowTypes';
 import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../utils/constants';
 
 type Props = {
-  onCreateMeetup: (meetup: MeetupObject) => Rx.Observable,
-  onUpdateMeetup: (meetup: MeetupObject) => Rx.Observable,
+  onCreateMeetup: () => Rx.Observable,
+  onUpdateMeetup: () => Rx.Observable,
   onDeleteMeetup: (meetupId: string) => Rx.Observable,
   onChangeMeetupField: (meetupField: MeetupObject) => Rx.Observable,
-  currentMeetup: MeetupObject,
-  updatedMeetup: MeetupObject,
+  displayMeetup: MeetupObject,
   goBack: () => Rx.Observable,
-}
+  t: (key: string) => string,
+};
 
 const availableTime = [
   { text: '1:00', value: '1:00' },
@@ -46,7 +46,7 @@ const availableTime = [
   { text: '22:00', value: '22:00' },
   { text: '23:00', value: '23:00' },
   { text: '24:00', value: '24:00' },
-]
+];
 
 // TODO Bible: Change to real i18n in the future
 const days = [
@@ -59,20 +59,27 @@ const days = [
   { key: 'meetupSunday', text: 'Sunday' },
 ];
 
-class DeliveryEdit extends React.Component<Props, State> {
+class DeliveryEdit extends React.Component<Props> {
   render() {
-    const { goBack, onCreateMeetup, onUpdateMeetup, onDeleteMeetup, currentMeetup, updatedMeetup, onChangeMeetupField } = this.props;
+    const {
+      goBack,
+      onCreateMeetup,
+      onUpdateMeetup,
+      onDeleteMeetup,
+      displayMeetup,
+      onChangeMeetupField,
+    } = this.props;
     return (
       <div className="dashboard-content">
-        <p className="dashboard-content__title">Edit Delivery</p>
+        <p className="dashboard-content__title">{this.props.t('deliveryeditmeetup_edit_meetup')}</p>
         <div className="editContainer">
           <div className="meetupLocation">
-            <h3 className="title">Meet up location</h3>
+            <h3 className="title">{this.props.t('deliveryeditmeetup_meetup_loc')}</h3>
             <p className="subtitle">Location and Time</p>
             <MapWithAutoComplete
-              initialValue={currentMeetup.meetupAddress || ''}
-              initialLat={currentMeetup.meetupLatitude || DEFAULT_LATITUDE}
-              initialLong={currentMeetup.meetupLongitude || DEFAULT_LONGITUDE}
+              initialValue={displayMeetup.meetupAddress || ''}
+              initialLat={displayMeetup.meetupLatitude || DEFAULT_LATITUDE}
+              initialLong={displayMeetup.meetupLongitude || DEFAULT_LONGITUDE}
               onChange={(input) => {
                 onChangeMeetupField({
                   meetupAddress: input,
@@ -88,63 +95,61 @@ class DeliveryEdit extends React.Component<Props, State> {
             />
           </div>
           <div className="meetupDate">
-            <h3 className="title">Meet up date</h3>
+            <h3 className="title">{this.props.t('deliveryeditmeetup_meetup_date')}</h3>
             <p className="subtitle">Select Date</p>
             <div className="checkboxGroup">
-              {
-                days.map(day => (
-                  <span key={day.key} className="checkbox">
-                    <CheckBox
-                      checked={updatedMeetup[day.key] || currentMeetup[day.key]}
-                      onChange={() => {
-                        onChangeMeetupField({
-                          [day.key]: updatedMeetup[day.key] ? !updatedMeetup[day.key] : !currentMeetup[day.key],
-                        });
-                      }}
-                    >
-                      {day.text}
-                    </CheckBox>
-                  </span>
-                ))
-              }
+              {days.map(day => (
+                <span key={day.key} className="checkbox">
+                  <CheckBox
+                    checked={!!displayMeetup[day.key]}
+                    onChange={() => {
+                      onChangeMeetupField({
+                        [day.key]: !displayMeetup[day.key],
+                      });
+                    }}
+                  >
+                    {day.text}
+                  </CheckBox>
+                </span>
+              ))}
             </div>
           </div>
-          <h3 className="title">Meet up time</h3>
+          <h3 className="title">{this.props.t('deliveryeditmeetup_meetup_time')}</h3>
           <div className="meetupTime">
             <div className="smallInputContainer">
-              <span className="subtitle">From</span>
+              <span className="subtitle">{this.props.t('deliveryeditmeetup_from')}</span>
               <SelectBox
                 options={availableTime}
-                selectedValue={updatedMeetup.meetupStartTime || currentMeetup.meetupStartTime}
+                selectedValue={displayMeetup.meetupStartTime}
                 defaultText="24:00"
-                onChange={(selectedValue) => {
+                onChange={(selectedValue: string | number) => {
                   onChangeMeetupField({
-                    meetupStartTime: selectedValue,
+                    meetupStartTime: selectedValue.toString(),
                   });
                 }}
               />
             </div>
             <div className="smallInputContainer">
-              <span className="subtitle">To</span>
+              <span className="subtitle">{this.props.t('deliveryeditmeetup_to')}</span>
               <SelectBox
                 options={availableTime}
-                selectedValue={updatedMeetup.meetupEndTime || currentMeetup.meetupEndTime}
+                selectedValue={displayMeetup.meetupEndTime}
                 defaultText="24:00"
-                onChange={(selectedValue) => {
+                onChange={(selectedValue: string | number) => {
                   onChangeMeetupField({
-                    meetupEndTime: selectedValue,
+                    meetupEndTime: selectedValue.toString(),
                   });
                 }}
               />
             </div>
           </div>
-          <h3 className="title">Note</h3>
-          <p className="subtitle">meet up information to buyer</p>
+          <h3 className="title">{this.props.t('deliveryeditmeetup_note')}</h3>
+          <p className="subtitle">{this.props.t('deliveryeditmeetup_note_description')}</p>
           <TextInput
             type="text"
             placeholder="Write something......"
             size="large"
-            value={updatedMeetup.note || currentMeetup.note}
+            value={displayMeetup.note}
             onChange={(event) => {
               if (event && event.target) {
                 onChangeMeetupField({ note: event.target.value });
@@ -158,20 +163,18 @@ class DeliveryEdit extends React.Component<Props, State> {
               buttonStyle="greenBorderOnly"
               size="small"
               onClick={() => {
-                onDeleteMeetup(currentMeetup._id);
+                if (displayMeetup._id) {
+                  onDeleteMeetup(displayMeetup._id);
+                }
                 goBack();
               }}
             >
-              DELETE
+              {this.props.t('deliveryeditmeetup_button_delete')}
             </Button>
           </div>
           <div>
-            <Button
-              buttonStyle="greenBorderOnly"
-              size="small"
-              onClick={() => goBack()}
-            >
-              CANCEL
+            <Button buttonStyle="greenBorderOnly" size="small" onClick={() => goBack()}>
+              {this.props.t('deliveryeditmeetup_button_cancel')}
             </Button>
           </div>
           <div>
@@ -179,21 +182,15 @@ class DeliveryEdit extends React.Component<Props, State> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                if (currentMeetup._id) {
-                  onUpdateMeetup({
-                    _id: currentMeetup._id,
-                    ...updatedMeetup,
-                  });
+                if (displayMeetup._id) {
+                  onUpdateMeetup();
                 } else {
-                  onCreateMeetup({
-                    ...updatedMeetup,
-                    type: 'meetup',
-                  });
+                  onCreateMeetup();
                 }
                 goBack();
               }}
             >
-              SAVE
+              {this.props.t('deliveryeditmeetup_button_save')}
             </Button>
           </div>
         </div>

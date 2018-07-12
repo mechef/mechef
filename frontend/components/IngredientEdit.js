@@ -6,23 +6,23 @@ import Rx from 'rxjs/Rx';
 import { transparent, whiteColor } from '../utils/styleVariables';
 import Button from './Button';
 import TextInput from './TextInput';
-import { MemoObject } from '../utils/flowTypes';
+import type { MemoObject } from '../utils/flowTypes';
 
 type Props = {
-  currentMemo: MemoObject,
-  updatedMemo: MemoObject,
-  onCreateMemo: (memo: MemoObject) => Rx.Observable,
-  onUpdateMemo: (updatedMemo: MemoObject) => Rx.Observable,
-  onDeleteMemo: (memoId: string) => Rx.Observable,
+  displayMemo: MemoObject,
+  onCreateMemo: () => Rx.Observable,
+  onUpdateMemo: () => Rx.Observable,
+  onDeleteMemo: () => Rx.Observable,
   onChangeField: (updatedField: MemoObject) => Rx.Observable,
   memos: Array<MemoObject>,
   goBack: () => Rx.Observable,
-}
+  t: (key: string) => string,
+};
 
 type State = {
   inputIngredientName: string,
-  inputIngredientAmount: number,
-}
+  inputIngredientAmount: number
+};
 
 class IngredientEdit extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -33,21 +33,28 @@ class IngredientEdit extends React.Component<Props, State> {
     };
   }
   render() {
-    const { currentMemo, updatedMemo, onCreateMemo, onUpdateMemo, onDeleteMemo, onChangeField, goBack } = this.props;
-    const currentIngredients = updatedMemo.ingredients || currentMemo.ingredients || [];
-    const currentSum = updatedMemo.sum || currentMemo.sum || 0;
+    const {
+      displayMemo,
+      onCreateMemo,
+      onUpdateMemo,
+      onDeleteMemo,
+      onChangeField,
+      goBack,
+    } = this.props;
+    const currentIngredients = displayMemo.ingredients || [];
+    const currentSum = displayMemo.sum || 0;
     return (
       <div className="dashboard-content">
-        <p className="dashboard-content__title">Edit Ingredients</p>
+        <p className="dashboard-content__title">{this.props.t('ingredientsedit_edit_ingredients')}</p>
         <div className="edit-ingredient">
-          <p className="title">List Name*</p>
+          <p className="title">{this.props.t('ingredientsedit_list_name')}</p>
           <p className="subtitle">The number of characters is limited to 50.</p>
           <p className="edit-ingredient__input">
             <TextInput
               type="text"
               placeholder="Input memo name"
               size="large"
-              value={updatedMemo.name || currentMemo.name || ''}
+              value={displayMemo.name || ''}
               onChange={(event) => {
                 if (event && event.target) {
                   onChangeField({ name: event.target.value });
@@ -56,12 +63,12 @@ class IngredientEdit extends React.Component<Props, State> {
             />
           </p>
           <div className="edit-ingredient__choose-ingredient">
-            <p className="title">Ingredients</p>
+            <p className="title">{this.props.t('ingredientsedit_ingredients')}</p>
             <p className="subtitleWrapper">
-              <span className="subtitle">Choose Ingredients.</span>
+              <span className="subtitle">{this.props.t('ingredientsedit_ingredients_list_add')}</span>
               <div>
-                <span className="totalText">Total:</span>
-                <span className="costText">$ {updatedMemo.sum || currentMemo.sum || 0}</span>
+                <span className="totalText">{this.props.t('ingredientsedit_total')}</span>
+                <span className="costText">$ {displayMemo.sum || 0}</span>
               </div>
             </p>
             <p className="edit-ingredient__input">
@@ -73,7 +80,9 @@ class IngredientEdit extends React.Component<Props, State> {
                   value={this.state.inputIngredientName}
                   onChange={(event) => {
                     if (event && event.target) {
-                      this.setState({ inputIngredientName: event.target.value });
+                      this.setState({
+                        inputIngredientName: event.target.value,
+                      });
                     }
                   }}
                 />
@@ -82,11 +91,15 @@ class IngredientEdit extends React.Component<Props, State> {
                 <TextInput
                   type="text"
                   placeholder="$"
+                  pattern="^\d+$"
+                  validationMessage={this.props.t('validationmessage_only_number')}
                   size="small"
                   value={this.state.inputIngredientAmount || ''}
                   onChange={(event) => {
                     if (event && event.target) {
-                      this.setState({ inputIngredientAmount: parseInt(event.target.value, 10) });
+                      this.setState({
+                        inputIngredientAmount: parseInt(event.target.value, 10),
+                      });
                     }
                   }}
                   hasAddBtn
@@ -100,7 +113,7 @@ class IngredientEdit extends React.Component<Props, State> {
                         },
                       ],
                       sum: currentSum + this.state.inputIngredientAmount,
-                    })
+                    });
                     this.setState({
                       inputIngredientName: '',
                       inputIngredientAmount: 0,
@@ -109,27 +122,30 @@ class IngredientEdit extends React.Component<Props, State> {
                 />
               </div>
             </p>
-            {
-              currentIngredients && currentIngredients.map((ingredient, index) => (
+            {currentIngredients &&
+              currentIngredients.map((ingredient, index) => (
                 /* eslint-disable */
                 <div key={index} className="ingredients">
-                {/* eslint-enable */}
+                  {/* eslint-enable */}
                   <span className="ingredients__name">{ingredient.name}</span>
-                  <span className="ingredients__cost">$ {ingredient.amount}</span>
+                  <span className="ingredients__cost">
+                    $ {ingredient.amount}
+                  </span>
                   <button
                     className="removeWrapper"
                     onClick={() => {
                       onChangeField({
                         ingredients: currentIngredients.filter((element, i) => i !== index),
-                        sum: parseInt(currentSum, 10) - parseInt(ingredient.amount, 10),
+                        sum:
+                          parseInt(currentSum, 10) -
+                          parseInt(ingredient.amount, 10),
                       });
                     }}
                   >
                     <div className="remove" />
                   </button>
                 </div>
-              ))
-            }
+              ))}
           </div>
         </div>
         <div className="buttonGroup">
@@ -138,11 +154,11 @@ class IngredientEdit extends React.Component<Props, State> {
               size="small"
               buttonStyle="greenBorderOnly"
               onClick={() => {
-                onDeleteMemo(currentMemo._id);
+                onDeleteMemo();
                 goBack();
               }}
             >
-              DELETE
+              {this.props.t('ingredientsedit_button_delete')}
             </Button>
           </div>
           <div>
@@ -151,7 +167,7 @@ class IngredientEdit extends React.Component<Props, State> {
               buttonStyle="greenBorderOnly"
               onClick={() => goBack()}
             >
-              CANCEL
+              {this.props.t('ingredientsedit_button_cancel')}
             </Button>
           </div>
           <div>
@@ -159,18 +175,15 @@ class IngredientEdit extends React.Component<Props, State> {
               size="small"
               buttonStyle="primary"
               onClick={() => {
-                if (currentMemo._id) {
-                  onUpdateMemo({
-                    _id: currentMemo._id,
-                    ...updatedMemo,
-                  });
+                if (displayMemo._id) {
+                  onUpdateMemo();
                 } else {
-                  onCreateMemo(updatedMemo);
+                  onCreateMemo();
                 }
                 goBack();
               }}
             >
-              SAVE
+              {this.props.t('ingredientsedit_button_save')}
             </Button>
           </div>
         </div>
@@ -198,7 +211,7 @@ class IngredientEdit extends React.Component<Props, State> {
             }
 
             .title {
-              margin: 0 0 16px 0;
+              margin: 0 0 12px 0;
               font-size: 16px;
               font-weight: 500;
               line-height: 1;
@@ -210,7 +223,6 @@ class IngredientEdit extends React.Component<Props, State> {
               margin: 0 0 16px 0;
               height: 14px;
               font-size: 14px;
-              font-weight: 500;
               line-height: 1;
               letter-spacing: 0.6px;
               text-align: left;
@@ -338,6 +350,5 @@ class IngredientEdit extends React.Component<Props, State> {
     );
   }
 }
-
 
 export default IngredientEdit;

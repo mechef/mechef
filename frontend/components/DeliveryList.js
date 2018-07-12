@@ -2,89 +2,106 @@
 
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
-
-import Button from './Button';
-import { whiteColor, borderRadius, fontSize, lineHeight, placeholderTextColor, textColor } from '../utils/styleVariables';
+import {
+  whiteColor,
+  borderRadius,
+  fontSize,
+  lineHeight,
+  placeholderTextColor,
+  textColor,
+} from '../utils/styleVariables';
+import type { MeetupObject } from '../utils/flowTypes';
 
 type Props = {
-  meetupList: Array<{
-    _id: string,
-    note: string,
-    meetupEndTime: string,
-    meetupStartTime: string,
-    meetupSaturday: boolean,
-    meetupFriday: boolean,
-    meetupThursday: boolean,
-    meetupWednesday: boolean,
-    meetupTuesday: boolean,
-    meetupMonday: boolean,
-    meetupSunday: boolean,
-    meetupLongitude: number,
-    meetupLatitude: number,
-    meetupAddress: string,
-    type: string,
-  }>,
+  meetupList: Array<MeetupObject>,
   onEditDelivery: (meetupId: string) => Rx.Observable,
-}
+  onDeleteMeetup: (meetupId: string) => Rx.Observable,
+  t: (key: string) => string,
+};
 
 class DeliveryList extends React.Component<Props> {
   componentDidMount() {
-    this.props.meetupList.forEach((meetup) => {
-      // $FlowFixMe
-      const map = new google.maps.Map(document.getElementById(meetup._id), {
-        center: {
-          lat: meetup.meetupLatitude,
-          lng: meetup.meetupLongitude,
-        },
-        zoom: 15,
-        panControl: false,
-        mapTypeControl: false,
-        streetViewControl: false,
-        zoomControl: true,
-        fullscreenControl: false,
-      });
-      const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetupLongitude);
-      const marker = new google.maps.Marker({
-        position: latlng,
-        title: meetup.meetupAddress,
-        visible: true,
-      });
-      marker.setMap(map);
-    });
+    this.props.meetupList.forEach(meetup => this.refreshMap(meetup));
   }
+  componentDidUpdate() {
+    const newMeetupObject = this.props.meetupList[0];
+    if (newMeetupObject) {
+      this.refreshMap(newMeetupObject);
+    }
+  }
+
+  refreshMap = (meetup: MeetupObject) => {
+    // $FlowFixMe
+    const map = new google.maps.Map(document.getElementById(meetup._id), {
+      center: {
+        lat: meetup.meetupLatitude,
+        lng: meetup.meetupLongitude,
+      },
+      zoom: 15,
+      panControl: false,
+      mapTypeControl: false,
+      fullscreenControl: false,
+    });
+    const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetupLongitude);
+    const marker = new google.maps.Marker({
+      position: latlng,
+      title: meetup.meetupAddress,
+      visible: true,
+    });
+    marker.setMap(map);
+  };
+
   render() {
-    const { meetupList, onEditDelivery } = this.props;
+    const { meetupList, onEditDelivery, onDeleteMeetup } = this.props;
     return (
       <div className="wrapper">
         <div className="header">
-          <span className="title">Delivery List</span>
+          <span className="title">{this.props.t('deliverylist_delivery')}</span>
           <button className="addButton" onClick={() => onEditDelivery('')}>
             <div className="plus" />
           </button>
         </div>
-        {
-          meetupList.map(meetup => (
-            <button key={meetup._id} className="deliveryItem" onClick={() => onEditDelivery(meetup._id)}>
-              <div className="mapWrapper" id={meetup._id} />
-              <span className="descriptionText">Meet up at</span>
-              <div className="delivery-content">
-                <span className="text">{meetup.meetupAddress}</span>
-                <span className="text">{meetup.meetupStartTime} - {meetup.meetupEndTime}</span>
+        {meetupList.map(meetup => (
+          <div key={meetup._id} className="deliveryItem">
+            <div className="actionButtonGroup">
+              <div
+                role="button"
+                tabIndex="-1"
+                className="editIcon"
+                onClick={() => onEditDelivery(meetup._id || '')}
+              />
+              <div
+                role="button"
+                tabIndex="-1"
+                className="deleteIcon"
+                onClick={() => {
+                  if (meetup._id) {
+                    onDeleteMeetup(meetup._id);
+                  }
+                }}
+              />
+            </div>
+            <div className="mapWrapper" id={meetup._id} />
+            <span className="descriptionText">{this.props.t('deliverylist_meetup_at')}</span>
+            <div className="delivery-content">
+              <div className="text">{meetup.meetupAddress}</div>
+              <div className="text">
+                {meetup.meetupStartTime} - {meetup.meetupEndTime}
               </div>
-            </button>
-          ))
-        }
+            </div>
+          </div>
+        ))}
         <style jsx>
           {`
             .wrapper {
               height: 791px;
-              overflow: scroll;
+              overflow-y: scroll;
             }
 
             .mapWrapper {
               width: 512px;
               height: 100px;
-              margin-bottom: 12px;
+              margin-bottom: 40px;
             }
 
             .descriptionText {
@@ -124,7 +141,7 @@ class DeliveryList extends React.Component<Props> {
               background-image: url('../static/img/plus.png');
               background-size: contain;
               background-position: center;
-              background-repeat:no-repeat;
+              background-repeat: no-repeat;
               width: 18px;
               height: 18px;
               outline: none;
@@ -147,13 +164,70 @@ class DeliveryList extends React.Component<Props> {
               padding: 0;
               border-radius: 4px;
               background-color: #ffffff;
-              cursor: pointer;
               outline: none;
-              transition: all .2s ease-in-out;
+              position: relative;
             }
 
-            .deliveryItem:hover {
-              transform: scale(1.01);
+            .actionButtonGroup {
+              position: absolute;
+              top: 20px;
+              right: 20px;
+              z-index: 1;
+              width: 84px;
+              display: flex;
+              justify-content: space-between;
+            }
+
+            .editIcon {
+              width: 36px;
+              height: 36px;
+              position: relative;
+              background-color: ${whiteColor};
+              border-radius: ${borderRadius};
+              outline: none;
+              cursor: pointer;
+            }
+
+            .editIcon:before {
+              content: '';
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background-image: url('../static/svg/edit_icon.svg');
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+
+            .editIcon:hover::before {
+              background-image: url('../static/svg/edit_icon_hover.svg');
+            }
+
+            .deleteIcon {
+              width: 36px;
+              height: 36px;
+              position: relative;
+              background-color: ${whiteColor};
+              border-radius: ${borderRadius};
+              outline: none;
+              cursor: pointer;
+            }
+
+            .deleteIcon:before {
+              content: '';
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background-image: url('../static/svg/delete_icon.svg');
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+
+            .deleteIcon:hover::before {
+              background-image: url('../static/svg/delete_icon_hover.svg');
             }
 
             .delivery-content {
@@ -168,13 +242,15 @@ class DeliveryList extends React.Component<Props> {
               line-height: ${lineHeight};
               color: ${textColor};
               padding-bottom: 12px;
+              overflow-wrap: break-word;
+              width: 100%;
+              text-align: left;
             }
           `}
         </style>
       </div>
-    )
+    );
   }
 }
-
 
 export default DeliveryList;

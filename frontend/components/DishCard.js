@@ -6,34 +6,57 @@ import AddToCartButton from './AddToCartButton';
 
 import { IMAGE_URL } from '../utils/constants';
 import {
+  greyBackgroundColor,
   whiteColor,
   textColor,
+  textHintColor,
+  fontSize,
+  fontWeight,
   borderRadius,
+  addToCartButtonHeight,
 } from '../utils/styleVariables';
 
 type Props = {
   _id: string,
   dishName: string,
-  unitPrice: number,
+  unitPrice: string,
   images: Array<string>,
   description: string,
   onDishSelected: Function,
-  onAddToCartClick: (id: string) => Rx.Observable,
+  onAddToCartClick: Function,
 };
 
-const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelected, onAddToCartClick }: Props) => (
+const DishCard = ({
+  _id,
+  dishName,
+  unitPrice,
+  images,
+  description,
+  onDishSelected,
+  onAddToCartClick,
+}: Props) => (
   <div className="dish-card">
     <div className="dish-card__content">
-      <div className="dish-card__image-container" onClick={() => onDishSelected(_id)}>
+      <div
+        className="dish-card__image-container"
+        role="Link"
+        onClick={() => onDishSelected(_id)}
+      >
         {
           images && images.length > 0 ? <div className="dish-card__image" /> : ''
         }
       </div>
-      <div className="dish-card__name" onClick={() => onDishSelected(_id)}>{dishName}</div>
+      <div
+        className="dish-card__name"
+        role="Link"
+        onClick={() => onDishSelected(_id)}
+      >
+        {dishName}
+      </div>
       <div className="dish-card__description">{description}</div>
       <div className="dish-card__price">{unitPrice}</div>
     </div>
-    <AddToCartButton dishId={_id} onAddToCartClick={onAddToCartClick} />
+    <AddToCartButton onAddToCartClick={onAddToCartClick} />
     <style jsx>
       {`
         .dish-card {
@@ -49,6 +72,8 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
         .dish-card__content {
           flex: 0 0 277px;
           overflow: hidden;
+          height: calc(100% - ${addToCartButtonHeight});
+          max-height: 312px;
         }
         .dish-card__image-container {
           border-top-left-radius: ${borderRadius};
@@ -58,14 +83,14 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
           cursor: pointer;
           overflow: hidden;
           background-image: url('/static/svg/mechef_logo_white.svg');
-          background-color: #d8d8d8;
+          background-color: ${greyBackgroundColor};
           background-repeat: no-repeat;
           background-position: center;
           background-size: 90px 80px;
         }
         .dish-card__image {
           background-image: url('${images.length > 0 ? `${IMAGE_URL}/${images[0]}` : '/static/svg/mechef_logo_white.svg'}'), url('/static/svg/mechef_logo_white.svg');
-          background-color: #d8d8d8;
+          background-color: ${greyBackgroundColor};
           background-repeat: no-repeat;
           background-position: center;
           background-size: contain;
@@ -76,7 +101,7 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
           font-size: 16px;
           line-height: 1;
           letter-spacing: 0.7px;
-          font-weight: 500;
+          font-weight: ${fontWeight};
           color: ${textColor};
           padding: 28px 16px 0px;
           overflow: hidden;
@@ -85,10 +110,10 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
           cursor: pointer;
         }
         .dish-card__description {
-          font-weight: 500;
+          font-weight: ${fontWeight};
           font-family: AvenirNext;
           line-height: 1.2;
-          color: #9b9b9b;
+          color: ${textHintColor}
           padding: 10px 16px 0px;
           overflow: hidden;
           max-height: 36px;
@@ -97,9 +122,9 @@ const DishCard = ({ _id, dishName, unitPrice, images, description, onDishSelecte
           max-height: 18px;
           line-height: 18px;
           padding: 15px 16px 16px;
-          color: #9b9b9b;
-          font-size: 14px;
-          font-weight: 500;
+          color: ${textHintColor};
+          font-size: ${fontSize};
+          font-weight: ${fontWeight};
         }
       `}
     </style>

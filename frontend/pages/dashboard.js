@@ -3,11 +3,18 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import Router from 'next/router';
-
+import { translate } from 'react-i18next';
+import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import DashboardPageRouter from '../components/DashboardPageRouter';
 import globalActions from '../actions/globalActions';
-import { primaryColor, transparent, btnTextColor, textHintColor, whiteColor } from '../utils/styleVariables';
+import {
+  primaryColor,
+  transparent,
+  btnTextColor,
+  textHintColor,
+  whiteColor,
+} from '../utils/styleVariables';
 
 type Props = {
   url: {
@@ -24,11 +31,20 @@ type Props = {
   },
   toggleBackArrow$: string => Rx.Observable,
   showSpinner$: boolean => Rx.Observable,
-}
+};
 
 type State = {
   page: string,
-}
+};
+
+const pageTitle = {
+  home: 'HOME',
+  menu: 'MENU',
+  order: 'ORDER',
+  ingredient: 'INGREDIENT',
+  shipping: 'DELIVERY',
+  account: 'ACCOUNT',
+};
 
 class Dashboard extends React.Component<Props, State> {
   constructor(props) {
@@ -73,21 +89,58 @@ class Dashboard extends React.Component<Props, State> {
                 onClick={() => {
                   this.navigate('home');
                 }}
-                onKeyPress={() => { }}
+                onKeyPress={() => {}}
                 tabIndex="0"
               >
-                <img
-                  src="../static/svg/mechef_logo_white.svg"
-                  alt="logo"
-                />
+                <img src="../static/svg/mechef_logo_white.svg" alt="logo" />
               </div>
               <ul className="dashboard-sidebar__menu">
-                <li className={this.state.page === 'home' ? 'active' : ''} role="menuitem" onClick={() => this.navigate('home')}>HOME</li>
-                <li className={this.state.page === 'menu' ? 'active' : ''} role="menuitem" onClick={() => this.navigate('menu')}>MENU</li>
-                <li className={this.state.page === 'order' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('order')}>ORDERS</li>
-                <li className={this.state.page === 'ingredient' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('ingredient')}>INGREDIENTS</li>
-                <li className={this.state.page === 'shipping' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('shipping')}>SHIPPING</li>
-                <li className={this.state.page === 'account' ? 'active' : ''} role="menuitem" tabIndex="-1" onClick={() => this.navigate('account')}>ACCOUNT</li>
+                <li
+                  className={this.state.page === 'home' ? 'active' : ''}
+                  role="menuitem"
+                  onClick={() => this.navigate('home')}
+                >
+                  {this.props.t('home')}
+                </li>
+                <li
+                  className={this.state.page === 'menu' ? 'active' : ''}
+                  role="menuitem"
+                  onClick={() => this.navigate('menu')}
+                >
+                  {this.props.t('menu')}
+                </li>
+                <li
+                  className={this.state.page === 'order' ? 'active' : ''}
+                  role="menuitem"
+                  tabIndex="-1"
+                  onClick={() => this.navigate('order')}
+                >
+                  {this.props.t('order')}
+                </li>
+                <li
+                  className={this.state.page === 'ingredient' ? 'active' : ''}
+                  role="menuitem"
+                  tabIndex="-1"
+                  onClick={() => this.navigate('ingredient')}
+                >
+                  {this.props.t('ingredients_title')}
+                </li>
+                <li
+                  className={this.state.page === 'shipping' ? 'active' : ''}
+                  role="menuitem"
+                  tabIndex="-1"
+                  onClick={() => this.navigate('shipping')}
+                >
+                  {this.props.t('delivery')}
+                </li>
+                <li
+                  className={this.state.page === 'account' ? 'active' : ''}
+                  role="menuitem"
+                  tabIndex="-1"
+                  onClick={() => this.navigate('account')}
+                >
+                  {this.props.t('account')}
+                </li>
               </ul>
               <ul className="dashboard-sidebar__footer">
                 <li>Service Agreement</li>
@@ -104,20 +157,24 @@ class Dashboard extends React.Component<Props, State> {
         <div className="dashboard__right">
           <div className="dashboard-header">
             <div className="dashboard-header__wrapper">
-              {
-                backArrow && backArrow.isShow ?
-                  <div className="dashboard-header__menu">
-                    <div className="backArrow" role="button" tabIndex="-1" onClick={() => toggleBackArrow$('')} />
-                    <span className="dashboard-header__title" >{backArrow.title}</span>
-                  </div>
-                  :
-                  <div className="menuWrapper">
-                    <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
-                      <div className="drawerMenu" />
-                    </label>
-                    <span className="dashboard-header__title" >MENU</span>
-                  </div>
-              }
+              {backArrow && backArrow.isShow ? (
+                <div className="dashboard-header__menu">
+                  <div
+                    className="backArrow"
+                    role="button"
+                    tabIndex="-1"
+                    onClick={() => toggleBackArrow$('')}
+                  />
+                  <span className="dashboard-header__title">{backArrow.title}</span>
+                </div>
+              ) : (
+                <div className="menuWrapper">
+                  <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
+                    <div className="drawerMenu" />
+                  </label>
+                  <span className="dashboard-header__title">{pageTitle[this.state.page]}</span>
+                </div>
+              )}
               <div className="dashboard-header__user-profile">
                 <div className="dashboard-header__preview">
                   <img src="../static/svg/preview_icon.svg" />
@@ -131,228 +188,230 @@ class Dashboard extends React.Component<Props, State> {
         </div>
         <style jsx>
           {`
-              * {
-                transition: .25s ease-in-out;
-              }
-              body {
-                margin: 0px;
-              }
-              .dashboard {
-                display: flex;
-              }
+            * {
+              transition: 0.25s ease-in-out;
+            }
+            body {
+              margin: 0px;
+            }
+            .dashboard {
+              display: flex;
+            }
+            .dashboard__left {
+              width: 240px;
+              display: flex;
+              background-color: #252525;
+            }
+            .dashboard__right {
+              flex: 5;
+              height: 100%;
+            }
+            @media all and (max-width: 600px) {
               .dashboard__left {
-                width: 240px;
-                display: flex;
-                background-color: #252525;
+                flex: 1;
               }
-              .dashboard__right {
-                flex: 5;
-                height: 100%;
-              }
-              @media all and (max-width: 600px) {
-                .dashboard__left {
-                  flex: 1;
-                }
-              }
-              .dashboard-sidebar {
-                width: 100%;
-                min-height: 882px;
-                height: 100%;
-              }
+            }
+            .dashboard-sidebar {
+              width: 100%;
+              min-height: 882px;
+              height: 100%;
+            }
 
-              .dashboard-sidebar__inner {
-                padding-top: 28px;
-                padding-bottom: 28px;
-              }
+            .dashboard-sidebar__inner {
+              padding-top: 28px;
+              padding-bottom: 28px;
+            }
 
-              .dashboard-sidebar__inner div {
-                width: 75px;
-                margin-left: 45px;
-                margin-bottom: 50px;
-                cursor: pointer;
-                outline: none;
-              }
+            .dashboard-sidebar__inner div {
+              width: 75px;
+              margin-left: 45px;
+              margin-bottom: 50px;
+              cursor: pointer;
+              outline: none;
+            }
 
-              .dashboard-sidebar__menu {
-                list-style-type: none;
-                padding: 0px;
-              }
-              .dashboard-sidebar__menu > li {
-                padding-left: 36px;
-                outline: none;
-                width: 100%;
-                height: 50px;
-                cursor: pointer;
-                line-height: 50px;
-                font-size: 14px;
-                font-weight: 500;
-                letter-spacing: 1px;
-                color: ${btnTextColor};
-                border-left: 9px solid ${transparent};
-              }
-              .dashboard-sidebar__menu > li:hover {
-                border-left-color: ${primaryColor};
-              }
-              .dashboard-sidebar__menu > li.active {
-                border-left-color: ${primaryColor};
-              }
+            .dashboard-sidebar__menu {
+              list-style-type: none;
+              padding: 0px;
+            }
+            .dashboard-sidebar__menu > li {
+              padding-left: 36px;
+              outline: none;
+              width: 100%;
+              height: 50px;
+              cursor: pointer;
+              line-height: 50px;
+              font-size: 14px;
+              letter-spacing: 1px;
+              color: ${btnTextColor};
+              border-left: 9px solid ${transparent};
+            }
+            .dashboard-sidebar__menu > li:hover {
+              border-left-color: ${primaryColor};
+            }
+            .dashboard-sidebar__menu > li.active {
+              border-left-color: ${primaryColor};
+            }
 
-              .dashboard-sidebar__footer {
-                list-style-type: none;
-                padding: 0px;
-              }
+            .dashboard-sidebar__footer {
+              list-style-type: none;
+              padding: 0px;
+            }
 
-              .dashboard-sidebar__footer > li {
-                height: 32px;
-                padding-left: 45px;
-                line-height: 32px;
-                font-size: 12px;
-                letter-spacing: 0.9px;
-                color: ${textHintColor}
-              }
+            .dashboard-sidebar__footer > li {
+              height: 32px;
+              padding-left: 45px;
+              line-height: 32px;
+              font-size: 12px;
+              letter-spacing: 0.9px;
+              color: ${textHintColor};
+            }
 
+            .dashboard-header {
+              height: 90px;
+              background-color: #ffffff;
+            }
 
-              .dashboard-header {
-                height: 90px;
-                background-color: #ffffff;
-              }
+            .dashboard-header__wrapper {
+              padding-left: 20px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              height: 100%;
+            }
 
-              .dashboard-header__wrapper {
-                padding-left:20px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                height: 100%;
-              }
+            .dashboard-header__title {
+              margin-left: 24px;
+              height: 20px;
+              font-size: 18px;
+              color: #4a4a4a;
+            }
 
-              .dashboard-header__title {
-                margin-left: 24px;
-                height: 20px;
-                font-size: 18px;
-                color: #4a4a4a;
-              }
+            .dashboard-header__menu {
+              display: flex;
+              padding-left: 8px;
+              padding-right: 8px;
+            }
 
-              .dashboard-header__menu {
-                display: flex;
-                padding-left: 8px;
-                padding-right: 8px;
-              }
+            .menuWrapper {
+              display: flex;
+            }
 
-              .menuWrapper {
-                display: flex;
-              }
+            .drawerMenu {
+              background-image: url('../static/img/drawer.png');
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              width: 20px;
+              height: 20px;
+              cursor: pointer;
+            }
 
-              .drawerMenu {
-                background-image: url('../static/img/drawer.png');
-                background-size: contain;
-                background-position: center;
-                background-repeat:no-repeat;
-                width: 20px;
-                height: 20px;
-                cursor: pointer;
-              }
+            .drawerMenu:hover {
+              background-image: url('../static/img/drawer_hover.png');
+            }
 
-              .drawerMenu:hover {
-                background-image: url('../static/img/drawer_hover.png');
-              }
+            .backArrow {
+              background-image: url('../static/img/back.png');
+              background-size: contain;
+              background-position: center;
+              background-repeat: no-repeat;
+              width: 20px;
+              height: 20px;
+              cursor: pointer;
+              outline: none;
+            }
 
-              .backArrow {
-                background-image: url('../static/img/back.png');
-                background-size: contain;
-                background-position: center;
-                background-repeat:no-repeat;
-                width: 20px;
-                height: 20px;
-                cursor: pointer;
-                outline: none;
-              }
+            .backArrow:hover {
+              background-image: url('../static/img/back_hover.png');
+            }
 
-              .backArrow:hover {
-                background-image: url('../static/img/back_hover.png');
-              }
+            #dashboard-header__menu-toggle:checked ~ .dashboard__right {
+              width: 100%;
+            }
 
-              #dashboard-header__menu-toggle:checked ~ .dashboard__right {
-                width: 100%;
-              }
+            #dashboard-header__menu-toggle:checked ~ .dashboard__left {
+              margin-left: -240px;
+            }
 
-              #dashboard-header__menu-toggle:checked ~ .dashboard__left {
-                margin-left: -240px;
-              }
+            .dashboard-header__user-profile {
+              display: flex;
+              margin-right: 50px;
+            }
 
+            .dashboard-header__preview {
+              background-color: ${primaryColor};
+              width: 110px;
+              height: 30px;
+              border-radius: 32px;
+              color: ${whiteColor};
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              font-size: 12px;
+              cursor: pointer;
+            }
+
+            .preview-text {
+              margin-left: 4px;
+            }
+
+            @media all and (max-width: 600px) {
               .dashboard-header__user-profile {
-                display: flex;
-                margin-right: 50px;
+                display: none;
               }
+            }
+            .dashboard-header__user-head {
+              width: 30px;
+              height: 30px;
+              background-color: #d8d8d8;
+              border-radius: 50%;
+              margin-left: 16px;
+            }
 
-              .dashboard-header__preview {
-                background-color: ${primaryColor};
-                width: 110px;
-                height: 30px;
-                border-radius: 32px;
-                color: ${whiteColor};
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 12px;
-                cursor: pointer;
-              }
+            /* home.css  */
 
-              .preview-text {
-                margin-left: 4px;
-              }
+            .dashboard-content__title {
+              margin-bottom: 30px;
+              font-size: 18px;
+              line-height: 1.11;
+              letter-spacing: 0.5px;
+              text-align: left;
+              color: #4a4a4a;
+            }
 
-              @media all and (max-width: 600px) {
-                .dashboard-header__user-profile {
-                  display: none;
-                }
-              }
-              .dashboard-header__user-head {
-                width: 30px;
-                height: 30px;
-                background-color: #d8d8d8;
-                border-radius: 50%;
-                margin-left: 16px;
-              }
+            .dashboard-content__header {
+              width: 100%;
+              height: 240px;
+              background-image: url('../static/pancake.jpg');
+              background-size: cover;
+              background-position: center;
+              position: relative;
+            }
 
-              /* home.css  */
-
-              .dashboard-content__title {
-                margin-bottom: 30px;
-                font-size: 18px;
-                line-height: 1.11;
-                letter-spacing: 0.5px;
-                text-align: left;
-                color: #4a4a4a;
-              }
-
-              .dashboard-content__header {
-                width: 100%;
-                height: 240px;
-                background-image: url('../static/pancake.jpg');
-                background-size: cover;
-                background-position: center;
-                position: relative;
-              }
-
-              .dashboard-content__header:after {
-                content: '';
-                position: absolute;
-                top: 200px;
-                left: 20px;
-                background-image: url('../static/avatar.jpg');
-                background-size: cover;
-                background-position: center;
-                width: 80px;
-                height: 80px;
-                border-radius: 40px;
-              }
-            `}
+            .dashboard-content__header:after {
+              content: '';
+              position: absolute;
+              top: 200px;
+              left: 20px;
+              background-image: url('../static/avatar.jpg');
+              background-size: cover;
+              background-position: center;
+              width: 80px;
+              height: 80px;
+              border-radius: 40px;
+            }
+          `}
         </style>
       </div>
     );
   }
 }
 
-const DashboardWrapper = connect(({ global }) => ({ global }), { ...globalActions })(Dashboard);
+const Extended = translate(['common'], { i18n, wait: process.browser })(Dashboard);
+
+const DashboardWrapper = connect(({ global }) => ({ global }), {
+  ...globalActions,
+})(Extended);
 
 export default DashboardWrapper;
