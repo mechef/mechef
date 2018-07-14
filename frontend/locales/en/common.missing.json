@@ -30,5 +30,7 @@
   "accountpreview_password": "accountpreview_password",
   "meetup_default": "meetup_default",
   "meetup_default_description": "meetup_default_description",
-  "add_meetup_option": "add_meetup_option"
+  "add_meetup_option": "add_meetup_option",
+  "shoppingcart_my_shopping_cart": "shoppingcart_my_shopping_cart",
+  "shoppingcart_empty_cart": "shoppingcart_empty_cart"
 }

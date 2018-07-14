@@ -10,9 +10,10 @@ import KitchenPageRouter from '../components/KitchenPageRouter';
 
 import { connect } from '../state/RxState';
 import kitchenActions from '../actions/kitchenActions';
+import cartActions from '../actions/cartActions';
 import errorActions from '../actions/errorActions';
 import type { KitchenObject } from '../utils/flowTypes';
-
+import type { CartObject } from '../utils/flowTypes';
 import { fontSize } from '../utils/styleVariables';
 
 type Props = {
@@ -23,6 +24,8 @@ type Props = {
     },
   },
   kitchen?: KitchenObject,
+  cart: CartObject,
+  restoreCart$: (kitchen: string) => Rx.Observable,
   fetchKitchen$: (kitchen: string) => Rx.Observable,
   setLoading$: boolean => Rx.Subject,
 };
@@ -30,6 +33,7 @@ type Props = {
 class Kitchen extends React.Component<Props> {
   componentDidMount() {
     this.props.fetchKitchen$(this.props.url.query.kitchen);
+    this.props.restoreCart$(this.props.url.query.kitchen);
   }
 
   componetWillMount() {
@@ -40,7 +44,7 @@ class Kitchen extends React.Component<Props> {
     const { kitchen = {}, url } = this.props;
     return (
       <div>
-        <BuyerHeader kitchenName={kitchen.kitchenName} />
+        <BuyerHeader cart={this.props.cart} kitchenName={kitchen.kitchenName} />
         { !kitchen || kitchen.isLoading ? <Spinner /> : null }
         {
           kitchen && !kitchen.isLoading ?
@@ -61,11 +65,12 @@ class Kitchen extends React.Component<Props> {
   }
 }
 
-const stateSelector = ({ kitchen, error }) => ({ kitchen: kitchen && kitchen.kitchen, error });
+const stateSelector = ({ kitchen, cart, error }) => ({ kitchen: kitchen && kitchen.kitchen, cart, error });
 
 const actionSubjects = {
   ...errorActions,
   ...kitchenActions,
+  ...cartActions,
 };
 
 export default connect(stateSelector, actionSubjects)(Kitchen);
