@@ -139,7 +139,7 @@ module.exports = (req, res) => {
         order.menuList[i].subtotal = order.menuList[i].quantity * menu.unitPrice;
 
         amount += order.menuList[i].quantity * menu.unitPrice;
-
+        console.log(menu);
         if (menu.quantity == 0) {
           // send email to alert seller
           if (constants.mailTurnOn) {
@@ -160,9 +160,11 @@ module.exports = (req, res) => {
           }
         } else if (menu.quantity < 0) {
           // maybe there will be race condition
-          Menu.findOneAndUpdate({ _id: menu._id }, { $set: { quantity: 0 } });
-          res.status(500).json({ status: constants.fail });
-          return;
+          Menu.findOneAndUpdate({ _id: menu._id }, { $set: { quantity: 0 } }, function(error) {
+            console.log(error);
+            res.status(500).json({ status: constants.fail, reason: 'quantity is negative' });
+            return;
+          });
         }
       }
 
