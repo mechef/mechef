@@ -9,6 +9,7 @@ import BuyerFooter from '../components/BuyerFooter';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import { connect } from '../state/RxState';
+import kitchenActions from '../actions/kitchenActions';
 import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
 import i18n from '../i18n';
@@ -27,6 +28,7 @@ type Props = {
     message: string,
     isShowModal: boolean,
   },
+  deliveryList: Array<Object>
 };
 
 type State = {
@@ -40,6 +42,7 @@ type State = {
     deliveryId: string,
   },
   cartOrderList: ?Array<Object>,
+  fetchKitchen$: (kitchenName: string) => Rx.Observable,
 };
 
 class Checkout extends React.PureComponent<Props, State> {
@@ -55,10 +58,9 @@ class Checkout extends React.PureComponent<Props, State> {
         deliveryTime: '',
         deliveryId: '',
       },
-      cartOrderList: null,
+      cartOrderList: null
     };
   }
-
   componentDidMount() {
     if (!this.state.cartOrderList) {
       const orderJson = window.localStorage.getItem(
@@ -69,6 +71,9 @@ class Checkout extends React.PureComponent<Props, State> {
       this.setState({
         cartOrderList: orderJson ? JSON.parse(orderJson).orders : [],
       });
+    }
+    if (!this.props.deliveryList.length) {
+      this.props.fetchKitchen$(this.props.url.query.kitchen);
     }
   }
 
@@ -185,19 +190,29 @@ class Checkout extends React.PureComponent<Props, State> {
                 }}
               />
               <SelectBox
-                options={[]}
+                options={this.props.deliveryList.map(deliveryItem => ({ text: deliveryItem.meetupAddress, value: deliveryItem._id }))}
                 selectedValue={''}
-                defaultText="24:00"
+                defaultText="Select the delivery option"
                 onChange={(selectedValue: string | number) => {
-                  console.log(selectedValue);
+                  this.setState({
+                    newOrder: {
+                      ...this.state.newOrder,
+                      deliveryId: selectedValue,
+                    },
+                  });
                 }}
               />
               <SelectBox
-                options={[]}
+                options={[{ text: '11:58', value: '2017-12-01T11:58:31+00:00'}]}
                 selectedValue={''}
-                defaultText="date"
+                defaultText="2017-12-01T11:58:31+00:00"
                 onChange={(selectedValue: string | number) => {
-                  console.log(selectedValue);
+                  this.setState({
+                    newOrder: {
+                      ...this.state.newOrder,
+                      deliveryTime: selectedValue
+                    }
+                  })
                 }}
               />
             </section>
@@ -239,15 +254,16 @@ class Checkout extends React.PureComponent<Props, State> {
             buttonStyle="primary"
             size="small"
             onClick={() => {
+              const { firstName, lastName, ...rest } = this.state.newOrder;
               this.props.createOrder$({
-                buyerName: `${this.state.newOrder.firstName} ${this.state.newOrder.lastName}`,
-                buyerEmail: this.state.newOrder.buyerEmail,
+                buyerName: `${firstName} ${lastName}`,
                 menuList: this.state.cartOrderList
                   ? this.state.cartOrderList.map(order => ({
                     menuId: order.dishId,
                     quantity: order.quantity,
                   }))
                   : [],
+                ...rest
               });
             }}
           >
@@ -358,13 +374,15 @@ class Checkout extends React.PureComponent<Props, State> {
   }
 }
 
-const stateSelector = ({ error }) => ({
+const stateSelector = ({ error, kitchen }) => ({
+  deliveryList: kitchen && kitchen.kitchen && kitchen.kitchen.deliveryList ? kitchen.kitchen.deliveryList : [],
   error,
 });
 
 const actionSubjects = {
   ...errorActions,
   ...orderActions,
+  ...kitchenActions,
 };
 
 const Extended = translate(['common'], { i18n, wait: process.browser })(Checkout);

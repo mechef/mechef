@@ -15,12 +15,12 @@ const defaultKitchen = {
   coverPhoto: '',
   profileImage: '',
   menuList: [],
+  deliveryList: [],
 };
 
 const defaultDish = {
   images: [],
   deliveryIdList: [],
-  deliveryList: [],
   ingredients: [],
   category: [],
   serving: 0,
