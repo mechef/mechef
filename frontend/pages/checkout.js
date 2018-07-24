@@ -18,6 +18,7 @@ import {
   shallowGreyBgColor,
 } from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
+import moment from 'moment';
 
 type Props = {
   url: {
@@ -47,6 +48,17 @@ type State = {
   cartOrderList: ?Array<Object>,
   fetchKitchen$: (kitchenName: string) => Rx.Observable,
 };
+
+const get30MinIntervalList = (startTime, endTime) => {
+  const resultList = [];
+  const start = moment(startTime, 'HH:mm');
+  const end = moment(endTime, 'HH:mm');
+  while (end.diff(start) > 0) {
+    resultList.push(start.format('HH:mm'));
+    start.add(30, 'm');
+  }
+  return resultList;
+}
 
 class Checkout extends React.PureComponent<Props, State> {
   constructor(props) {
