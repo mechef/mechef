@@ -1,6 +1,6 @@
 // @flow
 
-import * as React from "react";
+import * as React from 'react';
 
 import {
   primaryColor,
@@ -10,8 +10,8 @@ import {
   placeholderTextColor,
   placeholderLineHeight,
   placeholderFontWeight,
-  placeholderFontSize
-} from "../utils/styleVariables";
+  placeholderFontSize,
+} from '../utils/styleVariables';
 
 type Props = {
   placeholder: string,
@@ -67,9 +67,9 @@ const TextAreaInput = (props: Props) => (
 );
 
 TextAreaInput.defaultProps = {
-  value: "",
+  value: '',
   onChange: () => {},
-  placeholder: "",
+  placeholder: '',
   width: '512px',
   height: textAreaInputHeight,
 };

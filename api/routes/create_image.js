@@ -8,7 +8,9 @@ const Gridfs = require('gridfs-stream');
 module.exports = (req, res) => {
   const token = req.headers.authorization;
   if (!token) {
-    res.status(400).json({ status: constants.fail, reason: constants.no_token });
+    res
+      .status(400)
+      .json({ status: constants.fail, reason: constants.no_token });
     return;
   }
 
@@ -19,7 +21,6 @@ module.exports = (req, res) => {
     }
 
     req.file.filename = uuidv4();
-
 
     const db = mongoose.connection.db;
     const mongoDriver = mongoose.mongo;
@@ -37,8 +38,8 @@ module.exports = (req, res) => {
 
     fs.createReadStream(req.file.path).pipe(writestream);
 
-    writestream.on('close', (file) => {
-      fs.unlink(file.metadata.path, (erro) => {
+    writestream.on('close', file => {
+      fs.unlink(file.metadata.path, erro => {
         if (erro) {
           console.log(erro);
         }

@@ -1,5 +1,5 @@
 import Rx from 'rxjs/Rx';
 
 export default {
-  setError$: new Rx.Subject,
+  setError$: new Rx.Subject(),
 };

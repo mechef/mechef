@@ -37,12 +37,12 @@ module.exports = (req, res) => {
     html: `<a href="http://localhost:3001/seller/resetpass/${resetPassHash}">http://localhost:3001/seller/resetpass/${resetPassHash}</a>`, // html body
   };
 
-  mailer.sendMail(mailOptions, (error) => {
+  mailer.sendMail(mailOptions, error => {
     if (error) {
       res.status(500).json({ status: constants.fail });
       return;
     }
-    Seller.update({ email: req.body.email }, { resetPassHash }, (err) => {
+    Seller.update({ email: req.body.email }, { resetPassHash }, err => {
       if (err) {
         res.status(500).json({ status: constants.fail });
         return;

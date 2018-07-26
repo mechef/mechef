@@ -50,7 +50,10 @@ export class Home extends React.Component<Props> {
   }
   render() {
     const {
-      account, order: { orderList }, setError$, error,
+      account,
+      order: { orderList },
+      setError$,
+      error,
     } = this.props;
     return (
       <div className="homeContainer">
@@ -58,22 +61,33 @@ export class Home extends React.Component<Props> {
           <Modal
             title={error.title}
             message={error.message}
-            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+            onCancel={() =>
+              setError$({ isShowModal: false, title: '', message: '' })
+            }
           />
         ) : null}
         <div
           className="dashboard-content__header"
           style={{
-            backgroundImage: `url('${this.props.account.currentAccount.coverPhoto ? `${IMAGE_URL}/${this.props.account.currentAccount.coverPhoto}` : '../static/avatar.jpg'}`
+            backgroundImage: `url('${
+              this.props.account.currentAccount.coverPhoto
+                ? `${IMAGE_URL}/${this.props.account.currentAccount.coverPhoto}`
+                : '../static/avatar.jpg'
+            }`,
           }}
         />
         <div className="topWrapper">
           <div className="nameWrapper">
-            <p className="sellerId">{`@${account.currentAccount.name || ''}`}</p>
-            <p className="sellerName">{account.currentAccount.kitchenName || ''}</p>
+            <p className="sellerId">{`@${account.currentAccount.name ||
+              ''}`}</p>
+            <p className="sellerName">
+              {account.currentAccount.kitchenName || ''}
+            </p>
           </div>
           <button className="myKitchenLink">
-            <span className="kitchenLinkText">{this.props.t('button_my_store')}</span>
+            <span className="kitchenLinkText">
+              {this.props.t('button_my_store')}
+            </span>
           </button>
         </div>
         <p className="orderTableTitle">
@@ -90,7 +104,9 @@ export class Home extends React.Component<Props> {
               <span className="firstCell">{this.props.t('delivery_time')}</span>
               <span className="secondCell">{this.props.t('buyer_name')}</span>
               <span className="thirdCell">{this.props.t('order_name')}</span>
-              <span className="fourthCell">{this.props.t('home_quantity')}</span>
+              <span className="fourthCell">
+                {this.props.t('home_quantity')}
+              </span>
             </div>
             {orderList
               .filter(order => order.state === ORDER_STATE.waiting)
@@ -106,9 +122,15 @@ export class Home extends React.Component<Props> {
                   <span className="firstCell greyText">
                     {moment(orderItem.deliveryTime).format('MMM DD hh:mm')}
                   </span>
-                  <span className="secondCell boldText">{orderItem.buyerName}</span>
-                  <span className="thirdCell boldText">{orderItem.dishName}</span>
-                  <span className="fourthCell boldText">{orderItem.quantity}</span>
+                  <span className="secondCell boldText">
+                    {orderItem.buyerName}
+                  </span>
+                  <span className="thirdCell boldText">
+                    {orderItem.dishName}
+                  </span>
+                  <span className="fourthCell boldText">
+                    {orderItem.quantity}
+                  </span>
                 </div>
               ))}
           </div>
@@ -117,7 +139,9 @@ export class Home extends React.Component<Props> {
             <DefaultComponent>
               <div className="textSection">
                 <h2 className="title">{this.props.t('hello_there')}</h2>
-                <p className="description">{this.props.t('home_default_description')}</p>
+                <p className="description">
+                  {this.props.t('home_default_description')}
+                </p>
               </div>
             </DefaultComponent>
           </div>
@@ -144,10 +168,11 @@ export class Home extends React.Component<Props> {
               position: absolute;
               top: 200px;
               left: 20px;
-              background-image: url('${account.currentAccount.profileImage
-        ? `${IMAGE_URL}/${account.currentAccount.profileImage}`
-        : '../static/avatar.jpg'
-      }'), url('../static/avatar.jpg');
+              background-image: url('${
+                account.currentAccount.profileImage
+                  ? `${IMAGE_URL}/${account.currentAccount.profileImage}`
+                  : '../static/avatar.jpg'
+              }'), url('../static/avatar.jpg');
               background-size: cover;
               background-position: center;
               width: 80px;
@@ -346,4 +371,7 @@ const actionSubjects = {
 
 const Extended = translate(['common'], { i18n, wait: process.browser })(Home);
 
-export default connect(stateSelector, actionSubjects)(Extended);
+export default connect(
+  stateSelector,
+  actionSubjects,
+)(Extended);

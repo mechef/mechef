@@ -28,13 +28,19 @@ const Index = props => (
       <a>Delivery with map example</a>
     </Link>
     <CheckBox
-      onChange={(isChecked) => { alert(isChecked); }}
+      onChange={isChecked => {
+        alert(isChecked);
+      }}
     >
       Test123
     </CheckBox>
     <div style={{ width: '250px' }}>
       <SelectBox
-        options={[{ text: '22:00', value: '22:00'}, { text: '23:00', value: '23:00' }, { text: '24:00', value: '24:00' }]}
+        options={[
+          { text: '22:00', value: '22:00' },
+          { text: '23:00', value: '23:00' },
+          { text: '24:00', value: '24:00' },
+        ]}
         defaultText="24:00"
         selectedValue="24:00"
       />
@@ -48,18 +54,16 @@ const Index = props => (
     />
     <Tag title="FOOD" />
     <UploadImage
-      onImageUpload={(file) => {
+      onImageUpload={file => {
         console.log('File:', file);
       }}
     />
     <ul>
-      {
-        props.shows.map(({ show }) => (
-          <li key={show.id}>
-            <span>{show.name}</span>
-          </li>
-        ))
-      }
+      {props.shows.map(({ show }) => (
+        <li key={show.id}>
+          <span>{show.name}</span>
+        </li>
+      ))}
     </ul>
     {/* <ErrorComponent
       buttonText="GO TO HOME PAGE"
@@ -72,7 +76,7 @@ const Index = props => (
     </ErrorComponent> */}
     <Pagination
       totalPageCount={3}
-      onPageClick={(pageNumber) => {
+      onPageClick={pageNumber => {
         console.log('pageNumber:', pageNumber);
       }}
       currentPageIndex={1}
@@ -86,7 +90,7 @@ const Index = props => (
         padding-top: 31px;
       }
       .title {
-        font - family: 'Playball';
+        font-family: 'Playball';
         font-size: 24px;
         color: ${textColor};
       }
@@ -103,7 +107,7 @@ const Index = props => (
   </div>
 );
 
-Index.getInitialProps = async function () {
+Index.getInitialProps = async function() {
   const res = await fetch('https://api.tvmaze.com/search/shows?q=batman');
   const data = await res.json();
 
@@ -111,6 +115,5 @@ Index.getInitialProps = async function () {
     shows: data,
   };
 };
-
 
 export default Index;

@@ -10,8 +10,12 @@ type Props = {
 const KitchenClosedComponent = ({ t }: Props) => (
   <div className="kitchen-closed-box">
     <div className="kitchen-closed-box__image" />
-    <div className="kitchen-closed-box__text">{t('buyerstorenomenu_kitchen_close')}</div>
-    <div className="kitchen-closed-box__link">{t('buyerstorenomenu_contact_chef')}</div>
+    <div className="kitchen-closed-box__text">
+      {t('buyerstorenomenu_kitchen_close')}
+    </div>
+    <div className="kitchen-closed-box__link">
+      {t('buyerstorenomenu_contact_chef')}
+    </div>
     <style jsx>
       {`
         .kitchen-closed-box {
@@ -63,6 +67,8 @@ const KitchenClosedComponent = ({ t }: Props) => (
   </div>
 );
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(KitchenClosedComponent);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  KitchenClosedComponent,
+);
 
 export default Extended;

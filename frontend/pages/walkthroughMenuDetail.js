@@ -13,21 +13,29 @@ const WalkthroughMenuDetail = () => (
           <div className="oval" />
         </div>
         <p className="title">Menu Details</p>
-        <p id="addImage" className="subtitle">Add Images*</p>
+        <p id="addImage" className="subtitle">
+          Add Images*
+        </p>
         <p className="description">Description text?</p>
         <div className="addPhotoContainer">
           <div className="addPhoto" />
           <div className="addPhoto" />
           <div className="addPhoto" />
         </div>
-        <p id="dishName" className="subtitle">Dish Name*</p>
+        <p id="dishName" className="subtitle">
+          Dish Name*
+        </p>
         <input type="text" className="fullInput" />
         <div className="inputbox">
-          <label htmlFor="unitPrice" className="subtitle">Unit Price*</label>
+          <label htmlFor="unitPrice" className="subtitle">
+            Unit Price*
+          </label>
           <input id="unitPrice" type="text" className="halfInput" />
         </div>
         <div className="inputbox rightHalfInput">
-          <label htmlFor="quantity" className="subtitle">Quantity*</label>
+          <label htmlFor="quantity" className="subtitle">
+            Quantity*
+          </label>
           <input id="quantity" type="text" className="halfInput" />
         </div>
         <div className="menu-button-group">
@@ -39,8 +47,8 @@ const WalkthroughMenuDetail = () => (
     <style jsx>
       {`
         .mainContent {
-          transition: all .5s;
-          background-image: url("../static/img/background.png");
+          transition: all 0.5s;
+          background-image: url('../static/img/background.png');
           height: 786px;
           width: 100%;
           padding-top: 83px;

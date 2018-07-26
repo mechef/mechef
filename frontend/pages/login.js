@@ -113,7 +113,9 @@ class Login extends React.Component<Props, State> {
           <Modal
             title={error.title}
             message={error.message}
-            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+            onCancel={() =>
+              setError$({ isShowModal: false, title: '', message: '' })
+            }
           />
         ) : null}
         {isShowSpinner ? <Spinner /> : null}
@@ -121,7 +123,9 @@ class Login extends React.Component<Props, State> {
         <div className="login-panel">
           <div className="login-form">
             <div className="login-btn splits">
-              <p className="splits-title">{this.props.t('dont_have_account')}</p>
+              <p className="splits-title">
+                {this.props.t('dont_have_account')}
+              </p>
               <Button
                 buttonStyle="whiteBorderOnly"
                 size="small"
@@ -133,7 +137,9 @@ class Login extends React.Component<Props, State> {
               </Button>
             </div>
             <div className="rgstr-btn splits">
-              <p className="splits-title">{this.props.t('dont_have_account')}</p>
+              <p className="splits-title">
+                {this.props.t('dont_have_account')}
+              </p>
               <Button
                 buttonStyle="whiteBorderOnly"
                 size="small"
@@ -144,7 +150,9 @@ class Login extends React.Component<Props, State> {
                 {this.props.t('button_joinnow')}
               </Button>
             </div>
-            <div className={`wrapper ${this.state.isWrapperMove ? 'move' : ''}`}>
+            <div
+              className={`wrapper ${this.state.isWrapperMove ? 'move' : ''}`}
+            >
               <div className="login">
                 <p className="title">{this.props.t('button_signin')}</p>
                 <div className="mail">
@@ -155,12 +163,12 @@ class Login extends React.Component<Props, State> {
                     placeholder="Mail or Username"
                     size="medium"
                     value={email}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         setLoginField$({ email: evt.target.value });
                       }
                     }}
-                    onKeyPress={(evt) => {
+                    onKeyPress={evt => {
                       if (evt && evt.key === 'Enter') {
                         login$({ email, password });
                       }
@@ -173,12 +181,12 @@ class Login extends React.Component<Props, State> {
                     placeholder="Password"
                     size="medium"
                     value={password}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         setLoginField$({ password: evt.target.value });
                       }
                     }}
-                    onKeyPress={(evt) => {
+                    onKeyPress={evt => {
                       if (evt && evt.key === 'Enter') {
                         login$({ email, password });
                       }
@@ -203,7 +211,7 @@ class Login extends React.Component<Props, State> {
                     placeholder="First Name"
                     size="medium"
                     value={this.state.signup.firstName}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         this.setState({
                           signup: {
@@ -221,7 +229,7 @@ class Login extends React.Component<Props, State> {
                     placeholder="Last Name"
                     size="medium"
                     value={this.state.signup.lastName}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         this.setState({
                           signup: {
@@ -239,7 +247,7 @@ class Login extends React.Component<Props, State> {
                     placeholder="Telephone Number"
                     size="medium"
                     value={this.state.signup.password}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         this.setState({
                           signup: {
@@ -259,7 +267,7 @@ class Login extends React.Component<Props, State> {
                     placeholder="Email Address"
                     size="medium"
                     value={this.state.signup.email}
-                    onChange={(evt) => {
+                    onChange={evt => {
                       if (evt && evt.target) {
                         this.setState({
                           signup: {
@@ -272,7 +280,11 @@ class Login extends React.Component<Props, State> {
                   />
                 </div>
                 <div className="wrapper__submit">
-                  <Button type="primary" size="medium" onClick={this.onSubmitSignup}>
+                  <Button
+                    type="primary"
+                    size="medium"
+                    onClick={this.onSubmitSignup}
+                  >
                     {this.props.t('button_joinnow')}
                   </Button>
                 </div>
@@ -457,4 +469,7 @@ Extended.getInitialProps = async ({ req }) => {
   return {};
 };
 
-export default connect(stateSelector, actionSubjects)(Extended);
+export default connect(
+  stateSelector,
+  actionSubjects,
+)(Extended);

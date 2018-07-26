@@ -3,7 +3,6 @@ import React from 'react';
 
 import { AccountPage } from '../AccountPage';
 
-
 describe('Pages With Snapshot Testing', () => {
   it('snapshot AccountPage Component', () => {
     const component = renderer.create(

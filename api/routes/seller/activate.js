@@ -25,13 +25,15 @@ const constants = require('../../utils/constants');
  *
  */
 module.exports = (req, res) => {
-  Seller.update({ activateHash: req.params.hash },
+  Seller.update(
+    { activateHash: req.params.hash },
     { isActivate: true },
-    (err) => {
+    err => {
       if (err) {
         res.status(500).json({ status: constants.fail });
         return;
       }
       res.json({ status: constants.success });
-    });
+    },
+  );
 };

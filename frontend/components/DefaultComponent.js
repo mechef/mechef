@@ -3,21 +3,22 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
-import { whiteColor, borderRadius, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
+import {
+  whiteColor,
+  borderRadius,
+  primaryColor,
+  textColor,
+  primaryBtnHoverColor,
+} from '../utils/styleVariables';
 
 type Props = {
   coverPhotoSrc: string,
   children: React.Node,
-}
+};
 
 const DefaultComponent = (props: Props) => (
   <div className="wrapper">
-    {
-      props.coverPhotoSrc ?
-        <div className="cover" />
-        :
-        null
-    }
+    {props.coverPhotoSrc ? <div className="cover" /> : null}
     <div className="defaultIcon">
       <img alt="default icon" src="../static/img/default_icon.svg" />
     </div>

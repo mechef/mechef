@@ -7,9 +7,8 @@ const initialState = {
   message: '',
 };
 
-const errorReducer$ = Rx.Observable.of(() => initialState)
-  .merge(
-    errorActions.setError$.map(payload => state => ({ ...state, ...payload })),
-  );
+const errorReducer$ = Rx.Observable.of(() => initialState).merge(
+  errorActions.setError$.map(payload => state => ({ ...state, ...payload })),
+);
 
 export default errorReducer$;

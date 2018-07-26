@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res) => {
   const token = req.headers.authorization;
   if (!token) {
-    res.status(400).json({ status: constants.fail, reason: constants.no_token });
+    res
+      .status(400)
+      .json({ status: constants.fail, reason: constants.no_token });
     return;
   }
 
@@ -18,11 +20,16 @@ module.exports = (req, res) => {
     if (req.query.state) condition.state = req.query.state;
 
     const query = Order.find(condition);
-    query.then((orders) => {
+    query.then(orders => {
       if (orders) {
-        res.json({ status: constants.success, orders: Order.getOrderList(orders) });
+        res.json({
+          status: constants.success,
+          orders: Order.getOrderList(orders),
+        });
       } else {
-        res.status(400).json({ status: constants.fail, reason: constants.email_not_found });
+        res
+          .status(400)
+          .json({ status: constants.fail, reason: constants.email_not_found });
       }
     });
   });

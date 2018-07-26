@@ -23,8 +23,8 @@ const WalkthroughMenu = () => (
     <style jsx>
       {`
         .mainContent {
-          transition: all .5s;
-          background-image: url("../static/img/background.png");
+          transition: all 0.5s;
+          background-image: url('../static/img/background.png');
           height: 786px;
           width: 100%;
           padding-top: 83px;

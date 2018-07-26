@@ -36,7 +36,7 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState).merge(
         updatedMemoFields: {},
         isLoading: false,
       }))
-      .catch((error) => {
+      .catch(error => {
         errorActions.setError$.next({
           isShowModal: true,
           title: 'Login Error',
@@ -73,7 +73,7 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState).merge(
         memos: [data.response.memo, ...state.memos],
         updatedMemoFields: {},
       }))
-      .catch((error) => {
+      .catch(error => {
         errorActions.setError$.next({
           isShowModal: true,
           title: 'Create Memo Error',
@@ -96,7 +96,7 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState).merge(
     })
       .map(() => state => ({
         ...state,
-        memos: state.memos.map((memo) => {
+        memos: state.memos.map(memo => {
           if (memo._id === reqbody._id) {
             return { ...memo, ...reqbody };
           }
@@ -104,7 +104,7 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState).merge(
         }),
         updatedMemoFields: {},
       }))
-      .catch((error) => {
+      .catch(error => {
         errorActions.setError$.next({
           isShowModal: true,
           title: 'Create Memo Error',
@@ -125,8 +125,11 @@ const ingredientReducer$ = Rx.Observable.of(() => initialState).merge(
       },
       responseType: 'json',
     })
-      .map(() => state => ({ ...state, memos: state.memos.filter(memo => memo._id !== memoId) }))
-      .catch((error) => {
+      .map(() => state => ({
+        ...state,
+        memos: state.memos.filter(memo => memo._id !== memoId),
+      }))
+      .catch(error => {
         errorActions.setError$.next({
           isShowModal: true,
           title: 'Delete Memo Error',

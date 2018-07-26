@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
   });
 
   //error handling, e.g. file does not exist
-  readstream.on('error', function (err) {
+  readstream.on('error', function(err) {
     console.log('An error occurred!', err);
     next(err);
   });

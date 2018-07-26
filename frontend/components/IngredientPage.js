@@ -12,7 +12,12 @@ import Modal from './Modal';
 import IngredientList from './IngredientList';
 import IngredientEdit from './IngredientEdit';
 import DefaultComponent from './DefaultComponent';
-import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
+import {
+  whiteColor,
+  primaryColor,
+  textColor,
+  primaryBtnHoverColor,
+} from '../utils/styleVariables';
 import type { MemoObject } from '../utils/flowTypes';
 import Spinner from '../components/Spinner';
 
@@ -29,7 +34,11 @@ type Props = {
   deleteMemo$: (memoId: string) => Rx.Observable,
   setCurrentMemoId$: (memoId: string) => Rx.Observable,
   setFields$: (updatedField: MemoObject) => Rx.Observable,
-  setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
+  setError$: ({
+    isShowModal: boolean,
+    title: string,
+    message: string,
+  }) => Rx.Observable,
   error: {
     title: string,
     message: string,
@@ -55,9 +64,7 @@ export class IngredientPage extends React.Component<Props> {
   }
   render() {
     const {
-      ingredient: {
-        memos, currentMemoId, updatedMemoFields, isLoading,
-      },
+      ingredient: { memos, currentMemoId, updatedMemoFields, isLoading },
       setError$,
       error,
       global: { backArrow },
@@ -68,7 +75,9 @@ export class IngredientPage extends React.Component<Props> {
       toggleBackArrow$,
       setCurrentMemoId$,
     } = this.props;
-    const currentMemo = this.props.ingredient.memos.find(memo => memo._id === currentMemoId) || {};
+    const currentMemo =
+      this.props.ingredient.memos.find(memo => memo._id === currentMemoId) ||
+      {};
     const displayMemo = { ...currentMemo, ...updatedMemoFields };
     return (
       <div className="container">
@@ -76,7 +85,9 @@ export class IngredientPage extends React.Component<Props> {
           <Modal
             title={error.title}
             message={error.message}
-            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+            onCancel={() =>
+              setError$({ isShowModal: false, title: '', message: '' })
+            }
           />
         ) : null}
         {isLoading ? <Spinner /> : null}
@@ -102,7 +113,7 @@ export class IngredientPage extends React.Component<Props> {
           <IngredientList
             memos={memos}
             onDeleteMemo={memoId => deleteMemo$(memoId)}
-            onEditMemo={(memoId) => {
+            onEditMemo={memoId => {
               setCurrentMemoId$(memoId);
               toggleBackArrow$('Edit Ingredient');
             }}
@@ -111,7 +122,9 @@ export class IngredientPage extends React.Component<Props> {
         ) : !isLoading ? (
           <DefaultComponent coverPhotoSrc="../static/img/ingredients_default.jpg">
             <div className="textSection">
-              <h2 className="title">{this.props.t('ingredients_default_description')}</h2>
+              <h2 className="title">
+                {this.props.t('ingredients_default_description')}
+              </h2>
               <p className="description">{this.props.t('hello_there')}</p>
             </div>
             <button
@@ -180,7 +193,11 @@ export class IngredientPage extends React.Component<Props> {
   }
 }
 
-const stateSelector = ({ ingredient, error, global }) => ({ ingredient, error, global });
+const stateSelector = ({ ingredient, error, global }) => ({
+  ingredient,
+  error,
+  global,
+});
 
 const actionSubjects = {
   ...errorActions,
@@ -188,6 +205,11 @@ const actionSubjects = {
   ...globalActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(IngredientPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  IngredientPage,
+);
 
-export default connect(stateSelector, actionSubjects)(Extended);
+export default connect(
+  stateSelector,
+  actionSubjects,
+)(Extended);

@@ -27,24 +27,24 @@ type Props = {
   setError$: ({
     isShowModal: boolean,
     title: string,
-    message: string
+    message: string,
   }) => Rx.Observable,
   error: {
     title: string,
     message: string,
-    isShowModal: boolean
+    isShowModal: boolean,
   },
   global: {
     backArrow: {
       isShow: boolean,
-      title: string
-    }
+      title: string,
+    },
   },
-  toggleBackArrow$: string => Rx.Observable
+  toggleBackArrow$: string => Rx.Observable,
 };
 
 type State = {
-  pageStatus: string
+  pageStatus: string,
 };
 
 export const pageStatus = {
@@ -118,7 +118,7 @@ export class AccountPage extends React.Component<Props, State> {
         ) : (
           <AccountDetail
             account={account}
-            onUpdate={(status) => {
+            onUpdate={status => {
               toggleBackArrow$(pageStatus[status]);
               this.setState({
                 pageStatus: status,
@@ -154,6 +154,11 @@ const actionSubjects = {
   ...globalActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(AccountPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  AccountPage,
+);
 
-export default connect(stateSelector, actionSubjects)(Extended);
+export default connect(
+  stateSelector,
+  actionSubjects,
+)(Extended);

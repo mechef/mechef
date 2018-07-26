@@ -42,9 +42,11 @@ const DishCard = ({
         role="Link"
         onClick={() => onDishSelected(_id)}
       >
-        {
-          images && images.length > 0 ? <div className="dish-card__image" /> : ''
-        }
+        {images && images.length > 0 ? (
+          <div className="dish-card__image" />
+        ) : (
+          ''
+        )}
       </div>
       <div
         className="dish-card__name"
@@ -89,7 +91,11 @@ const DishCard = ({
           background-size: 90px 80px;
         }
         .dish-card__image {
-          background-image: url('${images.length > 0 ? `${IMAGE_URL}/${images[0]}` : '/static/svg/mechef_logo_white.svg'}'), url('/static/svg/mechef_logo_white.svg');
+          background-image: url('${
+            images.length > 0
+              ? `${IMAGE_URL}/${images[0]}`
+              : '/static/svg/mechef_logo_white.svg'
+          }'), url('/static/svg/mechef_logo_white.svg');
           background-color: ${greyBackgroundColor};
           background-repeat: no-repeat;
           background-position: center;

@@ -14,7 +14,12 @@ import MenuList from './MenuList';
 import MenuEdit from './MenuEdit';
 import DefaultComponent from './DefaultComponent';
 import type { MenuObject, MeetupObject } from '../utils/flowTypes';
-import { whiteColor, primaryColor, textColor, primaryBtnHoverColor } from '../utils/styleVariables';
+import {
+  whiteColor,
+  primaryColor,
+  textColor,
+  primaryBtnHoverColor,
+} from '../utils/styleVariables';
 import Spinner from '../components/Spinner';
 
 type Props = {
@@ -36,7 +41,11 @@ type Props = {
   setFields$: (menu: MenuObject) => Rx.Observable,
   uploadImage$: File => Rx.Observable,
   fetchDelivery$: any => Rx.Observable,
-  setError$: ({ isShowModal: boolean, title: string, message: string }) => Rx.Observable,
+  setError$: ({
+    isShowModal: boolean,
+    title: string,
+    message: string,
+  }) => Rx.Observable,
   error: {
     title: string,
     message: string,
@@ -62,9 +71,7 @@ export class MenuPage extends React.Component<Props> {
   render() {
     const {
       delivery: { meetupList },
-      menu: {
-        menuList, currentMenuId, updatedMenuFields, isLoading,
-      },
+      menu: { menuList, currentMenuId, updatedMenuFields, isLoading },
       setError$,
       error,
       global: { backArrow },
@@ -76,7 +83,8 @@ export class MenuPage extends React.Component<Props> {
       toggleBackArrow$,
       setCurrentMenuId$,
     } = this.props;
-    const currentMenu = (menuList && menuList.find(menu => menu._id === currentMenuId)) || {};
+    const currentMenu =
+      (menuList && menuList.find(menu => menu._id === currentMenuId)) || {};
     const displayMenu = { ...currentMenu, ...updatedMenuFields };
     return (
       <div className="container">
@@ -84,7 +92,9 @@ export class MenuPage extends React.Component<Props> {
           <Modal
             title={error.title}
             message={error.message}
-            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+            onCancel={() =>
+              setError$({ isShowModal: false, title: '', message: '' })
+            }
           />
         ) : null}
         {isLoading ? <Spinner /> : null}
@@ -94,7 +104,9 @@ export class MenuPage extends React.Component<Props> {
             displayMenu={displayMenu}
             onChangeField={setFields$}
             onCreateMenu={() => createMenu$(updatedMenuFields)}
-            onUpdateMenu={() => updateMenu$({ _id: currentMenu._id, ...updatedMenuFields })}
+            onUpdateMenu={() =>
+              updateMenu$({ _id: currentMenu._id, ...updatedMenuFields })
+            }
             onDeleteMenu={menuId => deleteMenu$(menuId)}
             onUploadImage={uploadImage$}
             goBack={() => toggleBackArrow$('')}
@@ -112,7 +124,7 @@ export class MenuPage extends React.Component<Props> {
         ) : menuList && menuList.length ? (
           <MenuList
             menuList={menuList}
-            onEditMenu={(menuId) => {
+            onEditMenu={menuId => {
               setCurrentMenuId$(menuId);
               toggleBackArrow$('Edit Menu');
             }}
@@ -129,7 +141,9 @@ export class MenuPage extends React.Component<Props> {
           <DefaultComponent coverPhotoSrc="../static/img/menu_default.jpg">
             <div className="textSection">
               <h2 className="title">{this.props.t('hello_there')}</h2>
-              <p className="description">{this.props.t('menu_empty_description')}</p>
+              <p className="description">
+                {this.props.t('menu_empty_description')}
+              </p>
             </div>
             <button
               className="addDish"
@@ -196,10 +210,11 @@ export class MenuPage extends React.Component<Props> {
   }
 }
 
-const stateSelector = ({
-  delivery, menu, error, global,
-}) => ({
-  delivery, menu, error, global,
+const stateSelector = ({ delivery, menu, error, global }) => ({
+  delivery,
+  menu,
+  error,
+  global,
 });
 
 const actionSubjects = {
@@ -208,5 +223,10 @@ const actionSubjects = {
   ...deliveryActions,
   ...globalActions,
 };
-const Extended = translate(['common'], { i18n, wait: process.browser })(MenuPage);
-export default connect(stateSelector, actionSubjects)(Extended);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  MenuPage,
+);
+export default connect(
+  stateSelector,
+  actionSubjects,
+)(Extended);

@@ -3,7 +3,6 @@ import React from 'react';
 
 import Spinner from '../Spinner';
 
-
 describe('Pages With Snapshot Testing', () => {
   it('snapshot Spinner Component', () => {
     const component = renderer.create(<Spinner />);

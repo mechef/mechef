@@ -19,8 +19,8 @@ const options = {
     format: (value, format, lng) => {
       if (format === 'uppercase') return value.toUpperCase();
       return value;
-    }
-  }
+    },
+  },
 };
 
 // for browser use xhr backend to load translations and browser lng detector
@@ -42,17 +42,19 @@ i18n.getInitialProps = (req, namespaces) => {
   req.i18n.toJSON = () => null; // do not serialize i18next instance and send to client
 
   const initialI18nStore = {};
-  req.i18n.languages.forEach((l) => {
+  req.i18n.languages.forEach(l => {
     initialI18nStore[l] = {};
-    namespaces.forEach((ns) => {
-      initialI18nStore[l][ns] = req.i18n.services.resourceStore.data[l] ? req.i18n.services.resourceStore.data[l][ns] || {} : {};
+    namespaces.forEach(ns => {
+      initialI18nStore[l][ns] = req.i18n.services.resourceStore.data[l]
+        ? req.i18n.services.resourceStore.data[l][ns] || {}
+        : {};
     });
   });
 
   return {
     i18n: req.i18n, // use the instance on req - fixed language on request (avoid issues in race conditions with lngs of different users)
     initialI18nStore,
-    initialLanguage: req.i18n.language
+    initialLanguage: req.i18n.language,
   };
 };
 

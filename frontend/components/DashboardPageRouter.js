@@ -10,7 +10,7 @@ import MenuPage from './MenuPage';
 
 type Props = {
   query: string,
-}
+};
 
 const DashboardPageRouter = (props: Props) => {
   const query = props.query;

@@ -3,7 +3,17 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
-import { borderRadius, whiteColor, primaryColor, lineHeight, titleFontSize, subtitleFontSize, textColor, textHintColor, transparent } from '../utils/styleVariables';
+import {
+  borderRadius,
+  whiteColor,
+  primaryColor,
+  lineHeight,
+  titleFontSize,
+  subtitleFontSize,
+  textColor,
+  textHintColor,
+  transparent,
+} from '../utils/styleVariables';
 
 type Props = {
   dishName: string,
@@ -13,22 +23,21 @@ type Props = {
   onTogglePublish: (isPublish: boolean) => Rx.Observable,
   onEdit: () => Rx.Observable,
   onDelete: () => Rx.Observable,
-}
+};
 
 type State = {
   isPublish: boolean,
-}
+};
 
 class MenuItem extends React.Component<Props, State> {
-
   static defaultProps = {
     description: '',
     thumbnailUrl: '',
     isPublish: false,
-    onTogglePublish: () => { },
-    onEdit: () => { },
-    onDelete: () => { },
-  }
+    onTogglePublish: () => {},
+    onEdit: () => {},
+    onDelete: () => {},
+  };
 
   constructor(props: Props) {
     super(props);
@@ -48,7 +57,7 @@ class MenuItem extends React.Component<Props, State> {
     this.setState({
       isPublish: !this.state.isPublish,
     });
-  }
+  };
 
   render() {
     return (
@@ -72,18 +81,25 @@ class MenuItem extends React.Component<Props, State> {
           <button
             className={`
               bottomPart
-              ${this.state.isPublish ? 'publishedToggleBtn' : 'unpublishedToggleBtn'}
+              ${
+                this.state.isPublish
+                  ? 'publishedToggleBtn'
+                  : 'unpublishedToggleBtn'
+              }
             `}
             onClick={this.handleChange}
           >
-            <div className={`${this.state.isPublish ? 'publishedCircle' : 'unpublishedCircle'}`} />
-            <span className={`${this.state.isPublish ? 'publishedText' : 'unpublishedText'}`}>
-              {
-                this.state.isPublish ?
-                  'PUBLISH'
-                  :
-                  'UNPUBLISH'
-              }
+            <div
+              className={`${
+                this.state.isPublish ? 'publishedCircle' : 'unpublishedCircle'
+              }`}
+            />
+            <span
+              className={`${
+                this.state.isPublish ? 'publishedText' : 'unpublishedText'
+              }`}
+            >
+              {this.state.isPublish ? 'PUBLISH' : 'UNPUBLISH'}
             </span>
           </button>
         </div>
@@ -98,7 +114,9 @@ class MenuItem extends React.Component<Props, State> {
             }
 
             .menuThumbnail {
-              background-image: url('${this.props.thumbnailUrl}'), url('../static/pancake.jpg');
+              background-image: url('${
+                this.props.thumbnailUrl
+              }'), url('../static/pancake.jpg');
               background-size: cover;
               background-position: center;
               width: 161px;
@@ -229,6 +247,5 @@ class MenuItem extends React.Component<Props, State> {
     );
   }
 }
-
 
 export default MenuItem;

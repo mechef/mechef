@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res) => {
   const token = req.headers.authorization;
   if (!token) {
-    res.status(400).json({ status: constants.fail, reason: constants.no_token });
+    res
+      .status(400)
+      .json({ status: constants.fail, reason: constants.no_token });
     return;
   }
 
@@ -15,7 +17,7 @@ module.exports = (req, res) => {
       return;
     }
 
-    Order.remove({ _id: req.params.id, email: decoded.email }, (e) => {
+    Order.remove({ _id: req.params.id, email: decoded.email }, e => {
       if (e) {
         res.status(500).json({ status: constants.fail });
         return;

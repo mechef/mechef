@@ -82,7 +82,7 @@ class MenuEdit extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.fetchDelivery();
-    this.props.deliveryList.forEach((delivery) => {
+    this.props.deliveryList.forEach(delivery => {
       // $FlowFixMe
       const map = new google.maps.Map(document.getElementById(delivery._id), {
         center: {
@@ -96,7 +96,10 @@ class MenuEdit extends React.Component<Props, State> {
         zoomControl: true,
         fullscreenControl: false,
       });
-      const latlng = new google.maps.LatLng(delivery.meetupLatitude, delivery.meetupLongitude);
+      const latlng = new google.maps.LatLng(
+        delivery.meetupLatitude,
+        delivery.meetupLongitude,
+      );
       const marker = new google.maps.Marker({
         position: latlng,
         title: delivery.meetupAddress,
@@ -150,7 +153,9 @@ class MenuEdit extends React.Component<Props, State> {
                     imgSrc={`${IMAGE_URL}/${displayImages[index]}`}
                     onImageUpload={onUploadImage}
                     onRemoveImage={() => {
-                      const updatedImages = displayImages.filter((image, imageIndex) => imageIndex !== index);
+                      const updatedImages = displayImages.filter(
+                        (image, imageIndex) => imageIndex !== index,
+                      );
                       onChangeField({
                         images: updatedImages,
                       });
@@ -161,14 +166,18 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
           <div className="dishName">
-            <h3 className="title">{this.props.t('walkthroughmenudetails_dish_name')}</h3>
-            <p className="subtitle">The number of characters is limited to 50</p>
+            <h3 className="title">
+              {this.props.t('walkthroughmenudetails_dish_name')}
+            </h3>
+            <p className="subtitle">
+              The number of characters is limited to 50
+            </p>
             <TextInput
               type="text"
               placeholder="Enter Dish Name"
               size="large"
               value={displayMenu.dishName || ''}
-              onChange={(event) => {
+              onChange={event => {
                 if (event && event.target) {
                   onChangeField({ dishName: event.target.value });
                 }
@@ -178,16 +187,22 @@ class MenuEdit extends React.Component<Props, State> {
           </div>
           <div className="formSection">
             <div className="smallInputContainer">
-              <h3 className="title">{this.props.t('walkthroughmenudetails_unit_price')}</h3>
-              <span className="subtitle">{this.props.t('walkthroughmenudetails_unit_price_description')}</span>
+              <h3 className="title">
+                {this.props.t('walkthroughmenudetails_unit_price')}
+              </h3>
+              <span className="subtitle">
+                {this.props.t('walkthroughmenudetails_unit_price_description')}
+              </span>
               <TextInput
                 type="text"
                 pattern="^\d+$"
-                validationMessage={this.props.t('validationmessage_only_number')}
+                validationMessage={this.props.t(
+                  'validationmessage_only_number',
+                )}
                 placeholder="$"
                 size="small"
                 value={displayMenu.unitPrice || ''}
-                onChange={(event) => {
+                onChange={event => {
                   if (event && event.target) {
                     onChangeField({ unitPrice: event.target.value });
                   }
@@ -196,8 +211,12 @@ class MenuEdit extends React.Component<Props, State> {
               />
             </div>
             <div className="smallInputContainer">
-              <h3 className="title">{this.props.t('walkthroughmenudetails_quantity')}</h3>
-              <span className="subtitle">{this.props.t('walkthroughmenudetails_quantity_description')}</span>
+              <h3 className="title">
+                {this.props.t('walkthroughmenudetails_quantity')}
+              </h3>
+              <span className="subtitle">
+                {this.props.t('walkthroughmenudetails_quantity_description')}
+              </span>
               <SelectBox
                 options={quantity}
                 selectedValue={displayMenu.quantity || 0}
@@ -210,17 +229,21 @@ class MenuEdit extends React.Component<Props, State> {
               />
             </div>
           </div>
-          <h3 className="title">{this.props.t('walkthroughmenudetails_menu_category')}</h3>
+          <h3 className="title">
+            {this.props.t('walkthroughmenudetails_menu_category')}
+          </h3>
           <div className="formSection">
             <div className="smallInputContainer">
-              <p className="subtitle">{this.props.t('walkthroughmenudetails_category_description')}</p>
+              <p className="subtitle">
+                {this.props.t('walkthroughmenudetails_category_description')}
+              </p>
               <div className="flexWrapper">
                 <TextInput
                   type="text"
                   placeholder="Enter Category"
                   size="small"
                   value={this.state.categoryInput}
-                  onChange={(event) => {
+                  onChange={event => {
                     if (event && event.target) {
                       this.setState({ categoryInput: event.target.value });
                     }
@@ -230,7 +253,10 @@ class MenuEdit extends React.Component<Props, State> {
                       categoryInput: '',
                     });
                     onChangeField({
-                      category: [...currentCategories, this.state.categoryInput],
+                      category: [
+                        ...currentCategories,
+                        this.state.categoryInput,
+                      ],
                     });
                   }}
                   hasAddBtn
@@ -246,7 +272,9 @@ class MenuEdit extends React.Component<Props, State> {
                         title={tag}
                         onRemove={() => {
                           onChangeField({
-                            category: currentCategories.filter(categoryTag => categoryTag !== tag),
+                            category: currentCategories.filter(
+                              categoryTag => categoryTag !== tag,
+                            ),
                           });
                         }}
                       />
@@ -257,22 +285,29 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
           <div className="ingredient">
-            <h3 className="title">{this.props.t('walkthroughmenudetails_ingredients_description')}</h3>
-            <p className="subtitle">{this.props.t('walkthroughmenudetails_enter_ingredients')}</p>
+            <h3 className="title">
+              {this.props.t('walkthroughmenudetails_ingredients_description')}
+            </h3>
+            <p className="subtitle">
+              {this.props.t('walkthroughmenudetails_enter_ingredients')}
+            </p>
             <div className="flexWrapper">
               <TextInput
                 type="text"
                 placeholder="Enter Ingredients"
                 size="small"
                 value={this.state.ingredientInput}
-                onChange={(event) => {
+                onChange={event => {
                   if (event && event.target) {
                     this.setState({ ingredientInput: event.target.value });
                   }
                 }}
                 onAdd={() => {
                   onChangeField({
-                    ingredients: [...currentIngredients, this.state.ingredientInput],
+                    ingredients: [
+                      ...currentIngredients,
+                      this.state.ingredientInput,
+                    ],
                   });
                   this.setState({
                     ingredientInput: '',
@@ -291,7 +326,9 @@ class MenuEdit extends React.Component<Props, State> {
                       title={tag}
                       onRemove={() => {
                         onChangeField({
-                          ingredients: currentIngredients.filter(ingredient => ingredient !== tag),
+                          ingredients: currentIngredients.filter(
+                            ingredient => ingredient !== tag,
+                          ),
                         });
                       }}
                     />
@@ -301,12 +338,16 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
           <div className="description">
-            <h3 className="title">{this.props.t('walkthroughmenudetails_menu_description')}</h3>
-            <p className="subtitle">{this.props.t('walkthroughmenudetails_description_description')}</p>
+            <h3 className="title">
+              {this.props.t('walkthroughmenudetails_menu_description')}
+            </h3>
+            <p className="subtitle">
+              {this.props.t('walkthroughmenudetails_description_description')}
+            </p>
             <TextAreaInput
               placeholder="Write some description about your menu...."
               value={displayMenu.description || ''}
-              onChange={(event) => {
+              onChange={event => {
                 if (event && event.target) {
                   onChangeField({ description: event.target.value });
                 }
@@ -315,8 +356,12 @@ class MenuEdit extends React.Component<Props, State> {
           </div>
           <div className="formSection">
             <div className="smallInputContainer">
-              <h3 className="title">{this.props.t('walkthroughmenudetails_cooking_buffer')}</h3>
-              <p className="subtitle">{this.props.t('walkthroughmenudetails_set_cooking_buffer')}</p>
+              <h3 className="title">
+                {this.props.t('walkthroughmenudetails_cooking_buffer')}
+              </h3>
+              <p className="subtitle">
+                {this.props.t('walkthroughmenudetails_set_cooking_buffer')}
+              </p>
               <SelectBox
                 options={cookingBuffer}
                 selectedValue={displayMenu.cookingBuffer || ''}
@@ -330,13 +375,17 @@ class MenuEdit extends React.Component<Props, State> {
               />
             </div>
             <div className="smallInputContainer">
-              <h3 className="title">{this.props.t('walkthroughmenudetails_serving')}</h3>
-              <p className="subtitle">{this.props.t('walkthroughmenudetails_serving_description')}</p>
+              <h3 className="title">
+                {this.props.t('walkthroughmenudetails_serving')}
+              </h3>
+              <p className="subtitle">
+                {this.props.t('walkthroughmenudetails_serving_description')}
+              </p>
               <SelectBox
                 options={serving}
                 selectedValue={displayMenu.serving || ''}
                 defaultText="For 1~2 people"
-                onChange={(selectedValue) => {
+                onChange={selectedValue => {
                   onChangeField({
                     serving: selectedValue.toString(),
                   });
@@ -345,52 +394,72 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
         </div>
-        <p className="mainTitle">{this.props.t('menucreatemenu_menu_setup_delivery')}</p>
+        <p className="mainTitle">
+          {this.props.t('menucreatemenu_menu_setup_delivery')}
+        </p>
         <div className="shippingContainer">
           <div className="meetup">
-            <h3 className="title">{this.props.t('menucreatemenu_menu_meetup')}</h3>
-            <p className="subtitle">{this.props.t('menucreatemenu_menu_meetup_description')}</p>
+            <h3 className="title">
+              {this.props.t('menucreatemenu_menu_meetup')}
+            </h3>
+            <p className="subtitle">
+              {this.props.t('menucreatemenu_menu_meetup_description')}
+            </p>
             <div className="meetupWrapper">
-              {deliveryList.filter(delivery => delivery.type === 'meetup').map(meetup => (
-                <div className="meetupItem">
-                  <span className="checkbox">
-                    <CheckBox
-                      checked={
-                        displayMenu.deliveryIdList
-                          ? displayMenu.deliveryIdList.includes(meetup._id)
-                          : false
-                      }
-                      onChange={(isChecked) => {
-                        const currentDeliveryIdList = displayMenu.deliveryIdList || [];
-                        if (isChecked && meetup._id) {
-                          onChangeField({
-                            deliveryIdList: [...currentDeliveryIdList, meetup._id],
-                          });
-                        } else {
-                          onChangeField({
-                            deliveryIdList: currentDeliveryIdList.filter(deliveryId => deliveryId !== meetup._id),
-                          });
+              {deliveryList
+                .filter(delivery => delivery.type === 'meetup')
+                .map(meetup => (
+                  <div className="meetupItem">
+                    <span className="checkbox">
+                      <CheckBox
+                        checked={
+                          displayMenu.deliveryIdList
+                            ? displayMenu.deliveryIdList.includes(meetup._id)
+                            : false
                         }
-                      }}
-                    />
-                  </span>
-                  <div key={meetup._id} className="deliveryItem">
-                    <div className="mapWrapper" id={meetup._id} />
-                    <span className="descriptionText">{this.props.t('deliverylist_meetup_at')}</span>
-                    <div className="delivery-content">
-                      <div className="text">{meetup.meetupAddress}</div>
-                      <div className="text">{this.getAvailableDays(meetup)}</div>
-                      <div className="text">
-                        {meetup.meetupStartTime} - {meetup.meetupEndTime}
+                        onChange={isChecked => {
+                          const currentDeliveryIdList =
+                            displayMenu.deliveryIdList || [];
+                          if (isChecked && meetup._id) {
+                            onChangeField({
+                              deliveryIdList: [
+                                ...currentDeliveryIdList,
+                                meetup._id,
+                              ],
+                            });
+                          } else {
+                            onChangeField({
+                              deliveryIdList: currentDeliveryIdList.filter(
+                                deliveryId => deliveryId !== meetup._id,
+                              ),
+                            });
+                          }
+                        }}
+                      />
+                    </span>
+                    <div key={meetup._id} className="deliveryItem">
+                      <div className="mapWrapper" id={meetup._id} />
+                      <span className="descriptionText">
+                        {this.props.t('deliverylist_meetup_at')}
+                      </span>
+                      <div className="delivery-content">
+                        <div className="text">{meetup.meetupAddress}</div>
+                        <div className="text">
+                          {this.getAvailableDays(meetup)}
+                        </div>
+                        <div className="text">
+                          {meetup.meetupStartTime} - {meetup.meetupEndTime}
+                        </div>
+                      </div>
+                      <span className="descriptionText">
+                        {this.props.t('deliveryeditmeetup_note_placeholder')}
+                      </span>
+                      <div className="delivery-content">
+                        <div className="text">{meetup.note}</div>
                       </div>
                     </div>
-                    <span className="descriptionText">{this.props.t('deliveryeditmeetup_note_placeholder')}</span>
-                    <div className="delivery-content">
-                      <div className="text">{meetup.note}</div>
-                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>
@@ -410,7 +479,11 @@ class MenuEdit extends React.Component<Props, State> {
             </Button>
           </div>
           <div>
-            <Button buttonStyle="greenBorderOnly" size="small" onClick={() => goBack()}>
+            <Button
+              buttonStyle="greenBorderOnly"
+              size="small"
+              onClick={() => goBack()}
+            >
               {this.props.t('menucreatemenu_button_cancel')}
             </Button>
           </div>
@@ -419,7 +492,11 @@ class MenuEdit extends React.Component<Props, State> {
               buttonStyle="primary"
               size="small"
               onClick={() => {
-                if (!displayMenu.dishName || !displayMenu.unitPrice || !displayMenu.cookingBuffer) {
+                if (
+                  !displayMenu.dishName ||
+                  !displayMenu.unitPrice ||
+                  !displayMenu.cookingBuffer
+                ) {
                   this.props.onFormError();
                 } else {
                   if (displayMenu._id) {

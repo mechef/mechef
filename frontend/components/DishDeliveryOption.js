@@ -27,7 +27,7 @@ class Meetup extends React.Component<MeetupProps> {
       ...meetupDetail
     } = this.props;
 
-    const formatDeliveryDays = (detail) => {
+    const formatDeliveryDays = detail => {
       const days = [
         t('deliveryeditmeetup_sunday'),
         t('deliveryeditmeetup_monday'),
@@ -40,38 +40,38 @@ class Meetup extends React.Component<MeetupProps> {
       const deliveryDays = days.map(day => Boolean(detail[`meetup${day}`]));
       const everyday = deliveryDays.every(day => day === true);
       const noday = deliveryDays.every(day => day === false);
-      const deliveryDaysString = `${t('deliveryeditmeetup_every')} ${
-        deliveryDays.reduce((all, deliver, index) => {
+      const deliveryDaysString = `${t(
+        'deliveryeditmeetup_every',
+      )} ${deliveryDays
+        .reduce((all, deliver, index) => {
           if (deliver) {
             all.push(days[index]);
           }
           return all;
-        }, []).join(', ')
-      }`;
-      return everyday ?
-        t('deliveryeditmeetup_everyday') :
-        noday ?
-          '-' :
-          deliveryDaysString;
+        }, [])
+        .join(', ')}`;
+      return everyday
+        ? t('deliveryeditmeetup_everyday')
+        : noday
+          ? '-'
+          : deliveryDaysString;
     };
 
     return (
       <div>
-        <div className="meetup__type">{ t('menucreatemenu_menu_meetup_description') }</div>
+        <div className="meetup__type">
+          {t('menucreatemenu_menu_meetup_description')}
+        </div>
         <div>{meetupAddress}</div>
         <div>
           <span className="meetup__days">
-            { formatDeliveryDays(meetupDetail) }
+            {formatDeliveryDays(meetupDetail)}
           </span>
-          <span>{meetupStartTime} - {meetupEndTime}</span>
+          <span>
+            {meetupStartTime} - {meetupEndTime}
+          </span>
         </div>
-        {
-          note ?
-            <div className="meetup__note">
-              {note}
-            </div> :
-            null
-        }
+        {note ? <div className="meetup__note">{note}</div> : null}
         <style jsx>
           {`
             div + div {
@@ -102,20 +102,18 @@ type ShippingProps = {
 const Shipping = ({ meetupAddress, note, t }: ShippingProps) => (
   <div>
     <div className="shipping__cell">
-      <div className="shipping__title">{ t('menucreatemenu_menu_shipping_description') }</div>
+      <div className="shipping__title">
+        {t('menucreatemenu_menu_shipping_description')}
+      </div>
       <div>{meetupAddress}</div>
     </div>
     <div className="shipping__cell">
-      <div className="shipping__title">{ t('deliveryeditshipping_enter_shipping_cost') }</div>
+      <div className="shipping__title">
+        {t('deliveryeditshipping_enter_shipping_cost')}
+      </div>
       <div>$0.00</div>
     </div>
-    {
-      note ?
-        <div className="shipping__note">
-          {note}
-        </div> :
-        null
-    }
+    {note ? <div className="shipping__note">{note}</div> : null}
     <style jsx>
       {`
         .shipping__cell {
@@ -145,11 +143,11 @@ type Props = {
 
 const DishDeliveryOption = ({ t, type, ...deliveryOption }: Props) => (
   <div className="dish-delivery-option">
-    {
-      type === 'meetup' ?
-        <Meetup {...deliveryOption} t={t} /> :
-        <Shipping {...deliveryOption} t={t} />
-    }
+    {type === 'meetup' ? (
+      <Meetup {...deliveryOption} t={t} />
+    ) : (
+      <Shipping {...deliveryOption} t={t} />
+    )}
     <style jsx>
       {`
         .dish-delivery-option {
@@ -164,4 +162,6 @@ const DishDeliveryOption = ({ t, type, ...deliveryOption }: Props) => (
   </div>
 );
 
-export default translate(['common'], { i18n, wait: process.browser })(DishDeliveryOption);
+export default translate(['common'], { i18n, wait: process.browser })(
+  DishDeliveryOption,
+);

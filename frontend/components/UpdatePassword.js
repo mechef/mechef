@@ -53,7 +53,11 @@ class UpdatePassword extends React.Component<Props, State> {
       <div className="dashboard-content">
         <div className="buttonGroup">
           <div>
-            <Button buttonStyle="greenBorderOnly" size="small" onClick={this.props.goback}>
+            <Button
+              buttonStyle="greenBorderOnly"
+              size="small"
+              onClick={this.props.goback}
+            >
               {this.props.t('accountupdatepw_button_cancel')}
             </Button>
           </div>

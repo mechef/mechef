@@ -99,11 +99,13 @@ class SelectBox extends React.Component<Props, State> {
   render() {
     const { defaultText, options } = this.props;
     const { selectedValue } = this.state;
-    const selectedOption = options.find(option => option.value === selectedValue);
+    const selectedOption = options.find(
+      option => option.value === selectedValue,
+    );
     return (
       <div>
         <div
-          ref={(box) => {
+          ref={box => {
             this.box = box;
           }}
           className="selectBoxWrapper"
@@ -117,7 +119,9 @@ class SelectBox extends React.Component<Props, State> {
               ${this.state.isOpenOptions ? 'openOption greyBorderBottom' : ''}
             `}
           >
-            <span className={`placeholder ${selectedOption ? 'selectedStyle' : ''}`}>
+            <span
+              className={`placeholder ${selectedOption ? 'selectedStyle' : ''}`}
+            >
               {selectedOption ? selectedOption.text : defaultText}
             </span>
             <div className="dropdownIcon" />

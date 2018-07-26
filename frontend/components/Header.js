@@ -1,9 +1,9 @@
 // @flow
 
-import React from "react";
+import React from 'react';
 
 type Props = {
-  selectedItem: string
+  selectedItem: string,
 };
 
 const Header = (props: Props) => (
@@ -15,10 +15,10 @@ const Header = (props: Props) => (
     />
     <div className="mechef-navbar-collapse">
       <ul className="mechef-navbar-nav">
-        <li className={props.selectedItem === "about" ? "active" : ""}>
+        <li className={props.selectedItem === 'about' ? 'active' : ''}>
           HOW IT WORKS
         </li>
-        <li className={props.selectedItem === "join" ? "active" : ""}>
+        <li className={props.selectedItem === 'join' ? 'active' : ''}>
           JOIN NOW
         </li>
       </ul>
@@ -75,7 +75,7 @@ const Header = (props: Props) => (
 );
 
 Header.defaultProps = {
-  selectedItem: ""
+  selectedItem: '',
 };
 
 export default Header;
