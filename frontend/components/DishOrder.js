@@ -18,7 +18,7 @@ import {
 type Props = {
   price?: string | number,
   maxServing?: string | number,
-  onOrderChange?: (DishOrderType) => Function,
+  onOrderChange?: DishOrderType => Function,
   textAreaWidth?: string | number,
   textAreaHeight?: string | number,
   t: (key: string) => string,
@@ -94,7 +94,7 @@ class DishOrder extends React.Component<Props, State> {
     return (
       <div className="dish-order">
         <div className="dish-order__field dish-order__field--column">
-          <div className="dish-order__note">{ t('productadd_note_to_chef') }</div>
+          <div className="dish-order__note">{t('productadd_note_to_chef')}</div>
           <TextAreaInput
             placeholder="Any preference? Let the seller know here..."
             value={this.state.messageFromBuyer}
@@ -104,7 +104,9 @@ class DishOrder extends React.Component<Props, State> {
           />
         </div>
         <div className="dish-order__field dish-order__field--row">
-          <span className="dish-order__field-name">{ t('productadd_quantity') }</span>
+          <span className="dish-order__field-name">
+            {t('productadd_quantity')}
+          </span>
           <div className="dish-order__quanity">
             <ServingModifier
               maxServing={this.state.maxServing}
@@ -113,8 +115,12 @@ class DishOrder extends React.Component<Props, State> {
           </div>
         </div>
         <div className="dish-order__field dish-order__field--row">
-          <span className="dish-order__field-name">{ t('productdetail_subtotal') }</span>
-          <span className="dish-order__subtotal">{this.formatPrice(this.state.subTotal)}</span>
+          <span className="dish-order__field-name">
+            {t('productdetail_subtotal')}
+          </span>
+          <span className="dish-order__subtotal">
+            {this.formatPrice(this.state.subTotal)}
+          </span>
         </div>
         <style jsx>
           {`
@@ -171,6 +177,8 @@ class DishOrder extends React.Component<Props, State> {
   }
 }
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(DishOrder);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  DishOrder,
+);
 
 export default Extended;

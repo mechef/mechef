@@ -22,7 +22,8 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
 
     this.state = {
       containerWidth: 0,
-      selectedIndex: this.props.images && this.props.images.length > 0 ? 0 : undefined,
+      selectedIndex:
+        this.props.images && this.props.images.length > 0 ? 0 : undefined,
       scrollPosition: 0,
     };
 
@@ -33,7 +34,9 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
   saveRef(container: HTMLDivElement) {
     this.container = container;
     if (this.container) {
-      this.setState({ containerWidth: this.container.getBoundingClientRect().width });
+      this.setState({
+        containerWidth: this.container.getBoundingClientRect().width,
+      });
     }
   }
 
@@ -56,27 +59,36 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
       <div ref={this.saveRef} className="image-slider">
         <div
           className="image-slider__images-container"
-          style={{ left: `${this.state.scrollPosition}px`}}
+          style={{ left: `${this.state.scrollPosition}px` }}
         >
-          {
-            this.props.images && this.props.images.map((image) => (
+          {this.props.images &&
+            this.props.images.map(image => (
               <div
                 key={image}
                 className="image-slider__image"
-                style={{backgroundImage: `url('${image ? `${IMAGE_URL}/${image}` : '/static/svg/mechef_logo_white.svg'}'), url('/static/svg/mechef_logo_white.svg')`}} />
-            ))
-          }
+                style={{
+                  backgroundImage: `url('${
+                    image
+                      ? `${IMAGE_URL}/${image}`
+                      : '/static/svg/mechef_logo_white.svg'
+                  }'), url('/static/svg/mechef_logo_white.svg')`,
+                }}
+              />
+            ))}
         </div>
         <div className="image-slider__legend">
-          {
-            this.props.images && this.props.images.map((image, index) => (
+          {this.props.images &&
+            this.props.images.map((image, index) => (
               <div
                 key={image}
-                className={`image-slider__legend-circle${index === this.state.selectedIndex ? '--selected' : ''}`}
-                onClick={() => { this.selectImage(index); }}>
-              </div>
-            ))
-          }
+                className={`image-slider__legend-circle${
+                  index === this.state.selectedIndex ? '--selected' : ''
+                }`}
+                onClick={() => {
+                  this.selectImage(index);
+                }}
+              />
+            ))}
         </div>
         <style jsx>
           {`
@@ -130,8 +142,10 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
               background-color: #3f9f40;
             }
             .image-slider__legend-circle + .image-slider__legend-circle,
-            .image-slider__legend-circle + .image-slider__legend-circle--selected,
-            .image-slider__legend-circle--selected + .image-slider__legend-circle {
+            .image-slider__legend-circle
+              + .image-slider__legend-circle--selected,
+            .image-slider__legend-circle--selected
+              + .image-slider__legend-circle {
               margin-left: 12px;
             }
           `}

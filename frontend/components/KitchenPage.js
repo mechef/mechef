@@ -61,7 +61,8 @@ class KitchenPage extends React.Component<Props, State> {
 
   showDishModal: Function;
   showDishModal(dishId: string) {
-    const found = this.props.kitchen.menuList &&
+    const found =
+      this.props.kitchen.menuList &&
       this.props.kitchen.menuList.find(dish => dish._id === dishId);
     this.setState({ displayedProduct: found });
   }
@@ -76,14 +77,16 @@ class KitchenPage extends React.Component<Props, State> {
   }
 
   renderDishes: Function;
-  renderDishes = () => this.props.kitchen.menuList && this.props.kitchen.menuList.map(dish => (
-    <DishCard
-      {...dish}
-      key={dish._id}
-      onDishSelected={this.onDishSelected}
-      onAddToCartClick={() => this.showDishModal(dish._id)}
-    />
-  ));
+  renderDishes = () =>
+    this.props.kitchen.menuList &&
+    this.props.kitchen.menuList.map(dish => (
+      <DishCard
+        {...dish}
+        key={dish._id}
+        onDishSelected={this.onDishSelected}
+        onAddToCartClick={() => this.showDishModal(dish._id)}
+      />
+    ));
 
   render() {
     const { kitchen } = this.props;
@@ -115,25 +118,25 @@ class KitchenPage extends React.Component<Props, State> {
           profileImage={kitchen.profileImage}
         />
         <div className="kitchen-display">
-          {
-            kitchen.menuList && kitchen.menuList.length > 0 ?
-              this.renderDishes() :
-              !kitchen.isLoading ? <KitchenClosedComponent /> : null
-          }
-          {
-            this.state.displayedProduct ?
-              <DishModal
-                dish={this.state.displayedProduct}
-                onClose={this.closeDishModal}
-                onDishAdded={this.addDishToCart}
-              /> :
-              ''
-          }
+          {kitchen.menuList && kitchen.menuList.length > 0 ? (
+            this.renderDishes()
+          ) : !kitchen.isLoading ? (
+            <KitchenClosedComponent />
+          ) : null}
+          {this.state.displayedProduct ? (
+            <DishModal
+              dish={this.state.displayedProduct}
+              onClose={this.closeDishModal}
+              onDishAdded={this.addDishToCart}
+            />
+          ) : (
+            ''
+          )}
         </div>
         <style jsx>
           {`
             .kitchen-main {
-              padding-left: 110px
+              padding-left: 110px;
             }
             .kitchen-display {
               width: 100%;
@@ -153,4 +156,7 @@ const actionSubjects = {
   ...cartActions,
 };
 
-export default connect(() => {}, actionSubjects)(KitchenPage);
+export default connect(
+  () => {},
+  actionSubjects,
+)(KitchenPage);

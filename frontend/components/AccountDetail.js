@@ -22,7 +22,9 @@ const AccountDetail = (props: Props) => (
     <div className="kitchenInfo">
       <div className="name">
         <div className="kitchenName">
-          <span className="smallTitle">{props.t('accountedit_kitchen_name_placeholder')}</span>
+          <span className="smallTitle">
+            {props.t('accountedit_kitchen_name_placeholder')}
+          </span>
           <span className="contentText">{props.account.kitchenName}</span>
         </div>
         <div className="userName">
@@ -31,16 +33,22 @@ const AccountDetail = (props: Props) => (
         </div>
       </div>
       <div className="description">
-        <span className="smallTitle">{props.t('accountedit_kitchen_description')}</span>
+        <span className="smallTitle">
+          {props.t('accountedit_kitchen_description')}
+        </span>
         <p className="contentText">{props.account.kitchenDescription || ''}</p>
       </div>
       <div className="name">
         <div className="kitchenName">
-          <span className="smallTitle">{props.t('accountedit_phone_number_placeholder')}</span>
+          <span className="smallTitle">
+            {props.t('accountedit_phone_number_placeholder')}
+          </span>
           <span className="contentText">{props.account.phoneNumber}</span>
         </div>
         <div className="userName">
-          <span className="smallTitle">{props.t('accountedit_email_address_placeholder')}</span>
+          <span className="smallTitle">
+            {props.t('accountedit_email_address_placeholder')}
+          </span>
           <span className="contentText">{props.account.email}</span>
         </div>
       </div>
@@ -100,7 +108,9 @@ const AccountDetail = (props: Props) => (
           margin-bottom: 25px;
           width: 100%;
           height: 240px;
-          background-image: url('${IMAGE_URL}/${props.account.coverPhoto}'), url('../static/pancake.jpg');
+          background-image: url('${IMAGE_URL}/${
+        props.account.coverPhoto
+      }'), url('../static/pancake.jpg');
           background-size: cover;
           background-position: center;
           position: relative;
@@ -111,7 +121,9 @@ const AccountDetail = (props: Props) => (
           position: absolute;
           top: 200px;
           left: 20px;
-          background-image: url('${IMAGE_URL}/${props.account.profileImage}'), url('../static/avatar.jpg');
+          background-image: url('${IMAGE_URL}/${
+        props.account.profileImage
+      }'), url('../static/avatar.jpg');
           background-size: cover;
           background-position: center;
           width: 80px;

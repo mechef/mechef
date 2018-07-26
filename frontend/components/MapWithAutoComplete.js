@@ -48,7 +48,10 @@ class MapWithAutoComplete extends React.Component<Props> {
 
   setInitialMarker = () => {
     if (this.map) {
-      const latlng = new google.maps.LatLng(this.props.initialLat, this.props.initialLong);
+      const latlng = new google.maps.LatLng(
+        this.props.initialLat,
+        this.props.initialLong,
+      );
       this.map.setCenter(latlng);
       const marker = new google.maps.Marker({
         position: latlng,
@@ -67,11 +70,14 @@ class MapWithAutoComplete extends React.Component<Props> {
         <Geosuggest
           initialValue={this.props.initialValue}
           placeholder="Enter meet up address"
-          onSuggestSelect={(suggest) => {
+          onSuggestSelect={suggest => {
             if (this.marker) {
               this.marker.setMap(null);
             }
-            const latlng = new google.maps.LatLng(suggest.location.lat, suggest.location.lng);
+            const latlng = new google.maps.LatLng(
+              suggest.location.lat,
+              suggest.location.lng,
+            );
             this.map.setCenter(latlng);
             const marker = new google.maps.Marker({
               position: latlng,

@@ -71,7 +71,7 @@ class TextInput extends React.Component<Props, State> {
             `}
             placeholder={this.props.placeholder}
             value={this.props.value}
-            onChange={(event) => {
+            onChange={event => {
               if (event && event.target && this.props.pattern) {
                 let re = new RegExp(this.props.pattern);
                 if (!re.test(event.target.value)) {
@@ -142,16 +142,16 @@ class TextInput extends React.Component<Props, State> {
               font-size: ${placeholderFontSize};
               border: 2px solid;
               border-color: ${Object.keys(this.state.errors).length
-        ? `${errorBorderColor}`
-        : `${transparent}`};
+                ? `${errorBorderColor}`
+                : `${transparent}`};
               box-shadow: 0 0 1px #3d464d;
               box-sizing: border-box;
               transition: border 0.2s, box-shadow 0.2s;
             }
             .textInput:focus {
               border-color: ${Object.keys(this.state.errors).length
-        ? `${errorBorderColor}`
-        : `${primaryColor}`};
+                ? `${errorBorderColor}`
+                : `${primaryColor}`};
               box-shadow: 0 0 0 transparent;
             }
             .textInput::placeholder {

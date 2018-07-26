@@ -13,7 +13,11 @@ const BuyerFooter = () => (
   <div className="buyer-footer">
     <div className="buyer-footer__content">
       <div className="buyer-footer--left">
-        <img className="buyer-footer__logo" src="/static/svg/mechef_logo_white.svg" alt="mechef" />
+        <img
+          className="buyer-footer__logo"
+          src="/static/svg/mechef_logo_white.svg"
+          alt="mechef"
+        />
       </div>
       <div className="buyer-footer--right">
         <div className="buyer-footer__link-group">
@@ -26,7 +30,9 @@ const BuyerFooter = () => (
       </div>
     </div>
     <hr className="buyer-footer__horizontal-divider" />
-    <div className="buyer-footer__copyright">copyright 2017 mechef, All Rights Reserved.</div>
+    <div className="buyer-footer__copyright">
+      copyright 2017 mechef, All Rights Reserved.
+    </div>
     <style jsx>
       {`
         .buyer-footer {

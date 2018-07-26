@@ -13,7 +13,10 @@ import kitchenActions from '../actions/kitchenActions';
 import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
 import i18n from '../i18n';
-import { greyBackgroundColor, shallowGreyBgColor } from '../utils/styleVariables';
+import {
+  greyBackgroundColor,
+  shallowGreyBgColor,
+} from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
@@ -28,7 +31,7 @@ type Props = {
     message: string,
     isShowModal: boolean,
   },
-  deliveryList: Array<Object>
+  deliveryList: Array<Object>,
 };
 
 type State = {
@@ -58,7 +61,7 @@ class Checkout extends React.PureComponent<Props, State> {
         deliveryTime: '',
         deliveryId: '',
       },
-      cartOrderList: null
+      cartOrderList: null,
     };
   }
   componentDidMount() {
@@ -79,7 +82,7 @@ class Checkout extends React.PureComponent<Props, State> {
 
   getTotal: (?Array<{ subTotal: number }>) => number;
   getTotal = (orders: Array<{ subTotal: number }>) =>
-    (orders ? orders.reduce((total, order) => total + order.subTotal, 0) : 0);
+    orders ? orders.reduce((total, order) => total + order.subTotal, 0) : 0;
   orders: Array<Object>;
 
   render() {
@@ -103,7 +106,7 @@ class Checkout extends React.PureComponent<Props, State> {
                   placeholder="Enter your first name"
                   size="medium"
                   value={this.state.newOrder.firstName}
-                  onChange={(event) => {
+                  onChange={event => {
                     if (event && event.target) {
                       this.setState({
                         newOrder: {
@@ -123,7 +126,7 @@ class Checkout extends React.PureComponent<Props, State> {
                   placeholder="Enter your last name"
                   size="medium"
                   value={this.state.newOrder.lastName}
-                  onChange={(event) => {
+                  onChange={event => {
                     if (event && event.target) {
                       this.setState({
                         newOrder: {
@@ -145,7 +148,7 @@ class Checkout extends React.PureComponent<Props, State> {
                   placeholder="Enter your email address"
                   size="medium"
                   value={this.state.newOrder.buyerEmail}
-                  onChange={(event) => {
+                  onChange={event => {
                     if (event && event.target) {
                       this.setState({
                         newOrder: {
@@ -165,7 +168,7 @@ class Checkout extends React.PureComponent<Props, State> {
                   placeholder="Enter your phone number"
                   size="medium"
                   value={this.state.newOrder.buyerPhoneNumber}
-                  onChange={(event) => {
+                  onChange={event => {
                     if (event && event.target) {
                       this.setState({
                         newOrder: {
@@ -190,7 +193,10 @@ class Checkout extends React.PureComponent<Props, State> {
                 }}
               />
               <SelectBox
-                options={this.props.deliveryList.map(deliveryItem => ({ text: deliveryItem.meetupAddress, value: deliveryItem._id }))}
+                options={this.props.deliveryList.map(deliveryItem => ({
+                  text: deliveryItem.meetupAddress,
+                  value: deliveryItem._id,
+                }))}
                 selectedValue={''}
                 defaultText="Select the delivery option"
                 onChange={(selectedValue: string | number) => {
@@ -203,16 +209,18 @@ class Checkout extends React.PureComponent<Props, State> {
                 }}
               />
               <SelectBox
-                options={[{ text: '11:58', value: '2017-12-01T11:58:31+00:00'}]}
+                options={[
+                  { text: '11:58', value: '2017-12-01T11:58:31+00:00' },
+                ]}
                 selectedValue={''}
                 defaultText="2017-12-01T11:58:31+00:00"
                 onChange={(selectedValue: string | number) => {
                   this.setState({
                     newOrder: {
                       ...this.state.newOrder,
-                      deliveryTime: selectedValue
-                    }
-                  })
+                      deliveryTime: selectedValue,
+                    },
+                  });
                 }}
               />
             </section>
@@ -234,9 +242,13 @@ class Checkout extends React.PureComponent<Props, State> {
                       />
                       <div className="orderInfo">
                         <h4>{order.dishName}</h4>
-                        <p className="messageFromBuyer">{order.messageFromBuyer}</p>
+                        <p className="messageFromBuyer">
+                          {order.messageFromBuyer}
+                        </p>
                         <div className="otherInfo">
-                          <span className="quantity">{order.quantity * order.unitPrice}</span>
+                          <span className="quantity">
+                            {order.quantity * order.unitPrice}
+                          </span>
                           <span className="quantity">{order.quantity}</span>
                         </div>
                       </div>
@@ -244,7 +256,9 @@ class Checkout extends React.PureComponent<Props, State> {
                   ))}
                 <div className="cart-footer__item">
                   <span className="cart-footer__item__label">TOTAL</span>
-                  <span>{`$${this.getTotal(this.state.cartOrderList)}.00`}</span>
+                  <span>{`$${this.getTotal(
+                    this.state.cartOrderList,
+                  )}.00`}</span>
                 </div>
               </div>
             </section>
@@ -259,11 +273,11 @@ class Checkout extends React.PureComponent<Props, State> {
                 buyerName: `${firstName} ${lastName}`,
                 menuList: this.state.cartOrderList
                   ? this.state.cartOrderList.map(order => ({
-                    menuId: order.dishId,
-                    quantity: order.quantity,
-                  }))
+                      menuId: order.dishId,
+                      quantity: order.quantity,
+                    }))
                   : [],
-                ...rest
+                ...rest,
               });
             }}
           >
@@ -375,7 +389,10 @@ class Checkout extends React.PureComponent<Props, State> {
 }
 
 const stateSelector = ({ error, kitchen }) => ({
-  deliveryList: kitchen && kitchen.kitchen && kitchen.kitchen.deliveryList ? kitchen.kitchen.deliveryList : [],
+  deliveryList:
+    kitchen && kitchen.kitchen && kitchen.kitchen.deliveryList
+      ? kitchen.kitchen.deliveryList
+      : [],
   error,
 });
 
@@ -385,7 +402,9 @@ const actionSubjects = {
   ...kitchenActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(Checkout);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  Checkout,
+);
 
 export default connect(
   stateSelector,

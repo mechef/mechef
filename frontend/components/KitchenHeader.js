@@ -11,14 +11,17 @@ type Props = {
   noDescription?: boolean,
 };
 
-const KitchenHeader = ({ name, description, profileImage, noDescription }: Props) => (
+const KitchenHeader = ({
+  name,
+  description,
+  profileImage,
+  noDescription,
+}: Props) => (
   <div className="kitchen-header">
     <div className="kitchen-header__name">
       <span>@{name}</span>
     </div>
-    <div className="kitchen-header__description">
-      {description}
-    </div>
+    <div className="kitchen-header__description">{description}</div>
     <style jsx>
       {`
         .kitchen-header {
@@ -45,7 +48,11 @@ const KitchenHeader = ({ name, description, profileImage, noDescription }: Props
           position: absolute;
           bottom: -10px;
           left: -100px;
-          background-image: url('${profileImage ? `${IMAGE_URL}/${profileImage}` : "/static/img/avatar.jpg"}'), url('/static/img/avatar.jpg');
+          background-image: url('${
+            profileImage
+              ? `${IMAGE_URL}/${profileImage}`
+              : '/static/img/avatar.jpg'
+          }'), url('/static/img/avatar.jpg');
           background-size: cover;
           background-position: center;
         }

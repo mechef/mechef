@@ -3,25 +3,28 @@ const mongoose = require('mongoose');
 const constants = require('../utils/constants');
 // Define our user schema
 // schema types http://mongoosejs.com/docs/schematypes.html
-const DeliverySchema = new mongoose.Schema({
-  email: String,
-  type: String,
-  meetupAddress: String,
-  meetupLatitude: Number,
-  meetupLongitude: Number,
-  meetupSunday: Boolean,
-  meetupMonday: Boolean,
-  meetupTuesday: Boolean,
-  meetupWednesday: Boolean,
-  meetupThursday: Boolean,
-  meetupFriday: Boolean,
-  meetupSaturday: Boolean,
-  meetupStartTime: String,
-  meetupEndTime: String,
-  shippingAreas: [String],
-  shippingCost: Number,
-  note: String,
-}, { versionKey: false, });
+const DeliverySchema = new mongoose.Schema(
+  {
+    email: String,
+    type: String,
+    meetupAddress: String,
+    meetupLatitude: Number,
+    meetupLongitude: Number,
+    meetupSunday: Boolean,
+    meetupMonday: Boolean,
+    meetupTuesday: Boolean,
+    meetupWednesday: Boolean,
+    meetupThursday: Boolean,
+    meetupFriday: Boolean,
+    meetupSaturday: Boolean,
+    meetupStartTime: String,
+    meetupEndTime: String,
+    shippingAreas: [String],
+    shippingCost: Number,
+    note: String,
+  },
+  { versionKey: false },
+);
 
 DeliverySchema.methods.toObject = function() {
   if (this.type == constants.delivery_type.meetup) {
@@ -31,7 +34,7 @@ DeliverySchema.methods.toObject = function() {
   } else {
     return {};
   }
-}
+};
 
 DeliverySchema.methods.toMeetup = function() {
   return {
@@ -50,8 +53,8 @@ DeliverySchema.methods.toMeetup = function() {
     meetupSaturday: this.meetupSaturday,
     meetupStartTime: this.meetupStartTime,
     meetupEndTime: this.meetupEndTime,
-    note: this.note
-  }
+    note: this.note,
+  };
 };
 
 DeliverySchema.methods.toShipping = function() {
@@ -62,11 +65,13 @@ DeliverySchema.methods.toShipping = function() {
     shippingAreas: this.shippingAreas,
     shippingCost: this.shippingCost,
     note: this.note,
-  }
+  };
 };
 
-DeliverySchema.statics.getDeliveryList = function getDeliveryList (deliveryList) {
-  const processedDeliveryList = {}
+DeliverySchema.statics.getDeliveryList = function getDeliveryList(
+  deliveryList,
+) {
+  const processedDeliveryList = {};
   processedDeliveryList.meetupList = [];
   processedDeliveryList.shippingList = [];
   deliveryList.forEach(function(delivery) {
@@ -78,10 +83,13 @@ DeliverySchema.statics.getDeliveryList = function getDeliveryList (deliveryList)
   });
 
   return processedDeliveryList;
-}
+};
 
-DeliverySchema.statics.toDeliveryDetail = function toDeliveryDetail (deliveryList, deliveryIdList) {
-  const deliveryMap = {}
+DeliverySchema.statics.toDeliveryDetail = function toDeliveryDetail(
+  deliveryList,
+  deliveryIdList,
+) {
+  const deliveryMap = {};
   deliveryList.forEach(function(delivery) {
     if (delivery.type == constants.delivery_type.meetup) {
       deliveryMap[delivery._id] = delivery.toMeetup();
@@ -98,7 +106,7 @@ DeliverySchema.statics.toDeliveryDetail = function toDeliveryDetail (deliveryLis
   }
 
   return list;
-}
+};
 
 // Export the Mongoose model
 module.exports = mongoose.model('Delivery', DeliverySchema);

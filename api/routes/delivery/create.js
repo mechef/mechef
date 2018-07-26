@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res) => {
   const token = req.headers.authorization;
   if (!token) {
-    res.status(400).json({ status: constants.fail, reason: constants.no_token });
+    res
+      .status(400)
+      .json({ status: constants.fail, reason: constants.no_token });
     return;
   }
 
@@ -35,7 +37,10 @@ module.exports = (req, res) => {
     const delivery = new Delivery();
     delivery.email = decoded.email;
     if (!(req.body.type in constants.delivery_type)) {
-      res.status(400).json({ status: constants.fail, reason: 'delivery type not match, meetup|shipping' });
+      res.status(400).json({
+        status: constants.fail,
+        reason: 'delivery type not match, meetup|shipping',
+      });
       return;
     }
     delivery.type = req.body.type;

@@ -71,21 +71,25 @@ class DeliveryEdit extends React.Component<Props> {
     } = this.props;
     return (
       <div className="dashboard-content">
-        <p className="dashboard-content__title">{this.props.t('deliveryeditmeetup_edit_meetup')}</p>
+        <p className="dashboard-content__title">
+          {this.props.t('deliveryeditmeetup_edit_meetup')}
+        </p>
         <div className="editContainer">
           <div className="meetupLocation">
-            <h3 className="title">{this.props.t('deliveryeditmeetup_meetup_loc')}</h3>
+            <h3 className="title">
+              {this.props.t('deliveryeditmeetup_meetup_loc')}
+            </h3>
             <p className="subtitle">Location and Time</p>
             <MapWithAutoComplete
               initialValue={displayMeetup.meetupAddress || ''}
               initialLat={displayMeetup.meetupLatitude || DEFAULT_LATITUDE}
               initialLong={displayMeetup.meetupLongitude || DEFAULT_LONGITUDE}
-              onChange={(input) => {
+              onChange={input => {
                 onChangeMeetupField({
                   meetupAddress: input,
                 });
               }}
-              onSuggestSelect={(suggest) => {
+              onSuggestSelect={suggest => {
                 onChangeMeetupField({
                   meetupAddress: suggest.address,
                   meetupLongitude: suggest.longitude,
@@ -95,7 +99,9 @@ class DeliveryEdit extends React.Component<Props> {
             />
           </div>
           <div className="meetupDate">
-            <h3 className="title">{this.props.t('deliveryeditmeetup_meetup_date')}</h3>
+            <h3 className="title">
+              {this.props.t('deliveryeditmeetup_meetup_date')}
+            </h3>
             <p className="subtitle">Select Date</p>
             <div className="checkboxGroup">
               {days.map(day => (
@@ -114,10 +120,14 @@ class DeliveryEdit extends React.Component<Props> {
               ))}
             </div>
           </div>
-          <h3 className="title">{this.props.t('deliveryeditmeetup_meetup_time')}</h3>
+          <h3 className="title">
+            {this.props.t('deliveryeditmeetup_meetup_time')}
+          </h3>
           <div className="meetupTime">
             <div className="smallInputContainer">
-              <span className="subtitle">{this.props.t('deliveryeditmeetup_from')}</span>
+              <span className="subtitle">
+                {this.props.t('deliveryeditmeetup_from')}
+              </span>
               <SelectBox
                 options={availableTime}
                 selectedValue={displayMeetup.meetupStartTime}
@@ -130,7 +140,9 @@ class DeliveryEdit extends React.Component<Props> {
               />
             </div>
             <div className="smallInputContainer">
-              <span className="subtitle">{this.props.t('deliveryeditmeetup_to')}</span>
+              <span className="subtitle">
+                {this.props.t('deliveryeditmeetup_to')}
+              </span>
               <SelectBox
                 options={availableTime}
                 selectedValue={displayMeetup.meetupEndTime}
@@ -144,13 +156,15 @@ class DeliveryEdit extends React.Component<Props> {
             </div>
           </div>
           <h3 className="title">{this.props.t('deliveryeditmeetup_note')}</h3>
-          <p className="subtitle">{this.props.t('deliveryeditmeetup_note_description')}</p>
+          <p className="subtitle">
+            {this.props.t('deliveryeditmeetup_note_description')}
+          </p>
           <TextInput
             type="text"
             placeholder="Write something......"
             size="large"
             value={displayMeetup.note}
-            onChange={(event) => {
+            onChange={event => {
               if (event && event.target) {
                 onChangeMeetupField({ note: event.target.value });
               }
@@ -173,7 +187,11 @@ class DeliveryEdit extends React.Component<Props> {
             </Button>
           </div>
           <div>
-            <Button buttonStyle="greenBorderOnly" size="small" onClick={() => goBack()}>
+            <Button
+              buttonStyle="greenBorderOnly"
+              size="small"
+              onClick={() => goBack()}
+            >
               {this.props.t('deliveryeditmeetup_button_cancel')}
             </Button>
           </div>

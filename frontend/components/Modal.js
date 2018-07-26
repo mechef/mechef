@@ -3,14 +3,19 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 
-import { successModalColor, warningModalColor, errorModalColor, hintModalColor } from '../utils/styleVariables';
+import {
+  successModalColor,
+  warningModalColor,
+  errorModalColor,
+  hintModalColor,
+} from '../utils/styleVariables';
 
 type Props = {
   type: string,
   title: string,
   message: string,
   onCancel: () => Rx.Observable,
-}
+};
 
 const modalColor = {
   success: successModalColor,
@@ -23,9 +28,15 @@ const Modal = (props: Props) => (
   <div className="alert-modal-overlay">
     <div className="alert-modal">
       <header className="alert-modal-header">
-        <img className="alert-modal-logo" src="../static/svg/mechef_logo_white.svg" alt="logo" />
+        <img
+          className="alert-modal-logo"
+          src="../static/svg/mechef_logo_white.svg"
+          alt="logo"
+        />
         <div className="cancelBtnWrapper">
-          <button className="cancel-btn" onClick={props.onCancel}>&times;</button>
+          <button className="cancel-btn" onClick={props.onCancel}>
+            &times;
+          </button>
         </div>
       </header>
       <section className="alert-modal-body">
@@ -109,7 +120,6 @@ const Modal = (props: Props) => (
           color: #4a4a4a;
         }
         .alert-bottom-style {
-
         }
       `}
     </style>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Rx from 'rxjs/Rx';
 import fetch from 'isomorphic-unfetch';
@@ -17,12 +16,9 @@ import MapWithAutoComplete from '../components/MapWithAutoComplete';
 import Geosuggest from 'react-geosuggest';
 
 class Login extends React.Component<Props, State> {
-
   constructor(props) {
     super(props);
-
   }
-
 
   render() {
     return (
@@ -40,4 +36,7 @@ const actionSubjects = {
   ...authActions,
 };
 
-export default connect(stateSelector, actionSubjects)(Login);
+export default connect(
+  stateSelector,
+  actionSubjects,
+)(Login);

@@ -64,7 +64,7 @@ class AccountEdit extends React.Component<Props> {
             }}
           >
             <input
-              ref={(input) => {
+              ref={input => {
                 this.coverPhoto = input;
               }}
               type="file"
@@ -72,7 +72,7 @@ class AccountEdit extends React.Component<Props> {
               onChange={this.handleCoverPhotoUpload}
             />
             <img
-              ref={(input) => {
+              ref={input => {
                 this.coverPhotoImg = input;
               }}
               className="coverPhoto"
@@ -84,13 +84,16 @@ class AccountEdit extends React.Component<Props> {
               alt="cover"
             />
             <div className="update-cover-photo__title">
-              <i className="fa fa-camera update-cover-photo__icon" aria-hidden="true" />
+              <i
+                className="fa fa-camera update-cover-photo__icon"
+                aria-hidden="true"
+              />
               <span>{this.props.t('accountedit_update_cover_photo')}</span>
             </div>
           </div>
           <div className="update-profile-image">
             <input
-              ref={(input) => {
+              ref={input => {
                 this.profileImage = input;
               }}
               type="file"
@@ -106,7 +109,7 @@ class AccountEdit extends React.Component<Props> {
               }}
             >
               <img
-                ref={(input) => {
+                ref={input => {
                   this.profileImageThumbnail = input;
                 }}
                 className="profileImage"
@@ -123,21 +126,27 @@ class AccountEdit extends React.Component<Props> {
               />
             </button>
             <div className="update-profile-image__description">
-              <span className="update-profile-image__description-title">Profile Image</span>
+              <span className="update-profile-image__description-title">
+                Profile Image
+              </span>
               <span className="update-profile-image__description-subtitle">
                 Add Image Add Image Add Image
               </span>
             </div>
           </div>
           <div className="bank-info">
-            <p className="bank-info__title">{this.props.t('accountpreview_kitchen_name')}</p>
-            <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
+            <p className="bank-info__title">
+              {this.props.t('accountpreview_kitchen_name')}
+            </p>
+            <p className="bank-info__subtitle">
+              Add Images Add Images Add Images
+            </p>
             <TextInput
               type="text"
               placeholder="Enter Kitchen Name"
               size="large"
               value={this.props.account.kitchenName}
-              onChange={(event) => {
+              onChange={event => {
                 if (event && event.target) {
                   this.props.onUpdateField({
                     kitchenName: event.target.value,
@@ -147,12 +156,16 @@ class AccountEdit extends React.Component<Props> {
             />
           </div>
           <div className="bank-info">
-            <p className="bank-info__title">{this.props.t('accountpreview_kitechen_description')}</p>
-            <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
+            <p className="bank-info__title">
+              {this.props.t('accountpreview_kitechen_description')}
+            </p>
+            <p className="bank-info__subtitle">
+              Add Images Add Images Add Images
+            </p>
             <TextAreaInput
               placeholder="Write some description about your kitchen...."
               value={this.props.account.kitchenDescription}
-              onChange={(evt) => {
+              onChange={evt => {
                 if (evt && evt.target) {
                   this.props.onUpdateField({
                     kitchenDescription: evt.target.value,
@@ -162,15 +175,19 @@ class AccountEdit extends React.Component<Props> {
             />
           </div>
           <div className="bank-info">
-            <p className="bank-info__title">{this.props.t('accountpreview_user_name')}</p>
-            <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
+            <p className="bank-info__title">
+              {this.props.t('accountpreview_user_name')}
+            </p>
+            <p className="bank-info__subtitle">
+              Add Images Add Images Add Images
+            </p>
             <div className="inputGroup">
               <TextInput
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
                 value={this.props.account.firstName}
-                onChange={(event) => {
+                onChange={event => {
                   if (event && event.target) {
                     this.props.onUpdateField({
                       firstName: event.target.value,
@@ -183,7 +200,7 @@ class AccountEdit extends React.Component<Props> {
                 placeholder="Enter Kitchen Name"
                 size="small"
                 value={this.props.account.lastName}
-                onChange={(event) => {
+                onChange={event => {
                   if (event && event.target) {
                     this.props.onUpdateField({
                       lastName: event.target.value,
@@ -195,14 +212,18 @@ class AccountEdit extends React.Component<Props> {
           </div>
           <div className="two-div">
             <div className="left">
-              <p className="bank-info__title">{this.props.t('accountpreview_mobile_number')}</p>
-              <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
+              <p className="bank-info__title">
+                {this.props.t('accountpreview_mobile_number')}
+              </p>
+              <p className="bank-info__subtitle">
+                Add Images Add Images Add Images
+              </p>
               <TextInput
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
                 value={this.props.account.phoneNumber}
-                onChange={(event) => {
+                onChange={event => {
                   if (event && event.target) {
                     this.props.onUpdateField({
                       phoneNumber: event.target.value,
@@ -212,14 +233,18 @@ class AccountEdit extends React.Component<Props> {
               />
             </div>
             <div className="right">
-              <p className="bank-info__title">{this.props.t('accountpreview_email')}</p>
-              <p className="bank-info__subtitle">Add Images Add Images Add Images</p>
+              <p className="bank-info__title">
+                {this.props.t('accountpreview_email')}
+              </p>
+              <p className="bank-info__subtitle">
+                Add Images Add Images Add Images
+              </p>
               <TextInput
                 type="text"
                 placeholder="Enter Kitchen Name"
                 size="small"
                 value={this.props.account.email}
-                onChange={(event) => {
+                onChange={event => {
                   if (event && event.target) {
                     this.props.onUpdateField({
                       email: event.target.value,
@@ -232,12 +257,20 @@ class AccountEdit extends React.Component<Props> {
         </div>
         <div className="buttonGroup">
           <div>
-            <Button buttonStyle="greenBorderOnly" size="small" onClick={this.props.goback}>
+            <Button
+              buttonStyle="greenBorderOnly"
+              size="small"
+              onClick={this.props.goback}
+            >
               {this.props.t('accountedit_button_cancel')}
             </Button>
           </div>
           <div>
-            <Button buttonStyle="primary" size="small" onClick={this.props.onSubmit}>
+            <Button
+              buttonStyle="primary"
+              size="small"
+              onClick={this.props.onSubmit}
+            >
               {this.props.t('accountedit_button_save')}
             </Button>
           </div>

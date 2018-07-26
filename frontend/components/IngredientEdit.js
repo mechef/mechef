@@ -21,7 +21,7 @@ type Props = {
 
 type State = {
   inputIngredientName: string,
-  inputIngredientAmount: number
+  inputIngredientAmount: number,
 };
 
 class IngredientEdit extends React.Component<Props, State> {
@@ -45,7 +45,9 @@ class IngredientEdit extends React.Component<Props, State> {
     const currentSum = displayMemo.sum || 0;
     return (
       <div className="dashboard-content">
-        <p className="dashboard-content__title">{this.props.t('ingredientsedit_edit_ingredients')}</p>
+        <p className="dashboard-content__title">
+          {this.props.t('ingredientsedit_edit_ingredients')}
+        </p>
         <div className="edit-ingredient">
           <p className="title">{this.props.t('ingredientsedit_list_name')}</p>
           <p className="subtitle">The number of characters is limited to 50.</p>
@@ -55,7 +57,7 @@ class IngredientEdit extends React.Component<Props, State> {
               placeholder="Input memo name"
               size="large"
               value={displayMemo.name || ''}
-              onChange={(event) => {
+              onChange={event => {
                 if (event && event.target) {
                   onChangeField({ name: event.target.value });
                 }
@@ -63,11 +65,17 @@ class IngredientEdit extends React.Component<Props, State> {
             />
           </p>
           <div className="edit-ingredient__choose-ingredient">
-            <p className="title">{this.props.t('ingredientsedit_ingredients')}</p>
+            <p className="title">
+              {this.props.t('ingredientsedit_ingredients')}
+            </p>
             <p className="subtitleWrapper">
-              <span className="subtitle">{this.props.t('ingredientsedit_ingredients_list_add')}</span>
+              <span className="subtitle">
+                {this.props.t('ingredientsedit_ingredients_list_add')}
+              </span>
               <div>
-                <span className="totalText">{this.props.t('ingredientsedit_total')}</span>
+                <span className="totalText">
+                  {this.props.t('ingredientsedit_total')}
+                </span>
                 <span className="costText">$ {displayMemo.sum || 0}</span>
               </div>
             </p>
@@ -78,7 +86,7 @@ class IngredientEdit extends React.Component<Props, State> {
                   placeholder="Enter Ingredients..."
                   size="small"
                   value={this.state.inputIngredientName}
-                  onChange={(event) => {
+                  onChange={event => {
                     if (event && event.target) {
                       this.setState({
                         inputIngredientName: event.target.value,
@@ -92,10 +100,12 @@ class IngredientEdit extends React.Component<Props, State> {
                   type="text"
                   placeholder="$"
                   pattern="^\d+$"
-                  validationMessage={this.props.t('validationmessage_only_number')}
+                  validationMessage={this.props.t(
+                    'validationmessage_only_number',
+                  )}
                   size="small"
                   value={this.state.inputIngredientAmount || ''}
-                  onChange={(event) => {
+                  onChange={event => {
                     if (event && event.target) {
                       this.setState({
                         inputIngredientAmount: parseInt(event.target.value, 10),
@@ -135,7 +145,9 @@ class IngredientEdit extends React.Component<Props, State> {
                     className="removeWrapper"
                     onClick={() => {
                       onChangeField({
-                        ingredients: currentIngredients.filter((element, i) => i !== index),
+                        ingredients: currentIngredients.filter(
+                          (element, i) => i !== index,
+                        ),
                         sum:
                           parseInt(currentSum, 10) -
                           parseInt(ingredient.amount, 10),

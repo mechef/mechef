@@ -8,17 +8,13 @@ import { addToCartButtonWidth } from '../utils/styleVariables';
 
 type Props = {
   onAddToCartClick: Function,
-  t: (key: string) => string
+  t: (key: string) => string,
 };
 
 const AddToCartButton = ({ onAddToCartClick, t }: Props) => (
   <div className="addToCartButtonContainer">
-    <Button
-      buttonStyle="primary"
-      size="expanded"
-      onClick={onAddToCartClick}
-    >
-      { t('productdetail_add_cart') }
+    <Button buttonStyle="primary" size="expanded" onClick={onAddToCartClick}>
+      {t('productdetail_add_cart')}
     </Button>
     <style jsx>
       {`
@@ -32,4 +28,6 @@ const AddToCartButton = ({ onAddToCartClick, t }: Props) => (
   </div>
 );
 
-export default translate(['common'], { i18n, wait: process.browser })(AddToCartButton);
+export default translate(['common'], { i18n, wait: process.browser })(
+  AddToCartButton,
+);

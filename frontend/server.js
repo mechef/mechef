@@ -37,7 +37,10 @@ i18n
           server.use('/locales', express.static(`${__dirname}/locales`));
 
           // missing keys
-          server.post('/locales/add/:lng/:ns', i18nextMiddleware.missingKeyHandler(i18n));
+          server.post(
+            '/locales/add/:lng/:ns',
+            i18nextMiddleware.missingKeyHandler(i18n),
+          );
 
           server.use(cookieParser());
           // XXX: Create custom rules
@@ -54,7 +57,10 @@ i18n
 
           server.get('/kitchen/:kitchen/:dish', (req, res) => {
             const actualPage = '/kitchen';
-            const queryParams = { kitchen: req.params.kitchen, dish: req.params.dish };
+            const queryParams = {
+              kitchen: req.params.kitchen,
+              dish: req.params.dish,
+            };
             app.render(req, res, actualPage, queryParams);
           });
 
@@ -79,16 +85,16 @@ i18n
 
           server.get('*', (req, res) => handle(req, res));
 
-          server.listen(3000, (err) => {
+          server.listen(3000, err => {
             if (err) throw err;
             // eslint-disable-next-line no-console
             console.log('> Ready on http://localhost:3000');
           });
         })
-        .catch((ex) => {
+        .catch(ex => {
           // eslint-disable-next-line no-console
           console.error(ex.stack);
           process.exit(1);
         });
-    }
+    },
   );

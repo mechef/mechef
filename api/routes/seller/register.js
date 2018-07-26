@@ -32,9 +32,11 @@ const constants = require('../../utils/constants');
  */
 module.exports = (req, res) => {
   const query = Seller.findOne({ email: req.body.email });
-  query.then((user) => {
+  query.then(user => {
     if (user) {
-      res.status(400).json({ status: constants.fail, reason: 'Duplicated email' });
+      res
+        .status(400)
+        .json({ status: constants.fail, reason: 'Duplicated email' });
       return;
     }
 
@@ -52,7 +54,9 @@ module.exports = (req, res) => {
       seller.coverPhoto = '';
       seller.profileImage = '';
       seller.kitchenName = req.body.kitchenName ? req.body.kitchenName : '';
-      seller.kitchenDescription = req.body.kitchenDescription ? req.body.kitchenDescription : '';
+      seller.kitchenDescription = req.body.kitchenDescription
+        ? req.body.kitchenDescription
+        : '';
       seller.firstName = req.body.firstName ? req.body.firstName : '';
       seller.lastName = req.body.lastName ? req.body.lastName : '';
       seller.phoneNumber = req.body.phoneNumber ? req.body.phoneNumber : '';
@@ -61,16 +65,18 @@ module.exports = (req, res) => {
         from: '"Mechef" <mechef@mechef.com>', // sender address
         to: seller.email, // list of receivers
         subject: 'Activation Email From Mechef', // Subject line
-        html: `<a href="${constants.domain}/seller/activate/${seller.activateHash}">${constants.domain}/seller/activate/${seller.activateHash}</a>`, // html body
+        html: `<a href="${constants.domain}/seller/activate/${
+          seller.activateHash
+        }">${constants.domain}/seller/activate/${seller.activateHash}</a>`, // html body
       };
 
-      mailer.sendMail(mailOptions, (erro) => {
+      mailer.sendMail(mailOptions, erro => {
         if (erro) {
           res.status(500).json({ status: constants.fail });
           return;
         }
 
-        seller.save((error) => {
+        seller.save(error => {
           if (error) {
             res.status(500).json({ status: constants.fail });
             return;

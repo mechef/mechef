@@ -9,20 +9,25 @@ module.exports = (req, res) => {
   if (!token) {
     Seller.findById(req.query.id, (err, seller) => {
       if (err) {
-        res.status(404).json({ status: constants.fail, reason: constants.id_not_found });
+        res
+          .status(404)
+          .json({ status: constants.fail, reason: constants.id_not_found });
         return;
       }
       const query = Menu.find({ email: seller.email, publish: true });
-      query.then((menuList) => {
+      query.then(menuList => {
         if (menuList) {
           Delivery.find({ email: seller.email }, (err, deliveryList) => {
             if (err) {
               res.status(500).json({ status: constants.fail });
               return;
             }
-            
+
             menuList.forEach(function(menu) {
-              const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryIdList);
+              const deliveryDetailList = Delivery.toDeliveryDetail(
+                deliveryList,
+                menu.deliveryIdList,
+              );
               menu.deliveryList = deliveryDetailList;
               menu.deliveryIdList = undefined;
             });
@@ -30,7 +35,10 @@ module.exports = (req, res) => {
             res.json({ status: constants.success, menuList });
           });
         } else {
-          res.status(404).json({ status: constants.fail, reason: constants.email_not_found });
+          res.status(404).json({
+            status: constants.fail,
+            reason: constants.email_not_found,
+          });
         }
       });
     });
@@ -42,11 +50,14 @@ module.exports = (req, res) => {
       }
 
       const query = Menu.find({ email: decoded.email });
-      query.then((menuList) => {
+      query.then(menuList => {
         if (menuList) {
           res.json({ status: constants.success, menuList: menuList });
         } else {
-          res.status(404).json({ status: constants.fail, reason: constants.email_not_found });
+          res.status(404).json({
+            status: constants.fail,
+            reason: constants.email_not_found,
+          });
         }
       });
     });

@@ -37,14 +37,13 @@ module.exports = (req, res) => {
       return;
     }
 
-    Seller.update({ resetPassHash }, { passwordCombined: combined },
-      (error) => {
-        if (error) {
-          res.status(500).json({ status: constants.fail });
-          return;
-        }
+    Seller.update({ resetPassHash }, { passwordCombined: combined }, error => {
+      if (error) {
+        res.status(500).json({ status: constants.fail });
+        return;
+      }
 
-        res.json({ status: constants.success });
-      });
+      res.json({ status: constants.success });
+    });
   });
 };

@@ -66,9 +66,7 @@ export class DeliveryPage extends React.Component<Props> {
   }
   render() {
     const {
-      delivery: {
-        meetupList, currentMeetupId, updatedMeetupFields, isLoading,
-      },
+      delivery: { meetupList, currentMeetupId, updatedMeetupFields, isLoading },
       setError$,
       error,
       global: { backArrow },
@@ -80,7 +78,8 @@ export class DeliveryPage extends React.Component<Props> {
       setMeetupFields$,
     } = this.props;
 
-    const currentMeetup = meetupList.find(delivery => delivery._id === currentMeetupId) || {};
+    const currentMeetup =
+      meetupList.find(delivery => delivery._id === currentMeetupId) || {};
 
     const displayMeetup = { ...currentMeetup, ...updatedMeetupFields };
 
@@ -90,7 +89,9 @@ export class DeliveryPage extends React.Component<Props> {
           <Modal
             title={error.title}
             message={error.message}
-            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+            onCancel={() =>
+              setError$({ isShowModal: false, title: '', message: '' })
+            }
           />
         ) : null}
         {isLoading ? <Spinner /> : null}
@@ -118,7 +119,7 @@ export class DeliveryPage extends React.Component<Props> {
         ) : meetupList && meetupList.length ? (
           <DeliveryList
             meetupList={meetupList}
-            onEditDelivery={(meetupId) => {
+            onEditDelivery={meetupId => {
               setCurrentMeetupId$(meetupId);
               toggleBackArrow$('Edit Delivery');
             }}
@@ -130,7 +131,9 @@ export class DeliveryPage extends React.Component<Props> {
             <div className="textSection">
               <h2 className="title">{this.props.t('hello_there')}</h2>
               <p className="subtitle">{this.props.t('meetup_default')}</p>
-              <p className="description">{this.props.t('meetup_default_description')}</p>
+              <p className="description">
+                {this.props.t('meetup_default_description')}
+              </p>
             </div>
             <button
               className="addDish"
@@ -215,6 +218,11 @@ const actionSubjects = {
   ...globalActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(DeliveryPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  DeliveryPage,
+);
 
-export default connect(stateSelector, actionSubjects)(Extended);
+export default connect(
+  stateSelector,
+  actionSubjects,
+)(Extended);

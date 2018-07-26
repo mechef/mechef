@@ -40,7 +40,9 @@ module.exports = (req, res) => {
     }
     if (seller) {
       if (!seller.isActivate) {
-        res.status(401).json({ status: constants.fail, reason: 'Email not activated' });
+        res
+          .status(401)
+          .json({ status: constants.fail, reason: 'Email not activated' });
       } else {
         const password = req.body.password;
         const combined = seller.passwordCombined;
@@ -52,12 +54,16 @@ module.exports = (req, res) => {
 
             res.json({ status: constants.success, token });
           } else {
-            res.status(401).json({ status: constants.fail, reason: 'Password not match' });
+            res
+              .status(401)
+              .json({ status: constants.fail, reason: 'Password not match' });
           }
         });
       }
     } else {
-      res.status(401).json({ status: constants.fail, reason: constants.email_not_found });
+      res
+        .status(401)
+        .json({ status: constants.fail, reason: constants.email_not_found });
     }
   });
 };

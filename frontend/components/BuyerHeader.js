@@ -6,10 +6,7 @@ import CartButton from './CartButton';
 
 import { connect } from '../state/RxState';
 import type { CartObject } from '../utils/flowTypes';
-import {
-  textColor,
-  whiteColor,
-} from '../utils/styleVariables';
+import { textColor, whiteColor } from '../utils/styleVariables';
 
 type Props = {
   cart: CartObject,
@@ -19,28 +16,33 @@ type Props = {
 const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
   <div className="buyer-header">
     <div className="buyer-header--left">
-      <img className="buyer-header__logo" src="/static/img/food.png" alt="mechef" />
+      <img
+        className="buyer-header__logo"
+        src="/static/img/food.png"
+        alt="mechef"
+      />
     </div>
     <div className="buyer-header--right">
       <span className="buyer-header__link">FAQ</span>
       <span className="buyer-header__link">HOW IT WORKS</span>
       <span className="buyer-header__cart">
-        {
-          kitchenName ?
-            <CartButton
-              itemCount={
-                cart.orders ?
-                  cart.orders.reduce((total, order) => total + (order.quantity || 0), 0) :
-                  0
-              }
-              onCartClicked={() => {
-                Router.push({
-                    pathname: `/cart/${encodeURIComponent(kitchenName)}`,
-                  });
-              }}
-            /> :
-            null
-        }
+        {kitchenName ? (
+          <CartButton
+            itemCount={
+              cart.orders
+                ? cart.orders.reduce(
+                    (total, order) => total + (order.quantity || 0),
+                    0,
+                  )
+                : 0
+            }
+            onCartClicked={() => {
+              Router.push({
+                pathname: `/cart/${encodeURIComponent(kitchenName)}`,
+              });
+            }}
+          />
+        ) : null}
       </span>
     </div>
     <style jsx>
@@ -85,4 +87,7 @@ const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
 
 const stateSelector = ({ cart }) => ({ cart });
 
-export default connect(stateSelector, {})(BuyerHeader);
+export default connect(
+  stateSelector,
+  {},
+)(BuyerHeader);

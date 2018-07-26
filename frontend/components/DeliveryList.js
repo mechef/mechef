@@ -42,7 +42,10 @@ class DeliveryList extends React.Component<Props> {
       mapTypeControl: false,
       fullscreenControl: false,
     });
-    const latlng = new google.maps.LatLng(meetup.meetupLatitude, meetup.meetupLongitude);
+    const latlng = new google.maps.LatLng(
+      meetup.meetupLatitude,
+      meetup.meetupLongitude,
+    );
     const marker = new google.maps.Marker({
       position: latlng,
       title: meetup.meetupAddress,
@@ -82,7 +85,9 @@ class DeliveryList extends React.Component<Props> {
               />
             </div>
             <div className="mapWrapper" id={meetup._id} />
-            <span className="descriptionText">{this.props.t('deliverylist_meetup_at')}</span>
+            <span className="descriptionText">
+              {this.props.t('deliverylist_meetup_at')}
+            </span>
             <div className="delivery-content">
               <div className="text">{meetup.meetupAddress}</div>
               <div className="text">

@@ -21,20 +21,14 @@ type Props = {
 
 const CartButton = ({ t, itemCount = 0, onCartClicked }: Props) => (
   <div className="cartButtonContainer">
-    <button
-      type="button"
-      className="cartButton"
-      onClick={onCartClicked}
-    >
+    <button type="button" className="cartButton" onClick={onCartClicked}>
       {t('storecart_mycart')}
     </button>
-    {
-      itemCount > 0 ? (
-        <div className="itemCountBadge">
-          {itemCount > 99 ? '99+' : itemCount }
-        </div>
-        ) : ''
-    }
+    {itemCount > 0 ? (
+      <div className="itemCountBadge">{itemCount > 99 ? '99+' : itemCount}</div>
+    ) : (
+      ''
+    )}
     <style jsx>
       {`
         .cartButtonContainer {
@@ -77,6 +71,8 @@ const CartButton = ({ t, itemCount = 0, onCartClicked }: Props) => (
   </div>
 );
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(CartButton);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  CartButton,
+);
 
 export default Extended;

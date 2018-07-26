@@ -100,5 +100,5 @@ export type CartOrderObject = {
 };
 
 export type CartObject = {
-  orders?: Array<CartOrderObject>;
+  orders?: Array<CartOrderObject>,
 };

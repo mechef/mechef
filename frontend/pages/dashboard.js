@@ -50,7 +50,8 @@ class Dashboard extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      page: props.url.query && props.url.query.page ? props.url.query.page : 'home',
+      page:
+        props.url.query && props.url.query.page ? props.url.query.page : 'home',
     };
     this.navigate = this.navigate.bind(this);
   }
@@ -77,7 +78,10 @@ class Dashboard extends React.Component<Props, State> {
   }
 
   render() {
-    const { global: { backArrow }, toggleBackArrow$ }: Props = this.props;
+    const {
+      global: { backArrow },
+      toggleBackArrow$,
+    }: Props = this.props;
     return (
       <div className="dashboard">
         <input type="checkbox" id="dashboard-header__menu-toggle" hidden />
@@ -165,14 +169,21 @@ class Dashboard extends React.Component<Props, State> {
                     tabIndex="-1"
                     onClick={() => toggleBackArrow$('')}
                   />
-                  <span className="dashboard-header__title">{backArrow.title}</span>
+                  <span className="dashboard-header__title">
+                    {backArrow.title}
+                  </span>
                 </div>
               ) : (
                 <div className="menuWrapper">
-                  <label htmlFor="dashboard-header__menu-toggle" className="dashboard-header__menu">
+                  <label
+                    htmlFor="dashboard-header__menu-toggle"
+                    className="dashboard-header__menu"
+                  >
                     <div className="drawerMenu" />
                   </label>
-                  <span className="dashboard-header__title">{pageTitle[this.state.page]}</span>
+                  <span className="dashboard-header__title">
+                    {pageTitle[this.state.page]}
+                  </span>
                 </div>
               )}
               <div className="dashboard-header__user-profile">
@@ -408,10 +419,15 @@ class Dashboard extends React.Component<Props, State> {
   }
 }
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(Dashboard);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  Dashboard,
+);
 
-const DashboardWrapper = connect(({ global }) => ({ global }), {
-  ...globalActions,
-})(Extended);
+const DashboardWrapper = connect(
+  ({ global }) => ({ global }),
+  {
+    ...globalActions,
+  },
+)(Extended);
 
 export default DashboardWrapper;

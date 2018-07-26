@@ -35,18 +35,13 @@ class DishModal extends React.Component<Props, State> {
 
   onOrderChanged: Function;
   onOrderChanged(order: DishOrderType) {
-    console.log(order)
+    console.log(order);
     this.setState({ order });
   }
 
   onAddToCartClicked: Function;
   onAddToCartClicked() {
-    const {
-      _id,
-      dishName,
-      images,
-      description,
-    } = this.props.dish;
+    const { _id, dishName, images, description } = this.props.dish;
     const defaultOrder = this.createDefaultOrder(this.props.dish);
     const order = {
       ...(this.state.order ? this.state.order : defaultOrder),
@@ -71,7 +66,7 @@ class DishModal extends React.Component<Props, State> {
       messageFromBuyer: '',
     };
     return defaultOrder;
-  }
+  };
 
   render() {
     const { dish } = this.props;
@@ -95,7 +90,10 @@ class DishModal extends React.Component<Props, State> {
               <AddToCartButton onAddToCartClick={this.onAddToCartClicked} />
             </div>
           </div>
-          <div className="dish-modal__close-button" onClick={this.props.onClose} />
+          <div
+            className="dish-modal__close-button"
+            onClick={this.props.onClose}
+          />
         </div>
         <style jsx>
           {`

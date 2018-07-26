@@ -16,10 +16,7 @@ type Props = {
 };
 
 const Tag = (props: Props) => (
-  <button
-    type="button"
-    className="tag"
-  >
+  <button type="button" className="tag">
     <span className="title">{props.title}</span>
     <button className="remove" onClick={props.onRemove} />
     <style jsx>
@@ -50,7 +47,7 @@ const Tag = (props: Props) => (
           background-image: url('../static/svg/cancel_white_click.svg');
           background-size: contain;
           background-position: center;
-          background-repeat:no-repeat;
+          background-repeat: no-repeat;
           width: 18px;
           height: 18px;
           outline: none;
@@ -68,8 +65,6 @@ const Tag = (props: Props) => (
   </button>
 );
 
-Tag.defaultProps = {
-
-};
+Tag.defaultProps = {};
 
 export default Tag;

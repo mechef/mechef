@@ -11,7 +11,12 @@ import Modal from './Modal';
 import OrderModal from './OrderModal';
 import type { OrderObject, OrderState } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
-import { primaryColor, textColor, whiteColor, primaryBtnHoverColor } from '../utils/styleVariables';
+import {
+  primaryColor,
+  textColor,
+  whiteColor,
+  primaryBtnHoverColor,
+} from '../utils/styleVariables';
 import DefaultComponent from './DefaultComponent';
 import OrderItem from './OrderItem';
 import Spinner from '../components/Spinner';
@@ -60,7 +65,10 @@ class OrderPage extends React.Component<Props, State> {
   }
   render() {
     const {
-      order: { orderList, isLoading }, setError$, error, updateOrderState$,
+      order: { orderList, isLoading },
+      setError$,
+      error,
+      updateOrderState$,
     } = this.props;
 
     return (
@@ -69,7 +77,9 @@ class OrderPage extends React.Component<Props, State> {
           <Modal
             title={error.title}
             message={error.message}
-            onCancel={() => setError$({ isShowModal: false, title: '', message: '' })}
+            onCancel={() =>
+              setError$({ isShowModal: false, title: '', message: '' })
+            }
           />
         ) : null}
         {isLoading ? <Spinner /> : null}
@@ -123,7 +133,11 @@ class OrderPage extends React.Component<Props, State> {
                     this.setState({ filter: 'waiting' });
                   }}
                 >
-                  {orderList.filter((order: OrderObject) => order.state === 'waiting').length}
+                  {
+                    orderList.filter(
+                      (order: OrderObject) => order.state === 'waiting',
+                    ).length
+                  }
                 </button>
               </div>
               <div className="titleWithNotification">
@@ -137,7 +151,11 @@ class OrderPage extends React.Component<Props, State> {
                     this.setState({ filter: 'cancelled' });
                   }}
                 >
-                  {orderList.filter((order: OrderObject) => order.state === 'cancelled').length}
+                  {
+                    orderList.filter(
+                      (order: OrderObject) => order.state === 'cancelled',
+                    ).length
+                  }
                 </button>
               </div>
               <div className="titleWithNotification">
@@ -156,7 +174,11 @@ class OrderPage extends React.Component<Props, State> {
               </div>
             </div>
             {orderList
-              .filter(order => order.state === this.state.filter || this.state.filter === 'all')
+              .filter(
+                order =>
+                  order.state === this.state.filter ||
+                  this.state.filter === 'all',
+              )
               .map(order => (
                 <div
                   className="orderItemWrapper"
@@ -177,7 +199,9 @@ class OrderPage extends React.Component<Props, State> {
                     deliveryTime={order.deliveryTime}
                     totalPrice={order.amount}
                     status="WAITING"
-                    menuImageUrl={order.image ? `${IMAGE_URL}/${order.image}` : ''}
+                    menuImageUrl={
+                      order.image ? `${IMAGE_URL}/${order.image}` : ''
+                    }
                     t={this.props.t}
                   />
                 </div>
@@ -187,7 +211,9 @@ class OrderPage extends React.Component<Props, State> {
           <DefaultComponent coverPhotoSrc="../static/img/orders_default.jpg">
             <div className="textSection">
               <h2 className="title">{this.props.t('hello_there')}</h2>
-              <p className="description">{this.props.t('order_default_description')}</p>
+              <p className="description">
+                {this.props.t('order_default_description')}
+              </p>
             </div>
             <button className="addDish" onClick={() => {}}>
               {this.props.t('my_store_link')}
@@ -306,6 +332,11 @@ const actionSubjects = {
   ...orderActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(OrderPage);
+const Extended = translate(['common'], { i18n, wait: process.browser })(
+  OrderPage,
+);
 
-export default connect(stateSelector, actionSubjects)(Extended);
+export default connect(
+  stateSelector,
+  actionSubjects,
+)(Extended);

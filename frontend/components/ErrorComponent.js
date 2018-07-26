@@ -9,7 +9,7 @@ type Props = {
   children: React.Node,
   buttonText: string,
   onClick: () => Rx.Observable,
-}
+};
 
 const ErrorComponent = (props: Props) => (
   <div className="container">

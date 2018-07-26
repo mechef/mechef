@@ -19,11 +19,11 @@ type Props = {
 const KitchenPageRouter = ({ kitchen, query }: Props) => (
   <div className="kitchen">
     <div className="kitchen-cover" />
-    {
-      !query.dish ?
-        <KitchenPage kitchen={kitchen} kitchenName={query.kitchen} /> :
-        <DishPage kitchen={kitchen} dishId={query.dish} />
-    }
+    {!query.dish ? (
+      <KitchenPage kitchen={kitchen} kitchenName={query.kitchen} />
+    ) : (
+      <DishPage kitchen={kitchen} dishId={query.dish} />
+    )}
     <style jsx>
       {`
         .kitchen {
@@ -35,7 +35,11 @@ const KitchenPageRouter = ({ kitchen, query }: Props) => (
           background-repeat: no-repeat;
           background-size: cover;
           background-position: center;
-          background-image: url('${kitchen && kitchen.coverPhoto ? `${IMAGE_URL}/${kitchen.coverPhoto}` : '/static/pancake.jpg'}'), url('/static/pancake.jpg');
+          background-image: url('${
+            kitchen && kitchen.coverPhoto
+              ? `${IMAGE_URL}/${kitchen.coverPhoto}`
+              : '/static/pancake.jpg'
+          }'), url('/static/pancake.jpg');
         }
       `}
     </style>

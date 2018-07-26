@@ -45,12 +45,10 @@ class Kitchen extends React.Component<Props> {
     return (
       <div>
         <BuyerHeader cart={this.props.cart} kitchenName={kitchen.kitchenName} />
-        { !kitchen || kitchen.isLoading ? <Spinner /> : null }
-        {
-          kitchen && !kitchen.isLoading ?
-            <KitchenPageRouter kitchen={kitchen} query={url.query} /> :
-            null
-        }
+        {!kitchen || kitchen.isLoading ? <Spinner /> : null}
+        {kitchen && !kitchen.isLoading ? (
+          <KitchenPageRouter kitchen={kitchen} query={url.query} />
+        ) : null}
         <BuyerFooter />
         <style jsx>
           {`
@@ -65,7 +63,11 @@ class Kitchen extends React.Component<Props> {
   }
 }
 
-const stateSelector = ({ kitchen, cart, error }) => ({ kitchen: kitchen && kitchen.kitchen, cart, error });
+const stateSelector = ({ kitchen, cart, error }) => ({
+  kitchen: kitchen && kitchen.kitchen,
+  cart,
+  error,
+});
 
 const actionSubjects = {
   ...errorActions,
@@ -73,4 +75,7 @@ const actionSubjects = {
   ...cartActions,
 };
 
-export default connect(stateSelector, actionSubjects)(Kitchen);
+export default connect(
+  stateSelector,
+  actionSubjects,
+)(Kitchen);

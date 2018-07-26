@@ -30,7 +30,12 @@ function hashPassword(password, callback) {
       return callback(err);
     }
 
-    return crypto.pbkdf2(password, salt, config.iterations, config.hashBytes, 'sha1',
+    return crypto.pbkdf2(
+      password,
+      salt,
+      config.iterations,
+      config.hashBytes,
+      'sha1',
       (error, hash) => {
         if (error) {
           return callback(error);
@@ -47,7 +52,8 @@ function hashPassword(password, callback) {
         salt.copy(combined, 8);
         hash.copy(combined, salt.length + 8);
         return callback(null, combined);
-      });
+      },
+    );
   });
 }
 
@@ -71,13 +77,20 @@ function verifyPassword(password, combined, callback) {
   const hash = combined.toString('binary', saltBytes + 8);
 
   // verify the salt and hash against the password
-  crypto.pbkdf2(password, salt, iterations, hashBytes, 'sha1', (err, verify) => {
-    if (err) {
-      return callback(err, false);
-    }
+  crypto.pbkdf2(
+    password,
+    salt,
+    iterations,
+    hashBytes,
+    'sha1',
+    (err, verify) => {
+      if (err) {
+        return callback(err, false);
+      }
 
-    return callback(null, verify.toString('binary') === hash);
-  });
+      return callback(null, verify.toString('binary') === hash);
+    },
+  );
 }
 
 exports.hashPassword = hashPassword;

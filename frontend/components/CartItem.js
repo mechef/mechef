@@ -64,7 +64,8 @@ class CartItem extends React.Component<Props, State> {
   }
 
   calculateSubTotal: Function;
-  calculateSubTotal = (quantity: number, unitPrice: number) => quantity * unitPrice;
+  calculateSubTotal = (quantity: number, unitPrice: number) =>
+    quantity * unitPrice;
 
   render() {
     const {
@@ -83,12 +84,18 @@ class CartItem extends React.Component<Props, State> {
       <div className="cart-item">
         <div
           className="cart-item__image"
-          style={{ backgroundImage: `url('${image}'), url('/static/svg/mechef_logo_white.svg')` }}
+          style={{
+            backgroundImage: `url('${image}'), url('/static/svg/mechef_logo_white.svg')`,
+          }}
         />
         <div className="cart-item__dish-detail">
           <div className="cart-item__dish-detail__name">{dishName}</div>
-          {undefined ? <div className="cart-item__dish-detail__error">not enough food</div> : null}
-          <div className="cart-item__dish-detail__description">{description}</div>
+          {undefined ? (
+            <div className="cart-item__dish-detail__error">not enough food</div>
+          ) : null}
+          <div className="cart-item__dish-detail__description">
+            {description}
+          </div>
           <div className="cart-item__dish-detail__note">{messageFromBuyer}</div>
         </div>
         <div className="cart-item__modifier">
@@ -99,7 +106,11 @@ class CartItem extends React.Component<Props, State> {
           />
         </div>
         <div className="cart-item__subTotal">{this.state.subTotal}</div>
-        <div className="cart-item__remove" role="Button" onClick={this.onRemoveButtonClicked} />
+        <div
+          className="cart-item__remove"
+          role="Button"
+          onClick={this.onRemoveButtonClicked}
+        />
         <style jsx>
           {`
             .cart-item {
@@ -162,9 +173,11 @@ class CartItem extends React.Component<Props, State> {
               align-self: center;
             }
             .cart-item__modifier :global(.ServingModifierHandler--plus),
-            .cart-item__modifier :global(.ServingModifierHandler--plus--disabled),
+            .cart-item__modifier
+              :global(.ServingModifierHandler--plus--disabled),
             .cart-item__modifier :global(.ServingModifierHandler--minus),
-            .cart-item__modifier :global(.ServingModifierHandler--minus--disabled) {
+            .cart-item__modifier
+              :global(.ServingModifierHandler--minus--disabled) {
               border: 1px solid ${secondaryBtnHoverColor};
               border-radius: ${borderRadius};
               width: 30px;
@@ -173,7 +186,8 @@ class CartItem extends React.Component<Props, State> {
               background-size: initial;
               background-position: center;
             }
-            .cart-item__modifier :global(.ServingModifier > div):not(:last-child) {
+            .cart-item__modifier
+              :global(.ServingModifier > div):not(:last-child) {
               margin-right: 16px;
             }
             .cart-item__subTotal {

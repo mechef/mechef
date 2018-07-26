@@ -2,9 +2,7 @@
 
 import * as React from 'react';
 
-import {
-  primaryColor
-} from '../utils/styleVariables';
+import { primaryColor } from '../utils/styleVariables';
 
 type Props = {
   children: React.Node,
@@ -14,27 +12,26 @@ type Props = {
 
 type State = {
   isChecked: boolean,
-}
+};
 
 class CheckBox extends React.Component<Props, State> {
-
   static defaultProps = {
     children: '',
     checked: false,
-    onChange: () => { },
-  }
+    onChange: () => {},
+  };
 
   constructor(props: Props) {
     super(props);
     this.state = {
       isChecked: props.checked,
-    }
+    };
   }
 
   componentWillReceiveProps(newProps: Props) {
     this.setState({
       isChecked: newProps.checked,
-    })
+    });
   }
 
   handleChange = () => {
@@ -42,12 +39,16 @@ class CheckBox extends React.Component<Props, State> {
     this.setState({
       isChecked: !this.state.isChecked,
     });
-  }
+  };
 
   render() {
     return (
       <div className="checkboxContainer">
-        <button type="button" onClick={this.handleChange} className={this.state.isChecked ? 'checkedIcon' : 'uncheckedIcon'} />
+        <button
+          type="button"
+          onClick={this.handleChange}
+          className={this.state.isChecked ? 'checkedIcon' : 'uncheckedIcon'}
+        />
         <div className="checkboxLabel">{this.props.children}</div>
         <style jsx>
           {`

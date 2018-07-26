@@ -5,7 +5,9 @@ const constants = require('../../utils/constants');
 module.exports = (req, res) => {
   Menu.findById(req.params.id, (err, menu) => {
     if (err) {
-      res.status(404).json({ status: constants.fail, reason: constants.id_not_found });
+      res
+        .status(404)
+        .json({ status: constants.fail, reason: constants.id_not_found });
       return;
     }
 
@@ -15,7 +17,10 @@ module.exports = (req, res) => {
         return;
       }
 
-      const deliveryDetailList = Delivery.toDeliveryDetail(deliveryList, menu.deliveryIdList);
+      const deliveryDetailList = Delivery.toDeliveryDetail(
+        deliveryList,
+        menu.deliveryIdList,
+      );
       menu.deliveryList = deliveryDetailList;
       menu.deliveryIdList = undefined;
 

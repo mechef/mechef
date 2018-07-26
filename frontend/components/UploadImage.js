@@ -3,7 +3,11 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
-import { primaryColor, borderRadius, whiteColor } from '../utils/styleVariables';
+import {
+  primaryColor,
+  borderRadius,
+  whiteColor,
+} from '../utils/styleVariables';
 
 type Props = {
   onImageUpload: File => Rx.Observable,
@@ -67,11 +71,15 @@ class UploadImage extends React.Component<Props, State> {
           />
         ) : (
           <div
-            className={this.props.onRemoveImage ? 'uploadedImageWrapper' : 'addImageWrapper'}
+            className={
+              this.props.onRemoveImage
+                ? 'uploadedImageWrapper'
+                : 'addImageWrapper'
+            }
             onClick={this.props.onRemoveImage ? this.props.onRemoveImage : ''}
           >
             <input
-              ref={(input) => {
+              ref={input => {
                 this.imageInput = input;
               }}
               type="file"
@@ -79,7 +87,7 @@ class UploadImage extends React.Component<Props, State> {
               onChange={this.handleImageUpload}
             />
             <img
-              ref={(input) => {
+              ref={input => {
                 this.imageSrc = input;
               }}
               className="image"

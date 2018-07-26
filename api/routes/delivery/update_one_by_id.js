@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res) => {
   const token = req.headers.authorization;
   if (!token) {
-    res.status(400).json({ status: constants.fail, reason: constants.no_token });
+    res
+      .status(400)
+      .json({ status: constants.fail, reason: constants.no_token });
     return;
   }
 
@@ -16,7 +18,8 @@ module.exports = (req, res) => {
     }
 
     const updateFields = {};
-    if (req.body.type && req.body.type in constants.delivery_type) updateFields.type = req.body.type;
+    if (req.body.type && req.body.type in constants.delivery_type)
+      updateFields.type = req.body.type;
     if (req.body.meetupAddress) {
       updateFields.meetupAddress = req.body.meetupAddress;
     }
@@ -63,14 +66,18 @@ module.exports = (req, res) => {
       updateFields.note = req.body.note;
     }
 
-    Delivery.findOneAndUpdate({ _id: req.params.id, email: decoded.email }, { $set: updateFields },
-      { projection: { __v: false }, new: true, upsert: true }, (error, delivery) => {
-    if (error) {
-      res.status(500).json({ status: constants.fail });
-      return;
-    }
+    Delivery.findOneAndUpdate(
+      { _id: req.params.id, email: decoded.email },
+      { $set: updateFields },
+      { projection: { __v: false }, new: true, upsert: true },
+      (error, delivery) => {
+        if (error) {
+          res.status(500).json({ status: constants.fail });
+          return;
+        }
 
-    res.json({ status: constants.success, delivery });
-    });
+        res.json({ status: constants.success, delivery });
+      },
+    );
   });
 };

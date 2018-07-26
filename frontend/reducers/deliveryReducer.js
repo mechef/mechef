@@ -34,7 +34,7 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState).merge(
         shippingList: data.response.deliveryList.shippingList,
         isLoading: false,
       }))
-      .catch((error) => {
+      .catch(error => {
         errorActions.setError$.next({
           isShowModal: true,
           title: 'Get Delivery List Error',
@@ -71,7 +71,7 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState).merge(
         updatedMeetupFields: {},
         meetupList: [data.response.delivery, ...state.meetupList],
       }))
-      .catch((error) => {
+      .catch(error => {
         errorActions.setError$.next({
           isShowModal: true,
           title: 'Create Memo Error',
@@ -94,7 +94,7 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState).merge(
     })
       .map(() => state => ({
         ...state,
-        meetupList: state.meetupList.map((meetup) => {
+        meetupList: state.meetupList.map(meetup => {
           if (meetup._id === reqbody._id) {
             return { ...meetup, ...reqbody };
           }
@@ -102,7 +102,7 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState).merge(
         }),
         updatedMeetupFields: {},
       }))
-      .catch((error) => {
+      .catch(error => {
         errorActions.setError$.next({
           isShowModal: true,
           title: 'Create Memo Error',
@@ -127,7 +127,7 @@ const deliveryReducer$ = Rx.Observable.of(() => initialState).merge(
         ...state,
         meetupList: state.meetupList.filter(meetup => meetup._id !== meetupId),
       }))
-      .catch((error) => {
+      .catch(error => {
         errorActions.setError$.next({
           isShowModal: true,
           title: 'Delete Memo Error',

@@ -53,7 +53,7 @@ class OrderItem extends React.Component<Props> {
                 href={
                   this.props.buyerEmail ? `mailto:${this.props.buyerEmail}` : ''
                 }
-                onClick={(event) => {
+                onClick={event => {
                   event.stopPropagation();
                 }}
               >
@@ -68,17 +68,23 @@ class OrderItem extends React.Component<Props> {
           </div>
           <div className="divider" />
           <div className="infoWrapper">
-            <div className="infoTitle">{this.props.t('orderdetailview_order_time')}</div>
+            <div className="infoTitle">
+              {this.props.t('orderdetailview_order_time')}
+            </div>
             <span className="infoContent">
               {moment(this.props.orderTime).format('MMM DD hh:mm')}
             </span>
           </div>
           <div className="infoWrapper">
-            <div className="infoTitle">{this.props.t('orderdetailview_deli_to')}</div>
+            <div className="infoTitle">
+              {this.props.t('orderdetailview_deli_to')}
+            </div>
             <span className="infoContent">{this.props.deliveryTo}</span>
           </div>
           <div className="infoWrapper">
-            <div className="infoTitle">{this.props.t('orderdetailview_Deli_time')}</div>
+            <div className="infoTitle">
+              {this.props.t('orderdetailview_Deli_time')}
+            </div>
             <span className="infoContent">
               {moment(this.props.deliveryTime).format('MMM DD hh:mm')}
             </span>
@@ -189,11 +195,11 @@ class OrderItem extends React.Component<Props> {
             }
 
             .mailIcon {
-              background-image: url("../static/svg/order_mail.svg");
+              background-image: url('../static/svg/order_mail.svg');
             }
 
             .email:hover .mailIcon {
-              background-image: url("../static/svg/order_mail_hover.svg");
+              background-image: url('../static/svg/order_mail_hover.svg');
             }
           `}
         </style>
