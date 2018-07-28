@@ -236,7 +236,7 @@ class SelectBox extends React.Component<Props, State> {
               border-style: solid;
               border-top: 0;
               padding: 0;
-              height: 144px;
+              max-height: 144px;
               overflow: scroll;
               box-sizing: border-box;
               background-color: ${whiteColor};
