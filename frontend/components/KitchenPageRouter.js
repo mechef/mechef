@@ -30,6 +30,7 @@ const KitchenPageRouter = ({ kitchen, query }: Props) => (
       {`
         .kitchen {
           width: 100%;
+          position: relative;
         }
         .kitchen-cover {
           display: block;
