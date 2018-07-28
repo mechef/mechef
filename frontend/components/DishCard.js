@@ -119,7 +119,7 @@ const DishCard = ({
           font-weight: ${fontWeight};
           font-family: AvenirNext;
           line-height: 1.2;
-          color: ${textHintColor}
+          color: ${textHintColor};
           padding: 10px 16px 0px;
           overflow: hidden;
           max-height: 36px;
