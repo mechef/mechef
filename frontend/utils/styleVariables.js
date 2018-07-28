@@ -22,6 +22,7 @@ export const btnHeight = '50px';
 export const lineHeight = '1.14';
 export const fontWeight = '500';
 export const fontSize = '14px';
+export const fontSizeSmall = '12px';
 export const primaryBtnHoverColor = '#367d36';
 export const secondaryBtnHoverColor = '#3f9f40';
 
@@ -84,3 +85,7 @@ export const dishPageRightWidth = '340px';
 export const dishPageRightBackground = '#f8f8f8';
 export const dishPageHeaderColor = '#4a4a4a';
 export const dishPageTextColor = '#9b9b9b';
+
+// Kitchen Header
+export const kitchenHeaderProfileImageSize = '80px';
+export const kitchenHeaderProfileImageSizeSmall = '50px';

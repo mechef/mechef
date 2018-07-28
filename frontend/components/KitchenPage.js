@@ -16,6 +16,8 @@ import DishModal from './DishModal';
 import type { DishOrderType } from './DishOrder';
 import type { KitchenObject, MenuObject } from '../utils/flowTypes';
 
+import { smallBreak } from '../utils/styleVariables';
+
 type Props = {
   kitchen: KitchenObject,
   kitchenName: string,
@@ -41,6 +43,7 @@ class KitchenPage extends React.Component<Props, State> {
   }
 
   onDishSelected: Function;
+
   onDishSelected(dishId: string) {
     Router.push(
       {
@@ -55,11 +58,13 @@ class KitchenPage extends React.Component<Props, State> {
   }
 
   closeDishModal: Function;
+
   closeDishModal() {
     this.setState({ displayedProduct: undefined });
   }
 
   showDishModal: Function;
+
   showDishModal(dishId: string) {
     const found =
       this.props.kitchen.menuList &&
@@ -68,6 +73,7 @@ class KitchenPage extends React.Component<Props, State> {
   }
 
   addDishToCart: Function;
+
   addDishToCart(dishOrder: DishOrderType) {
     const order = {
       kitchen: this.props.kitchen.kitchenName,
@@ -77,6 +83,7 @@ class KitchenPage extends React.Component<Props, State> {
   }
 
   renderDishes: Function;
+
   renderDishes = () =>
     this.props.kitchen.menuList &&
     this.props.kitchen.menuList.map(dish => (
@@ -136,13 +143,25 @@ class KitchenPage extends React.Component<Props, State> {
         <style jsx>
           {`
             .kitchen-main {
-              padding-left: 110px;
+              padding: 0 16px;
             }
             .kitchen-display {
+              margin: 18px auto 40px;
               width: 100%;
-              margin: 70px auto 144px;
               display: flex;
-              flex-wrap: wrap;
+              flex-direction: column;
+              align-items: center;
+            }
+            @media (min-width: ${smallBreak}) {
+              .kitchen-main {
+                padding-left: 110px;
+              }
+              .kitchen-display {
+                margin: 70px auto 144px;
+                flex-direction: row;
+                align-items: flex-start;
+                flex-wrap: wrap;
+              }
             }
           `}
         </style>

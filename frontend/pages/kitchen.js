@@ -14,7 +14,7 @@ import cartActions from '../actions/cartActions';
 import errorActions from '../actions/errorActions';
 import type { KitchenObject } from '../utils/flowTypes';
 import type { CartObject } from '../utils/flowTypes';
-import { fontSize } from '../utils/styleVariables';
+import { fontSize, fontSizeSmall, smallBreak } from '../utils/styleVariables';
 
 type Props = {
   url: {
@@ -53,6 +53,10 @@ class Kitchen extends React.Component<Props> {
         <style jsx>
           {`
             body {
+              font-size: ${fontSizeSmall};
+              letter-spacing: 0.5px;
+            }
+            @media (min-width: ${smallBreak}) {
               font-size: ${fontSize};
               letter-spacing: 0.6px;
             }
