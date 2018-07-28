@@ -14,6 +14,7 @@ import kitchenActions from '../actions/kitchenActions';
 import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
 import i18n from '../i18n';
+import Modal from '../components/Modal';
 import {
   greyBackgroundColor,
   shallowGreyBgColor,
@@ -28,6 +29,11 @@ type Props = {
     },
   },
   createOrder$: (order: Object) => Rx.Observable,
+  setError$: ({
+    isShowModal: boolean,
+    title: string,
+    message: string,
+  }) => Rx.Observable,
   error: {
     title: string,
     message: string,
@@ -114,9 +120,19 @@ class Checkout extends React.PureComponent<Props, State> {
   orders: Array<Object>;
 
   render() {
+    const { error, setError$ } = this.props;
     return (
       <div>
         <BuyerHeader />
+        {error.isShowModal ? (
+          <Modal
+            title={error.title}
+            message={error.message}
+            onCancel={() =>
+              setError$({ isShowModal: false, title: '', message: '' })
+            }
+          />
+        ) : null}
         <div className="checkout">
           <div className="checkout-header">
             {/* TODO Bible: Replace with i18n */}
@@ -307,6 +323,7 @@ class Checkout extends React.PureComponent<Props, State> {
                     }))
                   : [],
                 ...rest,
+                kitchenName: this.props.url.query.kitchen,
               });
             }}
           >
@@ -326,6 +343,10 @@ class Checkout extends React.PureComponent<Props, State> {
             .checkout {
               margin: 0 100px;
               min-width: 596px;
+              display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          justify-content: space-between;
             }
             .checkout-header {
               width: 100%;

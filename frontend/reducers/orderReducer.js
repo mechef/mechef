@@ -1,4 +1,6 @@
 import Rx from 'rxjs/Rx';
+import Router from 'next/router';
+import _ from 'lodash';
 import orderActions from '../actions/orderActions';
 import errorActions from '../actions/errorActions';
 import { API_ORDER } from '../utils/constants';
@@ -77,17 +79,25 @@ const orderReducer$ = Rx.Observable.of(() => initialState).merge(
       crossDomain: true,
       url: API_ORDER,
       method: 'POST',
-      body: reqbody,
+      body: _.omit(reqbody, ['kitchenName']),
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Authorization: window.localStorage.getItem('jwt'),
       },
       responseType: 'json',
     })
-      .map(data => state => ({
-        ...state,
-        isLoading: false,
-      }))
+      .map(data => {
+        const kitchenName = reqbody.kitchenName;
+        Router.push({ pathname: '/order-established' });
+        window.localStorage.setItem(
+          `${encodeURIComponent(kitchenName)}_cart`,
+          '',
+        );
+        return state => ({
+          ...state,
+          isLoading: false,
+        });
+      })
       .catch(error => {
         errorActions.setError$.next({
           isShowModal: true,

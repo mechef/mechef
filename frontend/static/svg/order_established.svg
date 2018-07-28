@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="103px" height="103px" viewBox="0 0 103 103" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="established_Tablet-Portrait" transform="translate(-337.000000, -325.000000)">
+            <g id="Group-2" transform="translate(338.000000, 326.000000)">
+                <g id="Page-1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M50.302,100.3018 L50.302,100.3018 C22.802,100.3018 0.302,77.8018 0.302,50.3018 C0.302,22.8018 22.802,0.3018 50.302,0.3018 C77.802,0.3018 100.302,22.8018 100.302,50.3018 C100.302,77.8018 77.802,100.3018 50.302,100.3018 Z" id="Stroke-1" stroke="#009245" stroke-width="2.604"></path>
+                    <path d="M50.302,93.0103 C26.813,93.0103 7.594,73.7913 7.594,50.3023 C7.594,26.8123 26.813,7.5933 50.302,7.5933 C73.792,7.5933 93.01,26.8123 93.01,50.3023 C93.01,73.7913 73.792,93.0103 50.302,93.0103 Z" id="Stroke-3" stroke="#8CC63F" stroke-width="2.083" stroke-dasharray="4.189,4.189"></path>
+                </g>
+                <g id="Group-Copy" transform="translate(32.000000, 35.000000)" fill="#3F9F40">
+                    <polygon id="Rectangle-34" points="12.6666667 30.875 -2.66453526e-15 18.0104167 5.06666667 12.8645833 12.6666667 20.5833333 32.9333333 0 38 5.14583333"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -105,7 +105,7 @@ class Cart extends React.PureComponent<Props, State> {
     const { cart, t } = this.props;
 
     return (
-      <div>
+      <div className="wrapper">
         <BuyerHeader />
         <div className="cart">
           <div className="cart-header">
@@ -171,6 +171,12 @@ class Cart extends React.PureComponent<Props, State> {
             body {
               font-size: ${fontSize};
               letter-spacing: 0.6px;
+            }
+            .wrapper {
+              display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          justify-content: space-between;
             }
             hr {
               width: 100%;
