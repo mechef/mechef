@@ -75,9 +75,6 @@ export const cartItemPaddingSmall = '20px 8px 22px';
 export const cartItemImageSize = '160px';
 export const cartItemImageSizeSmall = '80px';
 
-// Add To Cart Button
-export const addToCartButtonWidth = '228px';
-
 // Dish Page
 export const dishPageImageSize = '250px';
 export const dishPageRightHorizontalMargin = '45px';

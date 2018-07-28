@@ -195,8 +195,7 @@ class DishModal extends React.Component<Props, State> {
               line-height: 1.2;
             }
             .dish-modal__content__button-container {
-              margin-top: 30px;
-              margin-bottom: 30px;
+              padding: 30px 16px;
             }
 
             @media (min-width: ${smallBreak}) {
@@ -231,9 +230,8 @@ class DishModal extends React.Component<Props, State> {
                 padding: 0 20px;
               }
               .dish-modal__content__button-container {
-                margin-right: 20px;
-                margin-bottom: 32px;
-                margin-top: 0;
+                width: 212px;
+                padding: 0 20px 32px;
               }
             }
           `}

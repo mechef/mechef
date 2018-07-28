@@ -4,8 +4,6 @@ import { translate } from 'react-i18next';
 import i18n from '../i18n';
 import Button from './Button';
 
-import { addToCartButtonWidth } from '../utils/styleVariables';
-
 type Props = {
   onAddToCartClick: Function,
   t: (key: string) => string,
@@ -21,7 +19,6 @@ const AddToCartButton = ({ onAddToCartClick, t }: Props) => (
         .addToCartButtonContainer {
           display: block;
           margin: 0 auto;
-          width: ${addToCartButtonWidth};
         }
       `}
     </style>

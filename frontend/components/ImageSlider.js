@@ -127,7 +127,9 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
               display: flex;
               align-items: center;
               justify-content: center;
-              padding-top: 20px;
+              padding-bottom: 24px;
+              position: absolute;
+              bottom: 0;
             }
             .image-slider__legend-circle {
               border: 1px solid #3f9f40;

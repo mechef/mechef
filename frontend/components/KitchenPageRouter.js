@@ -20,7 +20,7 @@ type Props = {
 
 const KitchenPageRouter = ({ kitchen, query }: Props) => (
   <div className="kitchen">
-    <div className="kitchen-cover" />
+    <div className={`kitchen-cover${query.dish ? '--hidden' : ''}`} />
     {!query.dish ? (
       <KitchenPage kitchen={kitchen} kitchenName={query.kitchen} />
     ) : (
@@ -32,8 +32,8 @@ const KitchenPageRouter = ({ kitchen, query }: Props) => (
           width: 100%;
           position: relative;
         }
-        .kitchen-cover {
-          display: block;
+        .kitchen-cover,
+        .kitchen-cover--hidden {
           height: 200px;
           background-repeat: no-repeat;
           background-size: cover;
@@ -45,9 +45,15 @@ const KitchenPageRouter = ({ kitchen, query }: Props) => (
           }'), url('/static/pancake.jpg');
         }
 
+        .kitchen-cover--hidden {
+          display: none;
+        }
+
         @media (min-width: ${smallBreak}) {
-          .kitchen-cover {
+          .kitchen-cover,
+          .kitchen-cover--hidden {
             height: 250px;
+            display: block;
           }
         }
       `}

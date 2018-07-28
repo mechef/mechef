@@ -58,7 +58,9 @@ const DishCard = ({
       <div className="dish-card__description">{description}</div>
       <div className="dish-card__price">{unitPrice}</div>
     </div>
-    <AddToCartButton onAddToCartClick={onAddToCartClick} />
+    <div className="dish-card__button">
+      <AddToCartButton onAddToCartClick={onAddToCartClick} />
+    </div>
     <style jsx>
       {`
         .dish-card {
@@ -131,6 +133,9 @@ const DishCard = ({
           color: ${textHintColor};
           font-size: ${fontSize};
           font-weight: ${fontWeight};
+        }
+        .dish-card__button {
+          padding: 0 16px;
         }
       `}
     </style>
