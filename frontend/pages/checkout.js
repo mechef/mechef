@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import { translate } from 'react-i18next';
+import _ from 'lodash';
 import SelectBox from '../components/SelectBox';
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
@@ -18,6 +19,7 @@ import {
   shallowGreyBgColor,
 } from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
+import moment from 'moment';
 
 type Props = {
   url: {
@@ -46,6 +48,32 @@ type State = {
   },
   cartOrderList: ?Array<Object>,
   fetchKitchen$: (kitchenName: string) => Rx.Observable,
+};
+
+const get30MinIntervalList = (startTime, endTime) => {
+  if (!startTime || !endTime) {
+    return [];
+  }
+  const resultList = [];
+  const start = moment(startTime, 'HH:mm');
+  const end = moment(endTime, 'HH:mm');
+  while (end.diff(start) >= 0) {
+    const formatedTime = start.format('HH:mm');
+    resultList.push({ text: formatedTime, value: formatedTime });
+    start.add(30, 'm');
+  }
+  return resultList;
+};
+
+const getTimeOptionList = (deliveryList, deliveryId) => {
+  const deliveryItem = _.defaultTo(
+    _.find(deliveryList, { _id: deliveryId }),
+    {},
+  );
+  return get30MinIntervalList(
+    deliveryItem.meetupStartTime,
+    deliveryItem.meetupEndTime,
+  );
 };
 
 class Checkout extends React.PureComponent<Props, State> {
@@ -197,7 +225,7 @@ class Checkout extends React.PureComponent<Props, State> {
                   text: deliveryItem.meetupAddress,
                   value: deliveryItem._id,
                 }))}
-                selectedValue={''}
+                selectedValue={this.state.newOrder.deliveryId}
                 defaultText="Select the delivery option"
                 onChange={(selectedValue: string | number) => {
                   this.setState({
@@ -209,11 +237,12 @@ class Checkout extends React.PureComponent<Props, State> {
                 }}
               />
               <SelectBox
-                options={[
-                  { text: '11:58', value: '2017-12-01T11:58:31+00:00' },
-                ]}
-                selectedValue={''}
-                defaultText="2017-12-01T11:58:31+00:00"
+                options={getTimeOptionList(
+                  this.props.deliveryList,
+                  this.state.newOrder.deliveryId,
+                )}
+                selectedValue={this.state.newOrder.deliveryTime}
+                defaultText=""
                 onChange={(selectedValue: string | number) => {
                   this.setState({
                     newOrder: {
