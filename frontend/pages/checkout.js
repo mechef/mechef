@@ -4,6 +4,7 @@ import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
+import moment from 'moment';
 import SelectBox from '../components/SelectBox';
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
@@ -18,9 +19,9 @@ import Modal from '../components/Modal';
 import {
   greyBackgroundColor,
   shallowGreyBgColor,
+  smallBreak,
 } from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
-import moment from 'moment';
 
 type Props = {
   url: {
@@ -98,6 +99,7 @@ class Checkout extends React.PureComponent<Props, State> {
       cartOrderList: null,
     };
   }
+
   componentDidMount() {
     if (!this.state.cartOrderList) {
       const orderJson = window.localStorage.getItem(
@@ -115,8 +117,10 @@ class Checkout extends React.PureComponent<Props, State> {
   }
 
   getTotal: (?Array<{ subTotal: number }>) => number;
+
   getTotal = (orders: Array<{ subTotal: number }>) =>
     orders ? orders.reduce((total, order) => total + order.subTotal, 0) : 0;
+
   orders: Array<Object>;
 
   render() {
@@ -270,7 +274,7 @@ class Checkout extends React.PureComponent<Props, State> {
               />
             </section>
             <section className="orderList">
-              <h3>YOUR ORDER</h3>
+              <h3 className="orderListHeader">YOUR ORDER</h3>
               <div className="order-content">
                 {this.state.cartOrderList &&
                   this.state.cartOrderList.map(order => (
@@ -301,9 +305,9 @@ class Checkout extends React.PureComponent<Props, State> {
                   ))}
                 <div className="cart-footer__item">
                   <span className="cart-footer__item__label">TOTAL</span>
-                  <span>{`$${this.getTotal(
-                    this.state.cartOrderList,
-                  )}.00`}</span>
+                  <span>
+                    {`$${this.getTotal(this.state.cartOrderList)}.00`}
+                  </span>
                 </div>
               </div>
             </section>
@@ -341,31 +345,61 @@ class Checkout extends React.PureComponent<Props, State> {
               background-color: #9b9b9b;
             }
             .checkout {
-              margin: 0 100px;
-              min-width: 596px;
               display: flex;
-          flex-direction: column;
-          min-height: 100vh;
-          justify-content: space-between;
+              flex-direction: column;
             }
             .checkout-header {
               width: 100%;
-              padding: 90px 0 30px;
+              padding: 50px 0 20px;
               font-family: Playball;
-              font-size: 30px;
+              font-size: 18px;
               line-height: 1;
               color: #525252;
               text-align: center;
             }
+            @media (min-width: ${smallBreak}) {
+              .checkout {
+                margin: 0 100px;
+                min-width: 596px;
+                min-height: 100vh;
+                justify-content: space-between;
+              }
+              .checkout-header {
+                padding: 90px 0 30px;
+                font-size: 30px;
+              }
+            }
             .content {
               display: flex;
-              margin-bottom: 50px;
+              flex-direction: column;
             }
             .info {
-              flex: 1;
+              order: 2;
+              padding: 20px 12px;
             }
             .orderList {
-              flex: 1;
+              order: 1;
+            }
+            .orderListHeader {
+              display: none;
+            }
+            @media (min-width: ${smallBreak}) {
+              .content {
+                flex-direction: row;
+                margin-bottom: 50px;
+              }
+              .info {
+                order: 1;
+                flex: 1;
+                padding: 0;
+              }
+              .orderList {
+                order: 2;
+                flex: 1;
+              }
+              .orderListHeader {
+                display: block;
+              }
             }
             .infoWrapper {
               margin-bottom: 30px;
@@ -385,16 +419,15 @@ class Checkout extends React.PureComponent<Props, State> {
 
             .cartItem {
               display: flex;
-              height: 144px;
               width: 100%;
               border-bottom: 1px solid ${greyBackgroundColor};
-              padding: 5px;
+              padding: 20px 8px;
               box-sizing: border-box;
             }
             .orderImage {
               display: flex;
-              flex-basis: 160px;
-              height: 100%;
+              flex-basis: 60px;
+              height: 60px;
               flex-grow: 0;
               flex-shrink: 0;
               background-repeat: no-repeat;
@@ -405,12 +438,29 @@ class Checkout extends React.PureComponent<Props, State> {
 
             .orderInfo {
               flex: 1;
-              padding: 10px;
+              padding-left: 16px;
+            }
+            .orderInfo > h4 {
+              margin: 0;
             }
 
             .otherInfo {
               display: flex;
               justify-content: space-between;
+            }
+
+            @media(min-width: ${smallBreak}) {
+              .cartItem {
+                padding: 5px;
+                height: 144px;
+              }
+              .orderImage {
+                flex-basis: 160px;
+                height: 100%;
+              }
+              .orderInfo {
+                padding: 10px;
+              }
             }
 
             .cart-footer {
