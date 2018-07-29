@@ -13,6 +13,7 @@ import {
   whiteColor,
   textColor,
   fontSize,
+  smallBreak,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -34,12 +35,14 @@ class DishModal extends React.Component<Props, State> {
   }
 
   onOrderChanged: Function;
+
   onOrderChanged(order: DishOrderType) {
     console.log(order);
     this.setState({ order });
   }
 
   onAddToCartClicked: Function;
+
   onAddToCartClicked() {
     const { _id, dishName, images, description } = this.props.dish;
     const defaultOrder = this.createDefaultOrder(this.props.dish);
@@ -55,6 +58,7 @@ class DishModal extends React.Component<Props, State> {
   }
 
   createDefaultOrder: Function;
+
   createDefaultOrder = (menuItem: MenuObject) => {
     const unitPrice = parseInt(menuItem.unitPrice, 10) || 0;
     const maxServing = parseInt(menuItem.quantity, 10) || 0;
@@ -73,18 +77,22 @@ class DishModal extends React.Component<Props, State> {
     return (
       <div className="dish-modal-overlay">
         <div className="dish-modal">
-          <ImageSlider images={dish.images} />
+          <div className="dish-modal__images">
+            <ImageSlider images={dish.images} />
+          </div>
           <div className="dish-modal__content">
             <div className="dish-modal__content-wrapper">
               <div className="dish-modal__name">{dish.dishName}</div>
               <div className="dish-modal__description">{dish.description}</div>
-              <DishOrder
-                price={dish.unitPrice}
-                maxServing={dish.quantity}
-                onOrderChange={this.onOrderChanged}
-                textAreaWidth={380}
-                textAreaHeight={80}
-              />
+              <div className="dish-modal__order-wrapper">
+                <DishOrder
+                  price={dish.unitPrice}
+                  maxServing={dish.quantity}
+                  onOrderChange={this.onOrderChanged}
+                  textAreaWidth="100%"
+                  textAreaHeight={80}
+                />
+              </div>
             </div>
             <div className="dish-modal__content__button-container">
               <AddToCartButton onAddToCartClick={this.onAddToCartClicked} />
@@ -98,7 +106,7 @@ class DishModal extends React.Component<Props, State> {
         <style jsx>
           {`
             .dish-modal-overlay {
-              position: fixed;
+              position: absolute;
               top: 0;
               bottom: 0;
               left: 0;
@@ -106,34 +114,34 @@ class DishModal extends React.Component<Props, State> {
               display: flex;
               justify-content: center;
               align-items: center;
+              background: rgba(0, 0, 0, 0.6);
             }
             .dish-modal {
               position: relative;
-              min-width: 715px;
-              height: 456px;
+              width: 298px;
               border-radius: ${borderRadius};
               background-color: ${whiteColor};
               box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.3);
             }
-            .dish-modal :global(.image-slider) {
-              display: inline-block;
-              width: 290px;
-              height: 100%;
-              border-radius: ${borderRadius} 0 0 ${borderRadius};
+            .dish-modal__images {
+              display: block;
+              width: 100%;
+              height: 200px;
+              border-radius: ${borderRadius} ${borderRadius} 0 0;
             }
-            .dish-modal :global(.image-slider__legend) {
+            .dish-modal__images :global(.image-slider) {
+              border-radius: ${borderRadius} ${borderRadius} 0 0;
+            }
+            .dish-modal__images :global(.image-slider__legend) {
               position: absolute;
               bottom: 0;
               padding-bottom: 24px;
             }
-            .dish-modal :global(.image-slider__legend-circle) {
+            .dish-modal__images :global(.image-slider__legend-circle) {
               border: 0;
             }
             .dish-modal__content {
-              display: inline-flex;
-              width: calc(100% - 294px);
-              max-width: 421px;
-              height: 100%;
+              width: 100%;
               vertical-align: top;
               flex-direction: column;
               justify-content: space-between;
@@ -150,7 +158,7 @@ class DishModal extends React.Component<Props, State> {
             }
             .dish-modal__content-wrapper {
               width: 100%;
-              padding: 0 20px;
+              padding: 0 16px;
               box-sizing: border-box;
             }
             .dish-modal__content-wrapper :global(.dish-order__field-name) {
@@ -179,13 +187,52 @@ class DishModal extends React.Component<Props, State> {
               max-height: 36px;
               color: #9b9b9b;
             }
+            .dish-modal__order-wrapper {
+              width: 100%;
+            }
             .dish-modal .dish-order__subtotal {
               font-size: 20px;
               line-height: 1.2;
             }
             .dish-modal__content__button-container {
-              margin-right: 20px;
-              margin-bottom: 32px;
+              padding: 30px 16px;
+            }
+
+            @media (min-width: ${smallBreak}) {
+              .dish-modal-overlay {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+              }
+              .dish-modal {
+                width: 715px;
+                height: 456px;
+                margin: 0;
+              }
+              .dish-modal__images {
+                display: inline-block;
+                width: 290px;
+                height: 100%;
+                border-radius: ${borderRadius} 0 0 ${borderRadius};
+              }
+              .dish-modal__images :global(.image-slider) {
+                border-radius: ${borderRadius} 0 0 ${borderRadius};
+              }
+              .dish-modal__content {
+                display: inline-flex;
+                width: calc(100% - 294px);
+                max-width: 421px;
+                height: 100%;
+              }
+              .dish-modal__content-wrapper {
+                padding: 0 20px;
+              }
+              .dish-modal__content__button-container {
+                width: 212px;
+                padding: 0 20px 32px;
+              }
             }
           `}
         </style>

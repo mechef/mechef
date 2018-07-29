@@ -19,11 +19,14 @@
   "validationmessage_email": "validationmessage_email",
   "menu_empty_description": "menu_empty_description",
   "add_dish": "add_dish",
-  "accountedit_kitchen_name_placeholder": "accountedit_kitchen_name_placeholder",
+  "accountedit_kitchen_name_placeholder":
+    "accountedit_kitchen_name_placeholder",
   "accountedit_user_name": "accountedit_user_name",
   "accountedit_kitchen_description": "accountedit_kitchen_description",
-  "accountedit_phone_number_placeholder": "accountedit_phone_number_placeholder",
-  "accountedit_email_address_placeholder": "accountedit_email_address_placeholder",
+  "accountedit_phone_number_placeholder":
+    "accountedit_phone_number_placeholder",
+  "accountedit_email_address_placeholder":
+    "accountedit_email_address_placeholder",
   "accountpreview_button_update": "accountpreview_button_update",
   "accountpreview_bank_account": "accountpreview_bank_account",
   "accountpreview_button_edit": "accountpreview_button_edit",
@@ -32,5 +35,6 @@
   "meetup_default_description": "meetup_default_description",
   "add_meetup_option": "add_meetup_option",
   "shoppingcart_my_shopping_cart": "shoppingcart_my_shopping_cart",
-  "shoppingcart_empty_cart": "shoppingcart_empty_cart"
+  "shoppingcart_empty_cart": "shoppingcart_empty_cart",
+  "productdetail_order_question": "productdetail_order_question"
 }

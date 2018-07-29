@@ -27,6 +27,7 @@ import {
   dishPageRightBackground,
   dishPageHeaderColor,
   dishPageTextColor,
+  smallBreak,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -55,11 +56,13 @@ class DishPage extends React.Component<Props, State> {
   }
 
   onOrderChanged: Function;
+
   onOrderChanged(order: DishOrderType) {
     this.setState({ order });
   }
 
   createDefaultOrder: Function;
+
   createDefaultOrder = (menuItem: MenuObject) => {
     const unitPrice = parseInt(menuItem.unitPrice, 10) || 0;
     const maxServing = parseInt(menuItem.quantity, 10) || 0;
@@ -74,6 +77,7 @@ class DishPage extends React.Component<Props, State> {
   };
 
   addToCartClicked: Function;
+
   addToCartClicked() {
     if (!this.props.selectedDish) {
       return;
@@ -109,7 +113,7 @@ class DishPage extends React.Component<Props, State> {
         .map(deliveryOption => (
           <span
             key={deliveryOption}
-            className="dish-page__left__delivery-option-badge"
+            className="dish-page__product-info__delivery-option-badge"
           >
             {deliveryOption}
           </span>
@@ -120,53 +124,53 @@ class DishPage extends React.Component<Props, State> {
         {this.props.isLoading ? <Spinner /> : null}
         {!this.props.isLoading && selectedDish && selectedDish.dishName ? (
           <div className="dish-page__main">
-            <div className="dish-page__left">
-              <div className="dish-page__left__header">
-                <div className="dish-page__left__header--left">
+            <div className="dish-page__product-info">
+              <div className="dish-page__product-info__header">
+                <div className="dish-page__product-info__images">
                   <ImageSlider images={selectedDish.images} />
                 </div>
-                <div className="dish-page__left__header--right">
-                  <div className="dish-page__left__header__row">
-                    <div className="dish-page__left__dish-name">
+                <div className="dish-page__product-info__summary">
+                  <div className="dish-page__product-info__header__row">
+                    <div className="dish-page__product-info__dish-name">
                       {selectedDish.dishName}
                     </div>
-                    <div className="dish-page__left__dish-delivery">
+                    <div className="dish-page__product-info__dish-delivery">
                       {renderDeliveryOptions(selectedDish.deliveryList)}
                     </div>
                   </div>
-                  <div className="dish-page__left__header__row">
-                    <div className="dish-page__left__header__title">
+                  <div className="dish-page__product-info__header__row">
+                    <div className="dish-page__product-info__header__title">
                       {t('productdetail_remain_quantity')}
                     </div>
-                    <div className="dish-page__left__header__field">
+                    <div className="dish-page__product-info__header__field">
                       {selectedDish.quantity}
                     </div>
                   </div>
-                  <div className="dish-page__left__header__row">
-                    <div className="dish-page__left__header__title">
+                  <div className="dish-page__product-info__header__row">
+                    <div className="dish-page__product-info__header__title">
                       {t('productdetail_unit_price')}
                     </div>
-                    <div className="dish-page__left__header__field">
+                    <div className="dish-page__product-info__header__field">
                       {selectedDish.unitPrice}
                     </div>
                   </div>
                 </div>
               </div>
-              <hr className="dish-page__left__header-divider" />
-              <div className="dish-page__left__section">
-                <div className="dish-page__left__field-title">
+              <hr className="dish-page__product-info__header-divider" />
+              <div className="dish-page__product-info__section">
+                <div className="dish-page__product-info__field-title">
                   {t('productdetail_product_description')}
                 </div>
-                <div className="dish-page__left__field-content">
+                <div className="dish-page__product-info__field-content">
                   {selectedDish.description}
                 </div>
               </div>
-              <div className="dish-page__left__section">
-                <div className="dish-page__left__section__cell">
-                  <div className="dish-page__left__field-title">
+              <div className="dish-page__product-info__section">
+                <div className="dish-page__product-info__section__cell">
+                  <div className="dish-page__product-info__field-title">
                     {t('productdetail_serving')}
                   </div>
-                  <div className="dish-page__left__field-content">
+                  <div className="dish-page__product-info__field-content">
                     {selectedDish.serving
                       ? `${selectedDish.serving} ${t(
                           'productdetail_serving_unit',
@@ -174,11 +178,11 @@ class DishPage extends React.Component<Props, State> {
                       : '-'}
                   </div>
                 </div>
-                <div className="dish-page__left__section__cell">
-                  <div className="dish-page__left__field-title">
+                <div className="dish-page__product-info__section__cell">
+                  <div className="dish-page__product-info__field-title">
                     {t('productdetail_prep_time')}
                   </div>
-                  <div className="dish-page__left__field-content">
+                  <div className="dish-page__product-info__field-content">
                     {selectedDish.cookingBuffer
                       ? `${selectedDish.cookingBuffer} ${t(
                           'productdetail_prep_time_unit',
@@ -188,15 +192,15 @@ class DishPage extends React.Component<Props, State> {
                 </div>
               </div>
               {selectedDish.category && selectedDish.category.length > 0 ? (
-                <div className="dish-page__left__section">
-                  <div className="dish-page__left__field-title dish-page__left__category">
+                <div className="dish-page__product-info__section">
+                  <div className="dish-page__product-info__field-title dish-page__product-info__category">
                     {t('productdetail_category')}
                   </div>
-                  <div className="dish-page__left__field-content">
+                  <div className="dish-page__product-info__field-content">
                     {selectedDish.category &&
                       selectedDish.category.map(categoryText => (
                         <div
-                          className="dish-page__left__field-content__label"
+                          className="dish-page__product-info__field-content__label"
                           key={categoryText}
                         >
                           {categoryText}
@@ -207,15 +211,15 @@ class DishPage extends React.Component<Props, State> {
               ) : null}
               {selectedDish.ingredients &&
               selectedDish.ingredients.length > 0 ? (
-                <div className="dish-page__left__section">
-                  <div className="dish-page__left__field-title  dish-page__left__ingredients">
+                <div className="dish-page__product-info__section">
+                  <div className="dish-page__product-info__field-title  dish-page__product-info__ingredients">
                     {t('productdetail_ingredients')}
                   </div>
-                  <div className="dish-page__left__field-content">
+                  <div className="dish-page__product-info__field-content">
                     {selectedDish.ingredients &&
                       selectedDish.ingredients.map(ingredient => (
                         <div
-                          className="dish-page__left__field-content__label"
+                          className="dish-page__product-info__field-content__label"
                           key={ingredient}
                         >
                           {ingredient}
@@ -224,14 +228,14 @@ class DishPage extends React.Component<Props, State> {
                   </div>
                 </div>
               ) : null}
-              <hr className="dish-page__left__section-divider" />
-              <div className="dish-page__left__section">
-                <div className="dish-page__left__field-title">
+              <hr className="dish-page__product-info__section-divider" />
+              <div className="dish-page__product-info__section">
+                <div className="dish-page__product-info__field-title">
                   {t('productdetail_deli')}
                 </div>
                 {selectedDish.deliveryList &&
                 selectedDish.deliveryList.length > 0 ? (
-                  <div className="dish-page__left__field-content">
+                  <div className="dish-page__product-info__field-content">
                     {// filter is workaround for bug in api
                     selectedDish.deliveryList
                       .filter(deliveryOption => Boolean(deliveryOption))
@@ -247,20 +251,21 @@ class DishPage extends React.Component<Props, State> {
                 )}
               </div>
             </div>
-            <div className="dish-page__right">
-              <div className="dish-page__right__header">
+            <div className="dish-page__order">
+              <div className="dish-page__order__header">
                 {t('productdetail_your_order')}
               </div>
               <hr />
-              <div className="dish-page__right__order-detail">
+              <div className="dish-page__order__order-detail">
                 <DishOrder
                   price={selectedDish.unitPrice}
                   maxServing={selectedDish.quantity}
                   onOrderChange={this.onOrderChanged}
+                  textAreaWidth="100%"
                 />
               </div>
               <hr />
-              <div className="dish-page__right__footer">
+              <div className="dish-page__order__footer">
                 <AddToCartButton onAddToCartClick={this.addToCartClicked} />
               </div>
             </div>
@@ -297,7 +302,7 @@ class DishPage extends React.Component<Props, State> {
               font-family: Ubuntu;
               min-height: 100%;
               display: flex;
-              flex-direction: row;
+              flex-direction: column;
             }
             .dish-not-found {
               width: 100%;
@@ -306,45 +311,46 @@ class DishPage extends React.Component<Props, State> {
               justify-content: center;
               align-items: center;
             }
-            .dish-page__left {
-              max-width: calc(100% - ${dishPageRightWidth});
-              flex-basis: auto;
-              flex-grow: 1;
-              padding-left: 100px;
-              padding-right: 27px;
-              padding-top: 34px;
-              padding-bottom: 100px;
+            .dish-page__product-info {
+              width: 100%;
               color: ${dishPageTextColor};
               font-size: 12px;
+              padding-bottom: 35px;
             }
-            .dish-page__left__header-divider {
+            .dish-page__product-info__header {
               width: 100%;
-              margin: 50px auto 40px;
             }
-            .dish-page__left__section-divider {
-              width: 100%;
-              margin: 50px auto;
+            .dish-page__product-info__header-divider {
+              width: calc(100% - 12px - 12px);
+              margin: 30px 12px;
             }
-            .dish-page__left__section + .dish-page__left__section {
-              margin-top: 50px;
+            .dish-page__product-info__section-divider {
+              width: calc(100% - 12px - 12px);
+              margin: 40px auto;
             }
-            .dish-page__left__section__cell {
+            .dish-page__product-info__section {
+              padding: 0 12px;
+            }
+            .dish-page__product-info__section + .dish-page__product-info__section {
+              margin-top: 40px;
+            }
+            .dish-page__product-info__section__cell {
               display: inline-block;
               margin-right: 45px;
             }
-            .dish-page__left__field-title {
+            .dish-page__product-info__field-title {
               font-size: 16px;
               line-height: 1;
               color: ${dishPageHeaderColor};
               font-weight: 500;
-              padding-bottom: 15px;
+              padding-bottom: 27px;
             }
-            .dish-page__left__field-content {
+            .dish-page__product-info__field-content {
               font-size: 12px;
               line-height: 1.5;
               color: ${dishPageTextColor};
             }
-            .dish-page__left__field-content__label {
+            .dish-page__product-info__field-content__label {
               display: inline-block;
               max-width: 100%;
               border: 1px solid ${primaryColor};
@@ -360,26 +366,22 @@ class DishPage extends React.Component<Props, State> {
               white-space: nowrap;
               overflow: hidden;
             }
-            .dish-page__left__field-content__label:not(:last-child) {
+            .dish-page__product-info__field-content__label:not(:last-child) {
               margin-right: 10px;
             }
-            .dish-page__left__header--left {
-              display: inline-block;
-              width: ${dishPageImageSize};
-              vertical-align: top;
-            }
-            .dish-page__left__header--left :global(.image-slider__images-container) {
-              width: ${dishPageImageSize};
-              height: ${dishPageImageSize};
-            }
-            .dish-page__left__header--right {
-              display: inline-flex;
+            .dish-page__product-info__summary {
               flex-direction: column;
-              height: ${dishPageImageSize};
-              width: calc(100% - ${dishPageImageSize});
-              padding-left: 30px;
+              width: 100%;
+              padding: 12px 12px 0;
             }
-            .dish-page__left__header__row {
+            .dish-page__product-info__images {
+              width: 100%;
+              height: 320px;
+            }
+            .dish-page__product-info__images :global(.image-slider__legend-circle) {
+              background-color: transparent;
+            }
+            .dish-page__product-info__header__row {
               display: flex;
               width: 100%;
               flex-direction: row;
@@ -387,22 +389,22 @@ class DishPage extends React.Component<Props, State> {
               line-height: 1;
               letter-spacing: 0.6px;
             }
-            .dish-page__left__header__row + .dish-page__left__header__row {
+            .dish-page__product-info__header__row + .dish-page__product-info__header__row {
               margin-top: 20px;
             }
-            .dish-page__left__header__row:first-child {
+            .dish-page__product-info__header__row:first-child {
               flex-direction: column;
               flex-basis: auto;
               flex-grow: 1;
             }
-            .dish-page__left__header__title {
+            .dish-page__product-info__header__title {
               color: #909090;
               flex-grow: 1;
             }
-            .dish-page__left__header__field {
+            .dish-page__product-info__header__field {
               color: ${dishPageHeaderColor};
             }
-            .dish-page__left__dish-name {
+            .dish-page__product-info__dish-name {
               color: ${dishPageHeaderColor};
               font-size: 16px;
               font-weight: 500;
@@ -410,7 +412,7 @@ class DishPage extends React.Component<Props, State> {
               line-height: 1.5;
               margin-bottom: 20px;
             }
-            .dish-page__left__dish-delivery :global(span) {
+            .dish-page__product-info__dish-delivery :global(span) {
               border: solid 1px ${primaryColor};
               border-radius: 100px;
               padding: 5px 12px;
@@ -420,48 +422,46 @@ class DishPage extends React.Component<Props, State> {
               line-height: 1.4;
               text-transform: uppercase;
             }
-            .dish-page__left__category,
-            .dish-page__left__ingredients {
-              padding-bottom: 5px;
+            .dish-page__product-info__category,
+            .dish-page__product-info__ingredients {
+              padding-bottom: 17px;
             }
-            .dish-page__left__field-content :global(.dish-delivery-option):not(:last-child) {
+            .dish-page__product-info__field-content :global(.dish-delivery-option):not(:last-child) {
               margin-bottom: 25px;
             }
-            .dish-page__right {
-              flex-basis: ${dishPageRightWidth};
-              flex-grow: 0;
-              flex-shrink: 0;
+            .dish-page__order {
               background-color: ${dishPageRightBackground};
+              padding: 0 12px;
+              box-sizing: border-box;
             }
-            .dish-page__right :global(.textAreaInput) {
+            .dish-page__order :global(.textAreaInput) {
               background-color: ${dishPageRightBackground};
-              max-width: 250px;
+              max-width: 100%;
             }
-            .dish-page__right__header {
+            .dish-page__order hr {
+              width: 100%;
+            }
+            .dish-page__order__header {
               text-align: center;
               display: block;
-              width: ${dishPageRightWidth};
+              width: 100%;
               line-height: 1.5;
               font-size: 16px;
               color: ${dishPageHeaderColor};
-              margin: 0 auto;
-              padding-top: 38px;
-              padding-bottom: 38px;
+              padding: 33px 0 23px;
             }
-            .dish-page__right hr {
-              width: calc(100% - (${dishPageRightHorizontalMargin} * 2));
+            .dish-page__order__order-detail {
+              padding: 27px 0 30px;
             }
-            .dish-page__right__order-detail {
-              padding: 47px ${dishPageRightHorizontalMargin} 30px;
+            .dish-page__order__footer {
+              margin: 30px 0;
             }
-            .dish-page__right__footer {
-              margin: 40px 0;
-            }
-            .dish-page__right__footer .addToCartButton {
-              width: 250px;
+            .dish-page__order__footer .addToCartButtonContainer {
+              margin: 0;
             }
 
             .dish-page__footer {
+              display: none;
               position: relative;
               border-top: 1px solid #b9b9b9;
             }
@@ -500,6 +500,73 @@ class DishPage extends React.Component<Props, State> {
               color: ${primaryColor};
               padding-bottom: 50px;
               text-decoration: none;
+            }
+
+            @media (min-width: ${smallBreak}) {
+              .dish-page__main {
+                flex-direction: row;
+              }
+              .dish-page__product-info {
+                max-width: calc(100% - ${dishPageRightWidth});
+                flex-basis: auto;
+                flex-grow: 1;
+                padding-left: 100px;
+                padding-right: 27px;
+                padding-top: 34px;
+                padding-bottom: 100px;
+              }
+              .dish-page__product-info__summary {
+                display: inline-flex;
+                width: calc(100% - ${dishPageImageSize});
+                padding: 0;
+                padding-left: 30px;
+                box-sizing: border-box;
+              }
+              .dish-page__product-info__header-divider {
+                width: 100%;
+                margin: 26px auto 40px;
+              }
+              .dish-page__product-info__section + .dish-page__product-info__section {
+                margin-top: 50px;
+              }
+              .dish-page__product-info__section-divider {
+                width: 100%;
+                margin: 50px auto;
+              }
+              .dish-page__product-info__images {
+                display: inline-block;
+                width: ${dishPageImageSize};
+                height: 300px;
+                vertical-align: top;
+              }
+              .dish-page__product-info__images :global(.image-slider__images-container) {
+                height: calc(100% - 50px);
+              }
+              .dish-page__product-info__images :global(.image-slider__legend) {
+                padding-top: 25px;
+              }
+              .dish-page__product-info__section {
+                padding: 0;
+              }
+              .dish-page__order {
+                max-width: ${dishPageRightWidth};
+                flex-basis: ${dishPageRightWidth};
+                flex-grow: 0;
+                flex-shrink: 0;
+                padding: 0 ${dishPageRightHorizontalMargin};
+              }
+              .dish-page__order__header {
+                padding: 38px 0;
+              }
+              .dish-page__order__order-detail {
+                padding: 47px 0 30px;
+              }
+              .dish-page__order__footer {
+                margin: 40px 0;
+              }
+              .dish-page__footer {
+                display: block;
+              }
             }
           `}
         </style>

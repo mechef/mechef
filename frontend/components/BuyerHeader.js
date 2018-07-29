@@ -6,7 +6,7 @@ import CartButton from './CartButton';
 
 import { connect } from '../state/RxState';
 import type { CartObject } from '../utils/flowTypes';
-import { textColor, whiteColor } from '../utils/styleVariables';
+import { textColor, smallBreak, whiteColor } from '../utils/styleVariables';
 
 type Props = {
   cart: CartObject,
@@ -52,22 +52,21 @@ const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
           justify-content: space-between;
           align-items: center;
           width: 100%;
-          height: 90px;
+          height: 64px;
           background-color: ${whiteColor};
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
           font-family: Ubuntu;
         }
         .buyer-header--left {
-          margin: 13px 0px 7px 89px;
+          margin-left: 8px;
         }
         .buyer-header__logo {
-          height: 70px;
-          width: 113px;
+          height: 50px;
         }
         .buyer-header--right {
-          padding-right: 100px;
-          height: 30px;
           display: inline-flex;
+          height: 30px;
+          padding-right: 16px;
           flex-grow: 1;
           align-items: center;
           justify-content: flex-end;
@@ -79,6 +78,24 @@ const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
           letter-spacing: 0.6;
           color: ${textColor};
           margin-right: 30px;
+          display: none;
+        }
+        @media (min-width: ${smallBreak}) {
+          .buyer-header {
+            height: 90px;
+          }
+          .buyer-header--left {
+            margin: 13px 0 7px 89px;
+          }
+          .buyer-header--right {
+            padding-right: 64px;
+          }
+          .buyer-header__logo {
+            height: 70px;
+          }
+          .buyer-header__link {
+            display: inline;
+          }
         }
       `}
     </style>

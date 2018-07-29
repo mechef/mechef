@@ -8,6 +8,8 @@ import DishPage from './DishPage';
 import type { KitchenObject } from '../utils/flowTypes';
 import { IMAGE_URL } from '../utils/constants';
 
+import { smallBreak } from '../utils/styleVariables';
+
 type Props = {
   query: {
     kitchen: string,
@@ -18,7 +20,7 @@ type Props = {
 
 const KitchenPageRouter = ({ kitchen, query }: Props) => (
   <div className="kitchen">
-    <div className="kitchen-cover" />
+    <div className={`kitchen-cover${query.dish ? '--hidden' : ''}`} />
     {!query.dish ? (
       <KitchenPage kitchen={kitchen} kitchenName={query.kitchen} />
     ) : (
@@ -27,11 +29,12 @@ const KitchenPageRouter = ({ kitchen, query }: Props) => (
     <style jsx>
       {`
         .kitchen {
-          min-width: 1024px;
+          width: 100%;
+          position: relative;
         }
-        .kitchen-cover {
-          display: block;
-          height: 250px;
+        .kitchen-cover,
+        .kitchen-cover--hidden {
+          height: 200px;
           background-repeat: no-repeat;
           background-size: cover;
           background-position: center;
@@ -40,6 +43,18 @@ const KitchenPageRouter = ({ kitchen, query }: Props) => (
               ? `${IMAGE_URL}/${kitchen.coverPhoto}`
               : '/static/pancake.jpg'
           }'), url('/static/pancake.jpg');
+        }
+
+        .kitchen-cover--hidden {
+          display: none;
+        }
+
+        @media (min-width: ${smallBreak}) {
+          .kitchen-cover,
+          .kitchen-cover--hidden {
+            height: 250px;
+            display: block;
+          }
         }
       `}
     </style>

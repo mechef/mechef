@@ -31,6 +31,7 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
   }
 
   saveRef: Function;
+
   saveRef(container: HTMLDivElement) {
     this.container = container;
     if (this.container) {
@@ -41,12 +42,14 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
   }
 
   updatePosition: Function;
+
   updatePosition(index: number) {
     const scrollPosition = -1 * index * this.state.containerWidth;
     this.setState({ scrollPosition });
   }
 
   selectImage: Function;
+
   selectImage(index: number) {
     if (index !== this.state.selectedIndex) {
       this.setState({ selectedIndex: index });
@@ -95,6 +98,7 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
             .image-slider {
               position: relative;
               overflow: hidden;
+              height: 100%;
             }
             .image-slider__images-container {
               background-color: #d8d8d8;
@@ -123,7 +127,9 @@ class ImageSlider extends React.Component<ImageSliderProps, ImageSliderState> {
               display: flex;
               align-items: center;
               justify-content: center;
-              padding-top: 20px;
+              padding-bottom: 24px;
+              position: absolute;
+              bottom: 0;
             }
             .image-slider__legend-circle {
               border: 1px solid #3f9f40;

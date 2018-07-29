@@ -3,23 +3,27 @@
 import React from 'react';
 
 import { IMAGE_URL } from '../utils/constants';
+import {
+  fontWeight,
+  kitchenHeaderProfileImageSize,
+  kitchenHeaderProfileImageSizeSmall,
+  smallBreak,
+  textHintColor,
+} from '../utils/styleVariables';
 
 type Props = {
   name?: string,
   description?: string,
   profileImage?: string,
-  noDescription?: boolean,
 };
 
-const KitchenHeader = ({
-  name,
-  description,
-  profileImage,
-  noDescription,
-}: Props) => (
+const KitchenHeader = ({ name, description, profileImage }: Props) => (
   <div className="kitchen-header">
     <div className="kitchen-header__name">
-      <span>@{name}</span>
+      <span>
+        @
+        {name}
+      </span>
     </div>
     <div className="kitchen-header__description">{description}</div>
     <style jsx>
@@ -29,25 +33,24 @@ const KitchenHeader = ({
           justify-content: center;
           flex-direction: column;
           color: #525252;
-          padding-left: 100px;
         }
         .kitchen-header__name {
-          font-weight: 500;
-          margin-top: 16px;
-          margin-bottom: 16px;
-          line-height: 18px;
-          font-size: 18px;
+          font-weight: ${fontWeight};
+          margin-top: -22px;
+          margin-bottom: 10px;
+          line-height: 1;
+          font-size: 16px;
           position: relative;
         }
         .kitchen-header__name:before {
           display: block;
           content: '';
-          width: 80px;
-          height: 80px;
-          border-radius: 40px;
-          position: absolute;
-          bottom: -10px;
-          left: -100px;
+          width: ${kitchenHeaderProfileImageSizeSmall};
+          height: ${kitchenHeaderProfileImageSizeSmall};
+          border-radius: 50%;
+          position: relative;
+          margin-bottom: 20px;
+          left: 6px;
           background-image: url('${
             profileImage
               ? `${IMAGE_URL}/${profileImage}`
@@ -58,8 +61,26 @@ const KitchenHeader = ({
         }
         .kitchen-header__description {
           line-height: 1.5;
-          font-size: 16px;
-          color: #9b9b9b;
+          color: ${textHintColor};
+        }
+
+        @media (min-width: ${smallBreak}) {
+          .kitchen-header {
+            padding-left: 100px;
+          }
+          .kitchen-header__name {
+            margin-top: 16px;
+            margin-bottom: 16px;
+            font-size: 18px;
+            line-height: 0.9;
+          }
+          .kitchen-header__name:before {
+            width: ${kitchenHeaderProfileImageSize};
+          height: ${kitchenHeaderProfileImageSize};
+            position: absolute;
+            bottom: -10px;
+            left: -100px;
+          }
         }
       `}
     </style>

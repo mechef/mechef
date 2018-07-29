@@ -15,10 +15,10 @@ import kitchenActions from '../actions/kitchenActions';
 import cartActions from '../actions/cartActions';
 import type { CartObject, CartOrderObject } from '../utils/flowTypes';
 
-import { fontSize } from '../utils/styleVariables';
+import { smallBreak, fontSize } from '../utils/styleVariables';
 
 type Props = {
-  t: any,
+  t: (key: string) => string,
   url: {
     query: {
       kitchen: string,
@@ -64,6 +64,7 @@ class Cart extends React.PureComponent<Props, State> {
   }
 
   onOrderModified: Function;
+
   onOrderModified(order: CartOrderObject) {
     this.props.modifyOrderInCart$({
       order,
@@ -72,15 +73,18 @@ class Cart extends React.PureComponent<Props, State> {
   }
 
   onRemoveButtonClicked: Function;
+
   onRemoveButtonClicked(id: number) {
     this.props.removeFromCart$({ kitchen: this.props.url.query.kitchen, id });
   }
 
   calculateOrderPrice: Function;
+
   calculateOrderPrice = ({ quantity = 1, unitPrice = 0 }) =>
     quantity * unitPrice;
 
   calculateSubTotal: Function;
+
   calculateSubTotal(orders) {
     return orders.reduce(
       (total, order) => total + this.calculateOrderPrice(order),
@@ -89,9 +93,11 @@ class Cart extends React.PureComponent<Props, State> {
   }
 
   formatPrice: Function;
+
   formatPrice = price => `$${price}.00`;
 
   updatePrices: Function;
+
   updatePrices(orders: Array<CartOrderObject>) {
     const subTotal = this.calculateSubTotal(orders);
     const total = subTotal;
@@ -102,11 +108,12 @@ class Cart extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { cart, t } = this.props;
+    const { cart, t, url } = this.props;
+    const { subTotal, shipping, total } = this.state;
 
     return (
       <div className="wrapper">
-        <BuyerHeader />
+        <BuyerHeader cart={cart} kitchenName={url.query.kitchen} />
         <div className="cart">
           <div className="cart-header">
             {t('shoppingcart_my_shopping_cart')}
@@ -136,32 +143,43 @@ class Cart extends React.PureComponent<Props, State> {
                 <span className="cart-footer__item__label">
                   {t('shoppingcart_subtotal')}
                 </span>
-                <span>{this.formatPrice(this.state.subTotal)}</span>
+                <span>{this.formatPrice(subTotal)}</span>
               </div>
               <div className="cart-footer__item">
                 <span className="cart-footer__item__label">
                   {t('shoppingcart_shipping_c')}
                 </span>
-                <span>{this.formatPrice(this.state.shipping)}</span>
+                <span>{this.formatPrice(shipping)}</span>
               </div>
               <hr />
               <div className="cart-footer__item">
                 <span className="cart-footer__item__label">
                   {t('shoppingcart_total')}
                 </span>
-                <span>{this.formatPrice(this.state.total)}</span>
+                <span>{this.formatPrice(total)}</span>
               </div>
-              <Button
-                buttonStyle="primary"
-                size="small"
-                onClick={() => {
-                  Router.push({
-                    pathname: `/checkout/${this.props.url.query.kitchen}`,
-                  });
-                }}
-              >
-                {t('shoppingcart_place_order')}
-              </Button>
+              <div className="cart-footer__buttons-container">
+                <Button
+                  buttonStyle="greenBorderOnly"
+                  onClick={() => {
+                    Router.push({
+                      pathname: `/kitchen/${url.query.kitchen}`,
+                    });
+                  }}
+                >
+                  {t('shoppingcart_continue_shopping')}
+                </Button>
+                <Button
+                  buttonStyle="primary"
+                  onClick={() => {
+                    Router.push({
+                      pathname: `/checkout/${url.query.kitchen}`,
+                    });
+                  }}
+                >
+                  {t('shoppingcart_place_order')}
+                </Button>
+              </div>
             </div>
           ) : null}
         </div>
@@ -179,23 +197,42 @@ class Cart extends React.PureComponent<Props, State> {
           justify-content: space-between;
             }
             hr {
-              width: 100%;
+              width: calc(100% - 16px);
+              margin: 0 8px;
               height: 2px;
               opacity: 0.3;
               background-color: #9b9b9b;
             }
+            @media (min-width: ${smallBreak}) {
+              hr {
+                margin: 0;
+                width: 100%;
+              }
+            }
             .cart {
-              margin: 0 100px;
-              min-width: 596px;
+              margin: 0;
+              min-width: 100%;
+            }
+            @media (min-width: ${smallBreak}) {
+              .cart {
+                margin: 0 100px;
+                min-width: 596px;
+              }
             }
             .cart-header {
               width: 100%;
-              padding: 90px 0 30px;
+              padding: 52px 0 20px;
               font-family: Playball;
-              font-size: 30px;
+              font-size: 18px;
               line-height: 1;
               color: #525252;
               text-align: center;
+            }
+            @media (min-width: ${smallBreak}) {
+              .cart-header {
+                padding: 90px 0 30px;
+                font-size: 30px;
+              }
             }
             .cart-content__no-order {
               display: flex;
@@ -206,24 +243,69 @@ class Cart extends React.PureComponent<Props, State> {
               min-height: 120px;
             }
             .cart-footer {
-              line-height: 24px;
               text-align: right;
-              padding-bottom: 100px;
+              padding-bottom: 40px;
+            }
+            @media (min-width: ${smallBreak}) {
+              .cart-footer {
+                line-height: 24px;
+                padding-bottom: 100px;
+              }
             }
             .cart-footer__item {
-              padding: 25px 50px;
-              min-width: 326px;
+              padding: 21px 24px;
+              display: flex;
+              justify-content: space-between;
+              align-items: flex-start;
+            }
+            @media (min-width: ${smallBreak}) {
+              .cart-footer__item {
+                padding: 24px 50px;
+                min-width: 326px;
+                justify-content: flex-end;
+              }
+            }
+            .cart-footer__item + .cart-footer__item {
+              padding-top: 0;
             }
             .cart-footer__item .cart-footer__item__label {
-              width: 120px;
+              display: block;
+              width: 150px;
               text-align; right;
             }
             .cart-footer__item .cart-footer__item__label + span {
-              width: 153px;
-              display: inline-block;
+              width: 125px;
+              display: block;
             }
-            .cart-footer > .cart-footer__item + .cart-footer__item {
-              padding-top: 18px;
+            @media (min-width: ${smallBreak}) {
+              .cart-footer__item .cart-footer__item__label + span {
+                width: 160px;
+              }
+            }
+            .cart-footer__buttons-container {
+              padding: 48px 24px 0;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+            .cart-footer__buttons-container :global(button) {
+              width: 100%;
+            }
+            .cart-footer__buttons-container :global(button:not(:last-child)) {
+              margin-bottom: 20px;
+            }
+            @media (min-width: ${smallBreak}) {
+              .cart-footer__buttons-container {
+                padding: 28px 0 0;
+                flex-direction: row;
+                justify-content: space-between;
+              }
+              .cart-footer__buttons-container :global(button) {
+                width: 212px;
+              }
+              .cart-footer__buttons-container :global(button:not(:last-child)) {
+                margin-bottom: 0;
+              }
             }
           `}
         </style>

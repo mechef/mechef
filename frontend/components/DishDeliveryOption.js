@@ -9,6 +9,7 @@ import {
   textHintColor,
   textColor,
   fontSize,
+  smallBreak,
 } from '../utils/styleVariables';
 
 type MeetupProps = {
@@ -58,7 +59,7 @@ class Meetup extends React.Component<MeetupProps> {
     };
 
     return (
-      <div>
+      <div className="meetup-wrapper">
         <div className="meetup__type">
           {t('menucreatemenu_menu_meetup_description')}
         </div>
@@ -68,14 +69,15 @@ class Meetup extends React.Component<MeetupProps> {
             {formatDeliveryDays(meetupDetail)}
           </span>
           <span>
-            {meetupStartTime} - {meetupEndTime}
+            {meetupStartTime} -&nbsp;
+            {meetupEndTime}
           </span>
         </div>
         {note ? <div className="meetup__note">{note}</div> : null}
         <style jsx>
           {`
-            div + div {
-              margin-top: 12px;
+            .meetup-wrapper > div:not(:last-child) {
+              padding-bottom: 12px;
             }
             .meetup__type {
               color: ${textHintColor};
@@ -100,7 +102,7 @@ type ShippingProps = {
 };
 
 const Shipping = ({ meetupAddress, note, t }: ShippingProps) => (
-  <div>
+  <div className="shipping-wrapper">
     <div className="shipping__cell">
       <div className="shipping__title">
         {t('menucreatemenu_menu_shipping_description')}
@@ -116,19 +118,24 @@ const Shipping = ({ meetupAddress, note, t }: ShippingProps) => (
     {note ? <div className="shipping__note">{note}</div> : null}
     <style jsx>
       {`
+        .shipping-wrapper {
+          vertical-align: top;
+        }
         .shipping__cell {
           display: inline-block;
+          box-sizing: border-box;
+          width: 140px;
+          vertical-align: top;
         }
-        .shipping__cell + .shipping__cell {
-          margin-left: 54px;
-        }
-        .shipping__cell > div + div {
-          margin-top: 12px;
+        .shipping__cell:not(:last-child) {
+          padding-right: 8px;
         }
         .shipping__title {
           color: ${textHintColor};
+          padding-bottom: 12px;
         }
         .shipping__note {
+          padding-top: 12px;
           font-size: 12px;
         }
       `}
@@ -152,7 +159,7 @@ const DishDeliveryOption = ({ t, type, ...deliveryOption }: Props) => (
       {`
         .dish-delivery-option {
           border-left: 2px solid ${primaryColor};
-          padding-left: 20px;
+          padding-left: 18px;
           line-height: 1;
           font-size: ${fontSize};
           color: ${textColor};

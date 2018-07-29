@@ -1,4 +1,5 @@
 // Global
+export const smallBreak = '478px';
 export const primaryColor = '#3e9f40';
 export const textColor = '#4a4a4a';
 export const textHintColor = '#9b9b9b';
@@ -21,6 +22,7 @@ export const btnHeight = '50px';
 export const lineHeight = '1.14';
 export const fontWeight = '500';
 export const fontSize = '14px';
+export const fontSizeSmall = '12px';
 export const primaryBtnHoverColor = '#367d36';
 export const secondaryBtnHoverColor = '#3f9f40';
 
@@ -67,8 +69,11 @@ export const buyerFooterLineHeight = '1';
 // Cart Button
 export const badgeBackgroundColor = '#8cc63f';
 
-// Add To Cart Button
-export const addToCartButtonWidth = '228px';
+// Cart Item
+export const cartItemPadding = '30px 0 18px';
+export const cartItemPaddingSmall = '20px 8px 22px';
+export const cartItemImageSize = '160px';
+export const cartItemImageSizeSmall = '80px';
 
 // Dish Page
 export const dishPageImageSize = '250px';
@@ -77,3 +82,7 @@ export const dishPageRightWidth = '340px';
 export const dishPageRightBackground = '#f8f8f8';
 export const dishPageHeaderColor = '#4a4a4a';
 export const dishPageTextColor = '#9b9b9b';
+
+// Kitchen Header
+export const kitchenHeaderProfileImageSize = '80px';
+export const kitchenHeaderProfileImageSizeSmall = '50px';

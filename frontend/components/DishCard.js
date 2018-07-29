@@ -58,7 +58,9 @@ const DishCard = ({
       <div className="dish-card__description">{description}</div>
       <div className="dish-card__price">{unitPrice}</div>
     </div>
-    <AddToCartButton onAddToCartClick={onAddToCartClick} />
+    <div className="dish-card__button">
+      <AddToCartButton onAddToCartClick={onAddToCartClick} />
+    </div>
     <style jsx>
       {`
         .dish-card {
@@ -74,7 +76,7 @@ const DishCard = ({
         .dish-card__content {
           flex: 0 0 277px;
           overflow: hidden;
-          height: calc(100% - ${addToCartButtonHeight});
+          height: 312px;
           max-height: 312px;
         }
         .dish-card__image-container {
@@ -119,7 +121,7 @@ const DishCard = ({
           font-weight: ${fontWeight};
           font-family: AvenirNext;
           line-height: 1.2;
-          color: ${textHintColor}
+          color: ${textHintColor};
           padding: 10px 16px 0px;
           overflow: hidden;
           max-height: 36px;
@@ -131,6 +133,9 @@ const DishCard = ({
           color: ${textHintColor};
           font-size: ${fontSize};
           font-weight: ${fontWeight};
+        }
+        .dish-card__button {
+          padding: 0 16px;
         }
       `}
     </style>
