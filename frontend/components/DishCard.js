@@ -76,7 +76,7 @@ const DishCard = ({
         .dish-card__content {
           flex: 0 0 277px;
           overflow: hidden;
-          height: calc(100% - ${addToCartButtonHeight});
+          height: 312px;
           max-height: 312px;
         }
         .dish-card__image-container {
