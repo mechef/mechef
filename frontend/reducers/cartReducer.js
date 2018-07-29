@@ -38,15 +38,29 @@ const cartReducer$ = Rx.Observable.of(() => initialState).merge(
     };
   }),
   cartActions.addToCart$.map(({ kitchen, ...order }) => state => {
+    const dishFound = state.orders.some(
+      storeOrder => storeOrder.dishId === order.dishId,
+    );
+    const orders = dishFound
+      ? state.orders.map(storeOrder => {
+          const quantity =
+            storeOrder.dishId === order.dishId
+              ? storeOrder.quantity + order.quantity
+              : storeOrder.quantity;
+          return {
+            ...storeOrder,
+            quantity,
+          };
+        })
+      : [
+          ...state.orders,
+          {
+            ...order,
+            kitchen,
+          },
+        ];
     const newCart = {
-      orders: [
-        ...state.orders,
-        {
-          ...order,
-          kitchen,
-          _id: Date.now(),
-        },
-      ],
+      orders,
     };
     window.localStorage.setItem(
       `${encodeURIComponent(kitchen)}_cart`,
