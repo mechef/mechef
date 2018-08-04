@@ -205,80 +205,72 @@ class Login extends React.Component<Props, State> {
               </div>
               <div className="register">
                 <p className="title">{this.props.t('beacheftoday')}</p>
-                <div>
-                  <TextInput
-                    type="text"
-                    placeholder="First Name"
-                    size="medium"
-                    value={this.state.signup.firstName}
-                    onChange={evt => {
-                      if (evt && evt.target) {
-                        this.setState({
-                          signup: {
-                            ...this.state.signup,
-                            firstName: evt.target.value,
-                          },
-                        });
-                      }
-                    }}
-                  />
-                </div>
-                <div>
-                  <TextInput
-                    type="text"
-                    placeholder="Last Name"
-                    size="medium"
-                    value={this.state.signup.lastName}
-                    onChange={evt => {
-                      if (evt && evt.target) {
-                        this.setState({
-                          signup: {
-                            ...this.state.signup,
-                            lastName: evt.target.value,
-                          },
-                        });
-                      }
-                    }}
-                  />
-                </div>
-                <div>
-                  <TextInput
-                    type="tel"
-                    placeholder="Telephone Number"
-                    size="medium"
-                    value={this.state.signup.password}
-                    onChange={evt => {
-                      if (evt && evt.target) {
-                        this.setState({
-                          signup: {
-                            ...this.state.signup,
-                            password: evt.target.value,
-                          },
-                        });
-                      }
-                    }}
-                  />
-                </div>
-                <div>
-                  <TextInput
-                    type="email"
-                    pattern="^.+@.+\..+$"
-                    validationMessage={this.props.t('validationmessage_email')}
-                    placeholder="Email Address"
-                    size="medium"
-                    value={this.state.signup.email}
-                    onChange={evt => {
-                      if (evt && evt.target) {
-                        this.setState({
-                          signup: {
-                            ...this.state.signup,
-                            email: evt.target.value,
-                          },
-                        });
-                      }
-                    }}
-                  />
-                </div>
+                <TextInput
+                  type="text"
+                  placeholder="First Name"
+                  size="medium"
+                  value={this.state.signup.firstName}
+                  onChange={evt => {
+                    if (evt && evt.target) {
+                      this.setState({
+                        signup: {
+                          ...this.state.signup,
+                          firstName: evt.target.value,
+                        },
+                      });
+                    }
+                  }}
+                />
+                <TextInput
+                  type="text"
+                  placeholder="Last Name"
+                  size="medium"
+                  value={this.state.signup.lastName}
+                  onChange={evt => {
+                    if (evt && evt.target) {
+                      this.setState({
+                        signup: {
+                          ...this.state.signup,
+                          lastName: evt.target.value,
+                        },
+                      });
+                    }
+                  }}
+                />
+                <TextInput
+                  type="tel"
+                  placeholder="Telephone Number"
+                  size="medium"
+                  value={this.state.signup.password}
+                  onChange={evt => {
+                    if (evt && evt.target) {
+                      this.setState({
+                        signup: {
+                          ...this.state.signup,
+                          password: evt.target.value,
+                        },
+                      });
+                    }
+                  }}
+                />
+                <TextInput
+                  type="email"
+                  pattern="^.+@.+\..+$"
+                  validationMessage={this.props.t('validationmessage_email')}
+                  placeholder="Email Address"
+                  size="medium"
+                  value={this.state.signup.email}
+                  onChange={evt => {
+                    if (evt && evt.target) {
+                      this.setState({
+                        signup: {
+                          ...this.state.signup,
+                          email: evt.target.value,
+                        },
+                      });
+                    }
+                  }}
+                />
                 <div className="wrapper__submit">
                   <Button
                     type="primary"
@@ -311,7 +303,7 @@ class Login extends React.Component<Props, State> {
               position: relative;
               margin: 0 auto;
               width: 794px;
-              height: 480px;
+              height: 420px;
               min-height: 400px;
               background-color: rgba(0, 0, 0, 0.67);
               border-radius: 4px;
@@ -408,6 +400,17 @@ class Login extends React.Component<Props, State> {
             }
             .login-form > .wrapper.move input:focus {
               border-color: #e0b722;
+            }
+            .register {
+              width: 100%;
+            }
+
+            .mail {
+              width: 100%;
+            }
+
+            .passwd {
+              width: 100%;
             }
             .wrapper__submit {
               padding: 20px;
