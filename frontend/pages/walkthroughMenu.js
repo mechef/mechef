@@ -61,7 +61,7 @@ const WalkthroughMenu = () => (
         .title {
           width: 161px;
           height: 24px;
-          font-size: 24px;
+          font-size: 2.4rem;
           line-height: 1;
           text-align: center;
           color: #4a4a4a;

@@ -319,7 +319,7 @@ class AccountEdit extends React.Component<Props> {
             }
 
             .update-cover-photo__title {
-              font-size: 16px;
+              font-size: 1.6rem;
               font-weight: 500;
               letter-spacing: 0.7px;
               color: #ffffff;
@@ -394,7 +394,7 @@ class AccountEdit extends React.Component<Props> {
             }
 
             .update-profile-image__description-title {
-              font-size: 16px;
+              font-size: 1.6rem;
               font-weight: 500;
               letter-spacing: 0.7px;
               color: #4a4a4a;
@@ -402,7 +402,7 @@ class AccountEdit extends React.Component<Props> {
             }
 
             .update-profile-image__description-subtitle {
-              font-size: 14px;
+              font-size: 1.4rem;
               font-weight: 500;
               line-height: 1;
               letter-spacing: 0.6px;
@@ -416,7 +416,7 @@ class AccountEdit extends React.Component<Props> {
             }
 
             .bank-info__title {
-              font-size: 16px;
+              font-size: 1.6rem;
               font-weight: 500;
               line-height: 1;
               letter-spacing: 0.7px;
@@ -425,7 +425,7 @@ class AccountEdit extends React.Component<Props> {
             }
 
             .bank-info__subtitle {
-              font-size: 14px;
+              font-size: 1.4rem;
               font-weight: 500;
               line-height: 1;
               letter-spacing: 0.6px;

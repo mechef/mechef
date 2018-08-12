@@ -80,6 +80,14 @@ const Button = (props: Props) => (
         .expanded {
           width: 100%;
         }
+        @media screen and (max-width: 768px) {
+          .small {
+            width: 90%;
+          }
+          .medium {
+            width: 90%;
+          }
+        }
       `}
     </style>
   </button>

@@ -91,7 +91,7 @@ const Index = props => (
       }
       .title {
         font-family: 'Playball';
-        font-size: 24px;
+        font-size: 2.4rem;
         color: ${textColor};
       }
       .description {
@@ -99,7 +99,7 @@ const Index = props => (
         display: flex;
         justify-content: center;
         line-height: 1.5;
-        font-size: 16px;
+        font-size: 1.6rem;
         text-align: center;
         color: ${textColor};
       }

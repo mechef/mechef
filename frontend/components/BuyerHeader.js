@@ -73,7 +73,7 @@ const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
         }
         .buyer-header__link {
           cursor: pointer;
-          font-size: 15px;
+          font-size: 1.5rem;
           line-height: 1;
           letter-spacing: 0.6;
           color: ${textColor};

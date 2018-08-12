@@ -47,7 +47,7 @@ const KitchenClosedComponent = ({ t }: Props) => (
         .kitchen-closed-box__text {
           padding-top: 30px;
           font-family: Playball;
-          font-size: 24px;
+          font-size: 2.4rem;
           line-height: 1;
           text-align: center;
           color: #4a4a4a;
@@ -56,7 +56,7 @@ const KitchenClosedComponent = ({ t }: Props) => (
           padding-top: 38px;
           padding-bottom: 58px;
           font-family: Ubuntu;
-          font-size: 16px;
+          font-size: 1.6rem;
           line-height: 1.25;
           letter-spacing: 0.4px;
           color: #3f9f40;

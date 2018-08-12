@@ -165,7 +165,7 @@ class DishModal extends React.Component<Props, State> {
               color: #909090;
             }
             .dish-modal__content-wrapper :global(.dish-order__subtotal) {
-              font-size: 20px;
+              font-size: 2rem;
               line-height: 1.2;
               letter-spacing: 0.8px;
             }
@@ -182,7 +182,7 @@ class DishModal extends React.Component<Props, State> {
             .dish-modal__description {
               overflow: hidden;
               margin: 10px 20px 20px 0;
-              font-size: 12px;
+              font-size: 1.2rem;
               line-height: 1.5;
               max-height: 36px;
               color: #9b9b9b;
@@ -191,7 +191,7 @@ class DishModal extends React.Component<Props, State> {
               width: 100%;
             }
             .dish-modal .dish-order__subtotal {
-              font-size: 20px;
+              font-size: 2rem;
               line-height: 1.2;
             }
             .dish-modal__content__button-container {

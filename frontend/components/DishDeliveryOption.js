@@ -86,7 +86,7 @@ class Meetup extends React.Component<MeetupProps> {
               margin-right: 45px;
             }
             .meetup__note {
-              font-size: 12px;
+              font-size: 1.2rem;
             }
           `}
         </style>
@@ -136,7 +136,7 @@ const Shipping = ({ meetupAddress, note, t }: ShippingProps) => (
         }
         .shipping__note {
           padding-top: 12px;
-          font-size: 12px;
+          font-size: 1.2rem;
         }
       `}
     </style>

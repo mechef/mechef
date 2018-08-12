@@ -106,7 +106,7 @@ const DishCard = ({
           height: 100%;
         }
         .dish-card__name {
-          font-size: 16px;
+          font-size: 1.6rem;
           line-height: 1;
           letter-spacing: 0.7px;
           font-weight: ${fontWeight};

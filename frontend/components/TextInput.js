@@ -121,16 +121,24 @@ class TextInput extends React.Component<Props, State> {
         </div>
         <style jsx>
           {`
+            .container {
+              display: flex;
+              align-items: center;
+              width: 100%;
+              flex-direction: column;
+            }
             .inputWrapper {
               position: relative;
               display: flex;
               height: ${textInputHeight};
+              justify-content: center;
+              width: 100%;
             }
 
             .errorWrapper {
               padding-top: 5px;
               color: ${errorBorderColor};
-              font-size: 12px;
+              font-size: 1.2rem;
             }
 
             .textInput {
@@ -166,6 +174,18 @@ class TextInput extends React.Component<Props, State> {
             }
             .large {
               width: ${largeWidth};
+            }
+
+            @media screen and (max-width: 768px) {
+              .small {
+                width: 90%;
+              }
+              .medium {
+                width: 90%;
+              }
+              .large {
+                width: 90%;
+              }
             }
 
             .addBtn {

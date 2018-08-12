@@ -42,7 +42,7 @@ const CartButton = ({ t, itemCount = 0, onCartClicked }: Props) => (
           height: 30px;
           padding: 0 24px;
           cursor: pointer;
-          font-size: 12px;
+          font-size: 1.2rem;
           line-height: ${lineHeight};
           background-color: ${primaryColor};
           color: ${btnTextColor};
@@ -62,7 +62,7 @@ const CartButton = ({ t, itemCount = 0, onCartClicked }: Props) => (
           color: ${btnTextColor};
           background-color: ${badgeBackgroundColor};
           border-radius: 50%;
-          font-size: 11px;
+          font-size: 1.1rem;
           width: 24px;
           height: 24px;
         }

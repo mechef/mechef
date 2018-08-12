@@ -216,11 +216,7 @@ class Dashboard extends React.Component<Props, State> {
             .dashboard__right {
               flex: 5;
               height: 100%;
-            }
-            @media all and (max-width: 600px) {
-              .dashboard__left {
-                flex: 1;
-              }
+              width: calc(100% - 240px);
             }
             .dashboard-sidebar {
               width: 100%;
@@ -252,7 +248,7 @@ class Dashboard extends React.Component<Props, State> {
               height: 50px;
               cursor: pointer;
               line-height: 50px;
-              font-size: 14px;
+              font-size: 1.4rem;
               letter-spacing: 1px;
               color: ${btnTextColor};
               border-left: 9px solid ${transparent};
@@ -273,7 +269,7 @@ class Dashboard extends React.Component<Props, State> {
               height: 32px;
               padding-left: 45px;
               line-height: 32px;
-              font-size: 12px;
+              font-size: 1.2rem;
               letter-spacing: 0.9px;
               color: ${textHintColor};
             }
@@ -294,7 +290,7 @@ class Dashboard extends React.Component<Props, State> {
             .dashboard-header__title {
               margin-left: 24px;
               height: 20px;
-              font-size: 18px;
+              font-size: 1.8rem;
               color: #4a4a4a;
             }
 
@@ -359,7 +355,7 @@ class Dashboard extends React.Component<Props, State> {
               display: flex;
               justify-content: center;
               align-items: center;
-              font-size: 12px;
+              font-size: 1.2rem;
               cursor: pointer;
             }
 
@@ -367,7 +363,7 @@ class Dashboard extends React.Component<Props, State> {
               margin-left: 4px;
             }
 
-            @media all and (max-width: 600px) {
+            @media all and (max-width: 768px) {
               .dashboard-header__user-profile {
                 display: none;
               }
@@ -384,7 +380,7 @@ class Dashboard extends React.Component<Props, State> {
 
             .dashboard-content__title {
               margin-bottom: 30px;
-              font-size: 18px;
+              font-size: 1.8rem;
               line-height: 1.11;
               letter-spacing: 0.5px;
               text-align: left;

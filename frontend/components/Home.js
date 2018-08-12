@@ -4,6 +4,7 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 import moment from 'moment';
 import { translate } from 'react-i18next';
+import Media from 'react-media';
 import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
@@ -99,41 +100,61 @@ export class Home extends React.Component<Props> {
           ) : null}
         </p>
         {orderList && orderList.length ? (
-          <div className="orderTable">
-            <div className="tableHeader">
-              <span className="firstCell">{this.props.t('delivery_time')}</span>
-              <span className="secondCell">{this.props.t('buyer_name')}</span>
-              <span className="thirdCell">{this.props.t('order_name')}</span>
-              <span className="fourthCell">
-                {this.props.t('home_quantity')}
-              </span>
-            </div>
-            {orderList
-              .filter(order => order.state === ORDER_STATE.waiting)
-              .map((orderItem, index) => (
-                <div
-                  key={orderItem._id}
-                  className={`
-                  tableBody
-                  ${index % 2 === 0 ? 'greyBackground' : 'whiteBackground'}
-                  ${index === orderList.length - 1 ? 'borderBottomRadius' : ''}
-                `}
-                >
-                  <span className="firstCell greyText">
-                    {moment(orderItem.deliveryTime).format('MMM DD hh:mm')}
-                  </span>
-                  <span className="secondCell boldText">
-                    {orderItem.buyerName}
-                  </span>
-                  <span className="thirdCell boldText">
-                    {orderItem.dishName}
-                  </span>
-                  <span className="fourthCell boldText">
-                    {orderItem.quantity}
-                  </span>
+          <Media query="(max-width: 768px)">
+            {matches =>
+              matches ? (
+                <div>Test</div>
+              ) : (
+                <div className="orderTable">
+                  <div className="tableHeader">
+                    <span className="firstCell">
+                      {this.props.t('delivery_time')}
+                    </span>
+                    <span className="secondCell">
+                      {this.props.t('buyer_name')}
+                    </span>
+                    <span className="thirdCell">
+                      {this.props.t('order_name')}
+                    </span>
+                    <span className="fourthCell">
+                      {this.props.t('home_quantity')}
+                    </span>
+                  </div>
+                  {orderList
+                    .filter(order => order.state === ORDER_STATE.waiting)
+                    .map((orderItem, index) => (
+                      <div
+                        key={orderItem._id}
+                        className={`
+                      tableBody
+                      ${index % 2 === 0 ? 'greyBackground' : 'whiteBackground'}
+                      ${
+                        index === orderList.length - 1
+                          ? 'borderBottomRadius'
+                          : ''
+                      }
+                    `}
+                      >
+                        <span className="firstCell greyText">
+                          {moment(orderItem.deliveryTime).format(
+                            'MMM DD hh:mm',
+                          )}
+                        </span>
+                        <span className="secondCell boldText">
+                          {orderItem.buyerName}
+                        </span>
+                        <span className="thirdCell boldText">
+                          {orderItem.dishName}
+                        </span>
+                        <span className="fourthCell boldText">
+                          {orderItem.quantity}
+                        </span>
+                      </div>
+                    ))}
                 </div>
-              ))}
-          </div>
+              )
+            }
+          </Media>
         ) : (
           <div className="defaultComponentWrapper">
             <DefaultComponent>
@@ -152,7 +173,8 @@ export class Home extends React.Component<Props> {
               background-color: #f8f7f7;
               height: 100%;
               min-height: 882px;
-              overflow: scroll;
+              overflow-x: hidden;
+              overflow-y: scroll;
             }
             .dashboard-content__header {
               margin-bottom: 25px;
@@ -204,7 +226,7 @@ export class Home extends React.Component<Props> {
             }
 
             .kitchenLinkText {
-              font-size: 12px;
+              font-size: 1.2rem;
               line-height: 1.33;
               letter-spacing: 0.3px;
               color: #4a4a4a;
@@ -213,18 +235,27 @@ export class Home extends React.Component<Props> {
             .sellerId {
               margin-left: 116px;
               margin-bottom: 11px;
-              font-size: 24px;
+              font-size: 2.4rem;
               font-weight: 600;
-              line-height: 0.83;
+              line-height: 1.2;
               letter-spacing: 0.6px;
               color: #4a4a4a;
             }
             .sellerName {
               margin: 8px 0 20px 116px;
-              font-size: 14px;
+              font-size: 1.4rem;
               line-height: 1.43;
               letter-spacing: 0.6px;
               color: #4a4a4a;
+            }
+            @media all and (max-width: 768px) {
+              .sellerId {
+                margin-left: 20px;
+                margin-top: 40px;
+              }
+              .sellerName {
+                margin-left: 20px;
+              }
             }
             .orderTable {
               width: calc(100% - 40px);
@@ -237,7 +268,7 @@ export class Home extends React.Component<Props> {
               height: 50px;
               display: flex;
               align-items: center;
-              font-size: 12px;
+              font-size: 1.2rem;
               color: ${textColor};
               border-top-left-radius: 4px;
               border-top-right-radius: 4px;
@@ -264,7 +295,7 @@ export class Home extends React.Component<Props> {
 
             .greyText {
               color: ${textHintColor};
-              font-size: 12px;
+              font-size: 1.2rem;
             }
 
             .boldText {
@@ -298,7 +329,7 @@ export class Home extends React.Component<Props> {
               margin-left: 20px;
             }
             .titleText {
-              font-size: 18px;
+              font-size: 1.8rem;
               line-height: 1.11;
               letter-spacing: 0.5px;
               color: #4a4a4a;
@@ -312,7 +343,7 @@ export class Home extends React.Component<Props> {
               margin-left: 8px;
             }
             .orderCountNum {
-              font-size: 16px;
+              font-size: 1.6rem;
               line-height: 1;
               letter-spacing: 0.4px;
               color: #ffffff;
@@ -327,7 +358,7 @@ export class Home extends React.Component<Props> {
             }
             .title {
               font-family: 'Playball', cursive;
-              font-size: 24px;
+              font-size: 2.4rem;
               color: ${textColor};
             }
 
@@ -342,7 +373,7 @@ export class Home extends React.Component<Props> {
               display: flex;
               justify-content: center;
               line-height: 1.5;
-              font-size: 16px;
+              font-size: 1.6rem;
               text-align: center;
               color: ${textColor};
             }

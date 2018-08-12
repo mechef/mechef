@@ -77,7 +77,7 @@ const IngredientList = (props: Props): React.Element<'div'> => (
         .titleWrapper {
           display: flex;
           justify-content: space-between;
-          font-size: 16px;
+          font-size: 1.6rem;
           line-height: 1;
           letter-spacing: 0.7px;
           font-weight: 500;
@@ -120,7 +120,7 @@ const IngredientList = (props: Props): React.Element<'div'> => (
           height: 100%;
         }
         .title {
-          font-size: 18px;
+          font-size: 1.8rem;
           font-weight: 500;
           line-height: 1.11;
           letter-spacing: 0.5px;
@@ -163,7 +163,7 @@ const IngredientList = (props: Props): React.Element<'div'> => (
 
         .ingredient-subtext {
           margin-right: 40px;
-          font-size: 14px;
+          font-size: 1.4rem;
           line-height: 1.14;
           letter-spacing: 0.6px;
           color: ${placeholderTextColor};

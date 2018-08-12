@@ -85,7 +85,7 @@ const WalkthroughMenuDetail = () => (
         .title {
           width: 161px;
           height: 24px;
-          font-size: 24px;
+          font-size: 2.4rem;
           line-height: 1;
           text-align: center;
           color: #4a4a4a;
@@ -94,7 +94,7 @@ const WalkthroughMenuDetail = () => (
         .subtitle {
           width: 138px;
           height: 16px;
-          font-size: 16px;
+          font-size: 1.6rem;
           font-weight: 500;
           line-height: 1;
           letter-spacing: 0.7px;
@@ -118,7 +118,7 @@ const WalkthroughMenuDetail = () => (
         .description {
           width: 341px;
           height: 14px;
-          font-size: 14px;
+          font-size: 1.4rem;
           font-weight: 500;
           line-height: 1;
           letter-spacing: 0.6px;

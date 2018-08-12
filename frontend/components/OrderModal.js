@@ -269,7 +269,7 @@ class OrderModal extends React.Component<Props> {
             }
             .cancel-btn {
               margin: auto;
-              font-size: 24px;
+              font-size: 2.4rem;
               background-color: ${transparent};
               color: ${whiteColor};
               border: 0;
@@ -322,7 +322,7 @@ class OrderModal extends React.Component<Props> {
             }
 
             .totalPrice {
-              font-size: 18px;
+              font-size: 1.8rem;
             }
 
             .infoWrapper {
@@ -333,27 +333,27 @@ class OrderModal extends React.Component<Props> {
 
             .infoTitle {
               width: 105px;
-              font-size: 12px;
+              font-size: 1.2rem;
               color: ${connectErrorColor};
             }
 
             .infoContent {
-              font-size: 12px;
+              font-size: 1.2rem;
               color: ${textColor};
             }
 
             .messageTitle {
-              font-size: 12px;
+              font-size: 1.2rem;
               color: ${connectErrorColor};
             }
 
             .messageContent {
-              font-size: 12px;
+              font-size: 1.2rem;
               color: ${textColor};
             }
 
             .buyerName {
-              font-size: 14px;
+              font-size: 1.4rem;
               font-weight: 500;
               color: ${textColor};
             }
@@ -421,7 +421,7 @@ class OrderModal extends React.Component<Props> {
             }
 
             .stateActionText {
-              font-size: 14px;
+              font-size: 1.4rem;
               line-height: 1.14;
               color: ${textColor};
               margin: 0;
