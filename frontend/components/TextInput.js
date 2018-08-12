@@ -138,7 +138,7 @@ class TextInput extends React.Component<Props, State> {
             .errorWrapper {
               padding-top: 5px;
               color: ${errorBorderColor};
-              font-size: 12px;
+              font-size: 1.2rem;
             }
 
             .textInput {

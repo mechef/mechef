@@ -219,7 +219,7 @@ class DeliveryEdit extends React.Component<Props> {
             }
 
             .dashboard-content__title {
-              font-size: 18px;
+              font-size: 1.8rem;
               line-height: 1.11;
               letter-spacing: 0.5px;
               color: #4a4a4a;
@@ -240,7 +240,7 @@ class DeliveryEdit extends React.Component<Props> {
 
             .title {
               margin: 0 0 16px 0;
-              font-size: 16px;
+              font-size: 1.6rem;
               font-weight: 500;
               line-height: 1;
               letter-spacing: 0.7px;
@@ -250,7 +250,7 @@ class DeliveryEdit extends React.Component<Props> {
             .subtitle {
               margin: 0 0 16px 0;
               height: 14px;
-              font-size: 14px;
+              font-size: 1.4rem;
               font-weight: 500;
               line-height: 1;
               letter-spacing: 0.6px;

@@ -206,7 +206,7 @@ class IngredientEdit extends React.Component<Props, State> {
             }
 
             .dashboard-content__title {
-              font-size: 18px;
+              font-size: 1.8rem;
               line-height: 1.11;
               letter-spacing: 0.5px;
               color: #4a4a4a;
@@ -224,7 +224,7 @@ class IngredientEdit extends React.Component<Props, State> {
 
             .title {
               margin: 0 0 12px 0;
-              font-size: 16px;
+              font-size: 1.6rem;
               font-weight: 500;
               line-height: 1;
               letter-spacing: 0.7px;
@@ -234,7 +234,7 @@ class IngredientEdit extends React.Component<Props, State> {
             .subtitle {
               margin: 0 0 16px 0;
               height: 14px;
-              font-size: 14px;
+              font-size: 1.4rem;
               line-height: 1;
               letter-spacing: 0.6px;
               text-align: left;
@@ -249,11 +249,11 @@ class IngredientEdit extends React.Component<Props, State> {
 
             .totalText {
               padding-right: 40px;
-              font-size: 14px;
+              font-size: 1.4rem;
             }
 
             .costText {
-              font-size: 14px;
+              font-size: 1.4rem;
             }
 
             .edit-ingredient__choose-ingredient {
@@ -303,7 +303,7 @@ class IngredientEdit extends React.Component<Props, State> {
             }
             .ingredients__name {
               margin: auto auto auto 17px;
-              font-size: 14px;
+              font-size: 1.4rem;
               font-weight: 500;
               letter-spacing: 0.6px;
               color: #3e9f40;
@@ -312,7 +312,7 @@ class IngredientEdit extends React.Component<Props, State> {
             .ingredients__cost {
               margin-top: auto;
               margin-bottom: auto;
-              font-size: 14px;
+              font-size: 1.4rem;
               font-weight: 500;
               letter-spacing: 0.6px;
               color: #3e9f40;

@@ -134,7 +134,7 @@ const AccountDetail = (props: Props) => (
         .sellerId {
           margin-left: 116px;
           margin-bottom: 11px;
-          font-size: 24px;
+          font-size: 2.4rem;
           font-weight: 600;
           line-height: 0.83;
           letter-spacing: 0.6px;
@@ -143,7 +143,7 @@ const AccountDetail = (props: Props) => (
 
         .sellerName {
           margin: 8px 0 20px 116px;
-          font-size: 14px;
+          font-size: 1.4rem;
           line-height: 1.43;
           letter-spacing: 0.6px;
           color: #4a4a4a;
@@ -166,7 +166,7 @@ const AccountDetail = (props: Props) => (
         }
 
         .smallTitle {
-          font-size: 14px;
+          font-size: 1.4rem;
           font-weight: 500;
           line-height: 1.14;
           letter-spacing: 0.6px;
@@ -174,7 +174,7 @@ const AccountDetail = (props: Props) => (
         }
         .contentText {
           margin-top: 12px;
-          font-size: 16px;
+          font-size: 1.6rem;
           font-weight: 500;
           line-height: 0.88;
           letter-spacing: 0.7px;

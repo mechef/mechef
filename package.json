@@ -60,6 +60,7 @@
     "react-dom": "^16.4.1",
     "react-geosuggest": "2.5.0",
     "react-i18next": "^7.3.1",
+    "react-media": "^1.8.0",
     "rxjs": "^5.5.0",
     "styled-jsx": "2.2.7",
     "uuid": "3.1.0"

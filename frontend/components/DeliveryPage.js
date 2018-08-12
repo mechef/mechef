@@ -166,7 +166,7 @@ export class DeliveryPage extends React.Component<Props> {
             }
             .title {
               font-family: 'Playball', cursive;
-              font-size: 24px;
+              font-size: 2.4rem;
               color: ${textColor};
             }
 
@@ -181,7 +181,7 @@ export class DeliveryPage extends React.Component<Props> {
               display: flex;
               justify-content: center;
               line-height: 1.5;
-              font-size: 16px;
+              font-size: 1.6rem;
               text-align: center;
               color: ${textColor};
             }
@@ -191,7 +191,7 @@ export class DeliveryPage extends React.Component<Props> {
               margin-top: 70px;
               background-color: ${whiteColor};
               color: ${primaryColor};
-              font-size: 16px;
+              font-size: 1.6rem;
               margin: auto;
               cursor: pointer;
               outline: none;

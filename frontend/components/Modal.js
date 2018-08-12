@@ -85,7 +85,7 @@ const Modal = (props: Props) => (
         }
         .cancel-btn {
           margin: auto;
-          font-size: 24px;
+          font-size: 2.4rem;
           background-color: ${modalColor[props.type]};
           color: #ffffff;
           border: 0;
@@ -107,14 +107,14 @@ const Modal = (props: Props) => (
         }
         .alert-title {
           padding-top: 34px;
-          font-size: 16px;
+          font-size: 1.6rem;
           letter-spacing: 0.7px;
           text-align: left;
           color: #4a4a4a;
         }
         .alert-message {
           padding-top: 23px;
-          font-size: 16px;
+          font-size: 1.6rem;
           letter-spacing: 0.7px;
           text-align: center;
           color: #4a4a4a;

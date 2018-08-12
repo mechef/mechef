@@ -62,7 +62,7 @@ const MenuList = (props: Props) => (
           align-items: center;
         }
         .title {
-          font-size: 18px;
+          font-size: 1.8rem;
           line-height: 1.11;
           letter-spacing: 0.5px;
           color: #4a4a4a;

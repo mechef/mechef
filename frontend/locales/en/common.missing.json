@@ -36,5 +36,7 @@
   "add_meetup_option": "add_meetup_option",
   "shoppingcart_my_shopping_cart": "shoppingcart_my_shopping_cart",
   "shoppingcart_empty_cart": "shoppingcart_empty_cart",
-  "productdetail_order_question": "productdetail_order_question"
+  "productdetail_order_question": "productdetail_order_question",
+  "order_default_description": "order_default_description",
+  "my_store_link": "my_store_link"
 }

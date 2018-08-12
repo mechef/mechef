@@ -151,7 +151,7 @@ class OrderItem extends React.Component<Props> {
             }
 
             .totalPrice {
-              font-size: 18px;
+              font-size: 1.8rem;
             }
 
             .infoWrapper {
@@ -161,17 +161,17 @@ class OrderItem extends React.Component<Props> {
 
             .infoTitle {
               width: 105px;
-              font-size: 12px;
+              font-size: 1.2rem;
               color: ${connectErrorColor};
             }
 
             .infoContent {
-              font-size: 12px;
+              font-size: 1.2rem;
               color: ${textColor};
             }
 
             .sellerId {
-              font-size: 14px;
+              font-size: 1.4rem;
               font-weight: 500;
               color: ${textColor};
               margin-bottom: 10px;

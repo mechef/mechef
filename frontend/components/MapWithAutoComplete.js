@@ -159,7 +159,7 @@ class MapWithAutoComplete extends React.Component<Props> {
           }
 
           .geosuggest__item {
-            font-size: 18px;
+            font-size: 1.8rem;
             font-size: 1rem;
             padding: .5em .65em;
             cursor: pointer;

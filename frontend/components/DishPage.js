@@ -314,8 +314,8 @@ class DishPage extends React.Component<Props, State> {
             .dish-page__product-info {
               width: 100%;
               color: ${dishPageTextColor};
-              font-size: 12px;
               padding-bottom: 35px;
+              font-size: 1.2rem;
             }
             .dish-page__product-info__header {
               width: 100%;
@@ -339,14 +339,14 @@ class DishPage extends React.Component<Props, State> {
               margin-right: 45px;
             }
             .dish-page__product-info__field-title {
-              font-size: 16px;
+              font-size: 1.6rem;
               line-height: 1;
               color: ${dishPageHeaderColor};
               font-weight: 500;
               padding-bottom: 27px;
             }
             .dish-page__product-info__field-content {
-              font-size: 12px;
+              font-size: 1.2rem;
               line-height: 1.5;
               color: ${dishPageTextColor};
             }
@@ -357,7 +357,7 @@ class DishPage extends React.Component<Props, State> {
               border-radius: ${borderRadius};
               height: 50px;
               color: ${primaryColor};
-              font-size: 14px;
+              font-size: 1.4rem;
               font-weight: 1;
               margin-top: 10px;
               margin-bottom: -2px;
@@ -385,7 +385,7 @@ class DishPage extends React.Component<Props, State> {
               display: flex;
               width: 100%;
               flex-direction: row;
-              font-size: 14px;
+              font-size: 1.4rem;
               line-height: 1;
               letter-spacing: 0.6px;
             }
@@ -406,7 +406,7 @@ class DishPage extends React.Component<Props, State> {
             }
             .dish-page__product-info__dish-name {
               color: ${dishPageHeaderColor};
-              font-size: 16px;
+              font-size: 1.6rem;
               font-weight: 500;
               letter-spacing: 0.7px;
               line-height: 1.5;
@@ -417,7 +417,7 @@ class DishPage extends React.Component<Props, State> {
               border-radius: 100px;
               padding: 5px 12px;
               color: ${primaryColor};
-              font-size: 10px;
+              font-size: 1.0rem;
               letter-spacing: 0.4px;
               line-height: 1.4;
               text-transform: uppercase;
@@ -446,7 +446,7 @@ class DishPage extends React.Component<Props, State> {
               display: block;
               width: 100%;
               line-height: 1.5;
-              font-size: 16px;
+              font-size: 1.6rem;
               color: ${dishPageHeaderColor};
               padding: 33px 0 23px;
             }
@@ -487,7 +487,7 @@ class DishPage extends React.Component<Props, State> {
             .dish-page__footer__question {
               padding-top: 70px;
               font-family: Playball;
-              font-size: 20px;
+              font-size: 2.0rem;
               text-align: center;
               color: ${dishPageHeaderColor};
             }
@@ -495,7 +495,7 @@ class DishPage extends React.Component<Props, State> {
               display: block;
               padding-top: 30px;
               font-family: Ubuntu;
-              font-size: 16px;
+              font-size: 1.6rem;
               text-align: center;
               color: ${primaryColor};
               padding-bottom: 50px;

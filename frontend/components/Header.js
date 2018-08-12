@@ -50,7 +50,7 @@ const Header = (props: Props) => (
           display: flex;
           align-items: center;
           margin-left: 40px;
-          font-size: 15px;
+          font-size: 1.5rem;
           font-weight: 500;
           line-height: 1;
           letter-spacing: 0.6px;

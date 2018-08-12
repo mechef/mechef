@@ -352,7 +352,7 @@ class Checkout extends React.PureComponent<Props, State> {
               width: 100%;
               padding: 50px 0 20px;
               font-family: Playball;
-              font-size: 18px;
+              font-size: 1.8rem;
               line-height: 1;
               color: #525252;
               text-align: center;

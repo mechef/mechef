@@ -207,7 +207,7 @@ class CartItem extends React.Component<Props, State> {
               }
             }
             .cart-item__dish-detail__name {
-              font-size: 16px;
+              font-size: 1.6rem;
               font-weight: ${fontWeight};
               line-height: 0.8;
               letter-spacing: 0.8px;
@@ -225,7 +225,7 @@ class CartItem extends React.Component<Props, State> {
             }
             .cart-item__dish-detail__description {
               height: 36px;
-              font-size: 12px;
+              font-size: 1.2rem;
               line-height: 1.5;
               letter-spacing: 0.5px;
               color: ${textHintColor};

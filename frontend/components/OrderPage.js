@@ -251,7 +251,7 @@ class OrderPage extends React.Component<Props, State> {
             }
 
             .orderTitle {
-              font-size: 14px;
+              font-size: 1.4rem;
               line-height: 1.11;
               letter-spacing: 0.2px;
               color: ${textColor};
@@ -291,7 +291,7 @@ class OrderPage extends React.Component<Props, State> {
             }
             .title {
               font-family: 'Playball', cursive;
-              font-size: 24px;
+              font-size: 2.4rem;
               color: ${textColor};
             }
 
@@ -300,7 +300,7 @@ class OrderPage extends React.Component<Props, State> {
               display: flex;
               justify-content: center;
               line-height: 1.5;
-              font-size: 16px;
+              font-size: 1.6rem;
               text-align: center;
               color: ${textColor};
             }
@@ -310,7 +310,7 @@ class OrderPage extends React.Component<Props, State> {
               margin-top: 70px;
               background-color: ${whiteColor};
               color: ${primaryColor};
-              font-size: 16px;
+              font-size: 1.6rem;
               margin: auto;
               cursor: pointer;
               outline: none;

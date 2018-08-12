@@ -321,7 +321,7 @@ class Login extends React.Component<Props, State> {
             }
 
             .splits-title {
-              font-size: 24px;
+              font-size: 2.4rem;
               line-height: 0.67;
               text-align: center;
               color: #ffffff;
@@ -374,7 +374,7 @@ class Login extends React.Component<Props, State> {
               margin: 48px auto 30px auto;
               width: 129px;
               height: 24px;
-              font-size: 24px;
+              font-size: 2.4rem;
               line-height: 1;
               text-align: center;
               color: #4a4a4a;
@@ -416,7 +416,7 @@ class Login extends React.Component<Props, State> {
               padding: 20px;
             }
             .wrapper .wrapper__note {
-              font-size: 12px;
+              font-size: 1.2rem;
               line-height: 1;
               color: ${primaryColor};
             }
