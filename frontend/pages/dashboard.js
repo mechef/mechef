@@ -217,11 +217,6 @@ class Dashboard extends React.Component<Props, State> {
               flex: 5;
               height: 100%;
             }
-            @media all and (max-width: 600px) {
-              .dashboard__left {
-                flex: 1;
-              }
-            }
             .dashboard-sidebar {
               width: 100%;
               min-height: 882px;
@@ -367,7 +362,7 @@ class Dashboard extends React.Component<Props, State> {
               margin-left: 4px;
             }
 
-            @media all and (max-width: 600px) {
+            @media all and (max-width: 768px) {
               .dashboard-header__user-profile {
                 display: none;
               }

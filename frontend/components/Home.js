@@ -4,6 +4,7 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 import moment from 'moment';
 import { translate } from 'react-i18next';
+import Media from 'react-media';
 import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import accountActions from '../actions/accountActions';
@@ -99,41 +100,61 @@ export class Home extends React.Component<Props> {
           ) : null}
         </p>
         {orderList && orderList.length ? (
-          <div className="orderTable">
-            <div className="tableHeader">
-              <span className="firstCell">{this.props.t('delivery_time')}</span>
-              <span className="secondCell">{this.props.t('buyer_name')}</span>
-              <span className="thirdCell">{this.props.t('order_name')}</span>
-              <span className="fourthCell">
-                {this.props.t('home_quantity')}
-              </span>
-            </div>
-            {orderList
-              .filter(order => order.state === ORDER_STATE.waiting)
-              .map((orderItem, index) => (
-                <div
-                  key={orderItem._id}
-                  className={`
-                  tableBody
-                  ${index % 2 === 0 ? 'greyBackground' : 'whiteBackground'}
-                  ${index === orderList.length - 1 ? 'borderBottomRadius' : ''}
-                `}
-                >
-                  <span className="firstCell greyText">
-                    {moment(orderItem.deliveryTime).format('MMM DD hh:mm')}
-                  </span>
-                  <span className="secondCell boldText">
-                    {orderItem.buyerName}
-                  </span>
-                  <span className="thirdCell boldText">
-                    {orderItem.dishName}
-                  </span>
-                  <span className="fourthCell boldText">
-                    {orderItem.quantity}
-                  </span>
+          <Media query="(max-width: 768px)">
+            {matches =>
+              matches ? (
+                <div>Test</div>
+              ) : (
+                <div className="orderTable">
+                  <div className="tableHeader">
+                    <span className="firstCell">
+                      {this.props.t('delivery_time')}
+                    </span>
+                    <span className="secondCell">
+                      {this.props.t('buyer_name')}
+                    </span>
+                    <span className="thirdCell">
+                      {this.props.t('order_name')}
+                    </span>
+                    <span className="fourthCell">
+                      {this.props.t('home_quantity')}
+                    </span>
+                  </div>
+                  {orderList
+                    .filter(order => order.state === ORDER_STATE.waiting)
+                    .map((orderItem, index) => (
+                      <div
+                        key={orderItem._id}
+                        className={`
+                      tableBody
+                      ${index % 2 === 0 ? 'greyBackground' : 'whiteBackground'}
+                      ${
+                        index === orderList.length - 1
+                          ? 'borderBottomRadius'
+                          : ''
+                      }
+                    `}
+                      >
+                        <span className="firstCell greyText">
+                          {moment(orderItem.deliveryTime).format(
+                            'MMM DD hh:mm',
+                          )}
+                        </span>
+                        <span className="secondCell boldText">
+                          {orderItem.buyerName}
+                        </span>
+                        <span className="thirdCell boldText">
+                          {orderItem.dishName}
+                        </span>
+                        <span className="fourthCell boldText">
+                          {orderItem.quantity}
+                        </span>
+                      </div>
+                    ))}
                 </div>
-              ))}
-          </div>
+              )
+            }
+          </Media>
         ) : (
           <div className="defaultComponentWrapper">
             <DefaultComponent>
@@ -225,6 +246,15 @@ export class Home extends React.Component<Props> {
               line-height: 1.43;
               letter-spacing: 0.6px;
               color: #4a4a4a;
+            }
+            @media all and (max-width: 768px) {
+              .sellerId {
+                margin-left: 20px;
+                margin-top: 40px;
+              }
+              .sellerName {
+                margin-left: 20px;
+              }
             }
             .orderTable {
               width: calc(100% - 40px);
