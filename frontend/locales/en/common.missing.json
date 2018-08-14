@@ -38,5 +38,7 @@
   "shoppingcart_empty_cart": "shoppingcart_empty_cart",
   "productdetail_order_question": "productdetail_order_question",
   "order_default_description": "order_default_description",
-  "my_store_link": "my_store_link"
+  "my_store_link": "my_store_link",
+  "buyerstorenomenu_kitchen_close": "buyerstorenomenu_kitchen_close",
+  "buyerstorenomenu_contact_chef": "buyerstorenomenu_contact_chef"
 }

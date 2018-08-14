@@ -61,6 +61,7 @@
     "react-geosuggest": "2.5.0",
     "react-i18next": "^7.3.1",
     "react-media": "^1.8.0",
+    "recompose": "^0.28.2",
     "rxjs": "^5.5.0",
     "styled-jsx": "2.2.7",
     "uuid": "3.1.0"
