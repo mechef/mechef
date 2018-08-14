@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Router from 'next/router';
 import Rx from 'rxjs/Rx';
+import { branch } from 'recompose';
 
 import { connect } from '../state/RxState';
 import cartActions from '../actions/cartActions';
@@ -98,25 +99,6 @@ class KitchenPage extends React.Component<Props, State> {
   render() {
     const { kitchen } = this.props;
 
-    if (!kitchen.isLoading && !kitchen.kitchenName) {
-      return (
-        <div className="kitchen-not-found">
-          <span>Kitchen Not Found</span>
-          <style jsx>
-            {`
-              .kitchen-not-found {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-                min-height: 300px;
-              }
-            `}
-          </style>
-        </div>
-      );
-    }
-
     return (
       <div className="kitchen-main">
         <KitchenHeader
@@ -170,6 +152,29 @@ class KitchenPage extends React.Component<Props, State> {
   }
 }
 
+const KitchenNotFound = () => () => (
+  <div className="kitchen-not-found">
+    <span>Kitchen Not Found</span>
+    <style jsx>
+      {`
+        .kitchen-not-found {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          min-height: 300px;
+        }
+      `}
+    </style>
+  </div>
+);
+
+const showNotFoundPageIfNotKitchen = predicate =>
+  branch(predicate, KitchenNotFound);
+const enhance = showNotFoundPageIfNotKitchen(
+  ({ kitchen }) => !kitchen.isLoading && !kitchen.kitchenName,
+);
+
 const actionSubjects = {
   ...errorActions,
   ...cartActions,
@@ -178,4 +183,4 @@ const actionSubjects = {
 export default connect(
   () => {},
   actionSubjects,
-)(KitchenPage);
+)(enhance(KitchenPage));
