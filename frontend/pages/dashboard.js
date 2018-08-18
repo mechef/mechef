@@ -213,6 +213,13 @@ class Dashboard extends React.Component<Props, State> {
               display: flex;
               background-color: #252525;
             }
+            @media all and (max-width: 768px) {
+              .dashboard__left {
+                position: absolute;
+                z-index: 99;
+                top: 90px;
+              }
+            }
             .dashboard__right {
               flex: 5;
               height: 100%;
