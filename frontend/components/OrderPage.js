@@ -224,7 +224,7 @@ class OrderPage extends React.Component<Props, State> {
           {`
             .container {
               margin: 0;
-              padding-top: 49px
+              padding-top: 49px;
               padding-left: 19px;
               width: 100%;
               min-height: 792px;
@@ -272,7 +272,8 @@ class OrderPage extends React.Component<Props, State> {
               cursor: pointer;
             }
 
-            .notification:hover, .notification.selected {
+            .notification:hover,
+            .notification.selected {
               background-color: ${primaryColor};
             }
 
