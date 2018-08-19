@@ -40,5 +40,8 @@
   "order_default_description": "order_default_description",
   "my_store_link": "my_store_link",
   "buyerstorenomenu_kitchen_close": "buyerstorenomenu_kitchen_close",
-  "buyerstorenomenu_contact_chef": "buyerstorenomenu_contact_chef"
+  "buyerstorenomenu_contact_chef": "buyerstorenomenu_contact_chef",
+  "pending": "pending",
+  "cancelled": "cancelled",
+  "delivered": "delivered"
 }
