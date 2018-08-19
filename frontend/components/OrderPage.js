@@ -224,13 +224,13 @@ class OrderPage extends React.Component<Props, State> {
           {`
             .container {
               margin: 0;
-              padding-top: 49px;
-              padding-left: 19px;
+              padding: 49px 19px;
               width: 100%;
               min-height: 792px;
               height: 100%;
               background-color: #f8f7f7;
               overflow: scroll;
+              box-sizing: border-box;
             }
 
             .orderWrapper {
@@ -278,10 +278,11 @@ class OrderPage extends React.Component<Props, State> {
             }
 
             .orderItemWrapper {
-              width: 744px;
-              height: 195px;
+              width: 100%;
+              max-width: 744px;
               margin-bottom: 20px;
               cursor: pointer;
+              box-sizing: border-box;
             }
 
             .textSection {
