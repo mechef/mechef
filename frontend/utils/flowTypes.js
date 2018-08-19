@@ -62,13 +62,13 @@ export type OrderState = 'cancelled' | 'waiting' | 'finished';
 
 export type OrderObject = {
   _id?: string,
-  buyerName?: string,
+  buyerName: string,
   buyerEmail?: string,
-  quantity?: number,
+  quantity: number,
   amount?: number,
   orderTime?: string,
   deliveryAddress?: string,
-  deliveryTime?: string,
+  deliveryTime: string,
   deliveryLatitude?: number,
   deliveryLongitude?: number,
   messageFromBuyer?: string,

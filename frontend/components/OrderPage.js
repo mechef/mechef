@@ -2,7 +2,9 @@
 
 import React from 'react';
 import Rx from 'rxjs/Rx';
+import Media from 'react-media';
 import { translate } from 'react-i18next';
+import { withProps } from 'recompose';
 import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import orderActions from '../actions/orderActions';
@@ -20,6 +22,8 @@ import {
 import DefaultComponent from './DefaultComponent';
 import OrderItem from './OrderItem';
 import Spinner from '../components/Spinner';
+import TitleWithNotification from '../components/TitleWithNotification';
+import SelectBox from './SelectBox';
 
 type Props = {
   order: {
@@ -71,6 +75,61 @@ class OrderPage extends React.Component<Props, State> {
       updateOrderState$,
     } = this.props;
 
+    const orderStateOptions = [
+      {
+        text: (
+          <TitleWithNotification
+            title={this.props.t('order')}
+            isSelected={this.state.filter === 'all'}
+            count={orderList.length}
+          />
+        ),
+        value: 'all',
+      },
+      {
+        text: (
+          <TitleWithNotification
+            title={this.props.t('pending')}
+            isSelected={this.state.filter === 'waiting'}
+            count={
+              orderList.filter(
+                (order: OrderObject) => order.state === 'waiting',
+              ).length
+            }
+          />
+        ),
+        value: 'waiting',
+      },
+      {
+        text: (
+          <TitleWithNotification
+            title={this.props.t('cancelled')}
+            isSelected={this.state.filter === 'cancelled'}
+            count={
+              orderList.filter(
+                (order: OrderObject) => order.state === 'cancelled',
+              ).length
+            }
+          />
+        ),
+        value: 'cancelled',
+      },
+      {
+        text: (
+          <TitleWithNotification
+            title={this.props.t('delivered')}
+            isSelected={this.state.filter === 'finished'}
+            count={
+              orderList.filter(
+                (order: OrderObject) => order.state === 'finished',
+              ).length
+            }
+          />
+        ),
+        value: 'finished',
+      },
+    ];
+
     return (
       <div className="container">
         {error.isShowModal ? (
@@ -107,72 +166,30 @@ class OrderPage extends React.Component<Props, State> {
         ) : null}
         {orderList && orderList.length ? (
           <div className="orderWrapper">
-            <div className="header">
-              <div className="titleWithNotification">
-                <span className="orderTitle">{this.props.t('order')}</span>
-                <button
-                  className={`
-                      notification
-                      ${this.state.filter === 'all' ? 'selected' : ''}
-                    `}
-                  onClick={() => {
-                    this.setState({ filter: 'all' });
-                  }}
-                >
-                  {orderList.length}
-                </button>
-              </div>
-              <div className="titleWithNotification">
-                <span className="orderTitle">{this.props.t('pending')}</span>
-                <button
-                  className={`
-                      notification
-                      ${this.state.filter === 'pending' ? 'selected' : ''}
-                    `}
-                  onClick={() => {
-                    this.setState({ filter: 'waiting' });
-                  }}
-                >
-                  {
-                    orderList.filter(
-                      (order: OrderObject) => order.state === 'waiting',
-                    ).length
-                  }
-                </button>
-              </div>
-              <div className="titleWithNotification">
-                <span className="orderTitle">{this.props.t('cancelled')}</span>
-                <button
-                  className={`
-                      notification
-                      ${this.state.filter === 'cancelled' ? 'selected' : ''}
-                    `}
-                  onClick={() => {
-                    this.setState({ filter: 'cancelled' });
-                  }}
-                >
-                  {
-                    orderList.filter(
-                      (order: OrderObject) => order.state === 'cancelled',
-                    ).length
-                  }
-                </button>
-              </div>
-              <div className="titleWithNotification">
-                <span className="orderTitle">{this.props.t('delivered')}</span>
-                <button
-                  className={`
-                      notification
-                      ${this.state.filter === 'finished' ? 'selected' : ''}
-                    `}
-                  onClick={() => {
-                    this.setState({ filter: 'finished' });
-                  }}
-                >
-                  {orderList.filter(order => order.state === 'finished').length}
-                </button>
-              </div>
-            </div>
+            <Media query="(max-width: 540px)">
+              {matches =>
+                matches ? (
+                  <SelectBox
+                    options={orderStateOptions}
+                    selectedValue={this.state.filter}
+                    defaultText={orderStateOptions[0].text}
+                    onChange={selectedValue => {
+                      this.setState({ filter: String(selectedValue) });
+                    }}
+                  />
+                ) : (
+                  <div className="header">
+                    {orderStateOptions.map(option =>
+                      React.cloneElement(option.text, {
+                        onClick: () => {
+                          this.setState({ filter: option.value });
+                        },
+                      }),
+                    )}
+                  </div>
+                )
+              }
+            </Media>
             {orderList
               .filter(
                 order =>
@@ -224,63 +241,35 @@ class OrderPage extends React.Component<Props, State> {
           {`
             .container {
               margin: 0;
-              padding-top: 49px
-              padding-left: 19px;
+              padding: 49px 19px;
               width: 100%;
               min-height: 792px;
               height: 100%;
               background-color: #f8f7f7;
               overflow: scroll;
+              box-sizing: border-box;
             }
 
             .orderWrapper {
               height: 100%;
+              min-height: 400px;
               overflow: scroll;
+              position: relative;
             }
-
             .header {
               display: flex;
-              width: 744px;
+              width: 100%;
+              max-width: 744px;
               justify-content: space-around;
               margin-bottom: 27px;
             }
 
-            .titleWithNotification {
-              display: flex;
-              align-items: center;
-            }
-
-            .orderTitle {
-              font-size: 1.4rem;
-              line-height: 1.11;
-              letter-spacing: 0.2px;
-              color: ${textColor};
-            }
-
-            .notification {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              width: 30px;
-              height: 20px;
-              margin-left: 15px;
-              background-color: #b9b9b9;
-              border-radius: 26px;
-              color: ${whiteColor};
-              border: 0;
-              outline: none;
-              cursor: pointer;
-            }
-
-            .notification:hover, .notification.selected {
-              background-color: ${primaryColor};
-            }
-
             .orderItemWrapper {
-              width: 744px;
-              height: 195px;
+              width: 100%;
+              max-width: 744px;
               margin-bottom: 20px;
               cursor: pointer;
+              box-sizing: border-box;
             }
 
             .textSection {

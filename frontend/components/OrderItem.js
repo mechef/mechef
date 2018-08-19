@@ -18,6 +18,7 @@ import {
   connectErrorColor,
 } from '../utils/styleVariables';
 
+import MailButton from './MailButton';
 type Props = {
   sellerId?: string,
   menuTitle?: string,
@@ -47,19 +48,7 @@ class OrderItem extends React.Component<Props> {
         <div className="orderText">
           <div className="firstRow">
             <span className="sellerId">{this.props.sellerId}</span>
-            <div className="iconWrapper">
-              <a
-                className="email"
-                href={
-                  this.props.buyerEmail ? `mailto:${this.props.buyerEmail}` : ''
-                }
-                onClick={event => {
-                  event.stopPropagation();
-                }}
-              >
-                <div className="icon mailIcon" />
-              </a>
-            </div>
+            <MailButton buyerEmail={this.props.buyerEmail} />
           </div>
           <div className="secondRow">{this.props.menuTitle}</div>
           <div className="thirdRow">
@@ -115,9 +104,7 @@ class OrderItem extends React.Component<Props> {
               flex: 1;
               display: flex;
               flex-direction: column;
-              margin-left: 42px;
-              margin-right: 20px;
-              padding-top: 20px;
+              padding: 20px;
             }
 
             .firstRow {
@@ -160,7 +147,8 @@ class OrderItem extends React.Component<Props> {
             }
 
             .infoTitle {
-              width: 105px;
+              width: 150px;
+              margin-right: 20px;
               font-size: 1.2rem;
               color: ${connectErrorColor};
             }
@@ -177,29 +165,16 @@ class OrderItem extends React.Component<Props> {
               margin-bottom: 10px;
             }
 
-            .iconWrapper {
-              margin-right: 21px;
-            }
-
-            .email {
-              margin-top: 0;
-            }
-
-            .icon {
-              background-size: contain;
-              background-position: center;
-              background-repeat: no-repeat;
-              width: 25px;
-              height: 25px;
-              outline: none;
-            }
-
-            .mailIcon {
-              background-image: url('../static/svg/order_mail.svg');
-            }
-
-            .email:hover .mailIcon {
-              background-image: url('../static/svg/order_mail_hover.svg');
+            @media (max-width: 768px) {
+              .orderContainer {
+                flex-direction: column;
+              }
+              .orderThumbnail {
+                width: 100%;
+                height: 70px;
+                border-top-right-radius: ${borderRadius};
+                border-bottom-left-radius: 0;
+              }
             }
           `}
         </style>

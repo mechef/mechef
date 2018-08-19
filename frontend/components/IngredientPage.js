@@ -142,13 +142,13 @@ export class IngredientPage extends React.Component<Props> {
           {`
             .container {
               margin: 0;
-              padding-top: 49px
-              padding-left: 19px;
+              padding: 49px 19px;
               width: 100%;
               min-height: 792px;
               height: 100%;
               background-color: #f8f7f7;
               overflow: scroll;
+              box-sizing: border-box;
             }
 
             .textSection {

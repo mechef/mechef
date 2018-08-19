@@ -15,11 +15,11 @@ import {
 
 type Props = {
   options: Array<{
-    text: string,
+    text: any,
     value: string,
   }>,
   selectedValue: string | number,
-  defaultText: string,
+  defaultText: any,
   onChange: (selectedValue: string | number) => mixed,
   onError: (isError: boolean) => void,
   isRequired: boolean,

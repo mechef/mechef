@@ -59,8 +59,8 @@ const IngredientList = (props: Props): React.Element<'div'> => (
     <style jsx>
       {`
         .ingredientList {
-          width: 552px;
-          height: 108px;
+          max-width: 552px;
+          width: 100%;
           padding-top: 30px;
           padding-left: 20px;
           padding-bottom: 31px;

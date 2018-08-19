@@ -104,8 +104,9 @@ class DeliveryList extends React.Component<Props> {
             }
 
             .mapWrapper {
-              width: 512px;
+              max-width: 512px;
               height: 100px;
+              width: 100%;
               margin-bottom: 40px;
             }
 
@@ -157,8 +158,9 @@ class DeliveryList extends React.Component<Props> {
             }
 
             .deliveryItem {
-              width: 512px;
-              height: 226px;
+              max-width: 512px;
+              max-height: 226px;
+              width: 100%;
               border: 0;
               border-radius: ${borderRadius};
               box-shadow: 0 5px 7px 0 rgba(201, 201, 201, 0.5);
