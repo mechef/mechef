@@ -131,7 +131,6 @@ class TextInput extends React.Component<Props, State> {
               position: relative;
               display: flex;
               height: ${textInputHeight};
-              justify-content: center;
               width: 100%;
             }
 
@@ -185,6 +184,12 @@ class TextInput extends React.Component<Props, State> {
               }
               .large {
                 width: 90%;
+              }
+            }
+
+            @media screen and (max-width: 768px) {
+              .small {
+                width: 100%;
               }
             }
 

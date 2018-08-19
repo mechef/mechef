@@ -1,7 +1,8 @@
 {
   "establishorder_order_established": "Order Eatablished!",
   "establishorder_congratulations": "Congratulations!",
-  "establishorder_thanks_message": "Thank you for your order<br>Enjoy the meal prepared by the chef!",
+  "establishorder_thanks_message":
+    "Thank you for your order<br>Enjoy the meal prepared by the chef!",
   "establishorder_add_calendar": "ADD REMINDER ABOUT MY ORDER ON MY CALENDAR",
 
   "checkoutshipping_checkout_details": "Checkout Details",
@@ -102,7 +103,8 @@
   "buyerstorenomenu_contact_chef": "CONTACT CHEF",
 
   "sellerstorenomenu_menu_empty": "Menu is Empty",
-  "sellerstorenomenu_menu_empty_description": "Fill this place with your signature dishes, <br>build your own menu!",
+  "sellerstorenomenu_menu_empty_description":
+    "Fill this place with your signature dishes, <br>build your own menu!",
   "sellerstorenomenu_add_empty_menu": "ADD YOUR MENU FIRST",
 
   "storecart_mycart": "MY CART",
@@ -134,7 +136,8 @@
   "orderlist_next": "NEXT",
 
   "ordersdefault_hello_there": "Hello There!",
-  "ordersdefault_order_default_description": "Share your store to get your first order!",
+  "ordersdefault_order_default_description":
+    "Share your store to get your first order!",
   "ordersdefault_my_store_link": "My Store's Link",
   "ordersdefault_add_dish": "ADD A DISH",
 
@@ -179,10 +182,12 @@
 
   "deliverydefault_hello_there": "Hello There!",
   "deliverydefault_meetup_default": "MEET UP",
-  "deliverydefault_meetup_default_description": "Add your first meet up location<br>and available date & time",
+  "deliverydefault_meetup_default_description":
+    "Add your first meet up location<br>and available date & time",
   "deliverydefault_add_meetup_option": "ADD MEETUP OPTION",
   "deliverydefault_shipping_default": "SHIPPING",
-  "deliverydefault_shipping_default_description": "Add places and fees<br>if you are willing to ship your dishes",
+  "deliverydefault_shipping_default_description":
+    "Add places and fees<br>if you are willing to ship your dishes",
   "deliverydefault_add_shipping_option": "ADD SHIPPING OPTION",
 
   "ingredientsedit_edit_ingredients": "EDIT INGREDIENTS",
@@ -210,7 +215,8 @@
   "accountupdatepw_update_pw": "UPDATE PASSWORD",
   "accountupdatepw_update_pw_title": "Update Password",
   "accountupdatepw_new_pw": "New Password",
-  "accountupdatepw_new_pw_description": "Include number and letters in your password to make it more secure!",
+  "accountupdatepw_new_pw_description":
+    "Include number and letters in your password to make it more secure!",
   "accountupdatepw_new_pw_placeholder": "Enter Your New Password",
   "accountupdatepw_confirm_pw": "Confirm Password",
   "accountupdatepw_confirm_pw_description": "Enter your new password again",
@@ -257,22 +263,27 @@
   "myhomestorelink_button_copy_link": "COPY LINK",
 
   "myhomedefaulttomenu_hello_there": "Hello There!",
-  "myhomedefaulttomenu_home_default_description": "Your upcoming orders will be<br>displayed here!",
+  "myhomedefaulttomenu_home_default_description":
+    "Your upcoming orders will be<br>displayed here!",
   "myhomedefaulttomenu_add_menu_first": "ADD YOUR MENU FIRST",
 
   "menucreatemenu_create_menu": "CREATE MENU",
   "menucreatemenu_create_menu_title": "Create Menu",
   "menucreatemenu_add_image": "Add Images*",
-  "menucreatemenu_add_image_description": "Take beautiful pictures to showcase your dish!",
+  "menucreatemenu_add_image_description":
+    "Take beautiful pictures to showcase your dish!",
   "menucreatemenu_dish_name": "Dish Name*",
-  "menucreatemenu_dish_name_description": "Make the name of your dish simple and explicit.",
+  "menucreatemenu_dish_name_description":
+    "Make the name of your dish simple and explicit.",
   "menucreatemenu_enter_dish_name": "Enter dish name",
   "menucreatemenu_unit_price": "Unit Price*",
   "menucreatemenu_unit_price_description": "Enter the price of the dish.",
   "menucreatemenu_quantity": "Quantity*",
-  "menucreatemenu_quantity_description": "Select the maximum quantity of the dish you can make.",
+  "menucreatemenu_quantity_description":
+    "Select the maximum quantity of the dish you can make.",
   "menucreatemenu_menu_category": "Category",
-  "menucreatemenu_category_description": "Tell your customers what kind of category does the dish fall into.",
+  "menucreatemenu_category_description":
+    "Tell your customers what kind of category does the dish fall into.",
   "menucreatemenu_menu_ingredients": "Ingredients",
   "menucreatemenu_ingredients_description":
     "List the ingredients you use for this dish. It is important your customer know this information in case they are allergic to the dish.",
@@ -282,10 +293,12 @@
     "Provide all the information about the dish you wish your customers to know.",
   "menucreatemenu_menu_description_placeholder": "Describe your dish...",
   "menucreatemenu_cooking_buffer": "Cooking Buffer*",
-  "menucreatemenu_cooking_buffer_description": "Time you need to prepare the food after customer placed an order.",
+  "menucreatemenu_cooking_buffer_description":
+    "Time you need to prepare the food after customer placed an order.",
   "menucreatemenu_set_cooking_buffer": "Set cooking buffer",
   "menucreatemenu_serving": "Serving*",
-  "menucreatemenu_serving_description": "How many people can each unit of the dish serve.",
+  "menucreatemenu_serving_description":
+    "How many people can each unit of the dish serve.",
   "menucreatemenu_serving_placeholder01": "1~2 people",
   "menucreatemenu_serving_placeholder02": "3-5 people",
   "menucreatemenu_serving_placeholder03": "5-8 people",
@@ -307,7 +320,8 @@
   "menumenulist_unpublish": "UNPUBLISHED",
 
   "menudefault_hello_there": "Hello There!",
-  "menudefault_menu_empty_description": "Fill this place with your signature dishes, <br>build your own menu!",
+  "menudefault_menu_empty_description":
+    "Fill this place with your signature dishes, <br>build your own menu!",
   "menudefault_add_dish": "ADD A DISH",
 
   "walkthroughpayment_how_receive_payment": "How will you receive payment?",
@@ -333,34 +347,43 @@
   "walkthroughdelivery_meet_up": "MEET UP",
   "walkthroughdelivery_setup_meetup": "Set up Location, Dates and Time",
   "walkthroughdelivery_shipping_c": "SHIPPING",
-  "walkthroughdelivery_setup_shipping": "Set up shipping area and shipping cost",
+  "walkthroughdelivery_setup_shipping":
+    "Set up shipping area and shipping cost",
   "walkthroughdelivery_button_addlater": "ADD LATER",
   "walkthroughdelivery_button_save_and_continue": "SAVE & CONTINUE",
 
   "walkthroughmenudetails_menu_details": "Menu Details",
   "walkthroughmenudetails_add_image": "Add Images*",
-  "walkthroughmenudetails_add_image_description": "Take beautiful pictures to showcase your dish!",
+  "walkthroughmenudetails_add_image_description":
+    "Take beautiful pictures to showcase your dish!",
   "walkthroughmenudetails_dish_name": "Dish Name*",
-  "walkthroughmenudetails_dish_name_description": "Make the name of your dish simple and explicit.",
+  "walkthroughmenudetails_dish_name_description":
+    "Make the name of your dish simple and explicit.",
   "walkthroughmenudetails_enter_dish_name": "Enter dish name",
   "walkthroughmenudetails_unit_price": "Unit Price*",
-  "walkthroughmenudetails_unit_price_description": "Enter the price of the dish.",
+  "walkthroughmenudetails_unit_price_description":
+    "Enter the price of the dish.",
   "walkthroughmenudetails_quantity": "Quantity*",
-  "walkthroughmenudetails_quantity_description": "Select the maximum quantity of the dish you can make.",
+  "walkthroughmenudetails_quantity_description":
+    "Select the maximum quantity of the dish you can make.",
   "walkthroughmenudetails_menu_category": "Category",
-  "walkthroughmenudetails_category_description": "Tell your customers what kind of category does the dish fall into.",
+  "walkthroughmenudetails_category_description":
+    "Tell your customers what kind of category does the dish fall into.",
   "walkthroughmenudetails_ingredients_description":
     "List the ingredients you use for this dish. It is important your customer know this information in case they are allergic to the dish.",
   "walkthroughmenudetails_enter_ingredients": "Enter ingredients...",
   "walkthroughmenudetails_menu_description": "Description",
   "walkthroughmenudetails_description_description":
     "Provide all the information about the dish you wish your customers to know.",
-  "walkthroughmenudetails_menu_description_placeholder": "Describe your dish...",
+  "walkthroughmenudetails_menu_description_placeholder":
+    "Describe your dish...",
   "walkthroughmenudetails_cooking_buffer": "Cooking Buffer*",
-  "walkthroughmenudetails_cooking_buffer_description": "Time you need to prepare the food after customer placed an order.",
+  "walkthroughmenudetails_cooking_buffer_description":
+    "Time you need to prepare the food after customer placed an order.",
   "walkthroughmenudetails_set_cooking_buffer": "Set cooking buffer",
   "walkthroughmenudetails_serving": "Serving*",
-  "walkthroughmenudetails_serving_description": "How many people can each unit of the dish serve.",
+  "walkthroughmenudetails_serving_description":
+    "How many people can each unit of the dish serve.",
   "walkthroughmenudetails_serving_placeholder01": "1~2 people",
   "walkthroughmenudetails_serving_placeholder02": "3-5 people",
   "walkthroughmenudetails_serving_placeholder03": "5-8 people",
@@ -376,10 +399,12 @@
   "walkthroughcreatekitchen_create_kitchen": "Make your shop shine!",
   "walkthroughcreatekitchen_walk_kitchen_name": "Kitchen Name*",
   "walkthroughcreatekitchen_walk_kitchen_name_description": "TBD",
-  "walkthroughcreatekitchen_walk_kitchen_name_placeholder": "Enter name of your kitchen",
+  "walkthroughcreatekitchen_walk_kitchen_name_placeholder":
+    "Enter name of your kitchen",
   "walkthroughcreatekitchen_walk_kitchen_description": "Description*",
   "walkthroughcreatekitchen_walk_kitchen_description_description": "TBD",
-  "walkthroughcreatekitchen_walk_kitchen_placeholder": "Story of your kitchen...",
+  "walkthroughcreatekitchen_walk_kitchen_placeholder":
+    "Story of your kitchen...",
   "walkthroughcreatekitchen_button_addlater": "ADD LATER",
   "walkthroughcreatekitchen_button_save_and_continue": "SAVE & CONTINUE",
 
@@ -406,7 +431,8 @@
   "signupmain_mobile_number_placeholder": "Mobile Number",
   "signupmain_email_placeholder": "Email Address",
   "signupmain_join_now": "JOIN NOW",
-  "signupmain_user_agreement": "If you click JOIN NOW, means you agree to term of service.",
+  "signupmain_user_agreement":
+    "If you click JOIN NOW, means you agree to term of service.",
 
   "emailverify_beacheftoday": "Be a chef today!",
   "emailverify_retrieve_pw_partone": "We have sent you a verification email to",
@@ -427,5 +453,5 @@
   "user_agreement": "Terms & Conditions",
 
   "validationmessage_only_number": "Please enter only numbers",
-  "validationmessage_email": "Please include an @ in the email address",
+  "validationmessage_email": "Please include an @ in the email address"
 }

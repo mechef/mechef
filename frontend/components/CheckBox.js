@@ -56,7 +56,8 @@ class CheckBox extends React.Component<Props, State> {
               display: flex;
               justify-content: space-between;
               align-items: center;
-              width: 116px;
+              max-width: 116px;
+              width: 100%;
             }
 
             button {
@@ -85,7 +86,7 @@ class CheckBox extends React.Component<Props, State> {
 
             .checkboxLabel {
               font-weight: 400;
-              width: 84px;
+              max-width: 84px;
             }
           `}
         </style>

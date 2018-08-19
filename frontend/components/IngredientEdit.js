@@ -214,7 +214,9 @@ class IngredientEdit extends React.Component<Props, State> {
 
             .edit-ingredient {
               margin-top: 24px;
-              width: 552px;
+              max-width: 552px;
+              width: 100%;
+              box-sizing: border-box;
               height: 515px;
               padding-top: 21px;
               padding-left: 16px;
@@ -263,7 +265,8 @@ class IngredientEdit extends React.Component<Props, State> {
             .edit-ingredient__input {
               display: flex;
               justify-content: space-between;
-              width: 520px;
+              max-width: 520px;
+              width: 100%;
               position: relative;
             }
 
@@ -321,12 +324,14 @@ class IngredientEdit extends React.Component<Props, State> {
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
-              width: 568px;
+              max-width: 568px;
+              width: 100%;
               padding-top: 30px;
             }
 
             .buttonGroup div {
               margin-left: 10px;
+              width: 100px;
             }
 
             .removeWrapper {

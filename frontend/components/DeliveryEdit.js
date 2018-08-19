@@ -227,7 +227,9 @@ class DeliveryEdit extends React.Component<Props> {
 
             .editContainer {
               margin-top: 24px;
-              width: 552px;
+              max-width: 552px;
+              width: 100%;
+              box-sizing: border-box;
               height: 100%;
               padding: 24px 20px;
               border-radius: 4px;
