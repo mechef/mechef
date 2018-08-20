@@ -36,7 +36,8 @@ module.exports = (req, res) => {
     if (req.body.serving) updateFields.serving = req.body.serving;
     if (req.body.deliveryIdList)
       updateFields.deliveryIdList = req.body.deliveryIdList;
-    if (req.body.publish) updateFields.publish = req.body.publish;
+    if (typeof req.body.publish !== 'undefined')
+      updateFields.publish = req.body.publish;
     if (req.body.images) updateFields.images = req.body.images;
 
     Menu.findOneAndUpdate(
