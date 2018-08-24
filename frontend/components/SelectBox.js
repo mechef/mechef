@@ -218,6 +218,7 @@ class SelectBox extends React.Component<Props, State> {
               background-image: url('../static/svg/dropdown.svg');
               cursor: pointer;
               margin-right: 20px;
+              margin-left: 20px;
             }
 
             .buttonWrapper:hover .dropdownIcon {

@@ -132,6 +132,7 @@ class TextInput extends React.Component<Props, State> {
               display: flex;
               height: ${textInputHeight};
               width: 100%;
+              justify-content: center;
             }
 
             .errorWrapper {
