@@ -54,6 +54,7 @@ class Dashboard extends React.Component<Props, State> {
         props.url.query && props.url.query.page ? props.url.query.page : 'home',
     };
     this.navigate = this.navigate.bind(this);
+    this.toggleSideBarRef = React.createRef();
   }
 
   componentDidMount() {
@@ -75,6 +76,7 @@ class Dashboard extends React.Component<Props, State> {
     if (this.props.global.backArrow.isShow) {
       this.props.toggleBackArrow$('');
     }
+    this.toggleSideBarRef.current.checked = true;
   }
 
   render() {
@@ -84,7 +86,12 @@ class Dashboard extends React.Component<Props, State> {
     }: Props = this.props;
     return (
       <div className="dashboard">
-        <input type="checkbox" id="dashboard-header__menu-toggle" hidden />
+        <input
+          ref={this.toggleSideBarRef}
+          type="checkbox"
+          id="dashboard-header__menu-toggle"
+          hidden
+        />
         <div className="dashboard__left">
           <div className="dashboard-sidebar">
             <div className="dashboard-sidebar__inner">

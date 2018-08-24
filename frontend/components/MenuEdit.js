@@ -528,11 +528,12 @@ class MenuEdit extends React.Component<Props, State> {
             .editContainer {
               margin-top: 24px;
               margin-bottom: 39px;
-              width: 552px;
-              height: 100%;
+              max-width: 552px;
+              width: 100%;
               padding: 24px 20px;
               border-radius: ${borderRadius};
               background-color: #ffffff;
+              box-sizing: border-box;
             }
 
             .uploadImageWrapper {
@@ -590,19 +591,22 @@ class MenuEdit extends React.Component<Props, State> {
             .formSection {
               display: flex;
               justify-content: space-between;
-              width: 520px;
-              margin-bottom: 37px;
+              max-width: 520px;
+              width: 100%;
+              margin-bottom: 40px;
             }
 
             .smallInputContainer {
               display: flex;
               flex-direction: column;
-              width: 250px;
+              max-width: 250px;
+              width: 100%;
             }
 
             .tagsWrapper {
               display: flex;
-              width: 250px;
+              max-width: 250px;
+              width: 100%;
               height: 50px;
             }
 
@@ -611,24 +615,28 @@ class MenuEdit extends React.Component<Props, State> {
             }
 
             .selectbox {
-              width: 250px;
+              max-width: 250px;
+              width: 100%;
               height: 44px;
               border-radius: 4px;
               border: solid 1px #979797;
             }
 
             .shippingContainer {
-              height: 532px;
-              width: 552px;
+              max-width: 552px;
+              width: 100%;
               margin-top: 24px;
               background-color: ${whiteColor};
               padding: 24px 20px;
               border-radius: ${borderRadius};
               overflow-y: scroll;
+              box-sizing: border-box;
             }
 
             .meetupItem {
               display: flex;
+              width: 100%;
+              box-sizing: border-box;
             }
 
             .checkbox {
@@ -637,8 +645,8 @@ class MenuEdit extends React.Component<Props, State> {
             }
 
             .deliveryItem {
-              width: 512px;
-              height: 291px;
+              width: calc(100% - 35px);
+              box-sizing: border-box;
               border: 0;
               border-radius: ${borderRadius};
               box-shadow: 0 5px 7px 0 rgba(201, 201, 201, 0.5);
@@ -654,9 +662,11 @@ class MenuEdit extends React.Component<Props, State> {
             }
 
             .mapWrapper {
-              width: 512px;
+              max-width: 512px;
+              width: 100%;
               height: 100px;
               margin-bottom: 12px;
+              box-sizing: border-box;
             }
 
             .descriptionText {
@@ -686,21 +696,38 @@ class MenuEdit extends React.Component<Props, State> {
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
-              width: 592px;
+              max-width: 592px;
+              width: 100%;
               padding-top: 30px;
               margin-bottom: 114px;
             }
 
             .buttonGroup div {
               margin-left: 10px;
+              width: 100px;
             }
 
             .largInput {
-              width: 447px;
+              max-width: 447px;
+              width: 100%;
               height: 44px;
               opacity: 0.6;
               border-radius: 4px;
               border: solid 1px #979797;
+            }
+
+            @media (max-width: 540px) {
+              .formSection {
+                flex-direction: column;
+                margin-bottom: 0;
+              }
+              .smallInputContainer {
+                margin-bottom: 40px;
+                width: 100%;
+              }
+              .flexWrapper {
+                flex-direction: column;
+              }
             }
           `}
         </style>

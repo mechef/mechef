@@ -99,7 +99,7 @@ class MapWithAutoComplete extends React.Component<Props> {
           {`
           .geosuggest {
             position: relative;
-            width: 511px;
+            max-width: 511px;
             margin-bottom: 13px;
           }
           .geosuggest__input {
@@ -110,10 +110,12 @@ class MapWithAutoComplete extends React.Component<Props> {
             padding-left: 18px;
             font-size: ${placeholderFontSize};
             font-weight: ${placeholderFontWeight};
-            width: 511px;
+            max-width: 511px;
+            width: 100%;
             border: 2px solid transparent;
             box-shadow: 0 0 1px #3d464d;
             transition: border 0.2s, box-shadow 0.2s;
+            box-sizing: border-box;
           }
           .geosuggest__input:focus {
             border-color: ${primaryColor};
@@ -129,7 +131,7 @@ class MapWithAutoComplete extends React.Component<Props> {
             background-repeat: no-repeat;
             background-position: center;
             top: calc(50% - 8px);
-            right: 0;
+            right: 18px;
             width: 16px;
             height: 16px;
           }

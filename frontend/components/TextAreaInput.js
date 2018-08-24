@@ -61,6 +61,12 @@ const TextAreaInput = (props: Props) => (
           line-height: ${placeholderLineHeight};
           color: ${placeholderTextColor};
         }
+
+        @media (max-width: 540px) {
+          .container {
+            width: 100%;
+          }
+        }
       `}
     </style>
   </div>

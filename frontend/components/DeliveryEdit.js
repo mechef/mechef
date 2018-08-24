@@ -227,7 +227,9 @@ class DeliveryEdit extends React.Component<Props> {
 
             .editContainer {
               margin-top: 24px;
-              width: 552px;
+              max-width: 552px;
+              width: 100%;
+              box-sizing: border-box;
               height: 100%;
               padding: 24px 20px;
               border-radius: 4px;
@@ -264,7 +266,8 @@ class DeliveryEdit extends React.Component<Props> {
 
             .checkboxGroup {
               display: grid;
-              width: 387px;
+              max-width: 387px;
+              width: 100%;
               grid-template-columns: 1fr 1fr 1fr;
               grid-template-rows: 1fr 1fr 1fr;
               grid-column-gap: 30px;
@@ -278,14 +281,15 @@ class DeliveryEdit extends React.Component<Props> {
             .meetupTime {
               display: flex;
               justify-content: space-between;
-              width: 539px;
+              max-width: 539px;
+              width: 100%;
               margin-bottom: 26px;
             }
 
             .smallInputContainer {
               display: flex;
               flex-direction: column;
-              width: 250px;
+              max-width: 250px;
             }
 
             .selectbox {
@@ -312,6 +316,18 @@ class DeliveryEdit extends React.Component<Props> {
               opacity: 0.6;
               border-radius: 4px;
               border: solid 1px #979797;
+            }
+
+            @media (max-width: 540px) {
+              .checkboxGroup {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                grid-column-gap: 20px;
+              }
+              .meetupTime {
+                display: flex;
+                justify-content: space-around;
+              }
             }
           `}
         </style>
