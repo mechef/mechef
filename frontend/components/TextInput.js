@@ -178,18 +178,12 @@ class TextInput extends React.Component<Props, State> {
 
             @media screen and (max-width: 768px) {
               .small {
-                width: 90%;
+                width: 100%;
               }
               .medium {
-                width: 90%;
+                width: 100%;
               }
               .large {
-                width: 90%;
-              }
-            }
-
-            @media screen and (max-width: 768px) {
-              .small {
                 width: 100%;
               }
             }
@@ -200,7 +194,7 @@ class TextInput extends React.Component<Props, State> {
               margin-right: auto;
               top: 0;
               bottom: 0;
-              left: 209px;
+              right: 10px;
               cursor: pointer;
               background-color: ${transparent};
               border: 0;

@@ -696,7 +696,7 @@ class MenuEdit extends React.Component<Props, State> {
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
-              max-width: 592px;
+              max-width: 552px;
               width: 100%;
               padding-top: 30px;
               margin-bottom: 114px;
@@ -704,7 +704,7 @@ class MenuEdit extends React.Component<Props, State> {
 
             .buttonGroup div {
               margin-left: 10px;
-              width: 100px;
+              min-width: 100px;
             }
 
             .largInput {

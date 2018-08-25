@@ -51,11 +51,6 @@ const MenuList = (props: Props) => (
     ))}
     <style jsx>
       {`
-        .wrapper {
-          height: 791px;
-          overflow: scroll;
-        }
-
         .header {
           display: flex;
           padding-bottom: 22px;

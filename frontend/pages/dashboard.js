@@ -229,13 +229,11 @@ class Dashboard extends React.Component<Props, State> {
             }
             .dashboard__right {
               flex: 5;
-              height: 100%;
+              min-height: 100%;
               width: calc(100% - 240px);
             }
             .dashboard-sidebar {
               width: 100%;
-              min-height: 882px;
-              height: 100%;
             }
 
             .dashboard-sidebar__inner {

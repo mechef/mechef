@@ -152,12 +152,15 @@ const AccountDetail = (props: Props) => (
         .kitchenInfo {
           display: flex;
           flex-direction: column;
-          width: 552px;
+          max-width: 552px;
+          width: calc(100% - 40px);
           padding: 25px 20px;
-          margin-left: 21px;
+          margin-left: 20px;
+          margin-right: 20px;
           margin-bottom: 16px;
           border-radius: 4px;
           background-color: #ffffff;
+          box-sizing: border-box;
         }
 
         .name {
@@ -194,6 +197,7 @@ const AccountDetail = (props: Props) => (
           height: 70px;
           margin-left: 11px;
           border-bottom: solid 2px #ececec;
+          overflow: auto;
         }
 
         .description {
@@ -214,12 +218,15 @@ const AccountDetail = (props: Props) => (
         .additionalInfo {
           display: flex;
           flex-direction: column;
-          width: 552px;
-          padding: 24px 20px;
-          margin-left: 21px;
+          max-width: 552px;
+          width: calc(100% - 40px);
+          padding: 25px 20px;
+          margin-left: 20px;
+          margin-right: 20px;
           margin-bottom: 16px;
           border-radius: 4px;
           background-color: #ffffff;
+          box-sizing: border-box;
         }
 
         .infoContent {
@@ -230,6 +237,26 @@ const AccountDetail = (props: Props) => (
         .left {
           width: 250px;
           border-bottom: solid 2px #ececec;
+        }
+
+        .right {
+          min-width: 100px;
+        }
+
+        @media (max-width: 540px) {
+          .buttonGroup {
+            justify-content: center;
+          }
+          .infoContent {
+            flex-direction: column;
+          }
+          .left {
+            margin-bottom: 15px;
+          }
+          infoContent {
+            width: 100%;
+            jus
+          }
         }
       `}
     </style>

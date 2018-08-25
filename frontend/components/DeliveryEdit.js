@@ -128,31 +128,35 @@ class DeliveryEdit extends React.Component<Props> {
               <span className="subtitle">
                 {this.props.t('deliveryeditmeetup_from')}
               </span>
-              <SelectBox
-                options={availableTime}
-                selectedValue={displayMeetup.meetupStartTime}
-                defaultText="24:00"
-                onChange={(selectedValue: string | number) => {
-                  onChangeMeetupField({
-                    meetupStartTime: selectedValue.toString(),
-                  });
-                }}
-              />
+              <div className="selectBoxWithPadding">
+                <SelectBox
+                  options={availableTime}
+                  selectedValue={displayMeetup.meetupStartTime}
+                  defaultText="24:00"
+                  onChange={(selectedValue: string | number) => {
+                    onChangeMeetupField({
+                      meetupStartTime: selectedValue.toString(),
+                    });
+                  }}
+                />
+              </div>
             </div>
             <div className="smallInputContainer">
               <span className="subtitle">
                 {this.props.t('deliveryeditmeetup_to')}
               </span>
-              <SelectBox
-                options={availableTime}
-                selectedValue={displayMeetup.meetupEndTime}
-                defaultText="24:00"
-                onChange={(selectedValue: string | number) => {
-                  onChangeMeetupField({
-                    meetupEndTime: selectedValue.toString(),
-                  });
-                }}
-              />
+              <div className="selectBoxWithPadding">
+                <SelectBox
+                  options={availableTime}
+                  selectedValue={displayMeetup.meetupEndTime}
+                  defaultText="24:00"
+                  onChange={(selectedValue: string | number) => {
+                    onChangeMeetupField({
+                      meetupEndTime: selectedValue.toString(),
+                    });
+                  }}
+                />
+              </div>
             </div>
           </div>
           <h3 className="title">{this.props.t('deliveryeditmeetup_note')}</h3>
@@ -214,10 +218,6 @@ class DeliveryEdit extends React.Component<Props> {
         </div>
         <style jsx>
           {`
-            .dashboard-content {
-              padding-left: 19px;
-            }
-
             .dashboard-content__title {
               font-size: 1.8rem;
               line-height: 1.11;
@@ -290,6 +290,12 @@ class DeliveryEdit extends React.Component<Props> {
               display: flex;
               flex-direction: column;
               max-width: 250px;
+              width: 100%;
+            }
+
+            .selectBoxWithPadding {
+              padding-left: 5px;
+              padding-right: 5px;
             }
 
             .selectbox {
@@ -302,12 +308,14 @@ class DeliveryEdit extends React.Component<Props> {
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
-              width: 592px;
+              max-width: 552px;
+              width: 100%;
               padding-top: 30px;
             }
 
             .buttonGroup div {
               margin-left: 10px;
+              min-width: 100px;
             }
 
             .largInput {

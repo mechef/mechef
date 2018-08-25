@@ -43,7 +43,8 @@ const TextAreaInput = (props: Props) => (
           border: solid 1px #979797;
           border-radius: ${borderRadius};
           height: ${isNaN(props.height) ? props.height : props.height + 'px'};
-          width: ${isNaN(props.width) ? props.width : props.width + 'px'};
+          max-width: ${isNaN(props.width) ? props.width : props.width + 'px'};
+          width: 100%;
           background-color: ${textInputBgColor};
           padding: 10px;
           font-size: ${placeholderFontSize};

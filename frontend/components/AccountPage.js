@@ -133,6 +133,7 @@ export class AccountPage extends React.Component<Props, State> {
           {`
             .accountContainer {
               background-color: #f8f7f7;
+              height: 100%;
             }
           `}
         </style>

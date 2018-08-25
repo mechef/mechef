@@ -100,7 +100,6 @@ class DeliveryList extends React.Component<Props> {
           {`
             .wrapper {
               height: 791px;
-              overflow-y: scroll;
             }
 
             .mapWrapper {
