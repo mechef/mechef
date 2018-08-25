@@ -201,9 +201,6 @@ class IngredientEdit extends React.Component<Props, State> {
         </div>
         <style jsx>
           {`
-            .dashboard-content {
-              padding-left: 19px;
-            }
 
             .dashboard-content__title {
               font-size: 1.8rem;
@@ -218,8 +215,7 @@ class IngredientEdit extends React.Component<Props, State> {
               width: 100%;
               box-sizing: border-box;
               height: 515px;
-              padding-top: 21px;
-              padding-left: 16px;
+              padding: 20px;
               border-radius: 4px;
               background-color: #ffffff;
             }
@@ -250,7 +246,7 @@ class IngredientEdit extends React.Component<Props, State> {
             }
 
             .totalText {
-              padding-right: 40px;
+              margin-right: 40px;
               font-size: 1.4rem;
             }
 
@@ -324,14 +320,14 @@ class IngredientEdit extends React.Component<Props, State> {
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
-              max-width: 568px;
+              max-width: 552px;
               width: 100%;
               padding-top: 30px;
             }
 
             .buttonGroup div {
               margin-left: 10px;
-              width: 100px;
+              min-width: 100px;
             }
 
             .removeWrapper {
@@ -360,6 +356,12 @@ class IngredientEdit extends React.Component<Props, State> {
 
             .remove:hover {
               background-image: url('../static/svg/cancel_white_hover.svg');
+            }
+
+            @media (max-width: 540px) {
+              .totalText {
+                margin-right: 10px;
+              }
             }
           `}
         </style>

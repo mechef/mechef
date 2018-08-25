@@ -222,8 +222,10 @@ class OrderModal extends React.Component<Props> {
               top: 50%;
               left: 50%;
               transform: translate(-50%, -50%);
-              width: 488px;
-              height: 500px;
+              max-width: 488px;
+              width: calc(100% - 40px);
+              margin-right: 20px;
+              max-height: 500px;
               border-radius: 4px;
               background-color: ${whiteColor};
               overflow: scroll;
@@ -340,6 +342,7 @@ class OrderModal extends React.Component<Props> {
             .infoContent {
               font-size: 1.2rem;
               color: ${textColor};
+              flex: 1;
             }
 
             .messageTitle {

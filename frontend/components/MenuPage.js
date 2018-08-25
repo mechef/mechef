@@ -13,6 +13,7 @@ import Modal from './Modal';
 import MenuList from './MenuList';
 import MenuEdit from './MenuEdit';
 import DefaultComponent from './DefaultComponent';
+import DashboardContentLayout from './DashboardContentLayout';
 import type { MenuObject, MeetupObject } from '../utils/flowTypes';
 import {
   whiteColor,
@@ -87,7 +88,7 @@ export class MenuPage extends React.Component<Props> {
       (menuList && menuList.find(menu => menu._id === currentMenuId)) || {};
     const displayMenu = { ...currentMenu, ...updatedMenuFields };
     return (
-      <div className="container">
+      <DashboardContentLayout>
         {error.isShowModal ? (
           <Modal
             title={error.title}
@@ -158,16 +159,6 @@ export class MenuPage extends React.Component<Props> {
         ) : null}
         <style jsx>
           {`
-            .container {
-              margin: 0;
-              padding: 49px 19px;
-              width: 100%;
-              min-height: 792px;
-              height: 100%;
-              background-color: #f8f7f7;
-              box-sizing: border-box;
-            }
-
             .textSection {
               display: flex;
               flex-direction: column;
@@ -205,7 +196,7 @@ export class MenuPage extends React.Component<Props> {
             }
           `}
         </style>
-      </div>
+      </DashboardContentLayout>
     );
   }
 }

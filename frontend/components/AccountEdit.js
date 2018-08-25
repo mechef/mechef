@@ -182,32 +182,36 @@ class AccountEdit extends React.Component<Props> {
               Add Images Add Images Add Images
             </p>
             <div className="inputGroup">
-              <TextInput
-                type="text"
-                placeholder="Enter Kitchen Name"
-                size="small"
-                value={this.props.account.firstName}
-                onChange={event => {
-                  if (event && event.target) {
-                    this.props.onUpdateField({
-                      firstName: event.target.value,
-                    });
-                  }
-                }}
-              />
-              <TextInput
-                type="text"
-                placeholder="Enter Kitchen Name"
-                size="small"
-                value={this.props.account.lastName}
-                onChange={event => {
-                  if (event && event.target) {
-                    this.props.onUpdateField({
-                      lastName: event.target.value,
-                    });
-                  }
-                }}
-              />
+              <div className="inputWithPadding">
+                <TextInput
+                  type="text"
+                  placeholder="Enter Kitchen Name"
+                  size="small"
+                  value={this.props.account.firstName}
+                  onChange={event => {
+                    if (event && event.target) {
+                      this.props.onUpdateField({
+                        firstName: event.target.value,
+                      });
+                    }
+                  }}
+                />
+              </div>
+              <div className="inputWithPadding">
+                <TextInput
+                  type="text"
+                  placeholder="Enter Kitchen Name"
+                  size="small"
+                  value={this.props.account.lastName}
+                  onChange={event => {
+                    if (event && event.target) {
+                      this.props.onUpdateField({
+                        lastName: event.target.value,
+                      });
+                    }
+                  }}
+                />
+              </div>
             </div>
           </div>
           <div className="two-div">
@@ -218,19 +222,21 @@ class AccountEdit extends React.Component<Props> {
               <p className="bank-info__subtitle">
                 Add Images Add Images Add Images
               </p>
-              <TextInput
-                type="text"
-                placeholder="Enter Kitchen Name"
-                size="small"
-                value={this.props.account.phoneNumber}
-                onChange={event => {
-                  if (event && event.target) {
-                    this.props.onUpdateField({
-                      phoneNumber: event.target.value,
-                    });
-                  }
-                }}
-              />
+              <div className="inputWithPadding">
+                <TextInput
+                  type="text"
+                  placeholder="Enter Kitchen Name"
+                  size="small"
+                  value={this.props.account.phoneNumber}
+                  onChange={event => {
+                    if (event && event.target) {
+                      this.props.onUpdateField({
+                        phoneNumber: event.target.value,
+                      });
+                    }
+                  }}
+                />
+              </div>
             </div>
             <div className="right">
               <p className="bank-info__title">
@@ -239,19 +245,21 @@ class AccountEdit extends React.Component<Props> {
               <p className="bank-info__subtitle">
                 Add Images Add Images Add Images
               </p>
-              <TextInput
-                type="text"
-                placeholder="Enter Kitchen Name"
-                size="small"
-                value={this.props.account.email}
-                onChange={event => {
-                  if (event && event.target) {
-                    this.props.onUpdateField({
-                      email: event.target.value,
-                    });
-                  }
-                }}
-              />
+              <div className="inputWithPadding">
+                <TextInput
+                  type="text"
+                  placeholder="Enter Kitchen Name"
+                  size="small"
+                  value={this.props.account.email}
+                  onChange={event => {
+                    if (event && event.target) {
+                      this.props.onUpdateField({
+                        email: event.target.value,
+                      });
+                    }
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -279,11 +287,11 @@ class AccountEdit extends React.Component<Props> {
           {`
             .dashboard-content {
               height: 100%;
-              padding-top: 20px;
-              padding-left: 21px;
+              padding: 20px;
             }
             .dashboard-content__form {
-              width: 800px;
+              max-width: 552px;
+              width: 100%;
               border-radius: 4px;
               background-color: #ffffff;
               margin-bottom: 30px;
@@ -451,7 +459,8 @@ class AccountEdit extends React.Component<Props> {
             .buttonGroup {
               display: flex;
               justify-content: flex-end;
-              width: 800px;
+              max-width: 552px;
+              width: 100%:
               margin-bottom: 100px;
               cursor: pointer;
             }
@@ -463,9 +472,13 @@ class AccountEdit extends React.Component<Props> {
             .inputGroup {
               display: flex;
               justify-content: space-between;
-              width: 539px;
+              max-width: 539px;
+              width: 100%;
             }
-
+            .inputWithPadding {
+              padding-left: 5px;
+              padding-right: 5px;
+            }
             .smallSize {
               width: 250px;
               height: 50px;
@@ -475,7 +488,9 @@ class AccountEdit extends React.Component<Props> {
               display: flex;
               justify-content: space-between;
               padding: 0 20px 30px;
-              width: 539px;
+              max-width: 539px;
+              width: 100%;
+              box-sizing: border-box;
             }
           `}
         </style>

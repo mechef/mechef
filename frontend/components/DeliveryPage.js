@@ -12,6 +12,7 @@ import Modal from './Modal';
 import DeliveryList from './DeliveryList';
 import DeliveryEdit from './DeliveryEdit';
 import DefaultComponent from './DefaultComponent';
+import DashboardContentLayout from './DashboardContentLayout';
 import type { MeetupObject } from '../utils/flowTypes';
 import {
   whiteColor,
@@ -84,7 +85,7 @@ export class DeliveryPage extends React.Component<Props> {
     const displayMeetup = { ...currentMeetup, ...updatedMeetupFields };
 
     return (
-      <div className="container">
+      <DashboardContentLayout>
         {error.isShowModal ? (
           <Modal
             title={error.title}
@@ -148,16 +149,6 @@ export class DeliveryPage extends React.Component<Props> {
         ) : null}
         <style jsx>
           {`
-            .container {
-              margin: 0;
-              padding: 49px 19px;
-              width: 100%;
-              height: 998px;
-              background-color: #f8f7f7;
-              overflow: scroll;
-              box-sizing: border-box;
-            }
-
             .textSection {
               display: flex;
               flex-direction: column;
@@ -201,7 +192,7 @@ export class DeliveryPage extends React.Component<Props> {
             }
           `}
         </style>
-      </div>
+      </DashboardContentLayout>
     );
   }
 }

@@ -20,6 +20,7 @@ import {
   primaryBtnHoverColor,
 } from '../utils/styleVariables';
 import DefaultComponent from './DefaultComponent';
+import DashboardContentLayout from './DashboardContentLayout';
 import OrderItem from './OrderItem';
 import Spinner from '../components/Spinner';
 import TitleWithNotification from '../components/TitleWithNotification';
@@ -131,7 +132,7 @@ class OrderPage extends React.Component<Props, State> {
     ];
 
     return (
-      <div className="container">
+      <DashboardContentLayout>
         {error.isShowModal ? (
           <Modal
             title={error.title}
@@ -239,17 +240,6 @@ class OrderPage extends React.Component<Props, State> {
         ) : null}
         <style jsx>
           {`
-            .container {
-              margin: 0;
-              padding: 49px 19px;
-              width: 100%;
-              min-height: 792px;
-              height: 100%;
-              background-color: #f8f7f7;
-              overflow: scroll;
-              box-sizing: border-box;
-            }
-
             .orderWrapper {
               height: 100%;
               min-height: 400px;
@@ -309,7 +299,7 @@ class OrderPage extends React.Component<Props, State> {
             }
           `}
         </style>
-      </div>
+      </DashboardContentLayout>
     );
   }
 }

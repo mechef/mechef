@@ -13,6 +13,7 @@ import AccountDetail from './AccountDetail';
 import AccountEdit from './AccountEdit';
 import UpdateBankAccount from './UpdateBankAccount';
 import UpdatePassword from './UpdatePassword';
+import DashboardContentLayout from './DashboardContentLayout';
 import type { AccountObject } from '../utils/flowTypes';
 
 type Props = {
@@ -78,7 +79,7 @@ export class AccountPage extends React.Component<Props, State> {
     } = this.props;
     const account = { ...currentAccount, ...updatedFields };
     return (
-      <div className="accountContainer">
+      <DashboardContentLayout>
         {error.isShowModal ? (
           <Modal
             title={error.title}
@@ -129,14 +130,8 @@ export class AccountPage extends React.Component<Props, State> {
         )
         /* eslint-enable no-nested-ternary */
         }
-        <style jsx>
-          {`
-            .accountContainer {
-              background-color: #f8f7f7;
-            }
-          `}
-        </style>
-      </div>
+        <style jsx>{``}</style>
+      </DashboardContentLayout>
     );
   }
 }

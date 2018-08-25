@@ -62,8 +62,9 @@ const Modal = (props: Props) => (
           top: 50%;
           left: 50%;
           transform: translate(-50%, -50%);
-          width: 305px;
-          height: 327px;
+          max-width: 305px;
+          width: 100%;
+          max-height: 327px;
           border-radius: 8px;
           background-color: ${modalColor[props.type]};
         }
