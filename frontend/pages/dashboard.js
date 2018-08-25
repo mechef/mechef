@@ -219,18 +219,16 @@ class Dashboard extends React.Component<Props, State> {
               width: 240px;
               display: flex;
               background-color: #252525;
+              position: fixed;
+              z-index: 99;
             }
-            @media all and (max-width: 768px) {
-              .dashboard__left {
-                position: absolute;
-                z-index: 99;
-                top: 90px;
-              }
-            }
+
             .dashboard__right {
               flex: 5;
               min-height: 100%;
               width: calc(100% - 240px);
+              left: 240px;
+              position: absolute;
             }
             .dashboard-sidebar {
               width: 100%;
@@ -289,6 +287,9 @@ class Dashboard extends React.Component<Props, State> {
             .dashboard-header {
               height: 90px;
               background-color: #ffffff;
+              width: 100%;
+              position: fixed;
+              z-index: 99;
             }
 
             .dashboard-header__wrapper {
@@ -347,6 +348,7 @@ class Dashboard extends React.Component<Props, State> {
 
             #dashboard-header__menu-toggle:checked ~ .dashboard__right {
               width: 100%;
+              left: 0;
             }
 
             #dashboard-header__menu-toggle:checked ~ .dashboard__left {
@@ -419,6 +421,16 @@ class Dashboard extends React.Component<Props, State> {
               width: 80px;
               height: 80px;
               border-radius: 40px;
+            }
+
+            @media (max-width: 540px) {
+              .dashboard__right {
+                width: 100%;
+                left: 0;
+              }
+              .dashboard__left {
+                top: 90px;
+              }
             }
           `}
         </style>
