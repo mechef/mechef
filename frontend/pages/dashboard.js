@@ -76,7 +76,9 @@ class Dashboard extends React.Component<Props, State> {
     if (this.props.global.backArrow.isShow) {
       this.props.toggleBackArrow$('');
     }
-    this.toggleSideBarRef.current.checked = true;
+    if (window.matchMedia('(max-width: 540px)').matches) {
+      this.toggleSideBarRef.current.checked = true;
+    }
   }
 
   render() {
