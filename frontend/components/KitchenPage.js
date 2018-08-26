@@ -119,13 +119,13 @@ const enhance = compose(
     onDishSelected: ({ kitchen }) => (dishId: string) => {
       Router.push(
         {
-          pathname: '/kitchen',
+          pathname: '/dish',
           query: {
-            kitchen: kitchen.kitchenName,
-            dish: dishId,
+            kitchenName: kitchen.kitchenName,
+            dishId,
           },
         },
-        `/kitchen/${kitchen.kitchenName}/${dishId}`,
+        `/kitchen/${kitchen.kitchenName}/dish/${dishId}`,
       );
     },
     addDishToCart: ({ kitchen, addToCart$ }) => (dishOrder: DishOrderType) => {

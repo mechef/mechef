@@ -49,17 +49,17 @@ i18n
             app.render(req, res, actualPage);
           });
 
-          server.get('/kitchen/:kitchen', (req, res) => {
+          server.get('/kitchen/:kitchenName', (req, res) => {
             const actualPage = '/kitchen';
-            const queryParams = { kitchen: req.params.kitchen };
+            const queryParams = { kitchen: req.params.kitchenName };
             app.render(req, res, actualPage, queryParams);
           });
 
-          server.get('/kitchen/:kitchen/:dish', (req, res) => {
-            const actualPage = '/kitchen';
+          server.get('/kitchen/:kitchenName/dish/:dishId', (req, res) => {
+            const actualPage = '/dish';
             const queryParams = {
-              kitchen: req.params.kitchen,
-              dish: req.params.dish,
+              kitchenName: req.params.kitchenName,
+              dishId: req.params.dishId,
             };
             app.render(req, res, actualPage, queryParams);
           });
