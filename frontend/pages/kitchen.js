@@ -7,6 +7,7 @@ import Spinner from '../components/Spinner';
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
 import KitchenPageRouter from '../components/KitchenPageRouter';
+import KitchenPage from '../components/KitchenPage';
 
 import { connect } from '../state/RxState';
 import kitchenActions from '../actions/kitchenActions';
@@ -15,6 +16,7 @@ import errorActions from '../actions/errorActions';
 import type { KitchenObject } from '../utils/flowTypes';
 import type { CartObject } from '../utils/flowTypes';
 import { fontSize, fontSizeSmall, smallBreak } from '../utils/styleVariables';
+import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
   url: {
@@ -45,9 +47,10 @@ class Kitchen extends React.Component<Props> {
     return (
       <div>
         <BuyerHeader cart={this.props.cart} kitchenName={kitchen.kitchenName} />
+        <div className="kitchen-cover" />
         {!kitchen || kitchen.isLoading ? <Spinner /> : null}
         {kitchen && !kitchen.isLoading ? (
-          <KitchenPageRouter kitchen={kitchen} query={url.query} />
+          <KitchenPage kitchen={kitchen} kitchenName={kitchen.kitchenName} />
         ) : null}
         <BuyerFooter />
         <style jsx>
@@ -59,6 +62,34 @@ class Kitchen extends React.Component<Props> {
             @media (min-width: ${smallBreak}) {
               font-size: ${fontSize};
               letter-spacing: 0.6px;
+            }
+            .kitchen {
+              width: 100%;
+              position: relative;
+            }
+            .kitchen-cover,
+            .kitchen-cover--hidden {
+              height: 200px;
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: center;
+              background-image: url('${
+                kitchen && kitchen.coverPhoto
+                  ? `${IMAGE_URL}/${kitchen.coverPhoto}`
+                  : '/static/pancake.jpg'
+              }'), url('/static/pancake.jpg');
+            }
+
+            .kitchen-cover--hidden {
+              display: none;
+            }
+
+            @media (min-width: ${smallBreak}) {
+              .kitchen-cover,
+              .kitchen-cover--hidden {
+                height: 250px;
+                display: block;
+              }
             }
           `}
         </style>
