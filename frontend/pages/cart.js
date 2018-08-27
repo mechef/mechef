@@ -21,12 +21,12 @@ type Props = {
   t: (key: string) => string,
   url: {
     query: {
-      kitchen: string,
+      kitchenName: string,
     },
   },
   cart: CartObject,
   restoreCart$: (kitchen: string) => Rx.Observable,
-  removeFromCart$: ({ kitchen: string, id: number }) => Rx.Observable,
+  removeFromCart$: ({ kitchenName: string, dishId: number }) => Rx.Observable,
   modifyOrderInCart$: ({
     kitchen: string,
     order: CartOrderObject,
@@ -56,7 +56,7 @@ class Cart extends React.PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    this.props.restoreCart$(this.props.url.query.kitchen);
+    this.props.restoreCart$(this.props.url.query.kitchenName);
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -68,14 +68,17 @@ class Cart extends React.PureComponent<Props, State> {
   onOrderModified(order: CartOrderObject) {
     this.props.modifyOrderInCart$({
       order,
-      kitchen: this.props.url.query.kitchen,
+      kitchen: this.props.url.query.kitchenName,
     });
   }
 
   onRemoveButtonClicked: Function;
 
-  onRemoveButtonClicked(id: number) {
-    this.props.removeFromCart$({ kitchen: this.props.url.query.kitchen, id });
+  onRemoveButtonClicked(dishId: number) {
+    this.props.removeFromCart$({
+      kitchenName: this.props.url.query.kitchenName,
+      dishId,
+    });
   }
 
   calculateOrderPrice: Function;
@@ -113,7 +116,7 @@ class Cart extends React.PureComponent<Props, State> {
 
     return (
       <div className="wrapper">
-        <BuyerHeader cart={cart} kitchenName={url.query.kitchen} />
+        <BuyerHeader cart={cart} kitchenName={url.query.kitchenName} />
         <div className="cart">
           <div className="cart-header">
             {t('shoppingcart_my_shopping_cart')}
@@ -163,7 +166,7 @@ class Cart extends React.PureComponent<Props, State> {
                   buttonStyle="greenBorderOnly"
                   onClick={() => {
                     Router.push({
-                      pathname: `/kitchen/${url.query.kitchen}`,
+                      pathname: `/kitchen/${url.query.kitchenName}`,
                     });
                   }}
                 >
@@ -173,7 +176,7 @@ class Cart extends React.PureComponent<Props, State> {
                   buttonStyle="primary"
                   onClick={() => {
                     Router.push({
-                      pathname: `/checkout/${url.query.kitchen}`,
+                      pathname: `/kitchen/${url.query.kitchenName}/checkout`,
                     });
                   }}
                 >

@@ -4,6 +4,7 @@ import Rx from 'rxjs/Rx';
 import cartActions from '../actions/cartActions';
 
 const initialState = {
+  // TODO Paipo: Change the naming to 'dishes' -> cuz it's dishes..
   orders: [],
 };
 
@@ -71,21 +72,16 @@ const cartReducer$ = Rx.Observable.of(() => initialState).merge(
       orders: [...newCart.orders],
     };
   }),
-  cartActions.removeFromCart$.map(({ kitchen, id }) => state => {
+  cartActions.removeFromCart$.map(({ kitchenName, dishId }) => state => {
     const newCart = {
-      orders: state.orders.reduce(
-        (orders, order) => (order._id === id ? orders : [...orders, order]),
-        [],
-      ),
+      ...state,
+      orders: state.orders.filter(dish => dish.dishId !== dishId),
     };
     window.localStorage.setItem(
-      `${encodeURIComponent(kitchen)}_cart`,
+      `${encodeURIComponent(kitchenName)}_cart`,
       JSON.stringify(newCart),
     );
-    return {
-      ...state,
-      orders: [...newCart.orders],
-    };
+    return newCart;
   }),
   cartActions.modifyOrderInCart$.map(({ kitchen, ...order }) => state => {
     const newCart = {

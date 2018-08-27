@@ -67,7 +67,8 @@ class CartItem extends React.Component<Props, State> {
   onRemoveButtonClicked: Function;
 
   onRemoveButtonClicked() {
-    this.props.onOrderRemoved(this.props.order._id);
+    // TODO Paipo: Change the name to 'dish'
+    this.props.onOrderRemoved(this.props.order.dishId);
   }
 
   calculateSubTotal: Function;

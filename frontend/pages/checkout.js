@@ -26,7 +26,7 @@ import { IMAGE_URL } from '../utils/constants';
 type Props = {
   url: {
     query: {
-      kitchen: string,
+      kitchenName: string,
     },
   },
   createOrder$: (order: Object) => Rx.Observable,
@@ -41,6 +41,7 @@ type Props = {
     isShowModal: boolean,
   },
   deliveryList: Array<Object>,
+  fetchKitchen$: (kitchenName: string) => Rx.Observable,
 };
 
 type State = {
@@ -54,7 +55,6 @@ type State = {
     deliveryId: string,
   },
   cartOrderList: ?Array<Object>,
-  fetchKitchen$: (kitchenName: string) => Rx.Observable,
 };
 
 const get30MinIntervalList = (startTime, endTime) => {
@@ -103,16 +103,15 @@ class Checkout extends React.PureComponent<Props, State> {
   componentDidMount() {
     if (!this.state.cartOrderList) {
       const orderJson = window.localStorage.getItem(
-        `${encodeURIComponent(this.props.url.query.kitchen)}_cart`,
+        `${encodeURIComponent(this.props.url.query.kitchenName)}_cart`,
       );
-      console.log(JSON.parse(orderJson).orders);
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({
         cartOrderList: orderJson ? JSON.parse(orderJson).orders : [],
       });
     }
     if (!this.props.deliveryList.length) {
-      this.props.fetchKitchen$(this.props.url.query.kitchen);
+      this.props.fetchKitchen$(this.props.url.query.kitchenName);
     }
   }
 
@@ -251,7 +250,7 @@ class Checkout extends React.PureComponent<Props, State> {
                   this.setState({
                     newOrder: {
                       ...this.state.newOrder,
-                      deliveryId: selectedValue,
+                      deliveryId: String(selectedValue),
                     },
                   });
                 }}
@@ -267,7 +266,7 @@ class Checkout extends React.PureComponent<Props, State> {
                   this.setState({
                     newOrder: {
                       ...this.state.newOrder,
-                      deliveryTime: selectedValue,
+                      deliveryTime: String(selectedValue),
                     },
                   });
                 }}
@@ -306,7 +305,11 @@ class Checkout extends React.PureComponent<Props, State> {
                 <div className="cart-footer__item">
                   <span className="cart-footer__item__label">TOTAL</span>
                   <span>
-                    {`$${this.getTotal(this.state.cartOrderList)}.00`}
+                    {`$${
+                      this.state.cartOrderList
+                        ? this.getTotal(this.state.cartOrderList)
+                        : 0
+                    }.00`}
                   </span>
                 </div>
               </div>
@@ -327,7 +330,7 @@ class Checkout extends React.PureComponent<Props, State> {
                     }))
                   : [],
                 ...rest,
-                kitchenName: this.props.url.query.kitchen,
+                kitchenName: this.props.url.query.kitchenName,
               });
             }}
           >
@@ -490,8 +493,8 @@ class Checkout extends React.PureComponent<Props, State> {
 
 const stateSelector = ({ error, kitchen }) => ({
   deliveryList:
-    kitchen && kitchen.kitchen && kitchen.kitchen.deliveryList
-      ? kitchen.kitchen.deliveryList
+    kitchen && kitchen.currentKitchen
+      ? kitchen.currentKitchen.deliveryList
       : [],
   error,
 });

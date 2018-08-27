@@ -21,17 +21,18 @@ import { smallBreak } from '../utils/styleVariables';
 
 type Props = {
   kitchen: KitchenObject,
-  kitchenName: string,
   addToCart$: (order: DishOrderType) => Rx.Observable,
   onDishSelected: (dishId: string) => any,
   showDishModal: (dishId: string) => any,
   selectedDish: MenuObject,
   closeDishModal: () => any,
   addDishToCart: (dishOrder: DishOrderType) => Rx.Observable,
+  isLoading: boolean,
 };
 
 const KitchenPage = ({
   kitchen,
+  isLoading,
   onDishSelected,
   showDishModal,
   selectedDish,
@@ -55,7 +56,7 @@ const KitchenPage = ({
             onAddToCartClick={() => showDishModal(dish._id)}
           />
         ))
-      ) : !kitchen.isLoading ? (
+      ) : !isLoading ? (
         <KitchenClosedComponent />
       ) : null}
       {selectedDish ? (
@@ -94,25 +95,6 @@ const KitchenPage = ({
   </div>
 );
 
-const KitchenNotFound = () => () => (
-  <div className="kitchen-not-found">
-    <span>Kitchen Not Found</span>
-    <style jsx>
-      {`
-        .kitchen-not-found {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          min-height: 300px;
-        }
-      `}
-    </style>
-  </div>
-);
-
-const showNotFoundPageIfNotKitchen = predicate =>
-  branch(predicate, KitchenNotFound);
 const enhance = compose(
   withState('selectedDish', 'updateSelectedDish', null),
   withHandlers({
@@ -144,9 +126,6 @@ const enhance = compose(
       updateSelectedDish(null);
     },
   }),
-  showNotFoundPageIfNotKitchen(
-    ({ kitchen }) => !kitchen.isLoading && !kitchen.kitchenName,
-  ),
 );
 
 const actionSubjects = {

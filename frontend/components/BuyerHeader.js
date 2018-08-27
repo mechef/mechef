@@ -38,7 +38,7 @@ const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
             }
             onCartClicked={() => {
               Router.push({
-                pathname: `/cart/${encodeURIComponent(kitchenName)}`,
+                pathname: `/kitchen/${encodeURIComponent(kitchenName)}/cart`,
               });
             }}
           />

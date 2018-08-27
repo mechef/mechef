@@ -25,12 +25,30 @@ type Props = {
       dish?: string,
     },
   },
-  kitchen?: KitchenObject,
+  currentKitchen?: KitchenObject,
+  isLoading: boolean,
   cart: CartObject,
   restoreCart$: (kitchen: string) => Rx.Observable,
   fetchKitchen$: (kitchen: string) => Rx.Observable,
   setLoading$: boolean => Rx.Subject,
 };
+
+const KitchenNotFound = () => (
+  <div className="kitchen-not-found">
+    <span>Kitchen Not Found</span>
+    <style jsx>
+      {`
+        .kitchen-not-found {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          min-height: 300px;
+        }
+      `}
+    </style>
+  </div>
+);
 
 class Kitchen extends React.Component<Props> {
   componentDidMount() {
@@ -43,15 +61,21 @@ class Kitchen extends React.Component<Props> {
   }
 
   render() {
-    const { kitchen = {}, url } = this.props;
+    const { currentKitchen, isLoading, url } = this.props;
     return (
       <div>
-        <BuyerHeader cart={this.props.cart} kitchenName={kitchen.kitchenName} />
+        <BuyerHeader
+          cart={this.props.cart}
+          kitchenName={currentKitchen && currentKitchen.kitchenName}
+        />
         <div className="kitchen-cover" />
-        {!kitchen || kitchen.isLoading ? <Spinner /> : null}
-        {kitchen && !kitchen.isLoading ? (
-          <KitchenPage kitchen={kitchen} kitchenName={kitchen.kitchenName} />
-        ) : null}
+        {isLoading ? (
+          <Spinner />
+        ) : currentKitchen ? (
+          <KitchenPage kitchen={currentKitchen} isLoading={isLoading} />
+        ) : (
+          <KitchenNotFound />
+        )}
         <BuyerFooter />
         <style jsx>
           {`
@@ -74,8 +98,8 @@ class Kitchen extends React.Component<Props> {
               background-size: cover;
               background-position: center;
               background-image: url('${
-                kitchen && kitchen.coverPhoto
-                  ? `${IMAGE_URL}/${kitchen.coverPhoto}`
+                currentKitchen && currentKitchen.coverPhoto
+                  ? `${IMAGE_URL}/${currentKitchen.coverPhoto}`
                   : '/static/pancake.jpg'
               }'), url('/static/pancake.jpg');
             }
@@ -99,7 +123,9 @@ class Kitchen extends React.Component<Props> {
 }
 
 const stateSelector = ({ kitchen, cart, error }) => ({
-  kitchen: kitchen && kitchen.kitchen,
+  currentKitchen:
+    kitchen && kitchen.currentKitchen ? kitchen.currentKitchen : null,
+  isLoading: kitchen && kitchen.isLoading,
   cart,
   error,
 });

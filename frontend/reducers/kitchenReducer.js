@@ -5,34 +5,8 @@ import kitchenActions from '../actions/kitchenActions';
 import errorActions from '../actions/errorActions';
 import { API_KITCHEN, API_MENU } from '../utils/constants';
 
-const defaultKitchen = {
-  kitchenName: '',
-  kitchenDescription: '',
-  email: '',
-  coverPhoto: '',
-  profileImage: '',
-  menuList: [],
-  deliveryList: [],
-};
-
-const defaultDish = {
-  images: [],
-  deliveryIdList: [],
-  ingredients: [],
-  category: [],
-  serving: 0,
-  cookingBuffer: '',
-  description: '',
-  quantity: 0,
-  unitPrice: '',
-  dishName: '',
-};
-
 const initialState = {
-  kitchen: {
-    kitchen: { ...defaultKitchen },
-    selectedDish: null,
-  },
+  currentKitchen: null,
   isLoading: false,
 };
 
@@ -41,10 +15,10 @@ const kitchenReducer$ = Rx.Observable.of(() => initialState).merge(
     ...state,
     isLoading,
   })),
-  kitchenActions.fetchKitchen$.flatMap(kitchen =>
+  kitchenActions.fetchKitchen$.flatMap(kitchenName =>
     Rx.Observable.ajax({
       crossDomain: true,
-      url: `${API_KITCHEN}/${encodeURIComponent(kitchen)}`,
+      url: `${API_KITCHEN}/${encodeURIComponent(kitchenName)}`,
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -54,7 +28,7 @@ const kitchenReducer$ = Rx.Observable.of(() => initialState).merge(
     })
       .map(data => state => ({
         ...state,
-        kitchen: { ...data.response.kitchen },
+        currentKitchen: data.response.kitchen,
         isLoading: false,
       }))
       .catch(error => {
@@ -65,36 +39,7 @@ const kitchenReducer$ = Rx.Observable.of(() => initialState).merge(
         });
         return Rx.Observable.of(state => ({
           ...state,
-          kitchen: { kitchen: { ...defaultKitchen } },
-          isLoading: false,
-        }));
-      }),
-  ),
-  kitchenActions.fetchDish$.flatMap(dishId =>
-    Rx.Observable.ajax({
-      crossDomain: true,
-      url: `${API_MENU}/${dishId}`,
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Authorization: window.localStorage.getItem('jwt'),
-      },
-      responseType: 'json',
-    })
-      .map(data => state => ({
-        ...state,
-        selectedDish: { ...data.response.menu },
-        isLoading: false,
-      }))
-      .catch(error => {
-        errorActions.setError$.next({
-          isShowModal: true,
-          title: 'Get Dish Error',
-          message: error.message,
-        });
-        return Rx.Observable.of(state => ({
-          ...state,
-          selectedDish: { ...defaultDish },
+          kitchen: null,
           isLoading: false,
         }));
       }),

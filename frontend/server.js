@@ -64,15 +64,15 @@ i18n
             app.render(req, res, actualPage, queryParams);
           });
 
-          server.get('/cart/:kitchen', (req, res) => {
+          server.get('/kitchen/:kitchenName/cart', (req, res) => {
             const actualPage = '/cart';
-            const queryParams = { kitchen: req.params.kitchen };
+            const queryParams = { kitchenName: req.params.kitchenName };
             app.render(req, res, actualPage, queryParams);
           });
 
-          server.get('/checkout/:kitchen', (req, res) => {
+          server.get('/kitchen/:kitchenName/checkout', (req, res) => {
             const actualPage = '/checkout';
-            const queryParams = { kitchen: req.params.kitchen };
+            const queryParams = { kitchenName: req.params.kitchenName };
             app.render(req, res, actualPage, queryParams);
           });
 
