@@ -3,6 +3,7 @@ const uuidv4 = require('uuid/v4');
 const fs = require('fs');
 const constants = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
+const verifier = require('../../utils/verifier');
 
 module.exports = (req, res) => {
   // req.files is array of `photos` files
@@ -17,7 +18,33 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(500).json({ status: constants.fail });
+      console.log(err);
+      res.status(400).json({
+        status: constants.fail,
+        reason: constants.jwt_verification_error,
+      });
+      return;
+    }
+
+    const verifyResponse = verifier.checkRequiredParametersInBody(req, [
+      'dishName',
+      'unitPrice',
+      'quantity',
+      'category',
+      'ingredients',
+      'description',
+      'cookingBuffer',
+      'serving',
+      'deliveryIdList',
+      'images',
+    ]);
+    if (!verifyResponse.isPass) {
+      res.status(400).json({
+        status: constants.fail,
+        reason: `${constants.verifyRequestMessage} ${
+          verifyResponse.errorFields
+        }`,
+      });
       return;
     }
 
@@ -36,7 +63,8 @@ module.exports = (req, res) => {
     menu.images = req.body.images;
 
     menu.save((error, savedMenu) => {
-      if (error) {
+      if (error || !savedMenu) {
+        console.log(error);
         res.status(500).json({ status: constants.fail });
         return;
       }

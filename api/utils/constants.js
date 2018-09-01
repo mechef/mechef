@@ -6,6 +6,7 @@ module.exports = {
   no_token: 'no_token',
   id_not_found: 'id not found',
   email_not_found: 'email not found',
+  jwt_verification_error: 'jwt verification error',
   order_state: {
     waiting: 'waiting',
     cancelled: 'cancelled',

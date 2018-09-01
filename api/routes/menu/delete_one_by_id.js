@@ -15,15 +15,19 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(500).json({ status: constants.fail });
+      console.log(err);
+      res.status(400).json({
+        status: constants.fail,
+        reason: constants.jwt_verification_error,
+      });
       return;
     }
 
     Menu.findOne(
       { _id: req.params.id, email: decoded.email },
       (error, menu) => {
-        if (error) {
-          res.status(500).json({ status: constants.fail });
+        if (error || !menu) {
+          res.status(404).json({ status: constants.fail });
           return;
         }
 
@@ -31,17 +35,20 @@ module.exports = (req, res) => {
         const mongoDriver = mongoose.mongo;
         const gfs = new Gridfs(db, mongoDriver);
 
-        for (let filename in menu.images) {
-          gfs.remove({ filename }, erro => {
-            if (erro) {
-              console.log(erro);
-            }
-          });
+        if (menu.images && menu.images.length > 0) {
+          for (let filename in menu.images) {
+            gfs.remove({ filename }, erro => {
+              if (erro) {
+                console.log(erro);
+              }
+            });
+          }
         }
 
         Menu.remove({ _id: req.params.id }, e => {
           if (e) {
-            res.status(500).json({ status: constants.fail });
+            console.log(e);
+            res.status(404).json({ status: constants.fail });
             return;
           }
           res.json({ status: constants.success });

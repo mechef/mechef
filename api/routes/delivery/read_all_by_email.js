@@ -14,7 +14,10 @@ module.exports = (req, res) => {
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
       console.log(err);
-      res.status(500).json({ status: constants.fail });
+      res.status(400).json({
+        status: constants.fail,
+        reason: constants.jwt_verification_error,
+      });
       return;
     }
 
@@ -22,6 +25,10 @@ module.exports = (req, res) => {
       if (err) {
         console.log(err);
         res.status(500).json({ status: constants.fail });
+        return;
+      }
+      if (!deliveryList) {
+        res.status(404).json({ status: constants.fail });
         return;
       }
       const processedDeliveryList = Delivery.getDeliveryList(deliveryList);

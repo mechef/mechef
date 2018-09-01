@@ -20,33 +20,45 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(404).json({ status: constants.fail });
+      console.log(err);
+      res.status(400).json({
+        status: constants.fail,
+        reason: constants.jwt_verification_error,
+      });
       return;
     }
 
     const updateFields = {};
-    if (req.body.dishName) updateFields.dishName = req.body.dishName;
-    if (req.body.unitPrice) updateFields.unitPrice = req.body.unitPrice;
-    if (req.body.quantity) updateFields.quantity = req.body.quantity;
-    if (req.body.category) updateFields.category = req.body.category;
-    if (req.body.ingredients) updateFields.ingredients = req.body.ingredients;
-    if (req.body.description) updateFields.description = req.body.description;
-    if (req.body.cookingBuffer)
+    if (typeof req.body.dishName !== 'undefined')
+      updateFields.dishName = req.body.dishName;
+    if (typeof req.body.unitPrice !== 'undefined')
+      updateFields.unitPrice = req.body.unitPrice;
+    if (typeof req.body.quantity !== 'undefined')
+      updateFields.quantity = req.body.quantity;
+    if (typeof req.body.category !== 'undefined')
+      updateFields.category = req.body.category;
+    if (typeof req.body.ingredients !== 'undefined')
+      updateFields.ingredients = req.body.ingredients;
+    if (typeof req.body.description !== 'undefined')
+      updateFields.description = req.body.description;
+    if (typeof req.body.cookingBuffer !== 'undefined')
       updateFields.cookingBuffer = req.body.cookingBuffer;
-    if (req.body.serving) updateFields.serving = req.body.serving;
-    if (req.body.deliveryIdList)
+    if (typeof req.body.serving !== 'undefined')
+      updateFields.serving = req.body.serving;
+    if (typeof req.body.deliveryIdList !== 'undefined')
       updateFields.deliveryIdList = req.body.deliveryIdList;
     if (typeof req.body.publish !== 'undefined')
       updateFields.publish = req.body.publish;
-    if (req.body.images) updateFields.images = req.body.images;
+    if (typeof req.body.images !== 'undefined')
+      updateFields.images = req.body.images;
 
     Menu.findOneAndUpdate(
       { _id: req.params.id, email: decoded.email },
       { $set: updateFields },
       { projection: { __v: false }, new: false, upsert: true },
       (error, menu) => {
-        if (error) {
-          res.json({ status: constants.fail });
+        if (error || !menu) {
+          res.statys(404).json({ status: constants.fail });
           return;
         }
 
@@ -85,7 +97,7 @@ module.exports = (req, res) => {
           { __v: false },
           (er, updatedMenuFields) => {
             if (er) {
-              res.json({ status: constants.fail });
+              res.status(404).json({ status: constants.fail });
               return;
             }
 

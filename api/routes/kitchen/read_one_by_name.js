@@ -7,12 +7,15 @@ const constants = require('../../utils/constants');
 module.exports = (req, res) => {
   Seller.findOne({ kitchenName: req.params.name }).then((seller, err) => {
     if (err) {
+      console.log(error);
       res.status(500).json({ status: constants.fail });
       return;
     }
 
     if (!seller) {
-      res.status(404).json({ status: constants.id_not_found });
+      res
+        .status(404)
+        .json({ status: constants.fail, reason: 'kitchen name not found' });
       return;
     }
 
@@ -21,6 +24,7 @@ module.exports = (req, res) => {
       if (menuList) {
         Delivery.find({ email: seller.email }, (err, deliveryList) => {
           if (err) {
+            console.log(err);
             res.status(500).json({ status: constants.fail });
             return;
           }

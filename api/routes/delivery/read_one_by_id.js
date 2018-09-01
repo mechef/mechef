@@ -13,7 +13,11 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(500).json({ status: constants.fail });
+      console.log(err);
+      res.status(400).json({
+        status: constants.fail,
+        reason: constants.jwt_verification_error,
+      });
       return;
     }
 
@@ -21,7 +25,8 @@ module.exports = (req, res) => {
       { _id: req.params.id, email: decoded.email },
       (err, delivery) => {
         if (err || !delivery) {
-          res.status(500).json({ status: constants.fail });
+          console.log(err);
+          res.status(404).json({ status: constants.fail });
           return;
         }
 

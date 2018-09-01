@@ -13,17 +13,20 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(500).json({ status: constants.fail });
+      res.status(400).json({
+        status: constants.fail,
+        reason: constants.jwt_verification_error,
+      });
       return;
     }
 
     const updateFields = {};
-    if (req.body.name) updateFields.name = req.body.name;
-    if (req.body.ingredients) {
+    if (typeof req.body.name !== 'undefined') updateFields.name = req.body.name;
+    if (typeof req.body.ingredients !== 'undefined') {
       updateFields.ingredients = req.body.ingredients;
       updateFields.sum = 0;
       for (let i = 0; i < updateFields.ingredients.length; i += 1) {
-        updateFields.sum += parseInt(updateFields.ingredients[i].amount);
+        updateFields.sum += parseInt(updateFields.ingredients[i].amount) || 0;
       }
     }
 
@@ -36,8 +39,9 @@ module.exports = (req, res) => {
         upsert: true,
       },
       (error, memo) => {
-        if (error) {
-          res.status(500).json({ status: constants.fail });
+        if (error || !memo) {
+          console.log(error);
+          res.status(404).json({ status: constants.fail });
           return;
         }
 
