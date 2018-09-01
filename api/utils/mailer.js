@@ -1,13 +1,29 @@
 const nodemailer = require('nodemailer');
 
 // create reusable transporter object using the default SMTP transport
-const transporter = nodemailer.createTransport({
+const constructorParam = {
   service: 'gmail',
   auth: {
     user: '',
     pass: '',
   },
-});
+};
+
+const transporter = nodemailer.createTransport(constructorParam);
+
+transporter.sendEmail = function(mailOptions, callback) {
+  if (typeof mailOptions.from === 'undefined') {
+    mailOptions.from = '"Mechef" <mechef@mechef.com>';
+  }
+
+  if (constructorParam.auth.user !== '' && constructorParam.auth.pass !== '') {
+    transporter.sendMail(mailOptions, callback);
+  } else {
+    const error = null;
+    const info = { messageId: -1, response: 'This is mock response' };
+    callback(error, info);
+  }
+};
 
 module.exports = transporter;
 
