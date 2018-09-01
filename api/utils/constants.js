@@ -26,4 +26,5 @@ module.exports = {
   },
   domain: 'http://localhost:3001',
   mailTurnOn: false,
+  verifyRequestMessage: 'The following fields can not be null.',
 };
