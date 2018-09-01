@@ -4,7 +4,7 @@ const constants = require('../../utils/constants');
 
 module.exports = (req, res) => {
   Menu.findById(req.params.id, (err, menu) => {
-    if (err) {
+    if (err || !menu) {
       res
         .status(404)
         .json({ status: constants.fail, reason: constants.id_not_found });
@@ -14,6 +14,11 @@ module.exports = (req, res) => {
     Delivery.find({ email: menu.email }, (err, deliveryList) => {
       if (err) {
         res.status(500).json({ status: constants.fail });
+        return;
+      }
+
+      if (!deliveryList) {
+        res.status(404).json({ status: constants.fail });
         return;
       }
 

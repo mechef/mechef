@@ -3,9 +3,9 @@ const constants = require('../../utils/constants');
 
 module.exports = (req, res) => {
   Order.findById(req.params.id, (err, order) => {
-    if (err) {
+    if (err || !order) {
       res
-        .status(500)
+        .status(404)
         .json({ status: constants.fail, reason: constants.id_not_found });
       return;
     }

@@ -13,13 +13,17 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(500).json({ status: constants.fail });
+      res.status(400).json({
+        status: constants.fail,
+        reason: constants.jwt_verification_error,
+      });
       return;
     }
 
     Memo.remove({ _id: req.params.id, email: decoded.email }, e => {
       if (e) {
-        res.status(500).json({ status: constants.fail });
+        console.log(e);
+        res.status(404).json({ status: constants.fail });
         return;
       }
       res.json({ status: constants.success });

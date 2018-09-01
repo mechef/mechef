@@ -4,9 +4,7 @@ const constants = require('../../utils/constants');
 module.exports = (req, res) => {
   Menu.findById(req.params.id, (err, menu) => {
     if (err || !menu) {
-      res
-        .status(404)
-        .json({ status: constants.fail, reason: constants.id_not_found });
+      res.status(404).json({ status: constants.fail });
       return;
     }
 

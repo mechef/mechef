@@ -13,26 +13,13 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(500).json({ status: constants.fail });
+      console.log(err);
+      res.status(400).json({
+        status: constants.fail,
+        reason: constants.jwt_verification_error,
+      });
       return;
     }
-    // email: String,
-    // type: String,
-    // meetupAddress: String,
-    // meetupLatitude: Number,
-    // meetupLongitude: Number,
-    // meetupSunday: Boolean,
-    // meetupMonday: Boolean,
-    // meetupTuesday: Boolean,
-    // meetupWednesday: Boolean,
-    // meetupThursday: Boolean,
-    // meetupFriday: Boolean,
-    // meetupSaturday: Boolean,
-    // meetupStartTime: String,
-    // meetupEndTime: String,
-    // shippingAreas: [String],
-    // shippingCost: Number,
-    // note: String,
 
     const delivery = new Delivery();
     delivery.email = decoded.email;
@@ -44,98 +31,100 @@ module.exports = (req, res) => {
       return;
     }
     delivery.type = req.body.type;
-    if (req.body.meetupAddress) {
+
+    if (typeof req.body.meetupAddress !== 'undefined') {
       delivery.meetupAddress = req.body.meetupAddress;
     } else {
       delivery.meetupAddress = '';
     }
 
-    if (req.body.meetupLatitude) {
+    if (typeof req.body.meetupLatitude !== 'undefined') {
       delivery.meetupLatitude = req.body.meetupLatitude;
     } else {
       delivery.meetupLatitude = 0.0;
     }
 
-    if (req.body.meetupLongitude) {
+    if (typeof req.body.meetupLongitude !== 'undefined') {
       delivery.meetupLongitude = req.body.meetupLongitude;
     } else {
       delivery.meetupLongitude = 0.0;
     }
 
-    if (req.body.meetupSunday) {
+    if (typeof req.body.meetupSunday !== 'undefined') {
       delivery.meetupSunday = req.body.meetupSunday;
     } else {
       delivery.meetupSunday = false;
     }
 
-    if (req.body.meetupMonday) {
+    if (typeof req.body.meetupMonday !== 'undefined') {
       delivery.meetupMonday = req.body.meetupMonday;
     } else {
       delivery.meetupMonday = false;
     }
 
-    if (req.body.meetupTuesday) {
+    if (typeof req.body.meetupTuesday !== 'undefined') {
       delivery.meetupTuesday = req.body.meetupTuesday;
     } else {
       delivery.meetupTuesday = false;
     }
 
-    if (req.body.meetupWednesday) {
+    if (typeof req.body.meetupWednesday !== 'undefined') {
       delivery.meetupWednesday = req.body.meetupWednesday;
     } else {
       delivery.meetupWednesday = false;
     }
 
-    if (req.body.meetupThursday) {
+    if (typeof req.body.meetupThursday !== 'undefined') {
       delivery.meetupThursday = req.body.meetupThursday;
     } else {
       delivery.meetupThursday = false;
     }
 
-    if (req.body.meetupFriday) {
+    if (typeof req.body.meetupFriday !== 'undefined') {
       delivery.meetupFriday = req.body.meetupFriday;
     } else {
       delivery.meetupFriday = false;
     }
 
-    if (req.body.meetupSaturday) {
+    if (typeof req.body.meetupSaturday !== 'undefined') {
       delivery.meetupSaturday = req.body.meetupSaturday;
     } else {
       delivery.meetupSaturday = false;
     }
 
-    if (req.body.meetupStartTime) {
+    if (typeof req.body.meetupStartTime !== 'undefined') {
       delivery.meetupStartTime = req.body.meetupStartTime;
     } else {
       delivery.meetupStartTime = '';
     }
 
-    if (req.body.meetupEndTime) {
+    if (typeof req.body.meetupEndTime !== 'undefined') {
       delivery.meetupEndTime = req.body.meetupEndTime;
     } else {
       delivery.meetupEndTime = '';
     }
 
-    if (req.body.shippingAreas) {
+    if (typeof req.body.shippingAreas !== 'undefined') {
       delivery.shippingAreas = req.body.shippingAreas;
     } else {
       delivery.shippingAreas = [];
     }
 
-    if (req.body.shippingCost) {
+    if (typeof req.body.shippingCost !== 'undefined') {
       delivery.shippingCost = req.body.shippingCost;
     } else {
       delivery.shippingCost = 0.0;
     }
 
-    if (req.body.note) {
+    if (typeof req.body.note !== 'undefined') {
       delivery.note = req.body.note;
     } else {
       delivery.note = '';
     }
 
     delivery.save((error, delivery) => {
-      if (error) {
+      if (error || !delivery) {
+        console.log(error);
         res.status(500).json({ status: constants.fail });
         return;
       }
