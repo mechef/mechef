@@ -14,6 +14,7 @@ export const borderRadius = '4px';
 export const errorBorderColor = '#d0021b';
 export const greyBackgroundColor = '#d8d8d8';
 export const shallowGreyBgColor = '#f7f6f6';
+export const borderColor = '#979797';
 
 // Button
 export const smallBtnWidth = '150px';

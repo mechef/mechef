@@ -1,5 +1,5 @@
 import Header from '../components/Header';
-
+import { borderColor } from '../utils/styleVariables';
 const WalkthroughMenuDetail = () => (
   <div>
     <Header />
@@ -148,13 +148,13 @@ const WalkthroughMenuDetail = () => (
           height: 50px;
           border-radius: 4px;
           background-color: #ffffff;
-          border: solid 1px #979797;
+          border: solid 1px ${borderColor};
         }
         .halfInput {
           width: 100%;
           height: 50px;
           border-radius: 4px;
-          border: solid 1px #979797;
+          border: solid 1px ${borderColor};
         }
         .rightHalfInput {
           margin-left: 12px;

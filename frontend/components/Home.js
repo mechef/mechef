@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import moment from 'moment';
 import { translate } from 'react-i18next';
@@ -13,14 +13,18 @@ import orderActions from '../actions/orderActions';
 import Modal from './Modal';
 import MobileOrderItem from './MobileOrderItem';
 import {
+  borderRadius,
+  borderColor,
   transparent,
   whiteColor,
   textColor,
   textHintColor,
   textSize,
+  shallowGreyBgColor,
+  primaryColor,
 } from '../utils/styleVariables';
 import type { AccountObject, OrderObject } from '../utils/flowTypes';
-import { IMAGE_URL, ORDER_STATE } from '../utils/constants';
+import { IMAGE_URL, ORDER_STATE, STORE_LINK_BASE } from '../utils/constants';
 import DefaultComponent from './DefaultComponent';
 
 type Props = {
@@ -45,7 +49,18 @@ type Props = {
   t: (key: string) => string,
 };
 
-export class Home extends React.Component<Props> {
+type State = {
+  showShareStoreLinkModal: boolean,
+};
+
+export class Home extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      showShareStoreLinkModal: false,
+    };
+  }
+
   componentDidMount() {
     this.props.fetchAccountDetail$();
     this.props.fetchOrders$();
@@ -61,12 +76,49 @@ export class Home extends React.Component<Props> {
       <div className="homeContainer">
         {error.isShowModal ? (
           <Modal
+            type="error"
             title={error.title}
             message={error.message}
             onCancel={() =>
               setError$({ isShowModal: false, title: '', message: '' })
             }
           />
+        ) : null}
+        {this.state.showShareStoreLinkModal ? (
+          <Modal
+            type="success"
+            title={this.props.t('myhomestorelink_my_store_link')}
+            message={this.props.t('myhomestorelink_copy_link')}
+            onCancel={() => this.setState({ showShareStoreLinkModal: false })}
+          >
+            {account.currentAccount.kitchenName ? (
+              <div className="storeLinkWrapper">
+                <p className="storeLink">{`${STORE_LINK_BASE}/${
+                  account.currentAccount.kitchenName
+                }`}</p>
+                <button
+                  className="copyBtn"
+                  onClick={() => {
+                    document.oncopy = function(event) {
+                      if (account.currentAccount.kitchenName) {
+                        event.clipboardData.setData(
+                          'text/plain',
+                          `${STORE_LINK_BASE}/${
+                            account.currentAccount.kitchenName
+                          }`,
+                        );
+                      }
+                      event.preventDefault();
+                    };
+                    document.execCommand('copy', false, null);
+                    window.alert('Copied to Clipboard');
+                  }}
+                >
+                  {this.props.t('myhomestorelink_button_copy_link')}
+                </button>
+              </div>
+            ) : null}
+          </Modal>
         ) : null}
         <div
           className="dashboard-content__header"
@@ -86,9 +138,14 @@ export class Home extends React.Component<Props> {
               {account.currentAccount.kitchenName || ''}
             </p>
           </div>
-          <button className="myKitchenLink">
+          <button
+            className="myKitchenLink"
+            onClick={() => {
+              this.setState({ showShareStoreLinkModal: true });
+            }}
+          >
             <span className="kitchenLinkText">
-              {this.props.t('button_my_store')}
+              {this.props.t('myhome_button_my_store')}
             </span>
           </button>
         </div>
@@ -190,6 +247,39 @@ export class Home extends React.Component<Props> {
               min-height: 882px;
               overflow-x: hidden;
               overflow-y: scroll;
+            }
+            .storeLinkWrapper {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+            }
+            .storeLink {
+              display: flex;
+              width: 100%;
+              height: 50px;
+              justify-content: center;
+              align-items: center;
+              background-color: ${shallowGreyBgColor};
+              padding-left: 5px;
+              padding-right: 5px;
+              font-size: 12px;
+            }
+            .copyBtn {
+              border: 0;
+              margin: auto;
+              width: 100%;
+              border: 1px solid ${borderColor};
+              border-radius: ${borderRadius};
+              color: ${borderColor};
+              font-size: 14px;
+              cursor: pointer;
+              padding: 10px;
+              letter-spacing: 0.7px;
+            }
+
+            .copyBtn:hover {
+              border-color: ${primaryColor};
+              color: ${primaryColor};
             }
             .dashboard-content__header {
               margin-bottom: 25px;

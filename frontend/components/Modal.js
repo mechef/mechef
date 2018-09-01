@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
 import {
@@ -11,9 +11,10 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  type: string,
+  type: 'success' | 'warning' | 'error' | 'hint',
   title: string,
   message: string,
+  children?: React.Node,
   onCancel: () => Rx.Observable,
 };
 
@@ -40,13 +41,19 @@ const Modal = (props: Props) => (
         </div>
       </header>
       <section className="alert-modal-body">
-        <p className="alert-title">{props.title}</p>
+        <h2 className="alert-title">{props.title}</h2>
         <p className="alert-message">{props.message}</p>
+        {props.children ? (
+          <p className="alertAction">{props.children}</p>
+        ) : null}
         <p className="alert-bottom-style" />
       </section>
     </div>
     <style jsx>
       {`
+        p {
+          margin: 0;
+        }
         .alert-modal-overlay {
           position: fixed;
           top: 0;
@@ -67,6 +74,7 @@ const Modal = (props: Props) => (
           max-height: 327px;
           border-radius: 8px;
           background-color: ${modalColor[props.type]};
+          padding-bottom: 20px;
         }
         .alert-modal-header {
           display: flex;
@@ -107,18 +115,22 @@ const Modal = (props: Props) => (
           background-color: #ffffff;
         }
         .alert-title {
-          padding-top: 34px;
           font-size: 1.6rem;
           letter-spacing: 0.7px;
           text-align: left;
           color: #4a4a4a;
+          margin-bottom: 40px;
         }
         .alert-message {
-          padding-top: 23px;
           font-size: 1.6rem;
           letter-spacing: 0.7px;
           text-align: center;
           color: #4a4a4a;
+          margin-bottom: 10px;
+        }
+        .alertAction {
+          display: flex;
+          justify-content: center;
         }
         .alert-bottom-style {
         }
