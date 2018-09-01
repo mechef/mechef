@@ -62,7 +62,6 @@ module.exports = (req, res) => {
       seller.phoneNumber = req.body.phoneNumber ? req.body.phoneNumber : '';
 
       const mailOptions = {
-        from: '"Mechef" <mechef@mechef.com>', // sender address
         to: seller.email, // list of receivers
         subject: 'Activation Email From Mechef', // Subject line
         html: `<a href="${constants.domain}/seller/activate/${
@@ -70,7 +69,7 @@ module.exports = (req, res) => {
         }">${constants.domain}/seller/activate/${seller.activateHash}</a>`, // html body
       };
 
-      mailer.sendMail(mailOptions, erro => {
+      mailer.sendEmail(mailOptions, erro => {
         if (erro) {
           res.status(500).json({ status: constants.fail });
           return;

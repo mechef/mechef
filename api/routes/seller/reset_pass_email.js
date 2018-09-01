@@ -31,13 +31,12 @@ module.exports = (req, res) => {
   const resetPassHash = uuidv4() + uuidv4();
 
   const mailOptions = {
-    from: '"Mechef" <mechef@mechef.com>', // sender address
     to: req.body.email, // list of receivers
     subject: 'Reset password Email From Mechef', // Subject line
     html: `<a href="http://localhost:3001/seller/resetpass/${resetPassHash}">http://localhost:3001/seller/resetpass/${resetPassHash}</a>`, // html body
   };
 
-  mailer.sendMail(mailOptions, error => {
+  mailer.sendEmail(mailOptions, error => {
     if (error) {
       res.status(500).json({ status: constants.fail });
       return;
