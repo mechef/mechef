@@ -39,7 +39,7 @@ const KitchenHeader = ({ name, description, profileImage }: Props) => (
           margin-top: -22px;
           margin-bottom: 10px;
           line-height: 1;
-          font-size: 16rem;
+          font-size: 1.6rem;
           position: relative;
         }
         .kitchen-header__name:before {

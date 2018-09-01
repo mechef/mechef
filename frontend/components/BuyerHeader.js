@@ -7,7 +7,7 @@ import CartButton from './CartButton';
 import { connect } from '../state/RxState';
 import type { CartObject } from '../utils/flowTypes';
 import { textColor, smallBreak, whiteColor } from '../utils/styleVariables';
-
+import { STORE_LINK_BASE } from '../utils/constants';
 type Props = {
   cart: CartObject,
   kitchenName?: string,
@@ -16,11 +16,13 @@ type Props = {
 const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
   <div className="buyer-header">
     <div className="buyer-header--left">
-      <img
-        className="buyer-header__logo"
-        src="/static/img/food.png"
-        alt="mechef"
-      />
+      <a href={`${STORE_LINK_BASE}/${kitchenName}`}>
+        <img
+          className="buyer-header__logo"
+          src="/static/img/food.png"
+          alt="mechef"
+        />
+      </a>
     </div>
     <div className="buyer-header--right">
       <span className="buyer-header__link">FAQ</span>

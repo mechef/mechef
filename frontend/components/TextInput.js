@@ -123,7 +123,6 @@ class TextInput extends React.Component<Props, State> {
           {`
             .container {
               display: flex;
-              align-items: center;
               width: 100%;
               flex-direction: column;
             }
@@ -132,7 +131,6 @@ class TextInput extends React.Component<Props, State> {
               display: flex;
               height: ${textInputHeight};
               width: 100%;
-              justify-content: center;
             }
 
             .errorWrapper {
