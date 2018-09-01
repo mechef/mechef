@@ -23,3 +23,7 @@ export const ORDER_STATE = {
   waiting: 'waiting',
   finished: 'finished',
 };
+
+// Link
+export const DOMAIN_NAME = 'http://localhost:3000';
+export const STORE_LINK_BASE = `${DOMAIN_NAME}/kitchen`;

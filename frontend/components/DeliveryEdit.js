@@ -10,6 +10,7 @@ import CheckBox from './CheckBox';
 import MapWithAutoComplete from './MapWithAutoComplete';
 import type { MeetupObject } from '../utils/flowTypes';
 import { DEFAULT_LATITUDE, DEFAULT_LONGITUDE } from '../utils/constants';
+import { borderColor } from '../utils/styleVariables';
 
 type Props = {
   onCreateMeetup: () => Rx.Observable,
@@ -302,7 +303,7 @@ class DeliveryEdit extends React.Component<Props> {
               width: 250px;
               height: 44px;
               border-radius: 4px;
-              border: solid 1px #979797;
+              border: solid 1px ${borderColor};
             }
 
             .buttonGroup {
@@ -323,7 +324,7 @@ class DeliveryEdit extends React.Component<Props> {
               height: 44px;
               opacity: 0.6;
               border-radius: 4px;
-              border: solid 1px #979797;
+              border: solid 1px ${borderColor};
             }
 
             @media (max-width: 540px) {

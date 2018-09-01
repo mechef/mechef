@@ -18,6 +18,7 @@ import {
   lineHeight,
   placeholderTextColor,
   textColor,
+  borderColor,
 } from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
 
@@ -619,7 +620,7 @@ class MenuEdit extends React.Component<Props, State> {
               width: 100%;
               height: 44px;
               border-radius: 4px;
-              border: solid 1px #979797;
+              border: solid 1px ${borderColor};
             }
 
             .shippingContainer {
@@ -713,7 +714,7 @@ class MenuEdit extends React.Component<Props, State> {
               height: 44px;
               opacity: 0.6;
               border-radius: 4px;
-              border: solid 1px #979797;
+              border: solid 1px ${borderColor};
             }
 
             @media (max-width: 540px) {

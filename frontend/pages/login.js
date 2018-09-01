@@ -16,7 +16,7 @@ import Modal from '../components/Modal';
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
 import Spinner from '../components/Spinner';
-import { primaryColor } from '../utils/styleVariables';
+import { primaryColor, borderColor } from '../utils/styleVariables';
 
 type Props = {
   setLoginField$: any => Rx.Observable,
@@ -385,7 +385,7 @@ class Login extends React.Component<Props, State> {
               height: 50px;
               border-radius: 4px;
               background-color: #ffffff;
-              border: solid 1px #979797;
+              border: solid 1px ${borderColor};
               margin: 12px auto 0 auto;
               padding-top: 18px;
               padding-bottom: 16px;

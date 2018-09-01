@@ -234,7 +234,7 @@ class OrderPage extends React.Component<Props, State> {
               </p>
             </div>
             <button className="addDish" onClick={() => {}}>
-              {this.props.t('my_store_link')}
+              {this.props.t('storesellerpreview_my_store_link')}
             </button>
           </DefaultComponent>
         ) : null}

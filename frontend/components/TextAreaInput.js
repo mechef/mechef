@@ -11,6 +11,7 @@ import {
   placeholderLineHeight,
   placeholderFontWeight,
   placeholderFontSize,
+  borderColor,
 } from '../utils/styleVariables';
 
 type Props = {
@@ -40,7 +41,7 @@ const TextAreaInput = (props: Props) => (
 
         .textAreaInput {
           outline: none;
-          border: solid 1px #979797;
+          border: solid 1px ${borderColor};
           border-radius: ${borderRadius};
           height: ${isNaN(props.height) ? props.height : props.height + 'px'};
           max-width: ${isNaN(props.width) ? props.width : props.width + 'px'};
