@@ -17,9 +17,12 @@ import errorActions from '../actions/errorActions';
 import i18n from '../i18n';
 import Modal from '../components/Modal';
 import {
+  primaryColor,
   greyBackgroundColor,
   shallowGreyBgColor,
   smallBreak,
+  textHintColor,
+  borderRadius,
 } from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
 
@@ -126,7 +129,7 @@ class Checkout extends React.PureComponent<Props, State> {
     const { error, setError$ } = this.props;
     return (
       <div>
-        <BuyerHeader />
+        <BuyerHeader kitchenName={this.props.url.query.kitchenName} />
         {error.isShowModal ? (
           <Modal
             title={error.title}
@@ -137,10 +140,7 @@ class Checkout extends React.PureComponent<Props, State> {
           />
         ) : null}
         <div className="checkout">
-          <div className="checkout-header">
-            {/* TODO Bible: Replace with i18n */}
-            Checkout Detail
-          </div>
+          <h1 className="checkout-header">Checkout Detail</h1>
           <hr />
           <div className="content">
             <section className="info">
@@ -148,22 +148,24 @@ class Checkout extends React.PureComponent<Props, State> {
               <div className="infoWrapper">
                 <h4>First Name*</h4>
                 <p className="subtitle">subtitle</p>
-                <TextInput
-                  type="text"
-                  placeholder="Enter your first name"
-                  size="medium"
-                  value={this.state.newOrder.firstName}
-                  onChange={event => {
-                    if (event && event.target) {
-                      this.setState({
-                        newOrder: {
-                          ...this.state.newOrder,
-                          firstName: event.target.value,
-                        },
-                      });
-                    }
-                  }}
-                />
+                <div className="textInputWrapper">
+                  <TextInput
+                    type="text"
+                    placeholder="Enter your first name"
+                    size="medium"
+                    value={this.state.newOrder.firstName}
+                    onChange={event => {
+                      if (event && event.target) {
+                        this.setState({
+                          newOrder: {
+                            ...this.state.newOrder,
+                            firstName: event.target.value,
+                          },
+                        });
+                      }
+                    }}
+                  />
+                </div>
               </div>
               <div className="infoWrapper">
                 <h4>Last Name*</h4>
@@ -274,48 +276,58 @@ class Checkout extends React.PureComponent<Props, State> {
             </section>
             <section className="orderList">
               <h3 className="orderListHeader">YOUR ORDER</h3>
-              <div className="order-content">
-                {this.state.cartOrderList &&
-                  this.state.cartOrderList.map(order => (
-                    <section className="cartItem" key={order._id}>
-                      <div
-                        className="orderImage"
-                        style={{
-                          backgroundImage: `url('${
-                            order.images && order.images.length > 0
-                              ? `${IMAGE_URL}/${order.images.shift()}`
-                              : '/static/svg/mechef_logo_white.svg'
-                          }')`,
-                        }}
-                      />
-                      <div className="orderInfo">
-                        <h4>{order.dishName}</h4>
-                        <p className="messageFromBuyer">
-                          {order.messageFromBuyer}
-                        </p>
-                        <div className="otherInfo">
-                          <span className="quantity">
-                            {order.quantity * order.unitPrice}
-                          </span>
-                          <span className="quantity">{order.quantity}</span>
+              <div className="orderContentWrapper">
+                <div className="order-content">
+                  {this.state.cartOrderList &&
+                    this.state.cartOrderList.map(order => (
+                      <section className="cartItem" key={order._id}>
+                        <div
+                          className="orderImage"
+                          style={{
+                            backgroundImage: `url('${
+                              order.images && order.images.length > 0
+                                ? `${IMAGE_URL}/${order.images.shift()}`
+                                : '/static/svg/mechef_logo_white.svg'
+                            }')`,
+                          }}
+                        />
+                        <div className="orderInfo">
+                          <h4>{order.dishName}</h4>
+                          <p className="messageFromBuyer">
+                            {order.messageFromBuyer}
+                          </p>
+                          <div className="otherInfo">
+                            <span className="quantity">{order.quantity}</span>
+                            <span className="unitPrice">
+                              {`$${order.quantity * order.unitPrice}.00`}
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                    </section>
-                  ))}
-                <div className="cart-footer__item">
-                  <span className="cart-footer__item__label">TOTAL</span>
-                  <span>
-                    {`$${
-                      this.state.cartOrderList
-                        ? this.getTotal(this.state.cartOrderList)
-                        : 0
-                    }.00`}
-                  </span>
+                      </section>
+                    ))}
+                  <div className="cart-footer__item">
+                    <span className="cart-footer__item__label">TOTAL</span>
+                    <span className="totalPrice">
+                      {`$${
+                        this.state.cartOrderList
+                          ? this.getTotal(this.state.cartOrderList)
+                          : 0
+                      }.00`}
+                    </span>
+                  </div>
                 </div>
               </div>
             </section>
           </div>
-          <hr />
+          <hr className="footerLine" />
+          <section className="paymentDetail">
+            <h2 classname="paymentTitle">Payment Detail</h2>
+            <h5 className="paymentSubtitle">Cash on delivery</h5>
+            <p className="paymentDetailDescription">
+              Please stay tune, more payment method like credit card is coming
+              soon!
+            </p>
+          </section>
           <Button
             buttonStyle="primary"
             size="small"
@@ -350,35 +362,27 @@ class Checkout extends React.PureComponent<Props, State> {
             .checkout {
               display: flex;
               flex-direction: column;
+              max-width: 822px;
+              margin: auto;
+              padding: 40px;
             }
             .checkout-header {
               width: 100%;
-              padding: 50px 0 20px;
               font-family: Playball;
-              font-size: 1.8rem;
+              font-size: 2.8rem;
               line-height: 1;
               color: #525252;
               text-align: center;
             }
-            @media (min-width: ${smallBreak}) {
-              .checkout {
-                margin: 0 100px;
-                min-width: 596px;
-                min-height: 100vh;
-                justify-content: space-between;
-              }
-              .checkout-header {
-                padding: 90px 0 30px;
-                font-size: 30px;
-              }
-            }
             .content {
               display: flex;
               flex-direction: column;
+              margin-bottom: 40px;
             }
             .info {
               order: 2;
               padding: 20px 12px;
+              box-sizing: border-box;
             }
             .orderList {
               order: 1;
@@ -389,12 +393,10 @@ class Checkout extends React.PureComponent<Props, State> {
             @media (min-width: ${smallBreak}) {
               .content {
                 flex-direction: row;
-                margin-bottom: 50px;
               }
               .info {
                 order: 1;
                 flex: 1;
-                padding: 0;
               }
               .orderList {
                 order: 2;
@@ -409,12 +411,22 @@ class Checkout extends React.PureComponent<Props, State> {
             }
             .infoWrapper > h4 {
               margin-bottom: 5px;
+              font-size: 1.4rem;
+            }
+            .textInputWrapper {
+              width: 100%;
             }
             .subtitle {
               margin-top: 0;
               margin-bottom: 15px;
+              font-size: 1.2rem;
             }
-
+            .orderContentWrapper {
+              background-color: ${primaryColor};
+              padding-bottom: 10px;
+              border-bottom-left-radius: ${borderRadius};
+              border-bottom-right-radius: ${borderRadius};
+            }
             .order-content {
               background-color: ${shallowGreyBgColor};
               padding: 10px;
@@ -429,19 +441,20 @@ class Checkout extends React.PureComponent<Props, State> {
             }
             .orderImage {
               display: flex;
-              flex-basis: 60px;
-              height: 60px;
               flex-grow: 0;
               flex-shrink: 0;
               background-repeat: no-repeat;
               background-size: contain;
               background-position: center;
               background-color: ${greyBackgroundColor};
+              width: 100px;
+              height: 100px;
             }
 
             .orderInfo {
               flex: 1;
-              padding-left: 16px;
+              padding-left: 10px;
+              padding-right: 10px;
             }
             .orderInfo > h4 {
               margin: 0;
@@ -452,18 +465,9 @@ class Checkout extends React.PureComponent<Props, State> {
               justify-content: space-between;
             }
 
-            @media(min-width: ${smallBreak}) {
-              .cartItem {
-                padding: 5px;
-                height: 144px;
-              }
-              .orderImage {
-                flex-basis: 160px;
-                height: 100%;
-              }
-              .orderInfo {
-                padding: 10px;
-              }
+            .cartItem {
+              padding-top: 15px;
+              padding-bottom: 15px;
             }
 
             .cart-footer {
@@ -474,15 +478,33 @@ class Checkout extends React.PureComponent<Props, State> {
             .cart-footer__item {
               display: flex;
               justify-content: flex-end;
+              margin-top: 20px;
+              margin-bottom: 10px;
+              padding-left: 15px;
+              padding-right: 15px;
             }
             .cart-footer__item .cart-footer__item__label {
-              text-align; right;
+              text-align: right;
+              margin-right: 40px;
             }
             .cart-footer__item .cart-footer__item__label + span {
               display: inline-block;
             }
             .cart-footer > .cart-footer__item + .cart-footer__item {
               padding-top: 18px;
+            }
+            .totalPrice {
+              color: ${primaryColor};
+            }
+            .footerLine {
+              margin-bottom: 50px;
+            }
+            .paymentDetail {
+              margin-bottom: 60px;
+            }
+            .paymentDetailDescription {
+              color: ${textHintColor};
+              font-size: 1.2rem;
             }
           `}
         </style>
