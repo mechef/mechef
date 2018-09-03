@@ -13,12 +13,10 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res
-        .status(400)
-        .json({
-          status: constants.fail,
-          reson: constants.jwt_verification_error,
-        });
+      res.status(400).json({
+        status: constants.fail,
+        reason: constants.jwt_verification_error,
+      });
       return;
     }
 

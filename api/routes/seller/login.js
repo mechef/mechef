@@ -36,6 +36,7 @@ module.exports = (req, res) => {
 
   Seller.findOne({ email }, (err, seller) => {
     if (err) {
+      console.log(err);
       res.status(500).json({ status: constants.fail, reason: err });
     }
     if (seller) {

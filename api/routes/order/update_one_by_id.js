@@ -27,7 +27,7 @@ module.exports = (req, res) => {
       { new: true, upsert: true },
       (error, order) => {
         if (error) {
-          res.status(500).json({ status: constants.fail });
+          res.status(404).json({ status: constants.fail });
           return;
         }
 
