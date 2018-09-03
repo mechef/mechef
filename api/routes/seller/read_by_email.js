@@ -39,13 +39,20 @@ module.exports = (req, res) => {
 
   jwt.verify(token, constants.secret, (err, decoded) => {
     if (err) {
-      res.status(500).json({ status: constants.fail });
+      console.log(err);
+      res
+        .status(400)
+        .json({
+          status: constants.fail,
+          reason: constants.jwt_verification_error,
+        });
     } else {
       Seller.findOne(
         { email: decoded.email },
         Seller.getHiddenFields(),
         (error, seller) => {
           if (error) {
+            console.log(error);
             res.status(500).json({ status: constants.fail });
             return;
           }

@@ -97,21 +97,21 @@ module.exports = (req, res) => {
       return;
     }
     const updateFields = {};
-    if (req.body.kitchenDescription)
+    if (typeof req.body.kitchenDescription !== 'undefined')
       updateFields.kitchenDescription = req.body.kitchenDescription;
-    if (req.body.firstName) updateFields.firstName = req.body.firstName;
-    if (req.body.lastName) updateFields.lastName = req.body.lastName;
-    if (req.body.phoneNumber) updateFields.phoneNumber = req.body.phoneNumber;
+    if (typeof req.body.firstName !== 'undefined') updateFields.firstName = req.body.firstName;
+    if (typeof req.body.lastName !== 'undefined') updateFields.lastName = req.body.lastName;
+    if (typeof req.body.phoneNumber !== 'undefined') updateFields.phoneNumber = req.body.phoneNumber;
     const updateFieldsOfImage = [];
-    if (req.body.coverPhoto) {
+    if (typeof req.body.coverPhoto !== 'undefined') {
       updateFields.coverPhoto = req.body.coverPhoto;
       updateFieldsOfImage.push('coverPhoto');
     }
-    if (req.body.profileImage) {
+    if (typeof req.body.profileImage !== 'undefined') {
       updateFields.profileImage = req.body.profileImage;
       updateFieldsOfImage.push('profileImage');
     }
-    if (req.body.kitchenName) {
+    if (typeof req.body.kitchenName !== 'undefined') {
       Seller.findOne({ kitchenName: req.body.kitchenName }, (err, seller) => {
         if (err || (seller && seller.kitchenName !== req.body.kitchenName)) {
           res.status(400).json({ status: 'kitch name duplicated' });
