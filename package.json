@@ -8,7 +8,7 @@
     "lint": "eslint ./",
     "serve": "nodemon api/app.js",
     "start": "debug=true node api/app.js",
-    "flow": "flow",
+    "flow": "flow check",
     "test": "debug=false jest",
     "test-update": "debug=false jest -u",
     "prettier:all": "prettier --write \"./**/*.js\""
