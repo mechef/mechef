@@ -5,6 +5,9 @@ import Rx from 'rxjs/Rx';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
 import moment from 'moment';
+import 'react-dates/initialize';
+
+import { SingleDatePicker } from 'react-dates';
 import SelectBox from '../components/SelectBox';
 import BuyerHeader from '../components/BuyerHeader';
 import BuyerFooter from '../components/BuyerFooter';
@@ -55,10 +58,12 @@ type State = {
     buyerEmail: string,
     buyerPhoneNumber: string,
     messageFromBuyer: string,
-    deliveryTime: string,
+    deliveryDate: ?moment,
+    deliveryHHmm: string,
     deliveryId: string,
   },
   cartOrderList: ?Array<Object>,
+  isFocusOnCalendar: boolean,
 };
 
 const get30MinIntervalList = (startTime, endTime) => {
@@ -97,10 +102,12 @@ class Checkout extends React.PureComponent<Props, State> {
         buyerEmail: '',
         buyerPhoneNumber: '',
         messageFromBuyer: '',
-        deliveryTime: '',
+        deliveryDate: null,
+        deliveryHHmm: '',
         deliveryId: '',
       },
       cartOrderList: null,
+      isFocusOnCalendar: false,
     };
   }
 
@@ -125,6 +132,19 @@ class Checkout extends React.PureComponent<Props, State> {
     orders ? orders.reduce((total, order) => total + order.subTotal, 0) : 0;
 
   orders: Array<Object>;
+
+  onDateChange = date => {
+    this.setState({
+      newOrder: {
+        ...this.state.newOrder,
+        deliveryDate: date,
+      },
+    });
+  };
+
+  onFocusChange = ({ focused }) => {
+    this.setState({ isFocusOnCalendar: focused });
+  };
 
   render() {
     const { error, setError$ } = this.props;
@@ -258,18 +278,25 @@ class Checkout extends React.PureComponent<Props, State> {
                   });
                 }}
               />
+              <SingleDatePicker
+                id="date_input"
+                date={this.state.newOrder.deliveryDate}
+                focused={this.state.isFocusOnCalendar}
+                onDateChange={this.onDateChange}
+                onFocusChange={this.onFocusChange}
+              />
               <SelectBox
                 options={getTimeOptionList(
                   this.props.deliveryList,
                   this.state.newOrder.deliveryId,
                 )}
-                selectedValue={this.state.newOrder.deliveryTime}
+                selectedValue={this.state.newOrder.deliveryHHmm}
                 defaultText=""
                 onChange={(selectedValue: string | number) => {
                   this.setState({
                     newOrder: {
                       ...this.state.newOrder,
-                      deliveryTime: String(selectedValue),
+                      deliveryHHmm: String(selectedValue),
                     },
                   });
                 }}
@@ -333,7 +360,15 @@ class Checkout extends React.PureComponent<Props, State> {
             buttonStyle="primary"
             size="small"
             onClick={() => {
-              const { firstName, lastName, ...rest } = this.state.newOrder;
+              const {
+                firstName,
+                lastName,
+                deliveryDate,
+                deliveryHHmm,
+                ...rest
+              } = this.state.newOrder;
+              const HH = Number(deliveryHHmm.split(':')[0]);
+              const mm = Number(deliveryHHmm.split(':')[1]);
               this.props.createOrder$({
                 buyerName: `${firstName} ${lastName}`,
                 menuList: this.state.cartOrderList
@@ -342,6 +377,12 @@ class Checkout extends React.PureComponent<Props, State> {
                       quantity: order.quantity,
                     }))
                   : [],
+                deliveryTime: deliveryDate
+                  ? deliveryDate
+                      .hour(HH)
+                      .minute(mm)
+                      .toString()
+                  : '',
                 ...rest,
                 kitchenName: this.props.url.query.kitchenName,
               });
