@@ -25,6 +25,7 @@ const AddToCartButton = ({ onAddToCartClick, t }: Props) => (
   </div>
 );
 
-export default translate(['common'], { i18n, wait: process.browser })(
-  AddToCartButton,
-);
+export default translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(AddToCartButton);

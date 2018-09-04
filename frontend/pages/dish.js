@@ -594,9 +594,10 @@ class DishPage extends React.Component<Props, State> {
   }
 }
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  DishPage,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(DishPage);
 
 const stateSelector = ({ cart, dish, error }) => ({
   cart,

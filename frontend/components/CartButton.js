@@ -71,8 +71,9 @@ const CartButton = ({ t, itemCount = 0, onCartClicked }: Props) => (
   </div>
 );
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  CartButton,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(CartButton);
 
 export default Extended;

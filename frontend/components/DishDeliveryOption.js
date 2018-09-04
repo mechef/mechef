@@ -169,6 +169,7 @@ const DishDeliveryOption = ({ t, type, ...deliveryOption }: Props) => (
   </div>
 );
 
-export default translate(['common'], { i18n, wait: process.browser })(
-  DishDeliveryOption,
-);
+export default translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(DishDeliveryOption);

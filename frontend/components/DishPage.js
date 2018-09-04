@@ -37,6 +37,7 @@ type Props = {
   addToCart$: (order: DishOrderType) => Rx.Observable,
   fetchDish$: (dishId: string) => Rx.Observable,
   t: (key: string) => string,
+  isLoading: boolean,
 };
 
 type State = { order?: DishOrderType };
@@ -575,9 +576,10 @@ class DishPage extends React.Component<Props, State> {
   }
 }
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  DishPage,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(DishPage);
 
 const stateSelector = ({ kitchen, error }) => ({
   isLoading: kitchen.isLoading,

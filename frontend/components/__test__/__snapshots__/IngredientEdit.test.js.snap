@@ -2,196 +2,180 @@
 
 exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
 <div
-  className="jsx-399955778 dashboard-content"
+  className="jsx-1627166757 dashboard-content"
 >
   <p
-    className="jsx-399955778 dashboard-content__title"
-  >
-    Edit Ingredients
-  </p>
+    className="jsx-1627166757 dashboard-content__title"
+  />
   <div
-    className="jsx-399955778 edit-ingredient"
+    className="jsx-1627166757 edit-ingredient"
   >
     <p
-      className="jsx-399955778 edit-ingredient__title"
-    >
-      List Name*
-    </p>
+      className="jsx-1627166757 title"
+    />
     <p
-      className="jsx-399955778 edit-ingredient__explanation"
+      className="jsx-1627166757 subtitle"
     >
       The number of characters is limited to 50.
     </p>
     <p
-      className="jsx-399955778 edit-ingredient__input"
+      className="jsx-1627166757 edit-ingredient__input"
     >
-      <div
-        className="jsx-3069508068"
-      >
-        <input
-          className="jsx-3069508068 
-        textInput
-        medium
-      "
-          onChange={[Function]}
-          placeholder="Input memo name"
-          type="text"
-          value="bible memo"
-        />
-      </div>
+      <TextInput
+        hasAddBtn={false}
+        isRequired={false}
+        maxLength={50}
+        onAdd={[Function]}
+        onChange={[Function]}
+        onError={[Function]}
+        onKeyPress={[Function]}
+        pattern="."
+        placeholder="Input memo name"
+        size="large"
+        type="text"
+        validationMessage=""
+        value="bible memo"
+      />
     </p>
     <div
-      className="jsx-399955778 edit-ingredient__choose-ingredient"
+      className="jsx-1627166757 edit-ingredient__choose-ingredient"
     >
       <p
-        className="jsx-399955778 edit-ingredient__title"
-      >
-        Ingredients
-      </p>
+        className="jsx-1627166757 title"
+      />
       <p
-        className="jsx-399955778 edit-ingredient__explanation"
+        className="jsx-1627166757 subtitleWrapper"
       >
         <span
-          className="jsx-399955778 edit-ingredient__explanation-text"
-        >
-          Choose Ingredients.
-        </span>
-        <span
-          className="jsx-399955778 edit-ingredient__explanation-total"
-        >
-          Total:
-        </span>
-        <span
-          className="jsx-399955778 edit-ingredient__explanation-cost"
-        >
-          $ 
-          100
-        </span>
-      </p>
-      <p
-        className="jsx-399955778 edit-ingredient__input"
-      >
+          className="jsx-1627166757 subtitle"
+        />
         <div
-          className="jsx-399955778 edit-ingredient__input-medium-wrapper"
+          className="jsx-1627166757"
         >
-          <div
-            className="jsx-3069508068"
-          >
-            <input
-              className="jsx-3069508068 
-        textInput
-        medium
-      "
-              onChange={[Function]}
-              placeholder="Enter Ingredients..."
-              type="text"
-              value=""
-            />
-          </div>
-        </div>
-        <div
-          className="jsx-399955778 edit-ingredient__input-small-wrapper"
-        >
-          <div
-            className="jsx-3069508068"
-          >
-            <input
-              className="jsx-3069508068 
-        textInput
-        medium
-      "
-              onChange={[Function]}
-              placeholder="Input Price"
-              type="text"
-              value={0}
-            />
-          </div>
           <span
-            className="jsx-399955778 edit-ingredient__add-btn"
-            onClick={[Function]}
-            role="button"
-            tabIndex="-1"
+            className="jsx-1627166757 totalText"
+          />
+          <span
+            className="jsx-1627166757 costText"
           >
-            <i
-              aria-hidden="true"
-              className="jsx-399955778 fa fa-plus "
-            />
+            $ 
+            100
           </span>
         </div>
       </p>
+      <p
+        className="jsx-1627166757 edit-ingredient__input"
+      >
+        <div
+          className="jsx-1627166757 edit-ingredient__input-medium-wrapper"
+        >
+          <TextInput
+            hasAddBtn={false}
+            isRequired={false}
+            maxLength={50}
+            onAdd={[Function]}
+            onChange={[Function]}
+            onError={[Function]}
+            onKeyPress={[Function]}
+            pattern="."
+            placeholder="Enter Ingredients..."
+            size="small"
+            type="text"
+            validationMessage=""
+            value=""
+          />
+        </div>
+        <div
+          className="jsx-1627166757 edit-ingredient__input-small-wrapper"
+        >
+          <TextInput
+            hasAddBtn={true}
+            isRequired={false}
+            maxLength={50}
+            onAdd={[Function]}
+            onChange={[Function]}
+            onError={[Function]}
+            onKeyPress={[Function]}
+            pattern="^\\\\d+$"
+            placeholder="$"
+            size="small"
+            type="text"
+            validationMessage=""
+            value=""
+          />
+        </div>
+      </p>
       <div
-        className="jsx-399955778 ingredients"
+        className="jsx-1627166757 ingredients"
       >
         <span
-          className="jsx-399955778 ingredients__name"
+          className="jsx-1627166757 ingredients__name"
         >
           ingredient2
         </span>
         <span
-          className="jsx-399955778 ingredients__cost"
+          className="jsx-1627166757 ingredients__cost"
         >
           $ 
           1234
         </span>
-        <span
-          className="jsx-399955778 ingredients__remove-btn"
+        <button
+          className="jsx-1627166757 removeWrapper"
           onClick={[Function]}
-          role="button"
-          tabIndex="-1"
         >
-          X
-        </span>
+          <div
+            className="jsx-1627166757 remove"
+          />
+        </button>
       </div>
     </div>
   </div>
   <div
-    className="jsx-399955778 buttonGroup"
+    className="jsx-1627166757 buttonGroup"
   >
     <div
-      className="jsx-399955778"
+      className="jsx-1627166757"
     >
-      <button
-        className="jsx-675350272 
-      button
-      greenBorderOnly
-      small
-    "
+      <Button
+        buttonStyle="greenBorderOnly"
         onClick={[Function]}
-        type="button"
+        size="small"
       >
-        DELETE
-      </button>
+        
+      </Button>
     </div>
     <div
-      className="jsx-399955778"
+      className="jsx-1627166757"
     >
-      <button
-        className="jsx-675350272 
-      button
-      greenBorderOnly
-      small
-    "
+      <Button
+        buttonStyle="greenBorderOnly"
         onClick={[Function]}
-        type="button"
+        size="small"
       >
-        CANCEL
-      </button>
+        
+      </Button>
     </div>
     <div
-      className="jsx-399955778"
+      className="jsx-1627166757"
     >
-      <button
-        className="jsx-675350272 
-      button
-      primary
-      small
-    "
+      <Button
+        buttonStyle="primary"
         onClick={[Function]}
-        type="button"
+        size="small"
       >
-        SAVE
-      </button>
+        
+      </Button>
     </div>
   </div>
+  <JSXStyle
+    css=".dashboard-content__title.__jsx-style-dynamic-selector{font-size:1.8rem;line-height:1.11;-webkit-letter-spacing:0.5px;-moz-letter-spacing:0.5px;-ms-letter-spacing:0.5px;letter-spacing:0.5px;color:#4a4a4a;}.edit-ingredient.__jsx-style-dynamic-selector{margin-top:24px;max-width:552px;width:100%;box-sizing:border-box;height:515px;padding:20px;border-radius:4px;background-color:#ffffff;}.title.__jsx-style-dynamic-selector{margin:0 0 12px 0;font-size:1.6rem;font-weight:500;line-height:1;-webkit-letter-spacing:0.7px;-moz-letter-spacing:0.7px;-ms-letter-spacing:0.7px;letter-spacing:0.7px;color:#4a4a4a;}.subtitle.__jsx-style-dynamic-selector{margin:0 0 16px 0;height:14px;font-size:1.4rem;line-height:1;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;text-align:left;color:#9b9b9b;}.subtitleWrapper.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;margin-right:32px;}.totalText.__jsx-style-dynamic-selector{margin-right:40px;font-size:1.4rem;}.costText.__jsx-style-dynamic-selector{font-size:1.4rem;}.edit-ingredient__choose-ingredient.__jsx-style-dynamic-selector{margin-top:40px;}.edit-ingredient__input.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;max-width:520px;width:100%;position:relative;}.edit-ingredient__input.__jsx-style-dynamic-selector>div.__jsx-style-dynamic-selector:nth-child(2){margin-left:5px;}.edit-ingredient__input-medium-wrapper.__jsx-style-dynamic-selector{-webkit-flex:3;-ms-flex:3;flex:3;}.edit-ingredient__input-small-wrapper.__jsx-style-dynamic-selector{-webkit-flex:2;-ms-flex:2;flex:2;}.edit-ingredient__add-btn.__jsx-style-dynamic-selector{position:absolute;right:10px top:50%;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%);color:#3e9f40;-webkit-transition:all .2s ease-in-out;transition:all .2s ease-in-out;}.edit-ingredient__add-btn.__jsx-style-dynamic-selector:hover{-webkit-transform:scale(1.5);-ms-transform:scale(1.5);transform:scale(1.5);}.ingredients.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;margin-top:14px;width:518px;height:50px;border-radius:4px;border:solid 1px #3e9f40;}.ingredients__name.__jsx-style-dynamic-selector{margin:auto auto auto 17px;font-size:1.4rem;font-weight:500;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#3e9f40;}.ingredients__cost.__jsx-style-dynamic-selector{margin-top:auto;margin-bottom:auto;font-size:1.4rem;font-weight:500;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#3e9f40;}.buttonGroup.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;max-width:552px;width:100%;padding-top:30px;}.buttonGroup.__jsx-style-dynamic-selector div.__jsx-style-dynamic-selector{margin-left:10px;min-width:100px;}.removeWrapper.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;background-color:#ffffff;border:0;margin-right:18px;margin-left:33px;outline:none;}.remove.__jsx-style-dynamic-selector{background-image:url('../static/svg/cancel_white_click.svg');background-size:contain;background-position:center;background-repeat:no-repeat;width:18px;height:18px;outline:none;border:0;background-color:rgba(0, 0, 0, 0);cursor:pointer;}.remove.__jsx-style-dynamic-selector:hover{background-image:url('../static/svg/cancel_white_hover.svg');}@media (max-width:540px){.totalText.__jsx-style-dynamic-selector{margin-right:10px;}}"
+    dynamic={
+      Array [
+        "#ffffff",
+        "rgba(0, 0, 0, 0)",
+      ]
+    }
+    styleId="612802060"
+  />
 </div>
 `;

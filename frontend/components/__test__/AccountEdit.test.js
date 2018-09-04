@@ -1,19 +1,21 @@
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import React from 'react';
 
 import AccountEdit from '../AccountEdit';
 
 describe('Pages With Snapshot Testing', () => {
   it('snapshot AccountEdit Component', () => {
-    const component = renderer.create(
+    const renderer = new ShallowRenderer();
+    renderer.render(
       <AccountEdit
         account={{}}
         goBack={() => {}}
         onUpdateField={() => {}}
         onSubmit={() => {}}
+        t={() => {}}
       />,
     );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const result = renderer.getRenderOutput();
+    expect(result).toMatchSnapshot();
   });
 });

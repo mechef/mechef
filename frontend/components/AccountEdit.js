@@ -147,9 +147,9 @@ class AccountEdit extends React.Component<Props> {
               size="large"
               value={this.props.account.kitchenName}
               onChange={event => {
-                if (event && event.target) {
+                if (event && event.currentTarget) {
                   this.props.onUpdateField({
-                    kitchenName: event.target.value,
+                    kitchenName: event.currentTarget.value,
                   });
                 }
               }}
@@ -166,9 +166,9 @@ class AccountEdit extends React.Component<Props> {
               placeholder="Write some description about your kitchen...."
               value={this.props.account.kitchenDescription}
               onChange={evt => {
-                if (evt && evt.target) {
+                if (evt && evt.currentTarget) {
                   this.props.onUpdateField({
-                    kitchenDescription: evt.target.value,
+                    kitchenDescription: evt.currentTarget.value,
                   });
                 }
               }}
@@ -189,9 +189,9 @@ class AccountEdit extends React.Component<Props> {
                   size="small"
                   value={this.props.account.firstName}
                   onChange={event => {
-                    if (event && event.target) {
+                    if (event && event.currentTarget) {
                       this.props.onUpdateField({
-                        firstName: event.target.value,
+                        firstName: event.currentTarget.value,
                       });
                     }
                   }}
@@ -204,9 +204,9 @@ class AccountEdit extends React.Component<Props> {
                   size="small"
                   value={this.props.account.lastName}
                   onChange={event => {
-                    if (event && event.target) {
+                    if (event && event.currentTarget) {
                       this.props.onUpdateField({
-                        lastName: event.target.value,
+                        lastName: event.currentTarget.value,
                       });
                     }
                   }}
@@ -229,9 +229,9 @@ class AccountEdit extends React.Component<Props> {
                   size="small"
                   value={this.props.account.phoneNumber}
                   onChange={event => {
-                    if (event && event.target) {
+                    if (event && event.currentTarget) {
                       this.props.onUpdateField({
-                        phoneNumber: event.target.value,
+                        phoneNumber: event.currentTarget.value,
                       });
                     }
                   }}
@@ -252,9 +252,9 @@ class AccountEdit extends React.Component<Props> {
                   size="small"
                   value={this.props.account.email}
                   onChange={event => {
-                    if (event && event.target) {
+                    if (event && event.currentTarget) {
                       this.props.onUpdateField({
-                        email: event.target.value,
+                        email: event.currentTarget.value,
                       });
                     }
                   }}

@@ -1,11 +1,12 @@
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import React from 'react';
 
 import Dashboard from '../dashboard';
-
+jest.mock('react-geosuggest', () => '[MOCK]Geosuggest');
 describe('Pages With Snapshot Testing', () => {
   it('snapshot dashboard page', () => {
-    const component = renderer.create(
+    const renderer = new ShallowRenderer();
+    renderer.render(
       <Dashboard
         url={{
           query: {
@@ -21,7 +22,7 @@ describe('Pages With Snapshot Testing', () => {
         toggleBackArrow$={() => {}}
       />,
     );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const result = renderer.getRenderOutput();
+    expect(result).toMatchSnapshot();
   });
 });

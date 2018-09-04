@@ -328,7 +328,10 @@ const actionSubjects = {
   ...cartActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(Cart);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(Cart);
 
 export default connect(
   stateSelector,

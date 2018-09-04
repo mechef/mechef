@@ -177,8 +177,9 @@ class DishOrder extends React.Component<Props, State> {
   }
 }
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  DishOrder,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(DishOrder);
 
 export default Extended;

@@ -2,21 +2,7 @@
 
 import * as React from 'react';
 
-import {
-  primaryColor,
-  largeWidth,
-  mediumWidth,
-  smallWidth,
-  textInputHeight,
-  textInputBgColor,
-  borderRadius,
-  placeholderTextColor,
-  placeholderLineHeight,
-  placeholderFontWeight,
-  placeholderFontSize,
-  transparent,
-  errorBorderColor,
-} from '../utils/styleVariables';
+import * as styles from '../utils/styleVariables';
 
 type Props = {
   type: string,
@@ -25,7 +11,7 @@ type Props = {
   size: 'small' | 'medium' | 'large',
   placeholder: string,
   value: string | number,
-  onChange: () => mixed,
+  onChange: (event: SyntheticEvent<HTMLInputElement>) => mixed,
   onError: (isError: boolean) => void,
   onKeyPress: () => void,
   hasAddBtn: boolean,
@@ -50,6 +36,8 @@ class TextInput extends React.Component<Props, State> {
     onAdd: () => {},
     isRequired: false,
     maxLength: 50,
+    pattern: '.',
+    validationMessage: '',
   };
   constructor(props: Props) {
     super(props);
@@ -64,7 +52,6 @@ class TextInput extends React.Component<Props, State> {
           <input
             type={this.props.type}
             pattern={this.props.pattern}
-            title={this.props.title}
             className={`
               textInput
               ${this.props.size}
@@ -129,49 +116,49 @@ class TextInput extends React.Component<Props, State> {
             .inputWrapper {
               position: relative;
               display: flex;
-              height: ${textInputHeight};
+              height: ${styles.textInputHeight};
               width: 100%;
             }
 
             .errorWrapper {
               padding-top: 5px;
-              color: ${errorBorderColor};
+              color: ${styles.errorBorderColor};
               font-size: 1.2rem;
             }
 
             .textInput {
               outline: none;
-              border-radius: ${borderRadius};
-              height: ${textInputHeight};
-              background-color: ${textInputBgColor};
+              border-radius: ${styles.borderRadius};
+              height: ${styles.textInputHeight};
+              background-color: ${styles.textInputBgColor};
               padding-left: 16px;
-              font-size: ${placeholderFontSize};
+              font-size: ${styles.placeholderFontSize};
               border: 2px solid;
               border-color: ${Object.keys(this.state.errors).length
-                ? `${errorBorderColor}`
-                : `${transparent}`};
+                ? `${styles.errorBorderColor}`
+                : `${styles.transparent}`};
               box-shadow: 0 0 1px #3d464d;
               box-sizing: border-box;
               transition: border 0.2s, box-shadow 0.2s;
             }
             .textInput:focus {
               border-color: ${Object.keys(this.state.errors).length
-                ? `${errorBorderColor}`
-                : `${primaryColor}`};
+                ? `${styles.errorBorderColor}`
+                : `${styles.primaryColor}`};
               box-shadow: 0 0 0 transparent;
             }
             .textInput::placeholder {
-              line-height: ${placeholderLineHeight};
-              color: ${placeholderTextColor};
+              line-height: ${styles.placeholderLineHeight};
+              color: ${styles.placeholderTextColor};
             }
             .small {
-              width: ${smallWidth};
+              width: ${styles.smallWidth};
             }
             .medium {
-              width: ${mediumWidth};
+              width: ${styles.mediumWidth};
             }
             .large {
-              width: ${largeWidth};
+              width: ${styles.largeWidth};
             }
 
             @media screen and (max-width: 768px) {
@@ -194,7 +181,7 @@ class TextInput extends React.Component<Props, State> {
               bottom: 0;
               right: 10px;
               cursor: pointer;
-              background-color: ${transparent};
+              background-color: ${styles.transparent};
               border: 0;
               outline: none;
             }

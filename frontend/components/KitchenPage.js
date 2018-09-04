@@ -53,7 +53,11 @@ const KitchenPage = ({
             {...dish}
             key={dish._id}
             onDishSelected={onDishSelected}
-            onAddToCartClick={() => showDishModal(dish._id)}
+            onAddToCartClick={() => {
+              if (dish._id) {
+                showDishModal(dish._id);
+              }
+            }}
           />
         ))
       ) : !isLoading ? (

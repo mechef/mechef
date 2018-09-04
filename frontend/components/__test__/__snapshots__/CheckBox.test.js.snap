@@ -2,17 +2,26 @@
 
 exports[`Pages With Snapshot Testing snapshot CheckBox Component 1`] = `
 <div
-  className="jsx-2607049475 checkboxContainer"
+  className="jsx-606403950 checkboxContainer"
 >
   <button
-    className="jsx-2607049475 checkedIcon"
+    className="jsx-606403950 checkedIcon"
     onClick={[Function]}
     type="button"
   />
   <div
-    className="jsx-2607049475 checkboxLabel"
+    className="jsx-606403950 checkboxLabel"
   >
     
   </div>
+  <JSXStyle
+    css=".checkboxContainer.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;max-width:116px;width:100%;}button.__jsx-style-dynamic-selector{outline:none;border:0;border-radius:4px;cursor:pointer;}.checkboxInput.__jsx-style-dynamic-selector{display:none;background-color:#3e9f40;}.checkedIcon.__jsx-style-dynamic-selector{width:20px;height:20px;background-image:url('../static/svg/checkbox.svg');}.uncheckedIcon.__jsx-style-dynamic-selector{width:20px;height:20px;background-image:url(../static/svg/checkbox_grey.svg);}.checkboxLabel.__jsx-style-dynamic-selector{font-weight:400;max-width:84px;}"
+    dynamic={
+      Array [
+        "#3e9f40",
+      ]
+    }
+    styleId="3405802264"
+  />
 </div>
 `;

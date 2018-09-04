@@ -1,67 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Pages With Snapshot Testing snapshot DeliveryPage Component 1`] = `
-<div
-  className="jsx-1306722454 homeContainer"
->
-  <div
-    className="jsx-1306722454 dashboard-content__header"
-  />
-  <p
-    className="jsx-1306722454 sellerId"
-  >
-    @MomooKitchen
-  </p>
-  <p
-    className="jsx-1306722454 sellerName"
-  >
-    @MomooKitchen
-  </p>
-  <div
-    className="jsx-1306722454 orderTable"
-  >
-    <p
-      className="jsx-1306722454 orderTableTitle"
-    >
-      <span
-        className="jsx-1306722454 titleText"
-      >
-        ORDERS
-      </span>
-      <span
-        className="jsx-1306722454 orderCount"
-      >
-        <span
-          className="jsx-1306722454 orderCountNum"
-        >
-          14
-        </span>
-      </span>
-    </p>
-    <div
-      className="jsx-1306722454 header"
-    >
-      <div
-        className="jsx-1306722454 firstCell"
-      >
-        Delivery Time
-      </div>
-      <div
-        className="jsx-1306722454 secondCell"
-      >
-        Buyer‘s Name
-      </div>
-      <div
-        className="jsx-1306722454 thirdCell"
-      >
-        Order Name
-      </div>
-      <div
-        className="jsx-1306722454 fourthCell"
-      >
-        Quantity
-      </div>
-    </div>
-  </div>
-</div>
+<Translate(Home)
+  account={
+    Object {
+      "currentAccount": Object {
+        "coverPhoto": "",
+        "email": "",
+        "firstName": "",
+        "kitchenDescription": "",
+        "kitchenName": "",
+        "lastName": "",
+        "name": "",
+        "phoneNumber": "",
+        "profileImage": "",
+      },
+      "updatedFields": Object {},
+    }
+  }
+  createCoverPhoto$={[Function]}
+  createOrder$={[Function]}
+  createProfileImage$={[Function]}
+  error={
+    Object {
+      "isShowModal": false,
+      "message": "",
+      "title": "",
+    }
+  }
+  fetchAccountDetail$={[Function]}
+  fetchOrders$={[Function]}
+  order={
+    Object {
+      "isLoading": false,
+      "orderList": Array [],
+    }
+  }
+  setError$={[Function]}
+  setFields$={[Function]}
+  setLoading$={[Function]}
+  updateAccountDetail$={[Function]}
+  updateOrderState$={[Function]}
+/>
 `;

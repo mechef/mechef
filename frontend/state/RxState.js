@@ -7,7 +7,8 @@ import { Observable } from 'rxjs/Observable';
 import reducer$ from '../reducers';
 
 const debuggerOn = false;
-Observable.prototype.debug = function(message: string): Observable {
+// $FlowFixMe Customized debug function
+Observable.prototype.debug = function(message: string): Rx.Observable {
   return this.do(
     next => {
       if (debuggerOn) {
@@ -28,9 +29,9 @@ Observable.prototype.debug = function(message: string): Observable {
 };
 
 export function createState(
-  reducerStream: Observable,
-  initialState$: Observable = Observable.of({}),
-): Observable {
+  reducerStream: Rx.Observable,
+  initialState$: Rx.Observable = Observable.of({}),
+): Rx.Observable {
   return initialState$
     .merge(reducerStream)
     .debug('Emit signal:')
@@ -67,7 +68,7 @@ export function connect(
         };
       }
       // eslint-disable-next-line react/sort-comp
-      subscription: Observable;
+      subscription: Rx.Observable;
       componentWillMount() {
         this.subscription = globalState
           .map(selector)

@@ -2,17 +2,34 @@
 
 exports[`Pages With Snapshot Testing snapshot TextInput Component 1`] = `
 <div
-  className="jsx-3069508068"
+  className="jsx-2158085740 container"
 >
-  <input
-    className="jsx-3069508068 
-        textInput
-        small
-      "
-    onChange={[Function]}
-    placeholder=""
-    type="text"
-    value=""
-  />
+  <div
+    className="jsx-2158085740 inputWrapper"
+  >
+    <input
+      className="jsx-2158085740 
+              textInput
+              small
+            "
+      maxLength={50}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyPress={[Function]}
+      pattern="."
+      placeholder=""
+      type="text"
+      value=""
+    />
+  </div>
+  <div
+    className="jsx-2158085740 errorWrapper"
+  >
+    <span
+      className="jsx-2158085740"
+    >
+      
+    </span>
+  </div>
 </div>
 `;

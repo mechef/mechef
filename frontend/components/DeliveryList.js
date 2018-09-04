@@ -2,14 +2,7 @@
 
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
-import {
-  whiteColor,
-  borderRadius,
-  fontSize,
-  lineHeight,
-  placeholderTextColor,
-  textColor,
-} from '../utils/styleVariables';
+import * as styles from '../utils/styleVariables';
 import type { MeetupObject } from '../utils/flowTypes';
 
 type Props = {
@@ -110,9 +103,9 @@ class DeliveryList extends React.Component<Props> {
             }
 
             .descriptionText {
-              font-size: ${fontSize};
-              line-height: ${lineHeight};
-              color: ${placeholderTextColor};
+              font-size: ${styles.fontSize};
+              line-height: ${styles.lineHeight};
+              color: ${styles.placeholderTextColor};
               margin-bottom: 8px;
               margin-left: 21px;
             }
@@ -134,7 +127,7 @@ class DeliveryList extends React.Component<Props> {
               height: 36px;
               margin-left: 20px;
               border-radius: 4px;
-              background-color: ${whiteColor};
+              background-color: ${styles.whiteColor};
               cursor: pointer;
               outline: none;
               border: 0;
@@ -161,9 +154,9 @@ class DeliveryList extends React.Component<Props> {
               max-height: 226px;
               width: 100%;
               border: 0;
-              border-radius: ${borderRadius};
+              border-radius: ${styles.borderRadius};
               box-shadow: 0 5px 7px 0 rgba(201, 201, 201, 0.5);
-              background-color: ${whiteColor};
+              background-color: ${styles.whiteColor};
               display: flex;
               flex-direction: column;
               margin-bottom: 12px;
@@ -188,8 +181,8 @@ class DeliveryList extends React.Component<Props> {
               width: 36px;
               height: 36px;
               position: relative;
-              background-color: ${whiteColor};
-              border-radius: ${borderRadius};
+              background-color: ${styles.whiteColor};
+              border-radius: ${styles.borderRadius};
               outline: none;
               cursor: pointer;
             }
@@ -214,8 +207,8 @@ class DeliveryList extends React.Component<Props> {
               width: 36px;
               height: 36px;
               position: relative;
-              background-color: ${whiteColor};
-              border-radius: ${borderRadius};
+              background-color: ${styles.whiteColor};
+              border-radius: ${styles.borderRadius};
               outline: none;
               cursor: pointer;
             }
@@ -243,10 +236,10 @@ class DeliveryList extends React.Component<Props> {
               margin-left: 21px;
             }
             .text {
-              font-size: ${fontSize};
+              font-size: ${styles.fontSize};
               font-weight: 500;
-              line-height: ${lineHeight};
-              color: ${textColor};
+              line-height: ${styles.lineHeight};
+              color: ${styles.textColor};
               padding-bottom: 12px;
               overflow-wrap: break-word;
               width: 100%;

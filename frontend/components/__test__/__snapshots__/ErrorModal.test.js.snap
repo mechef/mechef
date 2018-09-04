@@ -2,40 +2,45 @@
 
 exports[`Pages With Snapshot Testing snapshot DeliveryPage Component 1`] = `
 <div
-  className="jsx-2324603393 alert-modal-overlay"
+  className="jsx-947605953 alert-modal-overlay"
 >
   <div
-    className="jsx-2324603393 alert-modal"
+    className="jsx-947605953 alert-modal"
   >
     <header
-      className="jsx-2324603393 alert-modal-header"
+      className="jsx-947605953 alert-modal-header"
     >
       <img
         alt="logo"
-        className="jsx-2324603393 alert-modal-logo"
-        src="../static/svg/mechef_logo.svg"
+        className="jsx-947605953 alert-modal-logo"
+        src="../static/svg/mechef_logo_white.svg"
       />
-      <i
-        aria-hidden="true"
-        className="jsx-2324603393 fa fa-times cancel-btn fa-2x"
-        onClick={[Function]}
-      />
+      <div
+        className="jsx-947605953 cancelBtnWrapper"
+      >
+        <button
+          className="jsx-947605953 cancel-btn"
+          onClick={[Function]}
+        >
+          ×
+        </button>
+      </div>
     </header>
     <section
-      className="jsx-2324603393 alert-modal-body"
+      className="jsx-947605953 alert-modal-body"
     >
-      <p
-        className="jsx-2324603393 alert-title"
+      <h2
+        className="jsx-947605953 alert-title"
       >
         Error
-      </p>
+      </h2>
       <p
-        className="jsx-2324603393 alert-message"
+        className="jsx-947605953 alert-message"
       >
         Something Wrong
       </p>
       <p
-        className="jsx-2324603393 alert-bottom-style"
+        className="jsx-947605953 alert-bottom-style"
       />
     </section>
   </div>
