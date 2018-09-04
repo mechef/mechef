@@ -24,7 +24,7 @@ const options = {
 };
 
 // for browser use xhr backend to load translations and browser lng detector
-if (process.browser) {
+if (typeof window !== 'undefined') {
   i18n
     .use(XHR)
     // .use(Cache)

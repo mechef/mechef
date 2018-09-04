@@ -2,19 +2,7 @@
 
 import * as React from 'react';
 
-import {
-  primaryColor,
-  btnTextColor,
-  transparent,
-  borderRadius,
-  smallBtnWidth,
-  mediumBtnWidth,
-  btnHeight,
-  lineHeight,
-  fontWeight,
-  fontSize,
-  primaryBtnHoverColor,
-} from '../utils/styleVariables';
+import * as styles from '../utils/styleVariables';
 
 type Props = {
   buttonStyle?: 'primary' | 'greenBorderOnly' | 'whiteBorderOnly',
@@ -28,8 +16,8 @@ const Button = (props: Props) => (
     type="button"
     className={`
       button
-      ${props.buttonStyle}
-      ${props.size}
+      ${props.buttonStyle ? props.buttonStyle : ''}
+      ${props.size ? props.size : ''}
     `}
     onClick={props.onClick}
   >
@@ -39,43 +27,43 @@ const Button = (props: Props) => (
         .button {
           outline: none;
           border: 0;
-          border-radius: ${borderRadius};
-          height: ${btnHeight};
+          border-radius: ${styles.borderRadius};
+          height: ${styles.btnHeight};
           cursor: pointer;
-          font-weight: ${fontWeight};
-          font-size: ${fontSize};
-          line-height: ${lineHeight};
+          font-weight: ${styles.fontWeight};
+          font-size: ${styles.fontSize};
+          line-height: ${styles.lineHeight};
         }
         .primary {
-          background-color: ${primaryColor};
-          color: ${btnTextColor};
+          background-color: ${styles.primaryColor};
+          color: ${styles.btnTextColor};
         }
         .primary:hover {
-          background-color: ${primaryBtnHoverColor};
+          background-color: ${styles.primaryBtnHoverColor};
         }
         .greenBorderOnly {
-          background-color: ${transparent};
-          border: solid 1px ${primaryColor};
-          color: ${primaryColor};
+          background-color: ${styles.transparent};
+          border: solid 1px ${styles.primaryColor};
+          color: ${styles.primaryColor};
         }
         .greenBorderOnly:hover {
-          background-color: ${primaryColor};
-          color: ${btnTextColor};
+          background-color: ${styles.primaryColor};
+          color: ${styles.btnTextColor};
         }
         .whiteBorderOnly {
-          background-color: ${transparent};
-          border: solid 1px ${btnTextColor};
-          color: ${btnTextColor};
+          background-color: ${styles.transparent};
+          border: solid 1px ${styles.btnTextColor};
+          color: ${styles.btnTextColor};
         }
         .whiteBorderOnly:hover {
-          background-color: ${btnTextColor};
+          background-color: ${styles.btnTextColor};
           color: rgba(0, 0, 0, 0.5);
         }
         .small {
-          width: ${smallBtnWidth};
+          width: ${styles.smallBtnWidth};
         }
         .medium {
-          width: ${mediumBtnWidth};
+          width: ${styles.mediumBtnWidth};
         }
         .expanded {
           width: 100%;

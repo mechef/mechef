@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { primaryColor } from '../utils/styleVariables';
+import * as styles from '../utils/styleVariables';
 
 type Props = {
   children: React.Node,
@@ -69,7 +69,7 @@ class CheckBox extends React.Component<Props, State> {
 
             .checkboxInput {
               display: none;
-              background-color: ${primaryColor};
+              background-color: ${styles.primaryColor};
             }
 
             .checkedIcon {

@@ -14,13 +14,7 @@ import DeliveryEdit from './DeliveryEdit';
 import DefaultComponent from './DefaultComponent';
 import DashboardContentLayout from './DashboardContentLayout';
 import type { MeetupObject } from '../utils/flowTypes';
-import {
-  whiteColor,
-  primaryColor,
-  textColor,
-  primaryBtnHoverColor,
-  textSize,
-} from '../utils/styleVariables';
+import * as styles from '../utils/styleVariables';
 import Spinner from '../components/Spinner';
 
 type Props = {
@@ -158,13 +152,13 @@ export class DeliveryPage extends React.Component<Props> {
             .title {
               font-family: 'Playball', cursive;
               font-size: 2.4rem;
-              color: ${textColor};
+              color: ${styles.textColor};
             }
 
             .subtitle {
-              font-size: ${textSize};
+              font-size: ${styles.textSize};
               font-weight: 500;
-              color: ${textColor};
+              color: ${styles.textColor};
             }
 
             .description {
@@ -174,21 +168,21 @@ export class DeliveryPage extends React.Component<Props> {
               line-height: 1.5;
               font-size: 1.6rem;
               text-align: center;
-              color: ${textColor};
+              color: ${styles.textColor};
             }
             .addDish {
               border: 0;
               padding: 0;
               margin-top: 70px;
-              background-color: ${whiteColor};
-              color: ${primaryColor};
+              background-color: ${styles.whiteColor};
+              color: ${styles.primaryColor};
               font-size: 1.6rem;
               margin: auto;
               cursor: pointer;
               outline: none;
             }
             .addDish:hover {
-              color: ${primaryBtnHoverColor};
+              color: ${styles.primaryBtnHoverColor};
             }
           `}
         </style>
@@ -209,9 +203,10 @@ const actionSubjects = {
   ...globalActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  DeliveryPage,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(DeliveryPage);
 
 export default connect(
   stateSelector,

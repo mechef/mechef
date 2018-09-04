@@ -1,77 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Pages With Snapshot Testing snapshot IngredientPage Component 1`] = `
-<div
-  className="jsx-2726819105 container"
->
-  <div
-    className="jsx-3175717653"
-  >
-    <div
-      className="jsx-3175717653 header"
-    >
-      <span
-        className="jsx-3175717653 title"
-      >
-        Ingredients List
-      </span>
-      <button
-        className="jsx-3175717653 addButton"
-        onClick={[Function]}
-      >
-        <div
-          className="jsx-3175717653 plus"
-        />
-      </button>
-    </div>
-    <div
-      className="jsx-3175717653 ingredientList"
-    >
-      <div
-        className="jsx-3175717653 ingredient-item"
-      >
-        <div
-          className="jsx-3175717653 ingredient-content"
-        >
-          <p
-            className="jsx-3175717653 ingredient-title"
-          >
-            bible memo
-          </p>
-          <p
-            className="jsx-3175717653 ingredient-detail"
-          >
-            <span
-              className="jsx-3175717653 ingredient-subtext"
-            >
-              Ingredient: 
-              1
-            </span>
-            <span
-              className="jsx-3175717653 ingredient-subtext"
-            >
-              Total: 
-              $100
-            </span>
-          </p>
-        </div>
-        <div
-          className="jsx-3175717653 buttonWrapper"
-        >
-          <button
-            className="jsx-675350272 
-      button
-      primary
-      small
-    "
-            onClick={[Function]}
-            type="button"
-          >
-            UPDATE
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<DashboardContentLayout>
+  <IngredientList
+    memos={
+      Array [
+        Object {
+          "_id": "59d054c8a70e5b90e75111b8",
+          "ingredients": Array [
+            Object {
+              "amount": "1234",
+              "name": "ingredient2",
+            },
+          ],
+          "name": "bible memo",
+          "sum": "100",
+        },
+      ]
+    }
+    onDeleteMemo={[Function]}
+    onEditMemo={[Function]}
+    t={undefined}
+  />
+  <JSXStyle
+    css=".textSection.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:31px;}.title.__jsx-style-dynamic-selector{font-family:'Playball',cursive;font-size:2.4rem;color:#4a4a4a;}.description.__jsx-style-dynamic-selector{width:315px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;line-height:1.5;font-size:1.6rem;text-align:center;color:#4a4a4a;}.addDish.__jsx-style-dynamic-selector{border:0;padding:0;margin-top:70px;background-color:#ffffff;color:#3e9f40;font-size:1.6rem;margin:auto;cursor:pointer;outline:none;}.addDish.__jsx-style-dynamic-selector:hover{color:#367d36;}"
+    dynamic={
+      Array [
+        "#4a4a4a",
+        "#4a4a4a",
+        "#ffffff",
+        "#3e9f40",
+        "#367d36",
+      ]
+    }
+    styleId="1443653973"
+  />
+</DashboardContentLayout>
 `;

@@ -38,6 +38,7 @@ type Props = {
   global: {
     isShowSpinner: boolean,
   },
+  t: (key: string) => string,
 };
 
 type State = {
@@ -164,8 +165,8 @@ class Login extends React.Component<Props, State> {
                     size="medium"
                     value={email}
                     onChange={evt => {
-                      if (evt && evt.target) {
-                        setLoginField$({ email: evt.target.value });
+                      if (evt && evt.currentTarget) {
+                        setLoginField$({ email: evt.currentTarget.value });
                       }
                     }}
                     onKeyPress={evt => {
@@ -182,8 +183,8 @@ class Login extends React.Component<Props, State> {
                     size="medium"
                     value={password}
                     onChange={evt => {
-                      if (evt && evt.target) {
-                        setLoginField$({ password: evt.target.value });
+                      if (evt && evt.currentTarget) {
+                        setLoginField$({ password: evt.currentTarget.value });
                       }
                     }}
                     onKeyPress={evt => {
@@ -211,11 +212,11 @@ class Login extends React.Component<Props, State> {
                   size="medium"
                   value={this.state.signup.firstName}
                   onChange={evt => {
-                    if (evt && evt.target) {
+                    if (evt && evt.currentTarget) {
                       this.setState({
                         signup: {
                           ...this.state.signup,
-                          firstName: evt.target.value,
+                          firstName: evt.currentTarget.value,
                         },
                       });
                     }
@@ -227,11 +228,11 @@ class Login extends React.Component<Props, State> {
                   size="medium"
                   value={this.state.signup.lastName}
                   onChange={evt => {
-                    if (evt && evt.target) {
+                    if (evt && evt.currentTarget) {
                       this.setState({
                         signup: {
                           ...this.state.signup,
-                          lastName: evt.target.value,
+                          lastName: evt.currentTarget.value,
                         },
                       });
                     }
@@ -243,11 +244,11 @@ class Login extends React.Component<Props, State> {
                   size="medium"
                   value={this.state.signup.password}
                   onChange={evt => {
-                    if (evt && evt.target) {
+                    if (evt && evt.currentTarget) {
                       this.setState({
                         signup: {
                           ...this.state.signup,
-                          password: evt.target.value,
+                          password: evt.currentTarget.value,
                         },
                       });
                     }
@@ -261,11 +262,11 @@ class Login extends React.Component<Props, State> {
                   size="medium"
                   value={this.state.signup.email}
                   onChange={evt => {
-                    if (evt && evt.target) {
+                    if (evt && evt.currentTarget) {
                       this.setState({
                         signup: {
                           ...this.state.signup,
-                          email: evt.target.value,
+                          email: evt.currentTarget.value,
                         },
                       });
                     }
@@ -463,12 +464,16 @@ const actionSubjects = {
   ...authActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(Login);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(Login);
 
 // Passing down initial translations
 // use req.i18n instance on serverside to avoid overlapping requests set the language wrong
 Extended.getInitialProps = async ({ req }) => {
-  if (req && !process.browser) return i18n.getInitialProps(req, ['common']);
+  if (req && !(typeof window !== 'undefined'))
+    return i18n.getInitialProps(req, ['common']);
   return {};
 };
 

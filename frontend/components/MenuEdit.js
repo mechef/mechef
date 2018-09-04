@@ -179,8 +179,8 @@ class MenuEdit extends React.Component<Props, State> {
               size="large"
               value={displayMenu.dishName || ''}
               onChange={event => {
-                if (event && event.target) {
-                  onChangeField({ dishName: event.target.value });
+                if (event && event.currentTarget) {
+                  onChangeField({ dishName: event.currentTarget.value });
                 }
               }}
               isRequired
@@ -204,8 +204,8 @@ class MenuEdit extends React.Component<Props, State> {
                 size="small"
                 value={displayMenu.unitPrice || ''}
                 onChange={event => {
-                  if (event && event.target) {
-                    onChangeField({ unitPrice: event.target.value });
+                  if (event && event.currentTarget) {
+                    onChangeField({ unitPrice: event.currentTarget.value });
                   }
                 }}
                 isRequired
@@ -245,8 +245,10 @@ class MenuEdit extends React.Component<Props, State> {
                   size="small"
                   value={this.state.categoryInput}
                   onChange={event => {
-                    if (event && event.target) {
-                      this.setState({ categoryInput: event.target.value });
+                    if (event && event.currentTarget) {
+                      this.setState({
+                        categoryInput: event.currentTarget.value,
+                      });
                     }
                   }}
                   onAdd={() => {
@@ -299,8 +301,10 @@ class MenuEdit extends React.Component<Props, State> {
                 size="small"
                 value={this.state.ingredientInput}
                 onChange={event => {
-                  if (event && event.target) {
-                    this.setState({ ingredientInput: event.target.value });
+                  if (event && event.currentTarget) {
+                    this.setState({
+                      ingredientInput: event.currentTarget.value,
+                    });
                   }
                 }}
                 onAdd={() => {
@@ -349,8 +353,8 @@ class MenuEdit extends React.Component<Props, State> {
               placeholder="Write some description about your menu...."
               value={displayMenu.description || ''}
               onChange={event => {
-                if (event && event.target) {
-                  onChangeField({ description: event.target.value });
+                if (event && event.currentTarget) {
+                  onChangeField({ description: event.currentTarget.value });
                 }
               }}
             />

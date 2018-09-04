@@ -1,4 +1,4 @@
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import React from 'react';
 
 import DeliveryList from '../DeliveryList';
@@ -7,7 +7,8 @@ jest.mock('react-geosuggest', () => '[MOCK]Geosuggest');
 
 describe('Pages With Snapshot Testing', () => {
   it('snapshot DeliveryList Component', () => {
-    const component = renderer.create(
+    const renderer = new ShallowRenderer();
+    renderer.render(
       <DeliveryList
         meetupList={[
           {
@@ -29,9 +30,10 @@ describe('Pages With Snapshot Testing', () => {
           },
         ]}
         onEditDelivery={() => {}}
+        t={() => {}}
       />,
     );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const result = renderer.getRenderOutput();
+    expect(result).toMatchSnapshot();
   });
 });

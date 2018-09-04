@@ -2,72 +2,90 @@
 
 exports[`Pages With Snapshot Testing snapshot IngredientList Component 1`] = `
 <div
-  className="jsx-3175717653"
+  className="jsx-3852806779"
 >
   <div
-    className="jsx-3175717653 header"
+    className="jsx-3852806779 header"
   >
     <span
-      className="jsx-3175717653 title"
-    >
-      Ingredients List
-    </span>
+      className="jsx-3852806779 title"
+    />
     <button
-      className="jsx-3175717653 addButton"
+      className="jsx-3852806779 addButton"
       onClick={[Function]}
     >
       <div
-        className="jsx-3175717653 plus"
+        className="jsx-3852806779 plus"
       />
     </button>
   </div>
   <div
-    className="jsx-3175717653 ingredientList"
+    className="jsx-3852806779 ingredientList"
   >
     <div
-      className="jsx-3175717653 ingredient-item"
+      className="jsx-3852806779 ingredientItem"
     >
       <div
-        className="jsx-3175717653 ingredient-content"
+        className="jsx-3852806779 titleWrapper"
       >
-        <p
-          className="jsx-3175717653 ingredient-title"
+        <span
+          className="jsx-3852806779"
         >
           bible memo
-        </p>
-        <p
-          className="jsx-3175717653 ingredient-detail"
+        </span>
+        <div
+          className="jsx-3852806779 iconWrapper"
         >
-          <span
-            className="jsx-3175717653 ingredient-subtext"
+          <button
+            className="jsx-3852806779 btn"
+            onClick={[Function]}
           >
-            Ingredient: 
-            1
-          </span>
-          <span
-            className="jsx-3175717653 ingredient-subtext"
+            <div
+              className="jsx-3852806779 icon editIcon"
+            />
+          </button>
+          <button
+            className="jsx-3852806779 btn"
+            onClick={undefined}
           >
-            Total: 
-            $100
-          </span>
-        </p>
+            <div
+              className="jsx-3852806779 icon deleteIcon"
+            />
+          </button>
+        </div>
       </div>
       <div
-        className="jsx-3175717653 buttonWrapper"
+        className="jsx-3852806779"
       >
-        <button
-          className="jsx-675350272 
-      button
-      primary
-      small
-    "
-          onClick={[Function]}
-          type="button"
+        <span
+          className="jsx-3852806779 ingredient-subtext"
         >
-          UPDATE
-        </button>
+           
+          1
+        </span>
+        <span
+          className="jsx-3852806779 ingredient-subtext"
+        >
+           $
+          100
+        </span>
       </div>
     </div>
   </div>
+  <JSXStyle
+    css=".ingredientList.__jsx-style-dynamic-selector{max-width:552px;width:100%;padding-top:30px;padding-left:20px;padding-bottom:31px;box-sizing:border-box;background-color:#ffffff;border-radius:4px;margin-bottom:10px;}.header.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-bottom:22px;}.titleWrapper.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;font-size:1.6rem;line-height:1;-webkit-letter-spacing:0.7px;-moz-letter-spacing:0.7px;-ms-letter-spacing:0.7px;letter-spacing:0.7px;font-weight:500;color:#4a4a4a;margin-bottom:14px;}.addButton.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;width:36px;height:36px;margin-left:20px;border-radius:4px;cursor:pointer;outline:none;border:0;background-color:#ffffff;}.plus.__jsx-style-dynamic-selector{margin:auto;background-image:url('../static/img/plus.png');background-size:contain;background-position:center;background-repeat:no-repeat;width:18px;height:18px;outline:none;}.addButton.__jsx-style-dynamic-selector:hover .plus.__jsx-style-dynamic-selector{background-image:url('../static/img/plus_hover.png');}.ingredientItem.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;margin-bottom:12px;background-color:#ffffff;height:100%;}.title.__jsx-style-dynamic-selector{font-size:1.8rem;font-weight:500;line-height:1.11;-webkit-letter-spacing:0.5px;-moz-letter-spacing:0.5px;-ms-letter-spacing:0.5px;letter-spacing:0.5px;color:#4a4a4a;}.iconWrapper.__jsx-style-dynamic-selector{margin-right:21px;}.btn.__jsx-style-dynamic-selector{cursor:pointer;background-color:rgba(0, 0, 0, 0);border:0;outline:none;margin-left:15px;}.icon.__jsx-style-dynamic-selector{background-size:contain;background-position:center;background-repeat:no-repeat;width:14px;height:14px;outline:none;}.editIcon.__jsx-style-dynamic-selector{background-image:url('../static/svg/edit_icon.svg');}.deleteIcon.__jsx-style-dynamic-selector{background-image:url('../static/svg/delete_icon.svg');}.btn.__jsx-style-dynamic-selector:hover .editIcon.__jsx-style-dynamic-selector{background-image:url('../static/svg/edit_icon_hover.svg');}.btn.__jsx-style-dynamic-selector:hover .deleteIcon.__jsx-style-dynamic-selector{background-image:url('../static/svg/delete_icon_hover.svg');}.ingredient-subtext.__jsx-style-dynamic-selector{margin-right:40px;font-size:1.4rem;line-height:1.14;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#b9b9b9;}.buttonWrapper.__jsx-style-dynamic-selector{-webkit-align-self:center;-ms-flex-item-align:center;align-self:center;}"
+    dynamic={
+      Array [
+        "#ffffff",
+        "4px",
+        "#4a4a4a",
+        "#ffffff",
+        "#4a4a4a",
+        "rgba(0, 0, 0, 0)",
+        "#b9b9b9",
+      ]
+    }
+    styleId="2208853802"
+  />
 </div>
 `;

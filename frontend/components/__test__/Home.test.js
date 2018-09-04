@@ -1,12 +1,13 @@
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import React from 'react';
 
 import Home from '../Home';
 
 describe('Pages With Snapshot Testing', () => {
   it('snapshot DeliveryPage Component', () => {
-    const component = renderer.create(<Home />);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const renderer = new ShallowRenderer();
+    renderer.render(<Home />);
+    const result = renderer.getRenderOutput();
+    expect(result).toMatchSnapshot();
   });
 });

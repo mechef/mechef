@@ -2,229 +2,237 @@
 
 exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
 <div
-  className="jsx-2427576136 dashboard-content"
+  className="jsx-104210336 dashboard-content"
 >
   <div
-    className="jsx-2427576136 dashboard-content__form"
+    className="jsx-104210336 dashboard-content__form"
   >
     <div
-      className="jsx-2427576136 update-cover-photo"
+      className="jsx-104210336 update-cover-photo"
       onClick={[Function]}
       role="button"
       tabIndex="-1"
     >
       <input
-        className="jsx-2427576136 hidden"
+        className="jsx-104210336 hidden"
         onChange={[Function]}
         type="file"
       />
       <img
         alt="cover"
-        className="jsx-2427576136 coverPhoto"
+        className="jsx-104210336 coverPhoto"
         src="../static/pancake.jpg"
       />
       <div
-        className="jsx-2427576136 update-cover-photo__title"
+        className="jsx-104210336 update-cover-photo__title"
       >
         <i
           aria-hidden="true"
-          className="jsx-2427576136 fa fa-camera update-cover-photo__icon"
+          className="jsx-104210336 fa fa-camera update-cover-photo__icon"
         />
         <span
-          className="jsx-2427576136"
-        >
-          Update your cover photo
-        </span>
+          className="jsx-104210336"
+        />
       </div>
     </div>
     <div
-      className="jsx-2427576136 update-profile-image"
+      className="jsx-104210336 update-profile-image"
     >
       <input
-        className="jsx-2427576136 hidden"
+        className="jsx-104210336 hidden"
         onChange={[Function]}
         type="file"
       />
-      <div
-        className="jsx-2427576136 update-profile-image__avatar"
+      <button
+        className="jsx-104210336 update-profile-image__avatar"
         onClick={[Function]}
-        role="button"
-        tabIndex="-1"
       >
         <img
           alt="profile"
-          className="jsx-2427576136 profileImage"
+          className="jsx-104210336 profileImage"
           src="../static/avatar.jpg"
         />
         <i
           aria-hidden="true"
-          className="jsx-2427576136 fa fa-camera update-profile-image__avatar-camera-icon"
+          className="jsx-104210336 fa fa-camera update-profile-image__avatar-camera-icon"
         />
-      </div>
+      </button>
       <div
-        className="jsx-2427576136 update-profile-image__description"
+        className="jsx-104210336 update-profile-image__description"
       >
         <span
-          className="jsx-2427576136 update-profile-image__description-title"
+          className="jsx-104210336 update-profile-image__description-title"
         >
           Profile Image
         </span>
         <span
-          className="jsx-2427576136 update-profile-image__description-subtitle"
+          className="jsx-104210336 update-profile-image__description-subtitle"
         >
           Add Image Add Image Add Image
         </span>
       </div>
     </div>
     <div
-      className="jsx-2427576136 bank-info"
+      className="jsx-104210336 bank-info"
     >
       <p
-        className="jsx-2427576136 bank-info__title"
-      >
-        Kitchen Name*
-      </p>
+        className="jsx-104210336 bank-info__title"
+      />
       <p
-        className="jsx-2427576136 bank-info__subtitle"
+        className="jsx-104210336 bank-info__subtitle"
       >
         Add Images Add Images Add Images
       </p>
-      <div
-        className="jsx-3069508068"
-      >
-        <input
-          className="jsx-3069508068 
-        textInput
-        large
-      "
-          onChange={[Function]}
-          placeholder="Enter Kitchen Name"
-          type="text"
-          value=""
-        />
-      </div>
-    </div>
-    <div
-      className="jsx-2427576136 bank-info"
-    >
-      <p
-        className="jsx-2427576136 bank-info__title"
-      >
-        Kitchen Description*
-      </p>
-      <p
-        className="jsx-2427576136 bank-info__subtitle"
-      >
-        Add Images Add Images Add Images
-      </p>
-      <textarea
-        className="jsx-2427576136 bank-info__text-area"
+      <TextInput
+        hasAddBtn={false}
+        isRequired={false}
+        maxLength={50}
+        onAdd={[Function]}
         onChange={[Function]}
+        onError={[Function]}
+        onKeyPress={[Function]}
+        pattern="."
+        placeholder="Enter Kitchen Name"
+        size="large"
         type="text"
+        validationMessage=""
         value=""
       />
     </div>
     <div
-      className="jsx-2427576136 bank-info"
+      className="jsx-104210336 bank-info"
     >
       <p
-        className="jsx-2427576136 bank-info__title"
-      >
-        User Name*
-      </p>
+        className="jsx-104210336 bank-info__title"
+      />
       <p
-        className="jsx-2427576136 bank-info__subtitle"
+        className="jsx-104210336 bank-info__subtitle"
+      >
+        Add Images Add Images Add Images
+      </p>
+      <TextAreaInput
+        height="150px"
+        onChange={[Function]}
+        placeholder="Write some description about your kitchen...."
+        value=""
+        width="512px"
+      />
+    </div>
+    <div
+      className="jsx-104210336 bank-info"
+    >
+      <p
+        className="jsx-104210336 bank-info__title"
+      />
+      <p
+        className="jsx-104210336 bank-info__subtitle"
       >
         Add Images Add Images Add Images
       </p>
       <div
-        className="jsx-2427576136 inputGroup"
+        className="jsx-104210336 inputGroup"
       >
         <div
-          className="jsx-3069508068"
+          className="jsx-104210336 inputWithPadding"
         >
-          <input
-            className="jsx-3069508068 
-        textInput
-        small
-      "
+          <TextInput
+            hasAddBtn={false}
+            isRequired={false}
+            maxLength={50}
+            onAdd={[Function]}
             onChange={[Function]}
+            onError={[Function]}
+            onKeyPress={[Function]}
+            pattern="."
             placeholder="Enter Kitchen Name"
+            size="small"
             type="text"
+            validationMessage=""
             value=""
           />
         </div>
         <div
-          className="jsx-3069508068"
+          className="jsx-104210336 inputWithPadding"
         >
-          <input
-            className="jsx-3069508068 
-        textInput
-        small
-      "
+          <TextInput
+            hasAddBtn={false}
+            isRequired={false}
+            maxLength={50}
+            onAdd={[Function]}
             onChange={[Function]}
+            onError={[Function]}
+            onKeyPress={[Function]}
+            pattern="."
             placeholder="Enter Kitchen Name"
+            size="small"
             type="text"
+            validationMessage=""
             value=""
           />
         </div>
       </div>
     </div>
     <div
-      className="jsx-2427576136 two-div"
+      className="jsx-104210336 two-div"
     >
       <div
-        className="jsx-2427576136 left"
+        className="jsx-104210336 left"
       >
         <p
-          className="jsx-2427576136 bank-info__title"
-        >
-          Phone Number*
-        </p>
+          className="jsx-104210336 bank-info__title"
+        />
         <p
-          className="jsx-2427576136 bank-info__subtitle"
+          className="jsx-104210336 bank-info__subtitle"
         >
           Add Images Add Images Add Images
         </p>
         <div
-          className="jsx-3069508068"
+          className="jsx-104210336 inputWithPadding"
         >
-          <input
-            className="jsx-3069508068 
-        textInput
-        small
-      "
+          <TextInput
+            hasAddBtn={false}
+            isRequired={false}
+            maxLength={50}
+            onAdd={[Function]}
             onChange={[Function]}
+            onError={[Function]}
+            onKeyPress={[Function]}
+            pattern="."
             placeholder="Enter Kitchen Name"
+            size="small"
             type="text"
+            validationMessage=""
             value=""
           />
         </div>
       </div>
       <div
-        className="jsx-2427576136 right"
+        className="jsx-104210336 right"
       >
         <p
-          className="jsx-2427576136 bank-info__title"
-        >
-          Email Address*
-        </p>
+          className="jsx-104210336 bank-info__title"
+        />
         <p
-          className="jsx-2427576136 bank-info__subtitle"
+          className="jsx-104210336 bank-info__subtitle"
         >
           Add Images Add Images Add Images
         </p>
         <div
-          className="jsx-3069508068"
+          className="jsx-104210336 inputWithPadding"
         >
-          <input
-            className="jsx-3069508068 
-        textInput
-        small
-      "
+          <TextInput
+            hasAddBtn={false}
+            isRequired={false}
+            maxLength={50}
+            onAdd={[Function]}
             onChange={[Function]}
+            onError={[Function]}
+            onKeyPress={[Function]}
+            pattern="."
             placeholder="Enter Kitchen Name"
+            size="small"
             type="text"
+            validationMessage=""
             value=""
           />
         </div>
@@ -232,38 +240,34 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
     </div>
   </div>
   <div
-    className="jsx-2427576136 buttonGroup"
+    className="jsx-104210336 buttonGroup"
   >
     <div
-      className="jsx-2427576136"
+      className="jsx-104210336"
     >
-      <button
-        className="jsx-675350272 
-      button
-      greenBorderOnly
-      small
-    "
+      <Button
+        buttonStyle="greenBorderOnly"
         onClick={undefined}
-        type="button"
+        size="small"
       >
-        CANCEL
-      </button>
+        
+      </Button>
     </div>
     <div
-      className="jsx-2427576136"
+      className="jsx-104210336"
     >
-      <button
-        className="jsx-675350272 
-      button
-      primary
-      small
-    "
+      <Button
+        buttonStyle="primary"
         onClick={[Function]}
-        type="button"
+        size="small"
       >
-        SAVE
-      </button>
+        
+      </Button>
     </div>
   </div>
+  <JSXStyle
+    css=".dashboard-content.jsx-104210336{height:100%;padding:20px;}.dashboard-content__form.jsx-104210336{max-width:552px;width:100%;border-radius:4px;background-color:#ffffff;margin-bottom:30px;}.hidden.jsx-104210336{display:none;}.update-cover-photo.jsx-104210336{height:230px;position:relative;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;cursor:pointer;outline:none;}.coverPhoto.jsx-104210336{height:230px;width:100%;position:absolute;object-fit:cover;}.update-cover-photo.jsx-104210336:before{content:'';height:230px;width:100%;background-color:rgba(0,0,0,0.4);position:absolute;z-index:1;border-radius:4px 4px 0 0;}.update-cover-photo__title.jsx-104210336{font-size:1.6rem;font-weight:500;-webkit-letter-spacing:0.7px;-moz-letter-spacing:0.7px;-ms-letter-spacing:0.7px;letter-spacing:0.7px;color:#ffffff;position:relative;z-index:2;margin:auto;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}.update-cover-photo__icon.jsx-104210336{text-align:center;padding-bottom:19px;}.update-profile-image.jsx-104210336{padding-top:32px;padding-left:21px;margin-bottom:49px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;position:relative;}.update-profile-image__avatar.jsx-104210336{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;position:relative;width:80px;height:80px;border-radius:40px;outline:none;padding:0;border:0;cursor:pointer;}.profileImage.jsx-104210336{position:absolute;z-index:1;width:80px;height:80px;border-radius:40px;top:0;left:0;object-fit:cover;}.update-profile-image__avatar.jsx-104210336:after{position:absolute;z-index:2;content:'';width:80px;height:80px;top:0;left:0;opacity:0.7;background-color:rgba(0,0,0,0.6);border-radius:40px;}.update-profile-image__avatar-camera-icon.jsx-104210336{position:relative;z-index:3;margin:auto;color:#ffffff;}.update-profile-image__description.jsx-104210336{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;padding-left:30px;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.update-profile-image__description-title.jsx-104210336{font-size:1.6rem;font-weight:500;-webkit-letter-spacing:0.7px;-moz-letter-spacing:0.7px;-ms-letter-spacing:0.7px;letter-spacing:0.7px;color:#4a4a4a;padding-bottom:12px;}.update-profile-image__description-subtitle.jsx-104210336{font-size:1.4rem;font-weight:500;line-height:1;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#9b9b9b;}.bank-info.jsx-104210336{margin-bottom:30px;padding-left:20px;padding-right:20px;}.bank-info__title.jsx-104210336{font-size:1.6rem;font-weight:500;line-height:1;-webkit-letter-spacing:0.7px;-moz-letter-spacing:0.7px;-ms-letter-spacing:0.7px;letter-spacing:0.7px;text-align:left;color:#4a4a4a;}.bank-info__subtitle.jsx-104210336{font-size:1.4rem;font-weight:500;line-height:1;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;text-align:left;color:#9b9b9b;}.bank-info__input.jsx-104210336{width:512px;height:50px;border-radius:4px;background-color:#ffffff;border:solid 1px #979797;}.bank-info__text-area.jsx-104210336{height:100px;width:533px;border-radius:4px;border:solid 1px #979797;}.buttonGroup.jsx-104210336{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;max-width:552px;width:100%: margin-bottom:100px;cursor:pointer;}.buttonGroup.jsx-104210336 div.jsx-104210336{margin-left:10px;}.inputGroup.jsx-104210336{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;max-width:539px;width:100%;}.inputWithPadding.jsx-104210336{padding-left:5px;padding-right:5px;}.smallSize.jsx-104210336{width:250px;height:50px;}.two-div.jsx-104210336{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;padding:0 20px 30px;max-width:539px;width:100%;box-sizing:border-box;}"
+    styleId="104210336"
+  />
 </div>
 `;

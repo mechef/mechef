@@ -214,9 +214,10 @@ const actionSubjects = {
   ...deliveryActions,
   ...globalActions,
 };
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  MenuPage,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(MenuPage);
 export default connect(
   stateSelector,
   actionSubjects,

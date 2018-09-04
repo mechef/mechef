@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
-import { transparent, whiteColor } from '../utils/styleVariables';
+import * as styles from '../utils/styleVariables';
 import Button from './Button';
 import TextInput from './TextInput';
 import type { MemoObject } from '../utils/flowTypes';
@@ -58,8 +58,8 @@ class IngredientEdit extends React.Component<Props, State> {
               size="large"
               value={displayMemo.name || ''}
               onChange={event => {
-                if (event && event.target) {
-                  onChangeField({ name: event.target.value });
+                if (event && event.currentTarget) {
+                  onChangeField({ name: event.currentTarget.value });
                 }
               }}
             />
@@ -87,9 +87,9 @@ class IngredientEdit extends React.Component<Props, State> {
                   size="small"
                   value={this.state.inputIngredientName}
                   onChange={event => {
-                    if (event && event.target) {
+                    if (event && event.currentTarget) {
                       this.setState({
-                        inputIngredientName: event.target.value,
+                        inputIngredientName: event.currentTarget.value,
                       });
                     }
                   }}
@@ -106,9 +106,12 @@ class IngredientEdit extends React.Component<Props, State> {
                   size="small"
                   value={this.state.inputIngredientAmount || ''}
                   onChange={event => {
-                    if (event && event.target) {
+                    if (event && event.currentTarget) {
                       this.setState({
-                        inputIngredientAmount: parseInt(event.target.value, 10),
+                        inputIngredientAmount: parseInt(
+                          event.currentTarget.value,
+                          10,
+                        ),
                       });
                     }
                   }}
@@ -334,7 +337,7 @@ class IngredientEdit extends React.Component<Props, State> {
               display: flex;
               justify-content: center;
               align-items: center;
-              background-color: ${whiteColor};
+              background-color: ${styles.whiteColor};
               border: 0;
               margin-right: 18px;
               margin-left: 33px;
@@ -350,7 +353,7 @@ class IngredientEdit extends React.Component<Props, State> {
               height: 18px;
               outline: none;
               border: 0;
-              background-color: ${transparent};
+              background-color: ${styles.transparent};
               cursor: pointer;
             }
 

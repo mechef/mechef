@@ -24,7 +24,7 @@ import {
 type Props = {
   order: CartOrderObject,
   onOrderModified: (update: CartOrderObject) => Function,
-  onOrderRemoved: (id: number) => Function,
+  onOrderRemoved: (id: string) => Function,
 };
 
 type State = {
@@ -68,7 +68,9 @@ class CartItem extends React.Component<Props, State> {
 
   onRemoveButtonClicked() {
     // TODO Paipo: Change the name to 'dish'
-    this.props.onOrderRemoved(this.props.order.dishId);
+    if (this.props.order.dishId) {
+      this.props.onOrderRemoved(this.props.order.dishId);
+    }
   }
 
   calculateSubTotal: Function;

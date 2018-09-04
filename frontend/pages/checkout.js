@@ -45,6 +45,7 @@ type Props = {
   },
   deliveryList: Array<Object>,
   fetchKitchen$: (kitchenName: string) => Rx.Observable,
+  t: (key: string) => string,
 };
 
 type State = {
@@ -155,11 +156,11 @@ class Checkout extends React.PureComponent<Props, State> {
                     size="medium"
                     value={this.state.newOrder.firstName}
                     onChange={event => {
-                      if (event && event.target) {
+                      if (event && event.currentTarget) {
                         this.setState({
                           newOrder: {
                             ...this.state.newOrder,
-                            firstName: event.target.value,
+                            firstName: event.currentTarget.value,
                           },
                         });
                       }
@@ -176,11 +177,11 @@ class Checkout extends React.PureComponent<Props, State> {
                   size="medium"
                   value={this.state.newOrder.lastName}
                   onChange={event => {
-                    if (event && event.target) {
+                    if (event && event.currentTarget) {
                       this.setState({
                         newOrder: {
                           ...this.state.newOrder,
-                          lastName: event.target.value,
+                          lastName: event.currentTarget.value,
                         },
                       });
                     }
@@ -198,11 +199,11 @@ class Checkout extends React.PureComponent<Props, State> {
                   size="medium"
                   value={this.state.newOrder.buyerEmail}
                   onChange={event => {
-                    if (event && event.target) {
+                    if (event && event.currentTarget) {
                       this.setState({
                         newOrder: {
                           ...this.state.newOrder,
-                          buyerEmail: event.target.value,
+                          buyerEmail: event.currentTarget.value,
                         },
                       });
                     }
@@ -218,11 +219,11 @@ class Checkout extends React.PureComponent<Props, State> {
                   size="medium"
                   value={this.state.newOrder.buyerPhoneNumber}
                   onChange={event => {
-                    if (event && event.target) {
+                    if (event && event.currentTarget) {
                       this.setState({
                         newOrder: {
                           ...this.state.newOrder,
-                          buyerPhoneNumber: event.target.value,
+                          buyerPhoneNumber: event.currentTarget.value,
                         },
                       });
                     }
@@ -527,9 +528,10 @@ const actionSubjects = {
   ...kitchenActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  Checkout,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(Checkout);
 
 export default connect(
   stateSelector,

@@ -1,11 +1,12 @@
-import renderer from 'react-test-renderer';
+import ShallowRenderer from 'react-test-renderer/shallow';
 import React from 'react';
 
 import IngredientList from '../IngredientList';
 
 describe('Pages With Snapshot Testing', () => {
   it('snapshot IngredientList Component', () => {
-    const component = renderer.create(
+    const renderer = new ShallowRenderer();
+    renderer.render(
       <IngredientList
         memos={[
           {
@@ -21,9 +22,10 @@ describe('Pages With Snapshot Testing', () => {
           },
         ]}
         onEditMemo$={() => {}}
+        t={() => {}}
       />,
     );
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+    const result = renderer.getRenderOutput();
+    expect(result).toMatchSnapshot();
   });
 });

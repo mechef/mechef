@@ -99,6 +99,7 @@ export class Home extends React.Component<Props, State> {
                 <button
                   className="copyBtn"
                   onClick={() => {
+                    // $FlowFixMe
                     document.oncopy = function(event) {
                       if (account.currentAccount.kitchenName) {
                         event.clipboardData.setData(
@@ -172,7 +173,7 @@ export class Home extends React.Component<Props, State> {
                         )}
                         buyerName={orderItem.buyerName}
                         quantity={orderItem.quantity}
-                        dishName={orderItem.dishName}
+                        dishName={orderItem.dishName || ''}
                       />
                     ))
                 ) : (
@@ -507,7 +508,10 @@ const actionSubjects = {
   ...orderActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(Home);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(Home);
 
 export default connect(
   stateSelector,

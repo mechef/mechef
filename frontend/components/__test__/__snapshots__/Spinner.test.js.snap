@@ -2,10 +2,10 @@
 
 exports[`Pages With Snapshot Testing snapshot Spinner Component 1`] = `
 <div
-  className="jsx-3700556267 spinnerOverlay"
+  className="jsx-3364859594 spinnerOverlay"
 >
   <div
-    className="jsx-3700556267 spinner"
+    className="jsx-3364859594 spinner"
   />
 </div>
 `;

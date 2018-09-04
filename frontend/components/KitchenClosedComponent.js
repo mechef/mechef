@@ -67,8 +67,9 @@ const KitchenClosedComponent = ({ t }: Props) => (
   </div>
 );
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  KitchenClosedComponent,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(KitchenClosedComponent);
 
 export default Extended;

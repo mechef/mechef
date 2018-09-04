@@ -1,248 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Pages With Snapshot Testing snapshot login page 1`] = `
-<div
-  className="jsx-1306439737"
->
-  <nav
-    className="jsx-2255944320 mechef-navbar"
-  >
-    <img
-      alt="logo"
-      className="jsx-2255944320 mechef-navbar-logo"
-      src="../static/svg/mechef_logo.svg"
-    />
-    <div
-      className="jsx-2255944320 mechef-navbar-collapse"
-    >
-      <ul
-        className="jsx-2255944320 mechef-navbar-nav"
-      >
-        <li
-          className="jsx-2255944320 "
-        >
-          HOW IT WORKS
-        </li>
-        <li
-          className="jsx-2255944320 active"
-        >
-          JOIN NOW
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <div
-    className="jsx-1306439737 login-panel"
-  >
-    <div
-      className="jsx-1306439737 login-form"
-    >
-      <div
-        className="jsx-1306439737 login-btn splits"
-      >
-        <p
-          className="jsx-1306439737 splits-title"
-        >
-          Have an account?
-        </p>
-        <button
-          className="jsx-675350272 
-      button
-      whiteBorderOnly
-      small
-    "
-          onClick={[Function]}
-          type="button"
-        >
-          SIGN IN
-        </button>
-      </div>
-      <div
-        className="jsx-1306439737 rgstr-btn splits"
-      >
-        <p
-          className="jsx-1306439737 splits-title"
-        >
-          Dont have an account?
-        </p>
-        <button
-          className="jsx-675350272 
-      button
-      whiteBorderOnly
-      small
-    "
-          onClick={[Function]}
-          type="button"
-        >
-          JOIN NOW
-        </button>
-      </div>
-      <div
-        className="jsx-1306439737 wrapper "
-      >
-        <div
-          className="jsx-1306439737 login"
-        >
-          <p
-            className="jsx-1306439737 title"
-          >
-            SIGN IN
-          </p>
-          <div
-            className="jsx-1306439737 mail"
-          >
-            <div
-              className="jsx-3069508068"
-            >
-              <input
-                className="jsx-3069508068 
-        textInput
-        medium
-      "
-                onChange={[Function]}
-                placeholder="Mail or Username"
-                type="mail"
-                value=""
-              />
-            </div>
-          </div>
-          <div
-            className="jsx-1306439737 passwd"
-          >
-            <div
-              className="jsx-3069508068"
-            >
-              <input
-                className="jsx-3069508068 
-        textInput
-        medium
-      "
-                onChange={[Function]}
-                placeholder="Password"
-                type="password"
-                value=""
-              />
-            </div>
-          </div>
-          <button
-            className="jsx-675350272 
-      button
-      primary
-      medium
-    "
-            onClick={[Function]}
-            type="button"
-          >
-            SIGN IN
-          </button>
-        </div>
-        <div
-          className="jsx-1306439737 register"
-        >
-          <p
-            className="jsx-1306439737 title"
-          >
-            Be a Chef today!
-          </p>
-          <div
-            className="jsx-1306439737"
-          >
-            <div
-              className="jsx-3069508068"
-            >
-              <input
-                className="jsx-3069508068 
-        textInput
-        medium
-      "
-                onChange={[Function]}
-                placeholder="First Name"
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-          <div
-            className="jsx-1306439737"
-          >
-            <div
-              className="jsx-3069508068"
-            >
-              <input
-                className="jsx-3069508068 
-        textInput
-        medium
-      "
-                onChange={[Function]}
-                placeholder="Last Name"
-                type="text"
-                value=""
-              />
-            </div>
-          </div>
-          <div
-            className="jsx-1306439737"
-          >
-            <div
-              className="jsx-3069508068"
-            >
-              <input
-                className="jsx-3069508068 
-        textInput
-        medium
-      "
-                onChange={[Function]}
-                placeholder="Telephone Number"
-                type="password"
-                value=""
-              />
-            </div>
-          </div>
-          <div
-            className="jsx-1306439737"
-          >
-            <div
-              className="jsx-3069508068"
-            >
-              <input
-                className="jsx-3069508068 
-        textInput
-        medium
-      "
-                onChange={[Function]}
-                placeholder="Email Address"
-                type="mail"
-                value=""
-              />
-            </div>
-          </div>
-          <div
-            className="jsx-1306439737 wrapper__submit"
-          >
-            <button
-              className="jsx-675350272 
-      button
-      primary
-      medium
-    "
-              onClick={[Function]}
-              type="button"
-            >
-              JOIN NOW
-            </button>
-          </div>
-          <div
-            className="jsx-1306439737 wrapper__note"
-          >
-            <span
-              className="jsx-1306439737"
-            >
-              If you click JOIN NOW, it means you agree with terms of service.
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<Translate(Login)
+  auth={
+    Object {
+      "email": "",
+      "password": "",
+    }
+  }
+  error={
+    Object {
+      "isShowModal": false,
+      "message": "",
+      "title": "",
+    }
+  }
+  global={
+    Object {
+      "backArrow": Object {
+        "isShow": false,
+        "title": "",
+      },
+      "isShowSpinner": false,
+    }
+  }
+  login$={[Function]}
+  setError$={[Function]}
+  setLoginField$={[Function]}
+/>
 `;

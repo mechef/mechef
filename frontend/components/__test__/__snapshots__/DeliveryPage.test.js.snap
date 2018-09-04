@@ -1,72 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Pages With Snapshot Testing snapshot DeliveryPage Component 1`] = `
-<div
-  className="jsx-4065268649 container"
->
-  <div
-    className="jsx-4281379946"
-  >
-    <div
-      className="jsx-4281379946 header"
-    >
-      <span
-        className="jsx-4281379946 title"
-      >
-        Delivery List
-      </span>
-      <div
-        className="jsx-4281379946 addButton"
-      >
-        <div
-          className="jsx-4281379946 plus"
-          onClick={[Function]}
-          role="link"
-          tabIndex="-1"
-        />
-      </div>
-    </div>
-    <div
-      className="jsx-4281379946 deliveryList"
-    >
-      <div
-        className="jsx-4281379946 delivery-item"
-      >
-        <div
-          className="jsx-4281379946 delivery-content"
-        >
-          <p
-            className="jsx-4281379946 delivery-title"
-          >
-            Rakuten Crimson House
-          </p>
-          <p
-            className="jsx-4281379946 delivery-detail"
-          >
-            <span
-              className="jsx-4281379946 delivery-subtext"
-            >
-              Shipping Cost:
-            </span>
-          </p>
-        </div>
-        <div
-          className="jsx-4281379946 buttonWrapper"
-        >
-          <button
-            className="jsx-675350272 
-      button
-      primary
-      small
-    "
-            onClick={[Function]}
-            type="button"
-          >
-            UPDATE
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<DashboardContentLayout>
+  <DeliveryList
+    meetupList={
+      Array [
+        Object {
+          "_id": "59e5f7ffd48173ad48d8c8ab",
+          "meetupAddress": "Rakuten Crimson House",
+          "meetupEndTime": "",
+          "meetupFriday": false,
+          "meetupLatitude": 120,
+          "meetupLongitude": 20,
+          "meetupMonday": false,
+          "meetupSaturday": false,
+          "meetupStartTime": "",
+          "meetupSunday": false,
+          "meetupThursday": false,
+          "meetupTuesday": false,
+          "meetupWednesday": false,
+          "note": "9F caferia",
+          "type": "meetup",
+        },
+      ]
+    }
+    onDeleteMeetup={[Function]}
+    onEditDelivery={[Function]}
+    t={undefined}
+  />
+  <JSXStyle
+    css=".textSection.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;padding-top:31px;}.title.__jsx-style-dynamic-selector{font-family:'Playball',cursive;font-size:2.4rem;color:#4a4a4a;}.subtitle.__jsx-style-dynamic-selector{font-size:undefined;font-weight:500;color:#4a4a4a;}.description.__jsx-style-dynamic-selector{width:315px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;line-height:1.5;font-size:1.6rem;text-align:center;color:#4a4a4a;}.addDish.__jsx-style-dynamic-selector{border:0;padding:0;margin-top:70px;background-color:#ffffff;color:#3e9f40;font-size:1.6rem;margin:auto;cursor:pointer;outline:none;}.addDish.__jsx-style-dynamic-selector:hover{color:#367d36;}"
+    dynamic={
+      Array [
+        "#4a4a4a",
+        undefined,
+        "#4a4a4a",
+        "#4a4a4a",
+        "#ffffff",
+        "#3e9f40",
+        "#367d36",
+      ]
+    }
+    styleId="2265354054"
+  />
+</DashboardContentLayout>
 `;

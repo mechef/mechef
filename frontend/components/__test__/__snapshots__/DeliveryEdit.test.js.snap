@@ -2,880 +2,430 @@
 
 exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
 <div
-  className="jsx-4277715105 dashboard-content"
+  className="jsx-3872819884 dashboard-content"
 >
   <p
-    className="jsx-4277715105 dashboard-content__title"
-  >
-    Edit Delivery
-  </p>
+    className="jsx-3872819884 dashboard-content__title"
+  />
   <div
-    className="jsx-4277715105 editContainer"
+    className="jsx-3872819884 editContainer"
   >
     <div
-      className="jsx-4277715105 meetupLocation"
+      className="jsx-3872819884 meetupLocation"
     >
       <h3
-        className="jsx-4277715105 title"
-      >
-        Meet up location
-      </h3>
+        className="jsx-3872819884 title"
+      />
       <p
-        className="jsx-4277715105 subtitle"
+        className="jsx-3872819884 subtitle"
       >
         Location and Time
       </p>
-      <div
-        className="jsx-2276495436 container"
-      >
-        <div
-          className="jsx-2276495436 mapWrapper"
-          id="map"
-        />
-        <[MOCK]Geosuggest
-          initialValue=""
-          onChange={[Function]}
-          onSuggestSelect={[Function]}
-          placeholder="Enter meet up address"
-        />
-        <style>
-
-          .geosuggest {
-            position: relative;
-            width: 511px;
-            margin-bottom: 13px;
-          }
-          .geosuggest__input {
-            outline: none;
-            border-radius: 4px;
-            height: 44px;
-            background-color: #ffffff;
-            padding-left: 18px;
-            font-size: 1.4rem;
-            font-weight: 500;
-            width: 511px;
-            border: 2px solid transparent;
-            box-shadow: 0 0 1px #3d464d;
-            transition: border 0.2s, box-shadow 0.2s;
-          }
-          .geosuggest__input:focus {
-            border-color: #3e9f40;
-            box-shadow: 0 0 0 transparent;
-          }
-          .geosuggest__suggests {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            max-height: 25em;
-            padding-left: 18px;
-            width: 511px;
-            height: 161px;
-            margin-top: -1px;
-            background: #fff;
-            border: 2px solid #267dc0;
-            border-top-width: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
-            list-style: none;
-            z-index: 5;
-            transition: max-height 0.2s, border 0.2s;
-          }
-          .geosuggest__suggests--hidden {
-            max-height: 0;
-            overflow: hidden;
-            border-width: 0;
-          }
-
-          .geosuggest__item {
-            font-size: 1.8rem;
-            font-size: 1rem;
-            padding: .5em .65em;
-            cursor: pointer;
-          }
-
-          .geosuggest__item:hover,
-          .geosuggest__item:focus {
-            background: #f5f5f5;
-          }
-
-          .geosuggest__item--active {
-            background: #267dc0;
-            color: #fff;
-          }
-          .geosuggest__item--active:hover,
-          .geosuggest__item--active:focus {
-            background: #ccc;
-          }
-          .geosuggest__item__matched-text {
-            font-weight: 500;
-          }
-
-          .geosuggest__input-wrapper &gt; input::placeholder {
-            line-height: 1.14;
-            color: #b9b9b9;
-          }
-
-
-        </style>
-      </div>
+      <MapWithAutoComplete
+        initialLat={120}
+        initialLong={20}
+        initialValue="Rakuten Crimson House"
+        onChange={[Function]}
+        onSuggestSelect={[Function]}
+      />
     </div>
     <div
-      className="jsx-4277715105 meetupDate"
+      className="jsx-3872819884 meetupDate"
     >
       <h3
-        className="jsx-4277715105 title"
-      >
-        Meet up date
-      </h3>
+        className="jsx-3872819884 title"
+      />
       <p
-        className="jsx-4277715105 subtitle"
+        className="jsx-3872819884 subtitle"
       >
         Select Date
       </p>
       <div
-        className="jsx-4277715105 checkboxGroup"
+        className="jsx-3872819884 checkboxGroup"
       >
         <span
-          className="jsx-4277715105 checkbox"
+          className="jsx-3872819884 checkbox"
         >
-          <div
-            className="jsx-2607049475 checkboxContainer"
+          <CheckBox
+            checked={false}
+            onChange={[Function]}
           >
-            <button
-              className="jsx-2607049475 uncheckedIcon"
-              onClick={[Function]}
-              type="button"
-            />
-            <div
-              className="jsx-2607049475 checkboxLabel"
-            >
-              Monday
-            </div>
-          </div>
+            Monday
+          </CheckBox>
         </span>
         <span
-          className="jsx-4277715105 checkbox"
+          className="jsx-3872819884 checkbox"
         >
-          <div
-            className="jsx-2607049475 checkboxContainer"
+          <CheckBox
+            checked={false}
+            onChange={[Function]}
           >
-            <button
-              className="jsx-2607049475 uncheckedIcon"
-              onClick={[Function]}
-              type="button"
-            />
-            <div
-              className="jsx-2607049475 checkboxLabel"
-            >
-              Tuesday
-            </div>
-          </div>
+            Tuesday
+          </CheckBox>
         </span>
         <span
-          className="jsx-4277715105 checkbox"
+          className="jsx-3872819884 checkbox"
         >
-          <div
-            className="jsx-2607049475 checkboxContainer"
+          <CheckBox
+            checked={false}
+            onChange={[Function]}
           >
-            <button
-              className="jsx-2607049475 uncheckedIcon"
-              onClick={[Function]}
-              type="button"
-            />
-            <div
-              className="jsx-2607049475 checkboxLabel"
-            >
-              Wednesday
-            </div>
-          </div>
+            Wednesday
+          </CheckBox>
         </span>
         <span
-          className="jsx-4277715105 checkbox"
+          className="jsx-3872819884 checkbox"
         >
-          <div
-            className="jsx-2607049475 checkboxContainer"
+          <CheckBox
+            checked={false}
+            onChange={[Function]}
           >
-            <button
-              className="jsx-2607049475 uncheckedIcon"
-              onClick={[Function]}
-              type="button"
-            />
-            <div
-              className="jsx-2607049475 checkboxLabel"
-            >
-              Thursday
-            </div>
-          </div>
+            Thursday
+          </CheckBox>
         </span>
         <span
-          className="jsx-4277715105 checkbox"
+          className="jsx-3872819884 checkbox"
         >
-          <div
-            className="jsx-2607049475 checkboxContainer"
+          <CheckBox
+            checked={false}
+            onChange={[Function]}
           >
-            <button
-              className="jsx-2607049475 uncheckedIcon"
-              onClick={[Function]}
-              type="button"
-            />
-            <div
-              className="jsx-2607049475 checkboxLabel"
-            >
-              Friday
-            </div>
-          </div>
+            Friday
+          </CheckBox>
         </span>
         <span
-          className="jsx-4277715105 checkbox"
+          className="jsx-3872819884 checkbox"
         >
-          <div
-            className="jsx-2607049475 checkboxContainer"
+          <CheckBox
+            checked={false}
+            onChange={[Function]}
           >
-            <button
-              className="jsx-2607049475 uncheckedIcon"
-              onClick={[Function]}
-              type="button"
-            />
-            <div
-              className="jsx-2607049475 checkboxLabel"
-            >
-              Saturday
-            </div>
-          </div>
+            Saturday
+          </CheckBox>
         </span>
         <span
-          className="jsx-4277715105 checkbox"
+          className="jsx-3872819884 checkbox"
         >
-          <div
-            className="jsx-2607049475 checkboxContainer"
+          <CheckBox
+            checked={false}
+            onChange={[Function]}
           >
-            <button
-              className="jsx-2607049475 uncheckedIcon"
-              onClick={[Function]}
-              type="button"
-            />
-            <div
-              className="jsx-2607049475 checkboxLabel"
-            >
-              Sunday
-            </div>
-          </div>
+            Sunday
+          </CheckBox>
         </span>
       </div>
     </div>
     <h3
-      className="jsx-4277715105 title"
-    >
-      Meet up time
-    </h3>
+      className="jsx-3872819884 title"
+    />
     <div
-      className="jsx-4277715105 meetupTime"
+      className="jsx-3872819884 meetupTime"
     >
       <div
-        className="jsx-4277715105 smallInputContainer"
+        className="jsx-3872819884 smallInputContainer"
       >
         <span
-          className="jsx-4277715105 subtitle"
-        >
-          From
-        </span>
+          className="jsx-3872819884 subtitle"
+        />
         <div
-          className="jsx-354040114 selectBoxWrapper"
+          className="jsx-3872819884 selectBoxWithPadding"
         >
-          <button
-            className="jsx-354040114
-            buttonWrapper
-
-          "
-            onClick={[Function]}
-            type="button"
-          >
-            <span
-              className="jsx-354040114 placeholder "
-            >
-              24:00
-            </span>
-            <div
-              className="jsx-354040114 dropdownIcon"
-            />
-          </button>
-          <ul
-            className="jsx-354040114
-          optionWrapper
-          closeOption
-        "
-          >
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="1:00"
-            >
-              1:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="2:00"
-            >
-              2:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="3:00"
-            >
-              3:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="4:00"
-            >
-              4:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="5:00"
-            >
-              5:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="6:00"
-            >
-              6:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="7:00"
-            >
-              7:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="8:00"
-            >
-              8:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="9:00"
-            >
-              9:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="10:00"
-            >
-              10:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="11:00"
-            >
-              11:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="12:00"
-            >
-              12:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="13:00"
-            >
-              13:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="14:00"
-            >
-              14:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="15:00"
-            >
-              15:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="16:00"
-            >
-              16:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="17:00"
-            >
-              17:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="18:00"
-            >
-              18:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="19:00"
-            >
-              19:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="20:00"
-            >
-              20:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="21:00"
-            >
-              21:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="22:00"
-            >
-              22:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="23:00"
-            >
-              23:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="24:00"
-            >
-              24:00
-            </li>
-          </ul>
+          <SelectBox
+            defaultText="24:00"
+            isRequired={false}
+            onChange={[Function]}
+            onError={[Function]}
+            options={
+              Array [
+                Object {
+                  "text": "1:00",
+                  "value": "1:00",
+                },
+                Object {
+                  "text": "2:00",
+                  "value": "2:00",
+                },
+                Object {
+                  "text": "3:00",
+                  "value": "3:00",
+                },
+                Object {
+                  "text": "4:00",
+                  "value": "4:00",
+                },
+                Object {
+                  "text": "5:00",
+                  "value": "5:00",
+                },
+                Object {
+                  "text": "6:00",
+                  "value": "6:00",
+                },
+                Object {
+                  "text": "7:00",
+                  "value": "7:00",
+                },
+                Object {
+                  "text": "8:00",
+                  "value": "8:00",
+                },
+                Object {
+                  "text": "9:00",
+                  "value": "9:00",
+                },
+                Object {
+                  "text": "10:00",
+                  "value": "10:00",
+                },
+                Object {
+                  "text": "11:00",
+                  "value": "11:00",
+                },
+                Object {
+                  "text": "12:00",
+                  "value": "12:00",
+                },
+                Object {
+                  "text": "13:00",
+                  "value": "13:00",
+                },
+                Object {
+                  "text": "14:00",
+                  "value": "14:00",
+                },
+                Object {
+                  "text": "15:00",
+                  "value": "15:00",
+                },
+                Object {
+                  "text": "16:00",
+                  "value": "16:00",
+                },
+                Object {
+                  "text": "17:00",
+                  "value": "17:00",
+                },
+                Object {
+                  "text": "18:00",
+                  "value": "18:00",
+                },
+                Object {
+                  "text": "19:00",
+                  "value": "19:00",
+                },
+                Object {
+                  "text": "20:00",
+                  "value": "20:00",
+                },
+                Object {
+                  "text": "21:00",
+                  "value": "21:00",
+                },
+                Object {
+                  "text": "22:00",
+                  "value": "22:00",
+                },
+                Object {
+                  "text": "23:00",
+                  "value": "23:00",
+                },
+                Object {
+                  "text": "24:00",
+                  "value": "24:00",
+                },
+              ]
+            }
+            selectedValue=""
+          />
         </div>
       </div>
       <div
-        className="jsx-4277715105 smallInputContainer"
+        className="jsx-3872819884 smallInputContainer"
       >
         <span
-          className="jsx-4277715105 subtitle"
-        >
-          To
-        </span>
+          className="jsx-3872819884 subtitle"
+        />
         <div
-          className="jsx-354040114 selectBoxWrapper"
+          className="jsx-3872819884 selectBoxWithPadding"
         >
-          <button
-            className="jsx-354040114
-            buttonWrapper
-
-          "
-            onClick={[Function]}
-            type="button"
-          >
-            <span
-              className="jsx-354040114 placeholder "
-            >
-              24:00
-            </span>
-            <div
-              className="jsx-354040114 dropdownIcon"
-            />
-          </button>
-          <ul
-            className="jsx-354040114
-          optionWrapper
-          closeOption
-        "
-          >
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="1:00"
-            >
-              1:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="2:00"
-            >
-              2:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="3:00"
-            >
-              3:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="4:00"
-            >
-              4:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="5:00"
-            >
-              5:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="6:00"
-            >
-              6:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="7:00"
-            >
-              7:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="8:00"
-            >
-              8:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="9:00"
-            >
-              9:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="10:00"
-            >
-              10:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="11:00"
-            >
-              11:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="12:00"
-            >
-              12:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="13:00"
-            >
-              13:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="14:00"
-            >
-              14:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="15:00"
-            >
-              15:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="16:00"
-            >
-              16:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="17:00"
-            >
-              17:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="18:00"
-            >
-              18:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="19:00"
-            >
-              19:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="20:00"
-            >
-              20:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="21:00"
-            >
-              21:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="22:00"
-            >
-              22:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="23:00"
-            >
-              23:00
-            </li>
-            <li
-              className="jsx-354040114
-                  optionStyle
-
-                "
-              onClick={[Function]}
-              value="24:00"
-            >
-              24:00
-            </li>
-          </ul>
+          <SelectBox
+            defaultText="24:00"
+            isRequired={false}
+            onChange={[Function]}
+            onError={[Function]}
+            options={
+              Array [
+                Object {
+                  "text": "1:00",
+                  "value": "1:00",
+                },
+                Object {
+                  "text": "2:00",
+                  "value": "2:00",
+                },
+                Object {
+                  "text": "3:00",
+                  "value": "3:00",
+                },
+                Object {
+                  "text": "4:00",
+                  "value": "4:00",
+                },
+                Object {
+                  "text": "5:00",
+                  "value": "5:00",
+                },
+                Object {
+                  "text": "6:00",
+                  "value": "6:00",
+                },
+                Object {
+                  "text": "7:00",
+                  "value": "7:00",
+                },
+                Object {
+                  "text": "8:00",
+                  "value": "8:00",
+                },
+                Object {
+                  "text": "9:00",
+                  "value": "9:00",
+                },
+                Object {
+                  "text": "10:00",
+                  "value": "10:00",
+                },
+                Object {
+                  "text": "11:00",
+                  "value": "11:00",
+                },
+                Object {
+                  "text": "12:00",
+                  "value": "12:00",
+                },
+                Object {
+                  "text": "13:00",
+                  "value": "13:00",
+                },
+                Object {
+                  "text": "14:00",
+                  "value": "14:00",
+                },
+                Object {
+                  "text": "15:00",
+                  "value": "15:00",
+                },
+                Object {
+                  "text": "16:00",
+                  "value": "16:00",
+                },
+                Object {
+                  "text": "17:00",
+                  "value": "17:00",
+                },
+                Object {
+                  "text": "18:00",
+                  "value": "18:00",
+                },
+                Object {
+                  "text": "19:00",
+                  "value": "19:00",
+                },
+                Object {
+                  "text": "20:00",
+                  "value": "20:00",
+                },
+                Object {
+                  "text": "21:00",
+                  "value": "21:00",
+                },
+                Object {
+                  "text": "22:00",
+                  "value": "22:00",
+                },
+                Object {
+                  "text": "23:00",
+                  "value": "23:00",
+                },
+                Object {
+                  "text": "24:00",
+                  "value": "24:00",
+                },
+              ]
+            }
+            selectedValue=""
+          />
         </div>
       </div>
     </div>
+    <h3
+      className="jsx-3872819884 title"
+    />
+    <p
+      className="jsx-3872819884 subtitle"
+    />
+    <TextInput
+      hasAddBtn={false}
+      isRequired={false}
+      maxLength={50}
+      onAdd={[Function]}
+      onChange={[Function]}
+      onError={[Function]}
+      onKeyPress={[Function]}
+      pattern="."
+      placeholder="Write something......"
+      size="large"
+      type="text"
+      validationMessage=""
+      value="9F caferia"
+    />
   </div>
   <div
-    className="jsx-4277715105 buttonGroup"
+    className="jsx-3872819884 buttonGroup"
   >
     <div
-      className="jsx-4277715105"
+      className="jsx-3872819884"
     >
-      <button
-        className="jsx-675350272
-      button
-      greenBorderOnly
-      small
-    "
+      <Button
+        buttonStyle="greenBorderOnly"
         onClick={[Function]}
-        type="button"
+        size="small"
       >
-        DELETE
-      </button>
+        
+      </Button>
     </div>
     <div
-      className="jsx-4277715105"
+      className="jsx-3872819884"
     >
-      <button
-        className="jsx-675350272
-      button
-      greenBorderOnly
-      small
-    "
+      <Button
+        buttonStyle="greenBorderOnly"
         onClick={[Function]}
-        type="button"
+        size="small"
       >
-        CANCEL
-      </button>
+        
+      </Button>
     </div>
     <div
-      className="jsx-4277715105"
+      className="jsx-3872819884"
     >
-      <button
-        className="jsx-675350272
-      button
-      primary
-      small
-    "
+      <Button
+        buttonStyle="primary"
         onClick={[Function]}
-        type="button"
+        size="small"
       >
-        SAVE
-      </button>
+        
+      </Button>
     </div>
   </div>
+  <JSXStyle
+    css=".dashboard-content__title.__jsx-style-dynamic-selector{font-size:1.8rem;line-height:1.11;-webkit-letter-spacing:0.5px;-moz-letter-spacing:0.5px;-ms-letter-spacing:0.5px;letter-spacing:0.5px;color:#4a4a4a;}.editContainer.__jsx-style-dynamic-selector{margin-top:24px;max-width:552px;width:100%;box-sizing:border-box;height:100%;padding:24px 20px;border-radius:4px;background-color:#ffffff;}.meetupLocation.__jsx-style-dynamic-selector{margin-bottom:13px;}.title.__jsx-style-dynamic-selector{margin:0 0 16px 0;font-size:1.6rem;font-weight:500;line-height:1;-webkit-letter-spacing:0.7px;-moz-letter-spacing:0.7px;-ms-letter-spacing:0.7px;letter-spacing:0.7px;color:#4a4a4a;}.subtitle.__jsx-style-dynamic-selector{margin:0 0 16px 0;height:14px;font-size:1.4rem;font-weight:500;line-height:1;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;text-align:left;color:#9b9b9b;}.meetupDate.__jsx-style-dynamic-selector{margin-bottom:48px;}.checkboxGroup.__jsx-style-dynamic-selector{display:grid;max-width:387px;width:100%;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr 1fr;grid-column-gap:30px;grid-row-gap:16px;}.checkbox.__jsx-style-dynamic-selector{width:116px;}.meetupTime.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;max-width:539px;width:100%;margin-bottom:26px;}.smallInputContainer.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;max-width:250px;width:100%;}.selectBoxWithPadding.__jsx-style-dynamic-selector{padding-left:5px;padding-right:5px;}.selectbox.__jsx-style-dynamic-selector{width:250px;height:44px;border-radius:4px;border:solid 1px #979797;}.buttonGroup.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;max-width:552px;width:100%;padding-top:30px;}.buttonGroup.__jsx-style-dynamic-selector div.__jsx-style-dynamic-selector{margin-left:10px;min-width:100px;}.largInput.__jsx-style-dynamic-selector{width:447px;height:44px;opacity:0.6;border-radius:4px;border:solid 1px #979797;}@media (max-width:540px){.checkboxGroup.__jsx-style-dynamic-selector{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;grid-column-gap:20px;}.meetupTime.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:space-around;-webkit-justify-content:space-around;-ms-flex-pack:space-around;justify-content:space-around;}}"
+    dynamic={
+      Array [
+        "#979797",
+        "#979797",
+      ]
+    }
+    styleId="1884257519"
+  />
 </div>
 `;

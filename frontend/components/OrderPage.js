@@ -49,7 +49,7 @@ type Props = {
 
 type State = {
   isShowOrderModal: boolean,
-  currentOrder: OrderObject,
+  currentOrder: ?OrderObject,
   filter: string,
 };
 
@@ -58,7 +58,7 @@ class OrderPage extends React.Component<Props, State> {
     super(props);
     this.state = {
       isShowOrderModal: false,
-      currentOrder: {},
+      currentOrder: null,
       filter: 'all',
     };
   }
@@ -143,15 +143,17 @@ class OrderPage extends React.Component<Props, State> {
           />
         ) : null}
         {isLoading ? <Spinner /> : null}
-        {this.state.isShowOrderModal ? (
+        {this.state.isShowOrderModal && this.state.currentOrder ? (
           <OrderModal
             order={this.state.currentOrder}
             onUpdateState={(orderState: OrderState) => {
               this.props.setLoading$(true);
-              updateOrderState$({
-                id: this.state.currentOrder._id || '',
-                state: orderState,
-              });
+              if (this.state.currentOrder && this.state.currentOrder._id) {
+                updateOrderState$({
+                  id: this.state.currentOrder._id || '',
+                  state: orderState,
+                });
+              }
               this.setState({
                 isShowOrderModal: false,
               });
@@ -159,7 +161,7 @@ class OrderPage extends React.Component<Props, State> {
             onCancel={() => {
               this.setState({
                 isShowOrderModal: false,
-                currentOrder: {},
+                currentOrder: null,
               });
             }}
             t={this.props.t}
@@ -311,9 +313,10 @@ const actionSubjects = {
   ...orderActions,
 };
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  OrderPage,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(OrderPage);
 
 export default connect(
   stateSelector,

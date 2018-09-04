@@ -2,13 +2,7 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 
-import {
-  whiteColor,
-  textColor,
-  transparent,
-  placeholderTextColor,
-  borderRadius,
-} from '../utils/styleVariables';
+import * as styles from '../utils/styleVariables';
 import type { MemoObject } from '../utils/flowTypes';
 
 type Props = {
@@ -65,8 +59,8 @@ const IngredientList = (props: Props): React.Element<'div'> => (
           padding-left: 20px;
           padding-bottom: 31px;
           box-sizing: border-box;
-          background-color: ${whiteColor};
-          border-radius: ${borderRadius};
+          background-color: ${styles.whiteColor};
+          border-radius: ${styles.borderRadius};
           margin-bottom: 10px;
         }
         .header {
@@ -81,7 +75,7 @@ const IngredientList = (props: Props): React.Element<'div'> => (
           line-height: 1;
           letter-spacing: 0.7px;
           font-weight: 500;
-          color: ${textColor};
+          color: ${styles.textColor};
           margin-bottom: 14px;
         }
         .addButton {
@@ -93,7 +87,7 @@ const IngredientList = (props: Props): React.Element<'div'> => (
           cursor: pointer;
           outline: none;
           border: 0;
-          background-color: ${whiteColor};
+          background-color: ${styles.whiteColor};
         }
 
         .plus {
@@ -124,14 +118,14 @@ const IngredientList = (props: Props): React.Element<'div'> => (
           font-weight: 500;
           line-height: 1.11;
           letter-spacing: 0.5px;
-          color: ${textColor};
+          color: ${styles.textColor};
         }
         .iconWrapper {
           margin-right: 21px;
         }
         .btn {
           cursor: pointer;
-          background-color: ${transparent};
+          background-color: ${styles.transparent};
           border: 0;
           outline: none;
           margin-left: 15px;
@@ -166,7 +160,7 @@ const IngredientList = (props: Props): React.Element<'div'> => (
           font-size: 1.4rem;
           line-height: 1.14;
           letter-spacing: 0.6px;
-          color: ${placeholderTextColor};
+          color: ${styles.placeholderTextColor};
         }
         .buttonWrapper {
           align-self: center;

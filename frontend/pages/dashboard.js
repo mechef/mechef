@@ -31,6 +31,7 @@ type Props = {
   },
   toggleBackArrow$: string => Rx.Observable,
   showSpinner$: boolean => Rx.Observable,
+  t: (key: string) => string,
 };
 
 type State = {
@@ -57,6 +58,8 @@ class Dashboard extends React.Component<Props, State> {
     this.toggleSideBarRef = React.createRef();
   }
 
+  toggleSideBarRef: { current: null | HTMLInputElement };
+
   componentDidMount() {
     this.props.showSpinner$(false);
   }
@@ -76,7 +79,10 @@ class Dashboard extends React.Component<Props, State> {
     if (this.props.global.backArrow.isShow) {
       this.props.toggleBackArrow$('');
     }
-    if (window.matchMedia('(max-width: 540px)').matches) {
+    if (
+      window.matchMedia('(max-width: 540px)').matches &&
+      this.toggleSideBarRef.current
+    ) {
       this.toggleSideBarRef.current.checked = true;
     }
   }
@@ -441,9 +447,10 @@ class Dashboard extends React.Component<Props, State> {
   }
 }
 
-const Extended = translate(['common'], { i18n, wait: process.browser })(
-  Dashboard,
-);
+const Extended = translate(['common'], {
+  i18n,
+  wait: typeof window !== 'undefined',
+})(Dashboard);
 
 const DashboardWrapper = connect(
   ({ global }) => ({ global }),

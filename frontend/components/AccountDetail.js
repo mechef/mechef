@@ -4,7 +4,7 @@ import React from 'react';
 import Rx from 'rxjs/Rx';
 
 import Button from './Button';
-import { IMAGE_URL } from '../utils/constants';
+import * as constants from '../utils/constants';
 import { pageStatus } from './AccountPage';
 import type { AccountObject } from '../utils/flowTypes';
 
@@ -108,9 +108,11 @@ const AccountDetail = (props: Props) => (
           margin-bottom: 25px;
           width: 100%;
           height: 240px;
-          background-image: url('${IMAGE_URL}/${
+          background-image: url('${constants.IMAGE_URL}/${
         props.account.coverPhoto
-      }'), url('../static/pancake.jpg');
+          ? props.account.coverPhoto
+          : '../static/pancake.jpg'
+      }');
           background-size: cover;
           background-position: center;
           position: relative;
@@ -121,9 +123,11 @@ const AccountDetail = (props: Props) => (
           position: absolute;
           top: 200px;
           left: 20px;
-          background-image: url('${IMAGE_URL}/${
+          background-image: url('${constants.IMAGE_URL}/${
         props.account.profileImage
-      }'), url('../static/avatar.jpg');
+          ? props.account.profileImage
+          : '../static/avatar.jpg'
+      }');
           background-size: cover;
           background-position: center;
           width: 80px;
