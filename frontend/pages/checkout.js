@@ -109,7 +109,17 @@ class Checkout extends React.PureComponent<Props, State> {
       cartOrderList: null,
       isFocusOnCalendar: false,
     };
+    this.longestBufferDay = props.deliveryList.reduce(
+      (currentMaxBufferDay, nextDeliveryItem) => {
+        return nextDeliveryItem.cookingBuffer > currentMaxBufferDay
+          ? nextDeliveryItem.cookingBuffer
+          : currentMaxBufferDay;
+      },
+      0,
+    );
   }
+
+  longestBufferDay: number;
 
   componentDidMount() {
     if (!this.state.cartOrderList) {
@@ -288,6 +298,33 @@ class Checkout extends React.PureComponent<Props, State> {
                     focused={this.state.isFocusOnCalendar}
                     onDateChange={this.onDateChange}
                     onFocusChange={this.onFocusChange}
+                    isDayBlocked={moment => {
+                      const currentDeliveryOption = _.find(
+                        this.props.deliveryList,
+                        { _id: this.state.newOrder.deliveryId },
+                      );
+                      const currentDay = moment.day();
+                      if (
+                        (!currentDeliveryOption.meetupSunday &&
+                          currentDay === 0) ||
+                        (!currentDeliveryOption.meetupMonday &&
+                          currentDay === 1) ||
+                        (!currentDeliveryOption.meetupTuesday &&
+                          currentDay === 2) ||
+                        (!currentDeliveryOption.meetupWednesday &&
+                          currentDay === 3) ||
+                        (!currentDeliveryOption.meetupThursday &&
+                          currentDay === 4) ||
+                        (!currentDeliveryOption.meetupFriday &&
+                          currentDay === 5) ||
+                        (!currentDeliveryOption.meetupSaturday &&
+                          currentDay === 6)
+                      ) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    }}
                   />
                 </div>
               ) : null}
