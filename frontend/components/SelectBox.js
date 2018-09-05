@@ -175,14 +175,14 @@ class SelectBox extends React.Component<Props, State> {
             .buttonWrapper {
               outline: none;
               padding: 0;
-              border: 0;
               height: 50px;
               display: flex;
               justify-content: space-between;
               align-items: center;
               background-color: ${whiteColor};
               border: 1px solid;
-              border-color: #ececec;
+              border-color: ${transparent};
+              box-shadow: 0 0 1px #3d464d;
               border-radius: ${borderRadius};
               cursor: pointer;
               box-sizing: border-box;

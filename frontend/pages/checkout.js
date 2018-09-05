@@ -263,10 +263,12 @@ class Checkout extends React.PureComponent<Props, State> {
                 }}
               />
               <SelectBox
-                options={this.props.deliveryList.map(deliveryItem => ({
-                  text: deliveryItem.meetupAddress,
-                  value: deliveryItem._id,
-                }))}
+                options={this.props.deliveryList
+                  .filter(deliveryItem => deliveryItem.meetupAddress)
+                  .map(deliveryItem => ({
+                    text: deliveryItem.meetupAddress,
+                    value: deliveryItem._id,
+                  }))}
                 selectedValue={this.state.newOrder.deliveryId}
                 defaultText="Select the delivery option"
                 onChange={(selectedValue: string | number) => {
@@ -278,29 +280,35 @@ class Checkout extends React.PureComponent<Props, State> {
                   });
                 }}
               />
-              <SingleDatePicker
-                id="date_input"
-                date={this.state.newOrder.deliveryDate}
-                focused={this.state.isFocusOnCalendar}
-                onDateChange={this.onDateChange}
-                onFocusChange={this.onFocusChange}
-              />
-              <SelectBox
-                options={getTimeOptionList(
-                  this.props.deliveryList,
-                  this.state.newOrder.deliveryId,
-                )}
-                selectedValue={this.state.newOrder.deliveryHHmm}
-                defaultText=""
-                onChange={(selectedValue: string | number) => {
-                  this.setState({
-                    newOrder: {
-                      ...this.state.newOrder,
-                      deliveryHHmm: String(selectedValue),
-                    },
-                  });
-                }}
-              />
+              {this.state.newOrder.deliveryId ? (
+                <div className="datePickerWrapper">
+                  <SingleDatePicker
+                    id="date_input"
+                    date={this.state.newOrder.deliveryDate}
+                    focused={this.state.isFocusOnCalendar}
+                    onDateChange={this.onDateChange}
+                    onFocusChange={this.onFocusChange}
+                  />
+                </div>
+              ) : null}
+              {this.state.newOrder.deliveryDate ? (
+                <SelectBox
+                  options={getTimeOptionList(
+                    this.props.deliveryList,
+                    this.state.newOrder.deliveryId,
+                  )}
+                  selectedValue={this.state.newOrder.deliveryHHmm}
+                  defaultText=""
+                  onChange={(selectedValue: string | number) => {
+                    this.setState({
+                      newOrder: {
+                        ...this.state.newOrder,
+                        deliveryHHmm: String(selectedValue),
+                      },
+                    });
+                  }}
+                />
+              ) : null}
             </section>
             <section className="orderList">
               <h3 className="orderListHeader">YOUR ORDER</h3>
@@ -547,6 +555,9 @@ class Checkout extends React.PureComponent<Props, State> {
             .paymentDetailDescription {
               color: ${textHintColor};
               font-size: 1.2rem;
+            }
+            .datePickerWrapper {
+              margin-bottom: 5px;
             }
           `}
         </style>
