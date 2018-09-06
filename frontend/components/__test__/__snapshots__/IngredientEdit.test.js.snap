@@ -22,6 +22,7 @@ exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
       className="jsx-1627166757 edit-ingredient__input"
     >
       <TextInput
+        align="left"
         hasAddBtn={false}
         isRequired={false}
         maxLength={50}
@@ -70,6 +71,7 @@ exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
           className="jsx-1627166757 edit-ingredient__input-medium-wrapper"
         >
           <TextInput
+            align="left"
             hasAddBtn={false}
             isRequired={false}
             maxLength={50}
@@ -89,6 +91,7 @@ exports[`Pages With Snapshot Testing snapshot IngredientEdit Component 1`] = `
           className="jsx-1627166757 edit-ingredient__input-small-wrapper"
         >
           <TextInput
+            align="left"
             hasAddBtn={true}
             isRequired={false}
             maxLength={50}

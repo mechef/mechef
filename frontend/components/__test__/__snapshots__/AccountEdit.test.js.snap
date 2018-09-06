@@ -84,6 +84,7 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
         Add Images Add Images Add Images
       </p>
       <TextInput
+        align="left"
         hasAddBtn={false}
         isRequired={false}
         maxLength={50}
@@ -136,6 +137,7 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
           className="jsx-104210336 inputWithPadding"
         >
           <TextInput
+            align="left"
             hasAddBtn={false}
             isRequired={false}
             maxLength={50}
@@ -155,6 +157,7 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
           className="jsx-104210336 inputWithPadding"
         >
           <TextInput
+            align="left"
             hasAddBtn={false}
             isRequired={false}
             maxLength={50}
@@ -190,6 +193,7 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
           className="jsx-104210336 inputWithPadding"
         >
           <TextInput
+            align="left"
             hasAddBtn={false}
             isRequired={false}
             maxLength={50}
@@ -221,6 +225,7 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
           className="jsx-104210336 inputWithPadding"
         >
           <TextInput
+            align="left"
             hasAddBtn={false}
             isRequired={false}
             maxLength={50}
