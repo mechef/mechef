@@ -19,7 +19,6 @@ import {
   whiteColor,
   textColor,
   textHintColor,
-  textSize,
   shallowGreyBgColor,
   primaryColor,
 } from '../utils/styleVariables';
@@ -127,7 +126,7 @@ export class Home extends React.Component<Props, State> {
             backgroundImage: `url('${
               this.props.account.currentAccount.coverPhoto
                 ? `${IMAGE_URL}/${this.props.account.currentAccount.coverPhoto}`
-                : '../static/avatar.jpg'
+                : '../static/img/pancake.jpg'
             }`,
           }}
         />
@@ -299,8 +298,8 @@ export class Home extends React.Component<Props, State> {
               background-image: url('${
                 account.currentAccount.profileImage
                   ? `${IMAGE_URL}/${account.currentAccount.profileImage}`
-                  : '../static/avatar.jpg'
-              }'), url('../static/avatar.jpg');
+                  : '../static/img/avatar.jpg'
+              }');
               background-size: cover;
               background-position: center;
               width: 80px;
@@ -467,12 +466,6 @@ export class Home extends React.Component<Props, State> {
             .title {
               font-family: 'Playball', cursive;
               font-size: 2.4rem;
-              color: ${textColor};
-            }
-
-            .subtitle {
-              font-size: ${textSize};
-              font-weight: 500;
               color: ${textColor};
             }
 

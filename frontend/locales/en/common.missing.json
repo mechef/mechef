@@ -43,5 +43,6 @@
   "buyerstorenomenu_contact_chef": "buyerstorenomenu_contact_chef",
   "pending": "pending",
   "cancelled": "cancelled",
-  "delivered": "delivered"
+  "delivered": "delivered",
+  "ingredients": "ingredients"
 }

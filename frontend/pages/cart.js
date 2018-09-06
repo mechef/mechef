@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import Router from 'next/router';
+import { withRouter } from 'next/router';
 import Link from 'next/link';
 import { translate } from 'react-i18next';
 import i18n from '../i18n';
@@ -20,7 +21,7 @@ import { smallBreak, fontSize } from '../utils/styleVariables';
 
 type Props = {
   t: (key: string) => string,
-  url: {
+  router: {
     query: {
       kitchenName: string,
     },
@@ -57,7 +58,7 @@ class Cart extends React.PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    this.props.restoreCart$(this.props.url.query.kitchenName);
+    this.props.restoreCart$(this.props.router.query.kitchenName);
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -69,7 +70,7 @@ class Cart extends React.PureComponent<Props, State> {
   onOrderModified(order: CartOrderObject) {
     this.props.modifyOrderInCart$({
       order,
-      kitchen: this.props.url.query.kitchenName,
+      kitchen: this.props.router.query.kitchenName,
     });
   }
 
@@ -77,7 +78,7 @@ class Cart extends React.PureComponent<Props, State> {
 
   onRemoveButtonClicked(dishId: number) {
     this.props.removeFromCart$({
-      kitchenName: this.props.url.query.kitchenName,
+      kitchenName: this.props.router.query.kitchenName,
       dishId,
     });
   }
@@ -112,12 +113,12 @@ class Cart extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { cart, t, url } = this.props;
+    const { cart, t, router } = this.props;
     const { subTotal, shipping, total } = this.state;
 
     return (
       <div className="wrapper">
-        <BuyerHeader cart={cart} kitchenName={url.query.kitchenName} />
+        <BuyerHeader cart={cart} kitchenName={router.query.kitchenName} />
         <div className="cart">
           <div className="cart-header">
             {t('shoppingcart_my_shopping_cart')}
@@ -168,7 +169,7 @@ class Cart extends React.PureComponent<Props, State> {
                   href={{
                     pathname: '/kitchen',
                     query: {
-                      kitchenName: encodeURIComponent(url.query.kitchenName),
+                      kitchenName: encodeURIComponent(router.query.kitchenName),
                     },
                   }}
                 >
@@ -181,7 +182,7 @@ class Cart extends React.PureComponent<Props, State> {
                   href={{
                     pathname: '/checkout',
                     query: {
-                      kitchenName: encodeURIComponent(url.query.kitchenName),
+                      kitchenName: encodeURIComponent(router.query.kitchenName),
                     },
                   }}
                 >
@@ -340,7 +341,9 @@ const Extended = translate(['common'], {
   wait: typeof window !== 'undefined',
 })(Cart);
 
-export default connect(
-  stateSelector,
-  actionSubjects,
-)(Extended);
+export default withRouter(
+  connect(
+    stateSelector,
+    actionSubjects,
+  )(Extended),
+);

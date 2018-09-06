@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
-<Translate(Dashboard)
+<Connect
   global={
     Object {
       "backArrow": Object {
@@ -10,14 +10,13 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
       },
     }
   }
-  showSpinner$={[Function]}
-  toggleBackArrow$={[Function]}
-  url={
+  router={
     Object {
       "query": Object {
         "page": "menu",
       },
     }
   }
+  toggleBackArrow$={[Function]}
 />
 `;

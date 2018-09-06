@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { withRouter } from 'next/router';
 import Rx from 'rxjs/Rx';
 
 import Spinner from '../components/Spinner';
@@ -19,7 +20,7 @@ import { fontSize, fontSizeSmall, smallBreak } from '../utils/styleVariables';
 import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
-  url: {
+  router: {
     query: {
       kitchen: string,
       dish?: string,
@@ -52,8 +53,8 @@ const KitchenNotFound = () => (
 
 class Kitchen extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchKitchen$(this.props.url.query.kitchen);
-    this.props.restoreCart$(this.props.url.query.kitchen);
+    this.props.fetchKitchen$(this.props.router.query.kitchen);
+    this.props.restoreCart$(this.props.router.query.kitchen);
   }
 
   componetWillMount() {
@@ -61,7 +62,7 @@ class Kitchen extends React.Component<Props> {
   }
 
   render() {
-    const { currentKitchen, isLoading, url } = this.props;
+    const { currentKitchen, isLoading, router } = this.props;
     return (
       <div>
         <BuyerHeader
@@ -100,8 +101,8 @@ class Kitchen extends React.Component<Props> {
               background-image: url('${
                 currentKitchen && currentKitchen.coverPhoto
                   ? `${IMAGE_URL}/${currentKitchen.coverPhoto}`
-                  : '/static/pancake.jpg'
-              }'), url('/static/pancake.jpg');
+                  : '/static/img/pancake.jpg'
+              }'), url('/static/img/pancake.jpg');
             }
 
             .kitchen-cover--hidden {
@@ -136,7 +137,9 @@ const actionSubjects = {
   ...cartActions,
 };
 
-export default connect(
-  stateSelector,
-  actionSubjects,
-)(Kitchen);
+export default withRouter(
+  connect(
+    stateSelector,
+    actionSubjects,
+  )(Kitchen),
+);

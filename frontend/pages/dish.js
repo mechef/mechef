@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { withRouter } from 'next/router';
 import Rx from 'rxjs/Rx';
 import { translate } from 'react-i18next';
 import i18n from '../i18n';
@@ -33,7 +34,7 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  url: {
+  router: {
     query: {
       kitchenName: string,
       dishId: string,
@@ -62,8 +63,8 @@ class DishPage extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchDish$(this.props.url.query.dishId);
-    this.props.restoreCart$(this.props.url.query.kitchenName);
+    this.props.fetchDish$(this.props.router.query.dishId);
+    this.props.restoreCart$(this.props.router.query.kitchenName);
   }
 
   componetWillMount() {
@@ -101,7 +102,7 @@ class DishPage extends React.Component<Props, State> {
     const defaultOrder = this.createDefaultOrder(this.props.currentDish);
     const order = {
       ...(this.state.order ? this.state.order : defaultOrder),
-      kitchen: this.props.url.query.kitchenName,
+      kitchen: this.props.router.query.kitchenName,
       dishId: _id,
       dishName,
       description,
@@ -138,7 +139,7 @@ class DishPage extends React.Component<Props, State> {
       <div className="dish-page">
         <BuyerHeader
           cart={this.props.cart}
-          kitchenName={this.props.url.query.kitchenName}
+          kitchenName={this.props.router.query.kitchenName}
         />
         {this.props.isLoading ? <Spinner /> : null}
         {!this.props.isLoading && currentDish && currentDish.dishName ? (
@@ -612,7 +613,9 @@ const actionSubjects = {
   ...dishActions,
 };
 
-export default connect(
-  stateSelector,
-  actionSubjects,
-)(Extended);
+export default withRouter(
+  connect(
+    stateSelector,
+    actionSubjects,
+  )(Extended),
+);

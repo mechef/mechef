@@ -108,11 +108,11 @@ const AccountDetail = (props: Props) => (
           margin-bottom: 25px;
           width: 100%;
           height: 240px;
-          background-image: url('${constants.IMAGE_URL}/${
-        props.account.coverPhoto
-          ? props.account.coverPhoto
-          : '../static/pancake.jpg'
-      }');
+          background-image: url('${
+            props.account.coverPhoto
+              ? `${constants.IMAGE_URL}/${props.account.coverPhoto}`
+              : '../static/img/pancake.jpg'
+          }');
           background-size: cover;
           background-position: center;
           position: relative;
@@ -123,11 +123,11 @@ const AccountDetail = (props: Props) => (
           position: absolute;
           top: 200px;
           left: 20px;
-          background-image: url('${constants.IMAGE_URL}/${
-        props.account.profileImage
-          ? props.account.profileImage
-          : '../static/avatar.jpg'
-      }');
+          background-image: url('${
+            props.account.profileImage
+              ? `${constants.IMAGE_URL}/${props.account.profileImage}`
+              : '../static/img/avatar.jpg'
+          }');
           background-size: cover;
           background-position: center;
           width: 80px;

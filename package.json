@@ -37,6 +37,7 @@
   "homepage": "https://github.com/mechef/mechef/#readme",
   "dependencies": {
     "apidoc": "0.17.6",
+    "babel-core": "7.0.0-bridge.0",
     "bluebird": "3.5.1",
     "body-parser": "1.15.0",
     "cookie-parser": "^1.4.3",
@@ -48,7 +49,6 @@
     "i18next-node-fs-backend": "^1.2.1",
     "i18next-xhr-backend": "^1.5.1",
     "isomorphic-unfetch": "^2.1.1",
-    "jest-cli": "^23.5.0",
     "jsonwebtoken": "7.4.1",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",

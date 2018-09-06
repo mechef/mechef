@@ -43,6 +43,7 @@ describe('Pages With Snapshot Testing', () => {
             title: '',
           },
         }}
+        t={() => {}}
       />,
     );
     const result = renderer.getRenderOutput();

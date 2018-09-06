@@ -21,7 +21,8 @@ describe('Pages With Snapshot Testing', () => {
             ],
           },
         ]}
-        onEditMemo$={() => {}}
+        onEditMemo={() => {}}
+        onDeleteMemo={() => {}}
         t={() => {}}
       />,
     );

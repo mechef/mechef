@@ -41,8 +41,8 @@ const KitchenPageRouter = ({ kitchen, query }: Props) => (
           background-image: url('${
             kitchen && kitchen.coverPhoto
               ? `${IMAGE_URL}/${kitchen.coverPhoto}`
-              : '/static/pancake.jpg'
-          }'), url('/static/pancake.jpg');
+              : '/static/img/pancake.jpg'
+          }'), url('/static/img/pancake.jpg');
         }
 
         .kitchen-cover--hidden {
