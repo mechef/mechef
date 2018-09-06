@@ -365,6 +365,7 @@ exports[`Pages With Snapshot Testing snapshot DeliveryEdit Component 1`] = `
       className="jsx-3872819884 subtitle"
     />
     <TextInput
+      align="left"
       hasAddBtn={false}
       isRequired={false}
       maxLength={50}

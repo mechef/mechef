@@ -2,15 +2,16 @@
 
 exports[`Pages With Snapshot Testing snapshot TextInput Component 1`] = `
 <div
-  className="jsx-2158085740 container"
+  className="jsx-1312265158 container"
 >
   <div
-    className="jsx-2158085740 inputWrapper"
+    className="jsx-1312265158 inputWrapper"
   >
     <input
-      className="jsx-2158085740 
+      className="jsx-1312265158 
               textInput
               small
+              
             "
       maxLength={50}
       onBlur={[Function]}
@@ -23,10 +24,10 @@ exports[`Pages With Snapshot Testing snapshot TextInput Component 1`] = `
     />
   </div>
   <div
-    className="jsx-2158085740 errorWrapper"
+    className="jsx-1312265158 errorWrapper"
   >
     <span
-      className="jsx-2158085740"
+      className="jsx-1312265158"
     >
       
     </span>
