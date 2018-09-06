@@ -90,6 +90,7 @@ Button.defaultProps = {
   buttonStyle: 'primary',
   size: 'small',
   children: '',
+  onClick: () => {},
 };
 
 export default Button;

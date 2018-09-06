@@ -252,6 +252,7 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
     >
       <Button
         buttonStyle="greenBorderOnly"
+        onClick={[Function]}
         size="small"
       >
         
