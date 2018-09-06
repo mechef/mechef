@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import Router from 'next/router';
-
+import Link from 'next/link';
 import CartButton from './CartButton';
 
 import { connect } from '../state/RxState';
@@ -16,13 +16,19 @@ type Props = {
 const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
   <div className="buyer-header">
     <div className="buyer-header--left">
-      <a href={`${STORE_LINK_BASE}/${kitchenName}`}>
+      <Link
+        prefetch
+        href={{
+          pathname: '/kitchen',
+          query: { kitchenName: encodeURIComponent(kitchenName) },
+        }}
+      >
         <img
           className="buyer-header__logo"
           src="/static/img/food.png"
           alt="mechef"
         />
-      </a>
+      </Link>
     </div>
     <div className="buyer-header--right">
       <span className="buyer-header__link">FAQ</span>
@@ -38,11 +44,7 @@ const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
                   )
                 : 0
             }
-            onCartClicked={() => {
-              Router.push({
-                pathname: `/kitchen/${encodeURIComponent(kitchenName)}/cart`,
-              });
-            }}
+            kitchenName={kitchenName}
           />
         ) : null}
       </span>
@@ -61,6 +63,7 @@ const BuyerHeader = ({ cart, kitchenName = '' }: Props) => (
         }
         .buyer-header--left {
           margin-left: 8px;
+          cursor: pointer;
         }
         .buyer-header__logo {
           height: 50px;
