@@ -46,7 +46,6 @@ exports[`Pages With Snapshot Testing snapshot IngredientList Component 1`] = `
           </button>
           <button
             className="jsx-3852806779 btn"
-            onClick={undefined}
           >
             <div
               className="jsx-3852806779 icon deleteIcon"

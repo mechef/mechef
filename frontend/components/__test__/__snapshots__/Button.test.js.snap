@@ -7,7 +7,6 @@ exports[`Pages With Snapshot Testing snapshot Button Component 1`] = `
       primary
       small
     "
-  onClick={undefined}
   type="button"
 >
   
