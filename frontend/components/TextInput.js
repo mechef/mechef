@@ -18,6 +18,7 @@ type Props = {
   onAdd: () => mixed,
   isRequired: boolean,
   maxLength: number,
+  align: 'left' | 'center',
 };
 
 type State = {
@@ -38,6 +39,7 @@ class TextInput extends React.Component<Props, State> {
     maxLength: 50,
     pattern: '.',
     validationMessage: '',
+    align: 'left',
   };
   constructor(props: Props) {
     super(props);
@@ -55,6 +57,7 @@ class TextInput extends React.Component<Props, State> {
             className={`
               textInput
               ${this.props.size}
+              ${this.props.align === 'center' ? 'center' : ''}
             `}
             placeholder={this.props.placeholder}
             value={this.props.value}
@@ -150,6 +153,9 @@ class TextInput extends React.Component<Props, State> {
             .textInput::placeholder {
               line-height: ${styles.placeholderLineHeight};
               color: ${styles.placeholderTextColor};
+            }
+            .center {
+              margin: auto;
             }
             .small {
               width: ${styles.smallWidth};

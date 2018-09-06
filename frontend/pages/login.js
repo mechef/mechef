@@ -174,6 +174,7 @@ class Login extends React.Component<Props, State> {
                         login$({ email, password });
                       }
                     }}
+                    align="center"
                   />
                 </div>
                 <div className="passwd">
@@ -192,6 +193,7 @@ class Login extends React.Component<Props, State> {
                         login$({ email, password });
                       }
                     }}
+                    align="center"
                   />
                 </div>
                 <Button
@@ -221,6 +223,7 @@ class Login extends React.Component<Props, State> {
                       });
                     }
                   }}
+                  align="center"
                 />
                 <TextInput
                   type="text"
@@ -237,6 +240,7 @@ class Login extends React.Component<Props, State> {
                       });
                     }
                   }}
+                  align="center"
                 />
                 <TextInput
                   type="tel"
@@ -253,6 +257,7 @@ class Login extends React.Component<Props, State> {
                       });
                     }
                   }}
+                  align="center"
                 />
                 <TextInput
                   type="email"
@@ -271,6 +276,7 @@ class Login extends React.Component<Props, State> {
                       });
                     }
                   }}
+                  align="center"
                 />
                 <div className="wrapper__submit">
                   <Button
