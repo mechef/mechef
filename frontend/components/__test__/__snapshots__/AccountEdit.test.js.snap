@@ -21,7 +21,7 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
       <img
         alt="cover"
         className="jsx-104210336 coverPhoto"
-        src="../static/pancake.jpg"
+        src="../static/img/pancake.jpg"
       />
       <div
         className="jsx-104210336 update-cover-photo__title"
@@ -50,7 +50,7 @@ exports[`Pages With Snapshot Testing snapshot AccountEdit Component 1`] = `
         <img
           alt="profile"
           className="jsx-104210336 profileImage"
-          src="../static/avatar.jpg"
+          src="../static/img/avatar.jpg"
         />
         <i
           aria-hidden="true"

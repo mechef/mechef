@@ -2,88 +2,88 @@
 
 exports[`Pages With Snapshot Testing snapshot AccountDetail Component 1`] = `
 <div
-  className="jsx-3233955279"
+  className="jsx-72652864"
 >
   <div
-    className="jsx-3233955279 coverPhoto"
+    className="jsx-72652864 coverPhoto"
   />
   <p
-    className="jsx-3233955279 sellerId"
+    className="jsx-72652864 sellerId"
   >
     bible
   </p>
   <p
-    className="jsx-3233955279 sellerName"
+    className="jsx-72652864 sellerName"
   >
     bible
   </p>
   <div
-    className="jsx-3233955279 kitchenInfo"
+    className="jsx-72652864 kitchenInfo"
   >
     <div
-      className="jsx-3233955279 name"
+      className="jsx-72652864 name"
     >
       <div
-        className="jsx-3233955279 kitchenName"
+        className="jsx-72652864 kitchenName"
       >
         <span
-          className="jsx-3233955279 smallTitle"
+          className="jsx-72652864 smallTitle"
         />
         <span
-          className="jsx-3233955279 contentText"
+          className="jsx-72652864 contentText"
         />
       </div>
       <div
-        className="jsx-3233955279 userName"
+        className="jsx-72652864 userName"
       >
         <span
-          className="jsx-3233955279 smallTitle"
+          className="jsx-72652864 smallTitle"
         />
         <span
-          className="jsx-3233955279 contentText"
+          className="jsx-72652864 contentText"
         >
           bible
         </span>
       </div>
     </div>
     <div
-      className="jsx-3233955279 description"
+      className="jsx-72652864 description"
     >
       <span
-        className="jsx-3233955279 smallTitle"
+        className="jsx-72652864 smallTitle"
       />
       <p
-        className="jsx-3233955279 contentText"
+        className="jsx-72652864 contentText"
       >
         
       </p>
     </div>
     <div
-      className="jsx-3233955279 name"
+      className="jsx-72652864 name"
     >
       <div
-        className="jsx-3233955279 kitchenName"
+        className="jsx-72652864 kitchenName"
       >
         <span
-          className="jsx-3233955279 smallTitle"
+          className="jsx-72652864 smallTitle"
         />
         <span
-          className="jsx-3233955279 contentText"
+          className="jsx-72652864 contentText"
         />
       </div>
       <div
-        className="jsx-3233955279 userName"
+        className="jsx-72652864 userName"
       >
         <span
-          className="jsx-3233955279 smallTitle"
+          className="jsx-72652864 smallTitle"
         />
         <span
-          className="jsx-3233955279 contentText"
+          className="jsx-72652864 contentText"
         />
       </div>
     </div>
     <div
-      className="jsx-3233955279 buttonGroup"
+      className="jsx-72652864 buttonGroup"
     >
       <Button
         buttonStyle="primary"
@@ -95,25 +95,25 @@ exports[`Pages With Snapshot Testing snapshot AccountDetail Component 1`] = `
     </div>
   </div>
   <div
-    className="jsx-3233955279 additionalInfo"
+    className="jsx-72652864 additionalInfo"
   >
     <p
-      className="jsx-3233955279 smallTitle"
+      className="jsx-72652864 smallTitle"
     />
     <div
-      className="jsx-3233955279 infoContent"
+      className="jsx-72652864 infoContent"
     >
       <div
-        className="jsx-3233955279 left"
+        className="jsx-72652864 left"
       >
         <span
-          className="jsx-3233955279 contentText"
+          className="jsx-72652864 contentText"
         >
           000 000 0000
         </span>
       </div>
       <div
-        className="jsx-3233955279 right"
+        className="jsx-72652864 right"
       >
         <Button
           buttonStyle="primary"
@@ -126,25 +126,25 @@ exports[`Pages With Snapshot Testing snapshot AccountDetail Component 1`] = `
     </div>
   </div>
   <div
-    className="jsx-3233955279 additionalInfo"
+    className="jsx-72652864 additionalInfo"
   >
     <p
-      className="jsx-3233955279 smallTitle"
+      className="jsx-72652864 smallTitle"
     />
     <div
-      className="jsx-3233955279 infoContent"
+      className="jsx-72652864 infoContent"
     >
       <div
-        className="jsx-3233955279 left"
+        className="jsx-72652864 left"
       >
         <span
-          className="jsx-3233955279 contentText"
+          className="jsx-72652864 contentText"
         >
           ******
         </span>
       </div>
       <div
-        className="jsx-3233955279 right"
+        className="jsx-72652864 right"
       >
         <Button
           buttonStyle="primary"
@@ -157,16 +157,14 @@ exports[`Pages With Snapshot Testing snapshot AccountDetail Component 1`] = `
     </div>
   </div>
   <JSXStyle
-    css=".coverPhoto.__jsx-style-dynamic-selector{margin-bottom:25px;width:100%;height:240px;background-image:url('http://localhost:3001/image/../static/pancake.jpg');background-size:cover;background-position:center;position:relative;}.coverPhoto.__jsx-style-dynamic-selector:after{content:'';position:absolute;top:200px;left:20px;background-image:url('http://localhost:3001/image/../static/avatar.jpg');background-size:cover;background-position:center;width:80px;height:80px;border-radius:40px;}.sellerId.__jsx-style-dynamic-selector{margin-left:116px;margin-bottom:11px;font-size:2.4rem;font-weight:600;line-height:0.83;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#4a4a4a;}.sellerName.__jsx-style-dynamic-selector{margin:8px 0 20px 116px;font-size:1.4rem;line-height:1.43;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#4a4a4a;}.kitchenInfo.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;max-width:552px;width:calc(100% - 40px);padding:25px 20px;margin-left:20px;margin-right:20px;margin-bottom:16px;border-radius:4px;background-color:#ffffff;box-sizing:border-box;}.name.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-bottom:21px;}.smallTitle.__jsx-style-dynamic-selector{font-size:1.4rem;font-weight:500;line-height:1.14;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#9b9b9b;}.contentText.__jsx-style-dynamic-selector{margin-top:12px;font-size:1.6rem;font-weight:500;line-height:0.88;-webkit-letter-spacing:0.7px;-moz-letter-spacing:0.7px;-ms-letter-spacing:0.7px;letter-spacing:0.7px;color:#4a4a4a;}.kitchenName.__jsx-style-dynamic-selector{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;border-bottom:solid 2px #ececec;}.userName.__jsx-style-dynamic-selector{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;height:70px;margin-left:11px;border-bottom:solid 2px #ececec;overflow:auto;}.description.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;height:123px;margin-bottom:20px;border-bottom:solid 2px #ececec;}.buttonGroup.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;margin-top:auto;margin-bottom:auto;}.additionalInfo.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;max-width:552px;width:calc(100% - 40px);padding:25px 20px;margin-left:20px;margin-right:20px;margin-bottom:16px;border-radius:4px;background-color:#ffffff;box-sizing:border-box;}.infoContent.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}.left.__jsx-style-dynamic-selector{width:250px;border-bottom:solid 2px #ececec;}.right.__jsx-style-dynamic-selector{min-width:100px;}@media (max-width:540px){.buttonGroup.__jsx-style-dynamic-selector{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.infoContent.__jsx-style-dynamic-selector{-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}.left.__jsx-style-dynamic-selector{margin-bottom:15px;}infoContent.__jsx-style-dynamic-selector{width:100%;jus;}}"
+    css=".coverPhoto.__jsx-style-dynamic-selector{margin-bottom:25px;width:100%;height:240px;background-image:url('../static/img/pancake.jpg');background-size:cover;background-position:center;position:relative;}.coverPhoto.__jsx-style-dynamic-selector:after{content:'';position:absolute;top:200px;left:20px;background-image:url('../static/img/avatar.jpg');background-size:cover;background-position:center;width:80px;height:80px;border-radius:40px;}.sellerId.__jsx-style-dynamic-selector{margin-left:116px;margin-bottom:11px;font-size:2.4rem;font-weight:600;line-height:0.83;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#4a4a4a;}.sellerName.__jsx-style-dynamic-selector{margin:8px 0 20px 116px;font-size:1.4rem;line-height:1.43;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#4a4a4a;}.kitchenInfo.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;max-width:552px;width:calc(100% - 40px);padding:25px 20px;margin-left:20px;margin-right:20px;margin-bottom:16px;border-radius:4px;background-color:#ffffff;box-sizing:border-box;}.name.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;margin-bottom:21px;}.smallTitle.__jsx-style-dynamic-selector{font-size:1.4rem;font-weight:500;line-height:1.14;-webkit-letter-spacing:0.6px;-moz-letter-spacing:0.6px;-ms-letter-spacing:0.6px;letter-spacing:0.6px;color:#9b9b9b;}.contentText.__jsx-style-dynamic-selector{margin-top:12px;font-size:1.6rem;font-weight:500;line-height:0.88;-webkit-letter-spacing:0.7px;-moz-letter-spacing:0.7px;-ms-letter-spacing:0.7px;letter-spacing:0.7px;color:#4a4a4a;}.kitchenName.__jsx-style-dynamic-selector{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;border-bottom:solid 2px #ececec;}.userName.__jsx-style-dynamic-selector{-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;height:70px;margin-left:11px;border-bottom:solid 2px #ececec;overflow:auto;}.description.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;height:123px;margin-bottom:20px;border-bottom:solid 2px #ececec;}.buttonGroup.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;margin-top:auto;margin-bottom:auto;}.additionalInfo.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;max-width:552px;width:calc(100% - 40px);padding:25px 20px;margin-left:20px;margin-right:20px;margin-bottom:16px;border-radius:4px;background-color:#ffffff;box-sizing:border-box;}.infoContent.__jsx-style-dynamic-selector{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}.left.__jsx-style-dynamic-selector{width:250px;border-bottom:solid 2px #ececec;}.right.__jsx-style-dynamic-selector{min-width:100px;}@media (max-width:540px){.buttonGroup.__jsx-style-dynamic-selector{-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;}.infoContent.__jsx-style-dynamic-selector{-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}.left.__jsx-style-dynamic-selector{margin-bottom:15px;}infoContent.__jsx-style-dynamic-selector{width:100%;jus;}}"
     dynamic={
       Array [
-        "http://localhost:3001/image",
-        "../static/pancake.jpg",
-        "http://localhost:3001/image",
-        "../static/avatar.jpg",
+        "../static/img/pancake.jpg",
+        "../static/img/avatar.jpg",
       ]
     }
-    styleId="3893608035"
+    styleId="3443884651"
   />
 </div>
 `;
