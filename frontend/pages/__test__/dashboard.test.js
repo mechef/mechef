@@ -8,7 +8,7 @@ describe('Pages With Snapshot Testing', () => {
     const renderer = new ShallowRenderer();
     renderer.render(
       <Dashboard
-        url={{
+        router={{
           query: {
             page: 'menu',
           },

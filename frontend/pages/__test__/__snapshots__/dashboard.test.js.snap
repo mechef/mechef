@@ -10,13 +10,13 @@ exports[`Pages With Snapshot Testing snapshot dashboard page 1`] = `
       },
     }
   }
-  toggleBackArrow$={[Function]}
-  url={
+  router={
     Object {
       "query": Object {
         "page": "menu",
       },
     }
   }
+  toggleBackArrow$={[Function]}
 />
 `;
