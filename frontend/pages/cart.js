@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import Router from 'next/router';
+import Link from 'next/link';
 import { translate } from 'react-i18next';
 import i18n from '../i18n';
 
@@ -162,26 +163,32 @@ class Cart extends React.PureComponent<Props, State> {
                 <span>{this.formatPrice(total)}</span>
               </div>
               <div className="cart-footer__buttons-container">
-                <Button
-                  buttonStyle="greenBorderOnly"
-                  onClick={() => {
-                    Router.push({
-                      pathname: `/kitchen/${url.query.kitchenName}`,
-                    });
+                <Link
+                  prefetch
+                  href={{
+                    pathname: '/kitchen',
+                    query: {
+                      kitchenName: encodeURIComponent(url.query.kitchenName),
+                    },
                   }}
                 >
-                  {t('shoppingcart_continue_shopping')}
-                </Button>
-                <Button
-                  buttonStyle="primary"
-                  onClick={() => {
-                    Router.push({
-                      pathname: `/kitchen/${url.query.kitchenName}/checkout`,
-                    });
+                  <Button buttonStyle="greenBorderOnly" onClick={() => {}}>
+                    {t('shoppingcart_continue_shopping')}
+                  </Button>
+                </Link>
+                <Link
+                  prefetch
+                  href={{
+                    pathname: '/checkout',
+                    query: {
+                      kitchenName: encodeURIComponent(url.query.kitchenName),
+                    },
                   }}
                 >
-                  {t('shoppingcart_place_order')}
-                </Button>
+                  <Button buttonStyle="primary" onClick={() => {}}>
+                    {t('shoppingcart_place_order')}
+                  </Button>
+                </Link>
               </div>
             </div>
           ) : null}
