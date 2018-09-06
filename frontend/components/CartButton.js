@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import Link from 'next/link';
 import Rx from 'rxjs/Rx';
 import { translate } from 'react-i18next';
 import i18n from '../i18n';
@@ -15,15 +16,23 @@ import {
 
 type Props = {
   itemCount?: number,
-  onCartClicked: () => Rx.Observable,
+  kitchenName: string,
   t: (key: string) => string,
 };
 
-const CartButton = ({ t, itemCount = 0, onCartClicked }: Props) => (
+const CartButton = ({ t, itemCount = 0, kitchenName }: Props) => (
   <div className="cartButtonContainer">
-    <button type="button" className="cartButton" onClick={onCartClicked}>
-      {t('storecart_mycart')}
-    </button>
+    <Link
+      prefetch
+      href={{
+        pathname: '/cart',
+        query: { kitchenName: encodeURIComponent(kitchenName) },
+      }}
+    >
+      <button type="button" className="cartButton">
+        {t('storecart_mycart')}
+      </button>
+    </Link>
     {itemCount > 0 ? (
       <div className="itemCountBadge">{itemCount > 99 ? '99+' : itemCount}</div>
     ) : (
