@@ -90,7 +90,7 @@ class OrderItem extends React.Component<Props> {
             .orderThumbnail {
               background-image: ${this.props.menuImageUrl
                 ? `url('${this.props.menuImageUrl}')`
-                : "url('../static/pancake.jpg')"};
+                : "url('../static/img/pancake.jpg')"};
               background-size: cover;
               background-position: center;
               width: 195px;

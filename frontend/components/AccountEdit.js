@@ -79,7 +79,7 @@ class AccountEdit extends React.Component<Props> {
               src={
                 this.props.account.coverPhoto
                   ? `${IMAGE_URL}/${this.props.account.coverPhoto}`
-                  : '../static/pancake.jpg'
+                  : '../static/img/pancake.jpg'
               }
               alt="cover"
             />
@@ -116,7 +116,7 @@ class AccountEdit extends React.Component<Props> {
                 src={
                   this.props.account.profileImage
                     ? `${IMAGE_URL}/${this.props.account.profileImage}`
-                    : '../static/avatar.jpg'
+                    : '../static/img/avatar.jpg'
                 }
                 alt="profile"
               />

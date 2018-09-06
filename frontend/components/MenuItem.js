@@ -60,7 +60,7 @@ const MenuItem = ({
                   border-radius: ${borderRadius};
                 }
                 .mobileThumbnail {
-                  background-image: url('${thumbnailUrl}'), url('../static/pancake.jpg');
+                  background-image: url('${thumbnailUrl}'), url('../static/img/pancake.jpg');
                   background-size: cover;
                   background-position: center;
                   width: 100%;
@@ -109,7 +109,7 @@ const MenuItem = ({
               }
 
               .menuThumbnail {
-                background-image: url('${thumbnailUrl}'), url('../static/pancake.jpg');
+                background-image: url('${thumbnailUrl}'), url('../static/img/pancake.jpg');
                 background-size: cover;
                 background-position: center;
                 width: 161px;

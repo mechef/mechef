@@ -4,6 +4,7 @@ import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import Router from 'next/router';
 import { translate } from 'react-i18next';
+import { withRouter } from 'next/router';
 import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import DashboardPageRouter from '../components/DashboardPageRouter';
@@ -17,7 +18,7 @@ import {
 } from '../utils/styleVariables';
 
 type Props = {
-  url: {
+  router: {
     query: {
       page?: string,
     },
@@ -52,7 +53,9 @@ class Dashboard extends React.Component<Props, State> {
     super(props);
     this.state = {
       page:
-        props.url.query && props.url.query.page ? props.url.query.page : 'home',
+        props.router.query && props.router.query.page
+          ? props.router.query.page
+          : 'home',
     };
     this.navigate = this.navigate.bind(this);
     this.toggleSideBarRef = React.createRef();
@@ -65,9 +68,9 @@ class Dashboard extends React.Component<Props, State> {
   }
 
   componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.url.query && nextProps.url.query.page) {
+    if (nextProps.router.query && nextProps.router.query.page) {
       this.setState({
-        page: nextProps.url.query.page,
+        page: nextProps.router.query.page,
       });
     }
   }
@@ -142,7 +145,7 @@ class Dashboard extends React.Component<Props, State> {
                   tabIndex="-1"
                   onClick={() => this.navigate('ingredient')}
                 >
-                  {this.props.t('ingredients_title')}
+                  {this.props.t('ingredients')}
                 </li>
                 <li
                   className={this.state.page === 'shipping' ? 'active' : ''}
@@ -412,7 +415,7 @@ class Dashboard extends React.Component<Props, State> {
             .dashboard-content__header {
               width: 100%;
               height: 240px;
-              background-image: url('../static/pancake.jpg');
+              background-image: url('../static/img/pancake.jpg');
               background-size: cover;
               background-position: center;
               position: relative;
@@ -423,7 +426,7 @@ class Dashboard extends React.Component<Props, State> {
               position: absolute;
               top: 200px;
               left: 20px;
-              background-image: url('../static/avatar.jpg');
+              background-image: url('../static/img/avatar.jpg');
               background-size: cover;
               background-position: center;
               width: 80px;
@@ -459,4 +462,4 @@ const DashboardWrapper = connect(
   },
 )(Extended);
 
-export default DashboardWrapper;
+export default withRouter(DashboardWrapper);

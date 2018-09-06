@@ -253,7 +253,7 @@ class OrderModal extends React.Component<Props> {
               position: absolute;
               top: 55px;
               left: 12px;
-              background-image: url('../static/avatar.jpg');
+              background-image: url('../static/img/avatar.jpg');
               background-size: cover;
               background-position: center;
               width: 30px;

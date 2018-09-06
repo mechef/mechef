@@ -15,6 +15,7 @@ export const errorBorderColor = '#d0021b';
 export const greyBackgroundColor = '#d8d8d8';
 export const shallowGreyBgColor = '#f7f6f6';
 export const borderColor = '#979797';
+export const textSize = '14px';
 
 // Button
 export const smallBtnWidth = '150px';

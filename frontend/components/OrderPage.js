@@ -80,6 +80,7 @@ class OrderPage extends React.Component<Props, State> {
       {
         text: (
           <TitleWithNotification
+            key="order"
             title={this.props.t('order')}
             isSelected={this.state.filter === 'all'}
             count={orderList.length}
@@ -90,6 +91,7 @@ class OrderPage extends React.Component<Props, State> {
       {
         text: (
           <TitleWithNotification
+            key="pending"
             title={this.props.t('pending')}
             isSelected={this.state.filter === 'waiting'}
             count={
@@ -104,6 +106,7 @@ class OrderPage extends React.Component<Props, State> {
       {
         text: (
           <TitleWithNotification
+            key="cancelled"
             title={this.props.t('cancelled')}
             isSelected={this.state.filter === 'cancelled'}
             count={
@@ -118,6 +121,7 @@ class OrderPage extends React.Component<Props, State> {
       {
         text: (
           <TitleWithNotification
+            key="delivered"
             title={this.props.t('delivered')}
             isSelected={this.state.filter === 'finished'}
             count={
@@ -201,6 +205,7 @@ class OrderPage extends React.Component<Props, State> {
               )
               .map(order => (
                 <div
+                  key={order._id}
                   className="orderItemWrapper"
                   onClick={() => {
                     this.setState({

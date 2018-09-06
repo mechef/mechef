@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import { withRouter } from 'next/router';
 import Rx from 'rxjs/Rx';
 import { translate } from 'react-i18next';
 import _ from 'lodash';
@@ -30,7 +31,7 @@ import {
 import { IMAGE_URL } from '../utils/constants';
 
 type Props = {
-  url: {
+  router: {
     query: {
       kitchenName: string,
     },
@@ -124,7 +125,7 @@ class Checkout extends React.PureComponent<Props, State> {
   componentDidMount() {
     if (!this.state.cartOrderList) {
       const orderJson = window.localStorage.getItem(
-        `${encodeURIComponent(this.props.url.query.kitchenName)}_cart`,
+        `${encodeURIComponent(this.props.router.query.kitchenName)}_cart`,
       );
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({
@@ -132,7 +133,7 @@ class Checkout extends React.PureComponent<Props, State> {
       });
     }
     if (!this.props.deliveryList.length) {
-      this.props.fetchKitchen$(this.props.url.query.kitchenName);
+      this.props.fetchKitchen$(this.props.router.query.kitchenName);
     }
   }
 
@@ -160,7 +161,7 @@ class Checkout extends React.PureComponent<Props, State> {
     const { error, setError$ } = this.props;
     return (
       <div>
-        <BuyerHeader kitchenName={this.props.url.query.kitchenName} />
+        <BuyerHeader kitchenName={this.props.router.query.kitchenName} />
         {error.isShowModal ? (
           <Modal
             title={error.title}
@@ -434,7 +435,7 @@ class Checkout extends React.PureComponent<Props, State> {
                       .toString()
                   : '',
                 ...rest,
-                kitchenName: this.props.url.query.kitchenName,
+                kitchenName: this.props.router.query.kitchenName,
               });
             }}
           >
@@ -627,7 +628,9 @@ const Extended = translate(['common'], {
   wait: typeof window !== 'undefined',
 })(Checkout);
 
-export default connect(
-  stateSelector,
-  actionSubjects,
-)(Extended);
+export default withRouter(
+  connect(
+    stateSelector,
+    actionSubjects,
+  )(Extended),
+);

@@ -31,7 +31,7 @@ const MenuList = (props: Props) => (
       </button>
     </div>
     {props.menuList.map(menu => (
-      <div className="menuItemWrapper">
+      <div key={menu._id} className="menuItemWrapper">
         <MenuItem
           dishName={menu.dishName || ''}
           description={menu.description || ''}
