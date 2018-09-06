@@ -304,7 +304,12 @@ class Checkout extends React.PureComponent<Props, State> {
                         { _id: this.state.newOrder.deliveryId },
                       );
                       const currentDay = moment.day();
+                      if (currentDeliveryOption === undefined) {
+                        return false;
+                      }
                       if (
+                        (currentDeliveryOption !== undefined &&
+                          currentDeliveryOption !== null) ||
                         (!currentDeliveryOption.meetupSunday &&
                           currentDay === 0) ||
                         (!currentDeliveryOption.meetupMonday &&
