@@ -2,13 +2,13 @@
 
 exports[`Pages With Snapshot Testing snapshot TextInput Component 1`] = `
 <div
-  className="jsx-1312265158 container"
+  className="jsx-2628089133 container"
 >
   <div
-    className="jsx-1312265158 inputWrapper"
+    className="jsx-2628089133 inputWrapper"
   >
     <input
-      className="jsx-1312265158 
+      className="jsx-2628089133 
               textInput
               small
               
@@ -24,10 +24,10 @@ exports[`Pages With Snapshot Testing snapshot TextInput Component 1`] = `
     />
   </div>
   <div
-    className="jsx-1312265158 errorWrapper"
+    className="jsx-2628089133 errorWrapper"
   >
     <span
-      className="jsx-1312265158"
+      className="jsx-2628089133"
     >
       
     </span>
