@@ -91,6 +91,7 @@ export class MenuPage extends React.Component<Props> {
       <DashboardContentLayout>
         {error.isShowModal ? (
           <Modal
+            type="error"
             title={error.title}
             message={error.message}
             onCancel={() =>
