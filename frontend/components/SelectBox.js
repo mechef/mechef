@@ -16,7 +16,7 @@ import {
 type Props = {
   options: Array<{
     text: any,
-    value: string,
+    value: string | number,
   }>,
   selectedValue: string | number,
   defaultText: any,
