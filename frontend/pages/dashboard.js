@@ -232,6 +232,8 @@ class Dashboard extends React.Component<Props, State> {
               background-color: #252525;
               position: fixed;
               z-index: 99;
+              min-height: 792px;
+              height: 100%;
             }
 
             .dashboard__right {

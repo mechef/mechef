@@ -16,7 +16,7 @@ import {
 type Props = {
   options: Array<{
     text: any,
-    value: string,
+    value: string | number,
   }>,
   selectedValue: string | number,
   defaultText: any,
@@ -65,7 +65,7 @@ class SelectBox extends React.Component<Props, State> {
     document.removeEventListener('click', this.handleClickOutside, true);
   }
 
-  handleChange = (selectedValue: string) => {
+  handleChange = (selectedValue: string | number) => {
     this.props.onChange(selectedValue);
     this.setState({
       isOpenOptions: false,
