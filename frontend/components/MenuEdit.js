@@ -195,7 +195,7 @@ class MenuEdit extends React.Component<Props, State> {
                 {this.props.t('walkthroughmenudetails_unit_price_description')}
               </span>
               <TextInput
-                type="text"
+                type="number"
                 pattern="^\d+$"
                 validationMessage={this.props.t(
                   'validationmessage_only_number',

@@ -111,6 +111,11 @@ class TextInput extends React.Component<Props, State> {
         </div>
         <style jsx>
           {`
+            input[type='number']::-webkit-inner-spin-button,
+            input[type='number']::-webkit-outer-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
             .container {
               display: flex;
               width: 100%;
