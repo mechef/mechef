@@ -3,12 +3,14 @@
 import * as React from 'react';
 import Rx from 'rxjs/Rx';
 import Router from 'next/router';
+import Link from 'next/link';
 import { translate } from 'react-i18next';
 import { withRouter } from 'next/router';
 import i18n from '../i18n';
 import { connect } from '../state/RxState';
 import DashboardPageRouter from '../components/DashboardPageRouter';
 import globalActions from '../actions/globalActions';
+import type { AccountObject } from '../utils/flowTypes';
 import {
   primaryColor,
   transparent,
@@ -33,6 +35,9 @@ type Props = {
   toggleBackArrow$: string => Rx.Observable,
   showSpinner$: boolean => Rx.Observable,
   t: (key: string) => string,
+  account: {
+    currentAccount: AccountObject,
+  },
 };
 
 type State = {
@@ -205,10 +210,23 @@ class Dashboard extends React.Component<Props, State> {
                 </div>
               )}
               <div className="dashboard-header__user-profile">
-                <div className="dashboard-header__preview">
-                  <img src="../static/svg/preview_icon.svg" />
-                  <span className="preview-text">Preview</span>
-                </div>
+                <Link
+                  prefetch
+                  href={{
+                    pathname: `/kitchen/${
+                      this.props.account.currentAccount.kitchenName
+                        ? encodeURIComponent(
+                            this.props.account.currentAccount.kitchenName,
+                          )
+                        : ''
+                    }`,
+                  }}
+                >
+                  <button className="dashboard-header__preview">
+                    <img src="../static/svg/preview_icon.svg" />
+                    <span className="preview-text">Preview</span>
+                  </button>
+                </Link>
                 <div className="dashboard-header__user-head" />
               </div>
             </div>
@@ -300,7 +318,7 @@ class Dashboard extends React.Component<Props, State> {
             .dashboard-header {
               height: 90px;
               background-color: #ffffff;
-              width: 100%;
+              width: calc(100% - 240px);
               position: fixed;
               z-index: 99;
             }
@@ -368,6 +386,12 @@ class Dashboard extends React.Component<Props, State> {
               margin-left: -240px;
             }
 
+            #dashboard-header__menu-toggle:checked
+              ~ .dashboard__right
+              > .dashboard-header {
+              width: 100%;
+            }
+
             .dashboard-header__user-profile {
               display: flex;
               margin-right: 50px;
@@ -384,6 +408,8 @@ class Dashboard extends React.Component<Props, State> {
               align-items: center;
               font-size: 1.2rem;
               cursor: pointer;
+              outline: none;
+              border: 0;
             }
 
             .preview-text {
@@ -393,6 +419,9 @@ class Dashboard extends React.Component<Props, State> {
             @media all and (max-width: 768px) {
               .dashboard-header__user-profile {
                 display: none;
+              }
+              .dashboard-header {
+                width: 100%;
               }
             }
             .dashboard-header__user-head {
@@ -458,7 +487,7 @@ const Extended = translate(['common'], {
 })(Dashboard);
 
 const DashboardWrapper = connect(
-  ({ global }) => ({ global }),
+  ({ global, account }) => ({ global, account }),
   {
     ...globalActions,
   },
