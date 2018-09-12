@@ -50,14 +50,17 @@ class TextInput extends React.Component<Props, State> {
   render() {
     return (
       <div className="container">
-        <div className="inputWrapper">
+        <div
+          className={`inputWrapper ${this.props.size} ${
+            this.props.align === 'center' ? 'center' : ''
+          }`}
+        >
           <input
             type={this.props.type}
             pattern={this.props.pattern}
             className={`
               textInput
-              ${this.props.size}
-              ${this.props.align === 'center' ? 'center' : ''}
+
             `}
             placeholder={this.props.placeholder}
             value={this.props.value}
@@ -101,13 +104,13 @@ class TextInput extends React.Component<Props, State> {
               <div className="plus" />
             </button>
           ) : null}
-        </div>
-        <div className="errorWrapper">
-          <span>
-            {Object.keys(this.state.errors)
-              .map(key => this.state.errors[key])
-              .join(', ')}
-          </span>
+          <div className="errorWrapper">
+            <span>
+              {Object.keys(this.state.errors)
+                .map(key => this.state.errors[key])
+                .join(', ')}
+            </span>
+          </div>
         </div>
         <style jsx>
           {`
@@ -124,17 +127,19 @@ class TextInput extends React.Component<Props, State> {
             .inputWrapper {
               position: relative;
               display: flex;
-              height: ${styles.textInputHeight};
-              width: 100%;
+              min-height: ${styles.textInputHeight};
+              flex-direction: column;
             }
 
             .errorWrapper {
               padding-top: 5px;
               color: ${styles.errorBorderColor};
               font-size: 1.2rem;
+              width: 100%;
             }
 
             .textInput {
+              width: 100%;
               outline: none;
               border-radius: ${styles.borderRadius};
               height: ${styles.textInputHeight};
