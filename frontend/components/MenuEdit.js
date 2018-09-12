@@ -399,7 +399,9 @@ class MenuEdit extends React.Component<Props, State> {
             </div>
           </div>
         </div>
-        <p className="mainTitle">
+        {
+          // Temporarily remove selection of delivery option while creating menu page (requirement change)
+          /* <p className="mainTitle">
           {this.props.t('menucreatemenu_menu_setup_delivery')}
         </p>
         <div className="shippingContainer">
@@ -467,7 +469,8 @@ class MenuEdit extends React.Component<Props, State> {
                 ))}
             </div>
           </div>
-        </div>
+        </div> */
+        }
         <div className="buttonGroup">
           <div>
             <Button
