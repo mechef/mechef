@@ -23,23 +23,27 @@ const PublishButton = ({ isPublish, onTogglePublish }: Props) => (
     `}
     onClick={onTogglePublish}
   >
-    <div className={`${isPublish ? 'publishedCircle' : 'unpublishedCircle'}`} />
-    <span className={`${isPublish ? 'publishedText' : 'unpublishedText'}`}>
+    <div
+      className={`circle ${
+        isPublish ? 'publishedCircle' : 'unpublishedCircle'
+      }`}
+    />
+    <span className={`text ${isPublish ? 'publishedText' : 'unpublishedText'}`}>
       {isPublish ? 'PUBLISH' : 'UNPUBLISH'}
     </span>
     <style jsx>{`
       button {
-        padding: 0;
-      }
-      .publishedToggleBtn {
         display: flex;
         align-items: center;
-        align-self: flex-end;
+        padding: 0;
         width: 99px;
         height: 26px;
         border-radius: 26px;
         cursor: pointer;
         outline: none;
+        align-self: flex-end;
+      }
+      .publishedToggleBtn {
         background-color: ${primaryColor};
       }
 
@@ -48,12 +52,13 @@ const PublishButton = ({ isPublish, onTogglePublish }: Props) => (
         border: 1px solid ${textHintColor};
         flex-direction: row-reverse;
       }
-
-      .publishedCircle {
+      .circle {
         width: 20px;
         height: 20px;
         border-radius: 26px;
         background-color: ${whiteColor};
+      }
+      .publishedCircle {
         margin-left: 3px;
         margin-right: 0;
       }
@@ -62,14 +67,15 @@ const PublishButton = ({ isPublish, onTogglePublish }: Props) => (
         margin-left: 0;
         margin-right: 3px;
       }
-
-      .publishedText {
-        margin-left: 10px;
-        margin-right: 0;
+      .text {
         font-size: 9px;
         letter-spacing: 0.3px;
         color: ${whiteColor};
         line-height: ${lineHeight};
+      }
+      .publishedText {
+        margin-left: 10px;
+        margin-right: 0;
       }
 
       .unpublishedText {
