@@ -41,6 +41,6 @@ jobs:
             ssh-keyscan ec2-13-115-248-215.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
       - deploy:
           command: |
-            if [ "${CIRCLE_BRANCH}" == "feature/api_doc" ]; then
-              ssh ubuntu@ec2-13-115-248-215.ap-northeast-1.compute.amazonaws.com 'sh /home/ubuntu/daily_update.sh &'
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              ssh ubuntu@ec2-13-115-248-215.ap-northeast-1.compute.amazonaws.com 'sh /home/ubuntu/daily_update.sh'
             fi
