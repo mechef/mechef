@@ -8,7 +8,7 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:8.11.3
-      
+
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
@@ -32,8 +32,15 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-        
+
       - run: yarn flow
       - run: yarn test
-
-
+      - run:
+          name: Fix host authenticity for ec2-13-115-248-215.ap-northeast-1.compute.amazonaws.com
+          command: |
+            ssh-keyscan ec2-13-115-248-215.ap-northeast-1.compute.amazonaws.com >> ~/.ssh/known_hosts
+      - deploy:
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+              ssh ubuntu@ec2-13-115-248-215.ap-northeast-1.compute.amazonaws.com 'sh /home/ubuntu/daily_update.sh'
+            fi
