@@ -81,6 +81,7 @@ export class IngredientPage extends React.Component<Props> {
           <Modal
             title={error.title}
             message={error.message}
+            type="error"
             onCancel={() =>
               setError$({ isShowModal: false, title: '', message: '' })
             }
