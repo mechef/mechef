@@ -33,7 +33,10 @@ const IngredientList = (props: Props): React.Element<'div'> => (
               >
                 <div className="icon editIcon" />
               </button>
-              <button className="btn" onClick={props.onDeleteMemo}>
+              <button
+                className="btn"
+                onClick={() => props.onDeleteMemo(memo._id || '')}
+              >
                 <div className="icon deleteIcon" />
               </button>
             </div>
