@@ -44,6 +44,7 @@ class OrderModal extends React.Component<Props> {
       streetViewControl: false,
       zoomControl: true,
       fullscreenControl: false,
+      gestureHandling: 'cooperative',
     });
     // $FlowFixMe
     const latlng = new google.maps.LatLng(
