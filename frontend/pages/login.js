@@ -455,6 +455,12 @@ class Login extends React.Component<Props, State> {
               .login-form > .wrapper.move {
                 left: auto;
               }
+              .mail {
+                width: 90%;
+              }
+              .passwd {
+                width: 90%;
+              }
             }
           `}
         </style>
