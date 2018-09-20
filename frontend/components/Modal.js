@@ -113,6 +113,7 @@ const Modal = (props: Props) => (
           width: 305px;
           height: 231px;
           background-color: #ffffff;
+          justify-content: space-between;
         }
         .alert-title {
           font-size: 1.6rem;
