@@ -35,7 +35,6 @@ module.exports = (req, res) => {
       'description',
       'cookingBuffer',
       'serving',
-      'deliveryIdList',
       'images',
     ]);
     if (!verifyResponse.isPass) {
@@ -58,7 +57,6 @@ module.exports = (req, res) => {
     menu.description = req.body.description;
     menu.cookingBuffer = req.body.cookingBuffer;
     menu.serving = req.body.serving;
-    menu.deliveryIdList = req.body.deliveryIdList;
     menu.publish = true;
     menu.images = req.body.images;
 

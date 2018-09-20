@@ -1,5 +1,4 @@
 const Menu = require('../../models/menu');
-const Delivery = require('../../models/delivery');
 const uuidv4 = require('uuid/v4');
 const fs = require('fs');
 const Gridfs = require('gridfs-stream');
@@ -45,8 +44,6 @@ module.exports = (req, res) => {
       updateFields.cookingBuffer = req.body.cookingBuffer;
     if (typeof req.body.serving !== 'undefined')
       updateFields.serving = req.body.serving;
-    if (typeof req.body.deliveryIdList !== 'undefined')
-      updateFields.deliveryIdList = req.body.deliveryIdList;
     if (typeof req.body.publish !== 'undefined')
       updateFields.publish = req.body.publish;
     if (typeof req.body.images !== 'undefined')
