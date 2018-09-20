@@ -10,26 +10,6 @@ module.exports = (req, res) => {
         .json({ status: constants.fail, reason: constants.id_not_found });
       return;
     }
-
-    Delivery.find({ email: menu.email }, (err, deliveryList) => {
-      if (err) {
-        res.status(500).json({ status: constants.fail });
-        return;
-      }
-
-      if (!deliveryList) {
-        res.status(404).json({ status: constants.fail });
-        return;
-      }
-
-      const deliveryDetailList = Delivery.toDeliveryDetail(
-        deliveryList,
-        menu.deliveryIdList,
-      );
-      menu.deliveryList = deliveryDetailList;
-      menu.deliveryIdList = undefined;
-
-      res.json({ status: constants.success, menu });
-    });
+    res.json({ status: constants.success, menu });
   });
 };

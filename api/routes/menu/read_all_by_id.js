@@ -1,6 +1,5 @@
 const Menu = require('../../models/menu');
 const Seller = require('../../models/seller');
-const Delivery = require('../../models/delivery');
 const constants = require('../../utils/constants');
 const jwt = require('jsonwebtoken');
 
@@ -16,28 +15,7 @@ module.exports = (req, res) => {
       const query = Menu.find({ email: seller.email, publish: true });
       query.then(menuList => {
         if (menuList) {
-          Delivery.find({ email: seller.email }, (err, deliveryList) => {
-            if (err) {
-              res.status(500).json({ status: constants.fail });
-              return;
-            }
-
-            if (!deliveryList) {
-              res.status(404).json({ status: constants.fail });
-              return;
-            }
-
-            menuList.forEach(function(menu) {
-              const deliveryDetailList = Delivery.toDeliveryDetail(
-                deliveryList,
-                menu.deliveryIdList,
-              );
-              menu.deliveryList = deliveryDetailList;
-              menu.deliveryIdList = undefined;
-            });
-
-            res.json({ status: constants.success, menuList });
-          });
+          res.json({ status: constants.success, menuList });
         } else {
           res.status(404).json({
             status: constants.fail,
