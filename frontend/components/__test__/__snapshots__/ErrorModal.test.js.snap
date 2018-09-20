@@ -2,24 +2,24 @@
 
 exports[`Pages With Snapshot Testing snapshot DeliveryPage Component 1`] = `
 <div
-  className="jsx-947605953 alert-modal-overlay"
+  className="jsx-2599036527 alert-modal-overlay"
 >
   <div
-    className="jsx-947605953 alert-modal"
+    className="jsx-2599036527 alert-modal"
   >
     <header
-      className="jsx-947605953 alert-modal-header"
+      className="jsx-2599036527 alert-modal-header"
     >
       <img
         alt="logo"
-        className="jsx-947605953 alert-modal-logo"
+        className="jsx-2599036527 alert-modal-logo"
         src="../static/svg/mechef_logo_white.svg"
       />
       <div
-        className="jsx-947605953 cancelBtnWrapper"
+        className="jsx-2599036527 cancelBtnWrapper"
       >
         <button
-          className="jsx-947605953 cancel-btn"
+          className="jsx-2599036527 cancel-btn"
           onClick={[Function]}
         >
           ×
@@ -27,20 +27,20 @@ exports[`Pages With Snapshot Testing snapshot DeliveryPage Component 1`] = `
       </div>
     </header>
     <section
-      className="jsx-947605953 alert-modal-body"
+      className="jsx-2599036527 alert-modal-body"
     >
       <h2
-        className="jsx-947605953 alert-title"
+        className="jsx-2599036527 alert-title"
       >
         Error
       </h2>
       <p
-        className="jsx-947605953 alert-message"
+        className="jsx-2599036527 alert-message"
       >
         Something Wrong
       </p>
       <p
-        className="jsx-947605953 alert-bottom-style"
+        className="jsx-2599036527 alert-bottom-style"
       />
     </section>
   </div>
