@@ -3,6 +3,7 @@
 import React from 'react';
 import Rx from 'rxjs/Rx';
 import Media from 'react-media';
+import { compose, withHandlers, withState } from 'recompose';
 
 import {
   borderRadius,
@@ -17,6 +18,7 @@ import {
 } from '../utils/styleVariables';
 import PublishButton from './PublishButton';
 import EditDeleteGroup from './EditDeleteGroup';
+import ModalWithActionButton from './ModalWithActionButton';
 
 type Props = {
   dishName: string,
@@ -36,11 +38,22 @@ const MenuItem = ({
   onTogglePublish,
   onEdit,
   onDelete,
+  isShowingDeleteConfirmModal,
+  showDeleteConfirmModal,
+  hideDeleteConfirmModal,
 }: Props) => (
   <Media query="(max-width: 768px)">
     {matches =>
       matches ? (
         <article className="mobileContainer">
+          {isShowingDeleteConfirmModal ? (
+            <ModalWithActionButton
+              title="Delete Menu"
+              message="Do you really want to delete this menu?"
+              onAction={onDelete}
+              onCancel={hideDeleteConfirmModal}
+            />
+          ) : null}
           <div className="mobileThumbnail" />
           <div className="content">
             <h3>{dishName}</h3>
@@ -50,7 +63,10 @@ const MenuItem = ({
                 isPublish={isPublish}
                 onTogglePublish={onTogglePublish}
               />
-              <EditDeleteGroup onEdit={onEdit} onDelete={onDelete} />
+              <EditDeleteGroup
+                onEdit={onEdit}
+                onDelete={showDeleteConfirmModal}
+              />
             </div>
           </div>
           <style jsx>{`
@@ -153,6 +169,18 @@ const MenuItem = ({
       )
     }
   </Media>
+);
+
+const enhance = compose(
+  withState('isShowingDeleteConfirmModal', 'toggleDeleteConfirmModal', true),
+  withHandlers({
+    showDeleteConfirmModal: () => () => {
+      toggleDeleteConfirmModal(true);
+    },
+    hideDeleteConfirmModal: () => () => {
+      toggleDeleteConfirmModal(false);
+    },
+  }),
 );
 
 export default MenuItem;
