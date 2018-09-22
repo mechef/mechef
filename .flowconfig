@@ -3,6 +3,7 @@
 .*/node_modules/mitt/.*
 .*/node_modules/npmconf/test/.*
 .*/node_modules/config-chain/test/.*
+.*/node_modules/jsonlint/test/.*
 
 [include]
 
