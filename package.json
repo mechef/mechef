@@ -13,8 +13,16 @@
     "flow": "flow check",
     "test": "debug=false NODE_ENV=test jest",
     "test-update": "debug=false NODE_ENV=test jest -u",
+    "size": "bundlesize",
     "prettier:all": "prettier --write \"./**/*.js\""
   },
+  "bundlesize": [
+    {
+      "path": "./frontend/.next/**/dashboard.js",
+      "compression": "none",
+      "maxSize": "170 KB"
+    }
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -75,6 +83,7 @@
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.6.0",
     "babel-plugin-inline-react-svg": "^0.5.0",
+    "bundlesize": "^0.17.0",
     "eslint": "^4.4.0",
     "eslint-config-prettier": "^2.10.0",
     "eslint-plugin-import": "^2.14.0",
