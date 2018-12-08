@@ -8,6 +8,8 @@
     "lint": "eslint ./",
     "serve": "nodemon api/app.js",
     "start": "debug=true node api/app.js",
+    "build": "next build ./frontend/",
+    "start-prod": "NODE_ENV=production node frontend/server.js",
     "flow": "flow check",
     "test": "debug=false NODE_ENV=test jest",
     "test-update": "debug=false NODE_ENV=test jest -u",
