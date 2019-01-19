@@ -1,5 +1,5 @@
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer');
-
+const webpack = require('webpack');
 module.exports = withBundleAnalyzer({
   analyzeServer: ['server', 'both'].includes(process.env.BUNDLE_ANALYZE),
   analyzeBrowser: ['browser', 'both'].includes(process.env.BUNDLE_ANALYZE),
@@ -25,6 +25,12 @@ module.exports = withBundleAnalyzer({
         break;
       }
     }
+
+    // Only load en-us locale
+    config.plugins.push(
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-us/),
+    );
+
     // }
 
     return config;
