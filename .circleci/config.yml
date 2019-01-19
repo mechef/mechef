@@ -35,6 +35,8 @@ jobs:
 
       - run: yarn flow
       - run: yarn test
+      - run: yarn build
+      - run: yarn size
       - run:
           name: Fix host authenticity for ec2-13-115-248-215.ap-northeast-1.compute.amazonaws.com
           command: |

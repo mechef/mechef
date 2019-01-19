@@ -1,12 +1,14 @@
 // @flow
 
+import dynamic from 'next/dynamic';
 import React from 'react';
-import IngredientPage from './IngredientPage';
-import DeliveryPage from './DeliveryPage';
-import OrderPage from './OrderPage';
+
 import Home from './Home';
-import AccountPage from './AccountPage';
-import MenuPage from './MenuPage';
+const IngredientPage = dynamic(() => import('./IngredientPage'));
+const DeliveryPage = dynamic(() => import('./DeliveryPage'));
+const OrderPage = dynamic(() => import('./OrderPage'));
+const MenuPage = dynamic(() => import('./MenuPage'));
+const AccountPage = dynamic(() => import('./AccountPage'));
 
 type Props = {
   query: string,

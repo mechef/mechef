@@ -8,11 +8,23 @@
     "lint": "eslint ./",
     "serve": "nodemon api/app.js",
     "start": "debug=true node api/app.js",
+    "build": "next build ./frontend/",
+    "analyze-build-browser": "BUNDLE_ANALYZE=browser next build ./frontend/",
+    "analyze-build-server": "BUNDLE_ANALYZE=server next build ./frontend/",
+    "start-prod": "NODE_ENV=production node frontend/server.js",
     "flow": "flow check",
     "test": "debug=false NODE_ENV=test jest",
     "test-update": "debug=false NODE_ENV=test jest -u",
+    "size": "bundlesize",
     "prettier:all": "prettier --write \"./**/*.js\""
   },
+  "bundlesize": [
+    {
+      "path": "./frontend/.next/static/**/dashboard.js",
+      "compression": "none",
+      "maxSize": "170 KB"
+    }
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -36,6 +48,7 @@
   },
   "homepage": "https://github.com/mechef/mechef/#readme",
   "dependencies": {
+    "@zeit/next-bundle-analyzer": "^0.1.2",
     "apidoc": "0.17.6",
     "babel-core": "7.0.0-bridge.0",
     "bluebird": "3.5.1",
@@ -73,6 +86,7 @@
     "babel-eslint": "^8.2.6",
     "babel-jest": "^23.6.0",
     "babel-plugin-inline-react-svg": "^0.5.0",
+    "bundlesize": "^0.17.0",
     "eslint": "^4.4.0",
     "eslint-config-prettier": "^2.10.0",
     "eslint-plugin-import": "^2.14.0",
