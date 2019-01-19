@@ -18,7 +18,7 @@
   },
   "bundlesize": [
     {
-      "path": "./frontend/.next/**/dashboard.js",
+      "path": "./frontend/.next/static/**/dashboard.js",
       "compression": "none",
       "maxSize": "170 KB"
     }
