@@ -9,6 +9,8 @@
     "serve": "nodemon api/app.js",
     "start": "debug=true node api/app.js",
     "build": "next build ./frontend/",
+    "analyze-build-browser": "BUNDLE_ANALYZE=browser next build ./frontend/",
+    "analyze-build-server": "BUNDLE_ANALYZE=server next build ./frontend/",
     "start-prod": "NODE_ENV=production node frontend/server.js",
     "flow": "flow check",
     "test": "debug=false NODE_ENV=test jest",
@@ -46,6 +48,7 @@
   },
   "homepage": "https://github.com/mechef/mechef/#readme",
   "dependencies": {
+    "@zeit/next-bundle-analyzer": "^0.1.2",
     "apidoc": "0.17.6",
     "babel-core": "7.0.0-bridge.0",
     "bluebird": "3.5.1",
